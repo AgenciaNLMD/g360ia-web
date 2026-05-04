@@ -83,10 +83,10 @@
     top:48px;left:50%;
     transform:translate(-50%,-50%);
     z-index:30;
-    width:min(calc(100vw - 64px), 1640px);
+    width:min(calc((100vw - 94px) / 2), 805px);
     padding:5px 5px 5px 6px;
     display:flex;align-items:center;gap:6px;
-    padding:6px 6px 6px 6px;
+    padding:5.5px 6px 5.5px 6px;
     border-radius:999px;
     background:var(--pill-bg);
     border:.5px solid var(--line-strong);
@@ -259,18 +259,21 @@
     width:100%;
     height:100%;
     max-width:1760px;
-    padding:56px 64px 56px;
+    padding:117px 48px 56px;
     display:grid;
-    grid-template-columns: 0.92fr 1.08fr;
-    gap:40px;
-    align-items:center;
+    grid-template-columns: minmax(0, 0.83fr) minmax(0, 1.17fr);
+    gap:32px;
+    align-items:stretch;
+    min-height:0;
   }
 
   /* ─── Left: cube placeholder ─── */
   .left{
     position:relative;height:100%;
     display:flex;align-items:center;justify-content:center;
-    padding-top:30px;
+    padding-top:0;
+    min-width:0;
+    overflow:hidden;
   }
 
   .cube-stage{
@@ -367,12 +370,14 @@
   .right{
     position:relative;height:100%;
     display:flex;align-items:center;
-    min-width:0;
+    min-width:0;min-height:0;
   }
   .right-inner{
     position:relative;
     width:100%;    max-width:none;
+    height:100%;
     display:flex;flex-direction:column;gap:18px;
+    min-height:0;
   }
   /* unused chrome rules (kept for backward compat) */
   .rw-chrome,.rw-body{display:none}
@@ -380,6 +385,9 @@
   /* ── Outer hero window wrapping H1 + carousel ── */
   .hero-window{
     position:relative;
+    width:100%;
+    max-height:100%;
+    display:flex;flex-direction:column;
     border:1px solid rgba(244,243,238,.10);
     border-radius:16px;
     background:
@@ -411,8 +419,11 @@
     animation:pulse 1.6s ease-in-out infinite;
   }
   .hw-body{
-    padding:36px 36px 28px;
-    display:flex;flex-direction:column;gap:26px;
+    padding:28px 32px 24px;
+    display:flex;flex-direction:column;gap:20px;
+    flex:1 1 auto;
+    min-height:0;
+    overflow:hidden;
   }
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
@@ -429,11 +440,12 @@
   .h1{
     font-family:"Geist",sans-serif;
     font-weight:600;
-    font-size:clamp(28px, 2.7vw, 44px);
+    font-size:clamp(24px, 2.2vw, 38px);
     letter-spacing:-.025em;
-    line-height:1.05;
+    line-height:1.08;
     text-wrap:balance;
     margin:0;
+    flex:0 0 auto;
   }
   .h1 em{font-style:normal;color:var(--gold)}
   .h1 .dim{color:var(--ink-faint)}
@@ -465,8 +477,9 @@
   .window{
     position:relative;
     width:100%;
-    aspect-ratio: 21/9;
-    max-height:340px;
+    flex:1 1 auto;
+    min-height:431px;
+    max-height:733px;
     border-radius:14px;
     overflow:hidden;
     background:rgba(255,255,255,.03);
@@ -696,13 +709,507 @@
     transform:rotate(3deg);
   }
 
+  /* short viewports — keep hero window inside the frame */
+  @media (max-height: 820px){
+    .stage{padding:107px 40px 48px;gap:28px}
+    .hw-body{padding:20px 24px 18px;gap:14px}
+    .window{max-height:561px;min-height:345px}
+    .hw-chrome{padding:9px 14px}
+  }
+  @media (max-height: 680px){
+    .stage{padding:97px 32px 36px;gap:24px}
+    .hw-body{padding:14px 18px 12px;gap:10px}
+    .window{max-height:431px;min-height:281px}
+    .h1{font-size:clamp(20px, 1.9vw, 30px)}
+  }
+
   /* small screens — give it a baseline; no scroll requirement is for desktop 1080p */
   @media (max-width: 980px){
-    .stage{grid-template-columns:1fr;padding:90px 22px 22px;gap:18px}
+    .stage{grid-template-columns:1fr;padding:90px 22px 22px;gap:18px;align-items:start}
     .left{order:2;height:auto}
     .right{order:1;max-width:none}
     .cube-stage{width:min(70vw, 360px)}
+    .hero-window{max-height:none}
     html,body{overflow:auto}
+  }
+
+  /* ============================================================
+     HERO CONSOLE — estilo "ops cockpit"
+     ============================================================ */
+  .hero-console{
+    position:relative;
+    width:100%;
+    max-height:100%;
+    display:flex;flex-direction:column;
+    border:1px solid rgba(125,160,216,.16);
+    border-radius:8px;
+    background:
+      linear-gradient(180deg, rgba(10,16,30,.55), rgba(10,16,30,.85));
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.02) inset,
+      0 0 60px rgba(58,107,199,.06) inset,
+      0 30px 80px -20px rgba(0,0,0,.6);
+    overflow:hidden;
+  }
+  /* Subtle grid inside */
+  .hero-console::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      linear-gradient(to right, rgba(255,255,255,.015) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.015) 1px, transparent 1px);
+    background-size:32px 32px;
+    mask-image:radial-gradient(ellipse 80% 100% at 50% 0%, #000 30%, transparent 80%);
+    z-index:0;
+  }
+
+  /* Chrome — terminal breadcrumb */
+  .hc-chrome{
+    display:flex;align-items:center;gap:14px;
+    padding:11px 18px;
+    border-bottom:1px solid rgba(255,255,255,.06);
+    background:rgba(255,255,255,.02);
+    font:500 11px/1 "JetBrains Mono",monospace;
+    color:var(--ink-dim);
+    flex:0 0 auto;
+    z-index:1;
+  }
+  .hc-path{display:flex;align-items:center;gap:6px}
+  .hc-path-tilde{color:var(--ink-faint)}
+  .hc-path-sep{color:var(--ink-faint);opacity:.5}
+  .hc-path b{
+    color:var(--gold);
+    font-weight:600;
+    transition:color .25s ease;
+  }
+
+  /* Body */
+  .hc-body{
+    padding:32px 36px 24px;
+    display:flex;flex-direction:column;gap:22px;
+    flex:1 1 auto;
+    min-height:0;
+    overflow:hidden;
+    position:relative;
+    z-index:1;
+  }
+  .hc-h1{
+    font-family:"Geist",sans-serif;
+    font-size:clamp(26px, 2.5vw, 40px);
+    font-weight:600;letter-spacing:-.025em;line-height:1.05;
+    margin:0;flex:0 0 auto;
+    text-wrap:balance;
+  }
+  .hc-h1 em{color:var(--gold);font-style:normal}
+  .hc-h1 .dim{color:var(--ink-faint)}
+
+  /* Card with tabs + active panel */
+  .hc-card{
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:8px;
+    background:rgba(0,0,0,.28);
+    box-shadow:0 1px 0 rgba(255,255,255,.04) inset;
+    overflow:hidden;
+    flex:1 1 auto;
+    min-height:0;
+    display:flex;flex-direction:column;
+  }
+
+  /* IDE-style tab bar */
+  .hc-tabs{
+    display:flex;
+    border-bottom:1px solid rgba(255,255,255,.06);
+    background:rgba(255,255,255,.02);
+    flex:0 0 auto;
+    overflow-x:auto;
+  }
+  .hc-tab{
+    appearance:none;border:0;background:transparent;
+    color:var(--ink-faint);
+    font:600 9.5px/1 "JetBrains Mono",monospace;
+    letter-spacing:.14em;text-transform:uppercase;
+    padding:11px 14px;
+    cursor:pointer;
+    border-right:1px solid rgba(255,255,255,.06);
+    transition:color .18s ease, background .18s ease;
+    white-space:nowrap;
+    position:relative;
+  }
+  .hc-tab:hover{
+    color:var(--ink-dim);
+    background:rgba(255,255,255,.02);
+  }
+  .hc-tab.active{
+    color:var(--gold);
+    background:rgba(232,177,74,.05);
+  }
+  .hc-tab.active::after{
+    content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+    background:var(--gold);
+    box-shadow:0 0 12px rgba(232,177,74,.5);
+  }
+
+  /* Panels container */
+  .hc-panels{
+    position:relative;
+    flex:1 1 auto;
+    min-height:0;
+    overflow:hidden;
+  }
+  .hc-panel{
+    position:absolute;inset:0;
+    display:grid;grid-template-columns:1.1fr .9fr;
+    opacity:0;transform:translateX(14px);
+    transition:opacity .35s ease, transform .45s cubic-bezier(.2,.7,.3,1);
+    pointer-events:none;
+  }
+  .hc-panel.active{
+    opacity:1;transform:translateX(0);
+    pointer-events:auto;
+  }
+
+  /* Copy column */
+  .hc-copy{
+    padding:24px 26px;
+    display:flex;flex-direction:column;gap:10px;justify-content:center;
+    border-right:1px solid rgba(255,255,255,.06);
+    min-width:0;
+  }
+  .hc-kick{
+    font:600 10px/1 "JetBrains Mono",monospace;
+    color:var(--gold);letter-spacing:.16em;text-transform:uppercase;
+    margin-bottom:2px;
+  }
+  .hc-h3{
+    margin:0;
+    font:600 18px/1.18 "Geist",sans-serif;letter-spacing:-.012em;
+    text-wrap:balance;
+  }
+  .hc-p{
+    margin:0;
+    font-size:13px;line-height:1.5;color:var(--ink-dim);
+    text-wrap:pretty;
+  }
+  .hc-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .hc-chip{
+    font:500 10px/1 "JetBrains Mono",monospace;
+    color:var(--ink-dim);
+    padding:5px 8px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:3px;
+  }
+
+  /* Visual column */
+  .hc-visual{
+    position:relative;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(125,160,216,.06), transparent 70%),
+      rgba(0,0,0,.2);
+    display:flex;align-items:stretch;justify-content:stretch;
+    padding:18px;
+    min-width:0;
+    overflow:hidden;
+  }
+
+  /* ── Visual mocks por servicio ───────────────────────────────── */
+
+  /* 01 — Roadmap */
+  .rm-mock{
+    flex:1;display:flex;flex-direction:column;gap:10px;
+    border:1px solid rgba(255,255,255,.06);border-radius:6px;
+    background:rgba(255,255,255,.02);
+    padding:14px;
+  }
+  .rm-title{
+    font:600 9.5px/1 "JetBrains Mono",monospace;
+    color:var(--ink-faint);letter-spacing:.14em;text-transform:uppercase;
+    padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.05);
+  }
+  .rm-stage{
+    display:flex;align-items:center;gap:10px;
+    padding:8px 10px;border-radius:4px;
+    border-left:2px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.015);
+    transition:all .25s ease;
+  }
+  .rm-stage.done{border-left-color:rgba(125,160,216,.5)}
+  .rm-stage.active{
+    border-left-color:var(--gold);
+    background:rgba(232,177,74,.08);
+    box-shadow:0 0 16px rgba(232,177,74,.08);
+  }
+  .rm-num{
+    width:22px;height:22px;border-radius:50%;
+    display:grid;place-items:center;flex-shrink:0;
+    font:700 10px/1 "JetBrains Mono",monospace;
+    background:rgba(255,255,255,.06);color:var(--ink-dim);
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .rm-stage.done .rm-num{background:rgba(125,160,216,.2);color:var(--blue-2);border-color:rgba(125,160,216,.4)}
+  .rm-stage.active .rm-num{background:var(--gold);color:#0a1024;border-color:var(--gold-soft)}
+  .rm-meta{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .rm-meta b{font:600 12px/1 "Geist",sans-serif;color:var(--ink)}
+  .rm-meta span{font:500 10px/1 "JetBrains Mono",monospace;color:var(--ink-faint);letter-spacing:.04em}
+
+  /* 02 — Code editor */
+  .ed-mock{
+    flex:1;display:grid;grid-template-columns:120px 1fr;gap:0;
+    border:1px solid rgba(255,255,255,.06);border-radius:6px;
+    background:rgba(0,0,0,.35);overflow:hidden;
+  }
+  .ed-tree{
+    padding:12px 8px;
+    border-right:1px solid rgba(255,255,255,.06);
+    background:rgba(0,0,0,.2);
+    font:500 11px/1.7 "JetBrains Mono",monospace;
+    color:var(--ink-faint);
+  }
+  .ed-folder{color:var(--ink-dim);font-weight:600}
+  .ed-file{color:var(--ink-faint);white-space:pre}
+  .ed-file.active{color:var(--gold);background:rgba(232,177,74,.08);border-radius:3px;padding-left:2px}
+  .ed-code{
+    padding:12px 14px;
+    font:500 11.5px/1.7 "JetBrains Mono",monospace;
+    color:var(--ink-dim);overflow:hidden;
+  }
+  .ed-line{display:flex;gap:10px;align-items:baseline}
+  .ed-line .ln{color:var(--ink-faint);opacity:.5;width:18px;text-align:right;flex-shrink:0;font-size:10px}
+  .ed-line .kw{color:#7da0d8}
+  .ed-line .fn{color:var(--gold-soft)}
+  .ed-line.ed-hl{background:rgba(232,177,74,.06);border-radius:3px;margin:0 -6px;padding:0 6px}
+
+  /* 03 — Browser preview */
+  .br-mock{
+    flex:1;display:flex;flex-direction:column;
+    border:1px solid rgba(255,255,255,.08);border-radius:6px;
+    background:rgba(255,255,255,.04);overflow:hidden;
+  }
+  .br-bar{
+    display:flex;align-items:center;gap:6px;
+    padding:8px 12px;
+    background:rgba(0,0,0,.3);
+    border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .br-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18);display:inline-block}
+  .br-url{
+    margin-left:8px;flex:1;
+    padding:4px 10px;border-radius:3px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.06);
+    font:500 10px/1 "JetBrains Mono",monospace;
+    color:var(--ink-faint);letter-spacing:.04em;
+  }
+  .br-page{flex:1;padding:14px;display:flex;flex-direction:column;gap:8px}
+  .br-hero{
+    height:30%;border-radius:4px;
+    background:linear-gradient(135deg, rgba(125,160,216,.18), rgba(125,160,216,.04));
+    border:1px solid rgba(125,160,216,.18);
+  }
+  .br-section{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .br-block{
+    aspect-ratio:1/.7;border-radius:3px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.06);
+  }
+  .br-block.gold{
+    background:linear-gradient(135deg, rgba(232,177,74,.28), rgba(232,177,74,.06));
+    border-color:rgba(232,177,74,.35);
+  }
+  .br-line{height:6px;border-radius:2px;background:rgba(255,255,255,.05)}
+  .br-line.short{width:55%}
+
+  /* 04 — Node graph */
+  .nd-mock{
+    flex:1;position:relative;
+    border:1px solid rgba(255,255,255,.06);border-radius:6px;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(125,160,216,.06), transparent 70%),
+      rgba(0,0,0,.3);
+    overflow:hidden;
+  }
+  .nd-edges{
+    position:absolute;inset:0;width:100%;height:100%;pointer-events:none;
+    fill:none;stroke:rgba(125,160,216,.4);stroke-width:.4;stroke-dasharray:1.5 1.2;
+  }
+  .nd-node{
+    position:absolute;
+    transform:translate(-50%,-50%);
+    padding:6px 10px;
+    border:1px solid rgba(125,160,216,.3);
+    background:rgba(10,16,30,.85);
+    border-radius:4px;
+    display:flex;flex-direction:column;gap:2px;
+    min-width:78px;
+    box-shadow:0 4px 14px rgba(0,0,0,.5);
+  }
+  .nd-tag{
+    font:600 8px/1 "JetBrains Mono",monospace;
+    color:var(--ink-faint);letter-spacing:.12em;
+  }
+  .nd-node b{
+    font:600 11px/1 "Geist",sans-serif;
+    color:var(--ink);
+  }
+  .nd-trigger{border-color:rgba(125,160,216,.5)}
+  .nd-trigger .nd-tag{color:var(--blue-2)}
+  .nd-gold{border-color:rgba(232,177,74,.5);box-shadow:0 4px 14px rgba(232,177,74,.18), 0 0 24px rgba(232,177,74,.08)}
+  .nd-gold .nd-tag{color:var(--gold-soft)}
+
+  /* 05 — Chat WhatsApp */
+  .ch-mock{
+    flex:1;display:flex;flex-direction:column;gap:8px;
+    border:1px solid rgba(255,255,255,.06);border-radius:6px;
+    background:rgba(0,0,0,.28);
+    padding:10px 12px;
+    overflow:hidden;
+  }
+  .ch-hd{
+    display:flex;align-items:center;gap:8px;
+    padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .ch-av{
+    width:26px;height:26px;border-radius:50%;
+    background:linear-gradient(135deg, var(--gold), #b07a14);
+    flex-shrink:0;
+  }
+  .ch-info{display:flex;flex-direction:column;gap:1px}
+  .ch-info b{font:600 11px/1.1 "Geist",sans-serif;color:var(--ink)}
+  .ch-info span{font:500 9px/1 "JetBrains Mono",monospace;color:#3ec76b;letter-spacing:.06em}
+  .ch-msg{
+    font:500 11.5px/1.4 "Geist",sans-serif;
+    padding:7px 10px;border-radius:8px;
+    max-width:80%;
+  }
+  .ch-in{
+    align-self:flex-start;
+    background:rgba(255,255,255,.06);
+    color:var(--ink-dim);
+    border-bottom-left-radius:2px;
+  }
+  .ch-bot{
+    align-self:flex-end;
+    background:rgba(232,177,74,.18);
+    color:var(--ink);
+    border:1px solid rgba(232,177,74,.25);
+    border-bottom-right-radius:2px;
+  }
+  .ch-typing{display:inline-flex;gap:3px;padding:9px 12px}
+  .ch-typing span{
+    width:5px;height:5px;border-radius:50%;background:var(--gold);
+    animation:chDot 1.2s infinite ease-in-out;
+  }
+  .ch-typing span:nth-child(2){animation-delay:.18s}
+  .ch-typing span:nth-child(3){animation-delay:.36s}
+  @keyframes chDot{
+    0%,80%,100%{opacity:.3;transform:scale(.85)}
+    40%{opacity:1;transform:scale(1)}
+  }
+
+  /* Estado durante swap del cubo */
+  .hero-console.is-swapping .hc-panel.active{
+    opacity:0;transform:translateX(-12px);
+  }
+  .hero-console.is-swapping .hc-path b{
+    color:var(--ink-faint);
+  }
+
+  /* ============================================================
+     DROPDOWN — letras más chicas + activo en gold
+     ============================================================ */
+  .dd-item{
+    appearance:none;border:0;width:100%;
+    text-align:left;cursor:pointer;
+    background:transparent;
+    transition:background .12s ease;
+  }
+  .dd-item .meta b{font-size:12.5px;font-weight:600;letter-spacing:-.005em}
+  .dd-item .meta span{font-size:10.5px;color:var(--ink-dim);font-weight:400}
+  .dd-item.is-active{
+    background:linear-gradient(140deg, rgba(232,177,74,.14), rgba(232,177,74,0.0) 65%);
+    border:.5px solid rgba(232,177,74,.28);
+  }
+  .dd-item.is-active .ic{
+    background:linear-gradient(160deg, rgba(232,177,74,.28), rgba(232,177,74,.05));
+    border-color:rgba(232,177,74,.45);
+    color:var(--gold-soft);
+  }
+  .dd-item.is-active .meta b{color:var(--gold-soft)}
+
+  /* ─── Login Modal ─── */
+  .lm-overlay{
+    position:fixed;inset:0;z-index:9000;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(4,8,20,.72);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    opacity:0;pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  .lm-overlay.open{opacity:1;pointer-events:all}
+  .lm-card{
+    position:relative;
+    width:min(88vw,380px);
+    padding:40px 36px 36px;
+    border-radius:20px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.13);
+    box-shadow:0 32px 64px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.12);
+    backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+    transform:translateY(12px) scale(.97);
+    transition:transform .28s cubic-bezier(.22,1,.36,1);
+    color:var(--ink);font-family:"Geist",sans-serif;
+  }
+  .lm-overlay.open .lm-card{transform:translateY(0) scale(1)}
+  .lm-close{
+    position:absolute;top:14px;right:16px;
+    appearance:none;border:0;background:transparent;
+    color:var(--ink-dim);font-size:20px;line-height:1;
+    cursor:pointer;padding:4px 8px;border-radius:6px;
+    transition:background .15s,color .15s;
+  }
+  .lm-close:hover{background:rgba(255,255,255,.1);color:var(--ink)}
+  .lm-logo{
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:28px;
+  }
+  .lm-logo img{width:28px;height:28px;border-radius:6px}
+  .lm-logo span{font-size:15px;font-weight:600;letter-spacing:-.2px}
+  .lm-logo span em{font-style:normal;color:var(--gold)}
+  .lm-title{font-size:21px;font-weight:700;line-height:1.25;margin-bottom:6px}
+  .lm-sub{font-size:13px;color:var(--ink-dim);margin-bottom:32px;line-height:1.5}
+  .lm-roles{display:flex;flex-direction:column;gap:10px}
+  .lm-role{
+    display:flex;align-items:center;gap:14px;
+    padding:14px 16px;border-radius:12px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.05);
+    text-decoration:none;color:var(--ink);
+    font-family:"Geist",sans-serif;
+    transition:background .15s,border-color .15s,transform .12s;
+    cursor:pointer;
+  }
+  .lm-role:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);transform:translateX(3px)}
+  .lm-role:active{transform:translateX(1px)}
+  .lm-role.disabled{
+    opacity:.38;cursor:not-allowed;pointer-events:none;
+  }
+  .lm-role-ic{
+    width:38px;height:38px;border-radius:9px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:17px;
+  }
+  .lm-role--tenant .lm-role-ic{background:rgba(58,107,199,.25);color:#7da0d8}
+  .lm-role--admin  .lm-role-ic{background:rgba(232,177,74,.2);color:var(--gold)}
+  .lm-role--dev    .lm-role-ic{background:rgba(80,200,120,.18);color:#6ee7a0}
+  .lm-role-meta{flex:1;text-align:left}
+  .lm-role-meta b{display:block;font-size:13.5px;font-weight:600;margin-bottom:2px}
+  .lm-role-meta span{font-size:11.5px;color:var(--ink-dim)}
+  .lm-role-arrow{opacity:.4;font-size:14px;margin-left:4px}
+  .lm-role:hover .lm-role-arrow{opacity:.8}
+  .lm-badge{
+    font-size:9.5px;font-weight:600;letter-spacing:.5px;
+    padding:2px 7px;border-radius:999px;
+    background:rgba(255,255,255,.08);color:var(--ink-dim);
+    text-transform:uppercase;
   }
 </style>
 </head>
@@ -734,52 +1241,44 @@
         Servicios
         <svg class="caret" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div class="dd" role="menu">
-          <div class="dd-item featured">
-            <div class="ic">M</div>
-            <div class="meta">
-              <b>MAIA — Multi-Agente IA</b>
-              <span>Nuestro buque insignia</span>
-            </div>
-            <span class="badge">NUEVO</span>
-          </div>
-          <div class="dd-item">
+          <button type="button" class="dd-item is-active" data-svc="consultoria-ia">
             <div class="ic">CS</div>
             <div class="meta">
               <b>Consultoría IA</b>
               <span>Estrategia, descubrimiento, roadmap</span>
             </div>
-          </div>
-          <div class="dd-item">
+          </button>
+          <button type="button" class="dd-item" data-svc="desarrollo">
             <div class="ic">SW</div>
             <div class="meta">
               <b>Desarrollo de software</b>
               <span>Productos a medida con IA</span>
             </div>
-          </div>
-          <div class="dd-item">
+          </button>
+          <button type="button" class="dd-item" data-svc="sitios">
             <div class="ic">WB</div>
             <div class="meta">
               <b>Sitios web</b>
               <span>Landing, corporativos, e-commerce</span>
             </div>
-          </div>
-          <div class="dd-item">
+          </button>
+          <button type="button" class="dd-item" data-svc="automatizacion">
             <div class="ic">FX</div>
             <div class="meta">
               <b>Automatización de flujos</b>
               <span>n8n, Make, integraciones</span>
             </div>
-          </div>
-          <div class="dd-item">
+          </button>
+          <button type="button" class="dd-item" data-svc="whatsapp">
             <div class="ic">WA</div>
             <div class="meta">
               <b>Asistentes WhatsApp</b>
               <span>Bots conversacionales 24/7</span>
             </div>
-          </div>
+          </button>
         </div>
       </div>
-      <button class="tb-item">Acceso Clientes</button>
+      <button class="tb-item" id="btnAcceso">Login</button>
     </div>
     <button class="tb-cta">Empezar ahora</button>
   </nav>
@@ -795,136 +1294,214 @@
       </div>
     </div>
 
-    <!-- Right: H1 + carousel inside ONE outer window -->
+    <!-- Right: console-style hero with service tabs -->
     <div class="right">
       <div class="right-inner">
-        <div class="hero-window">
-          <div class="hw-chrome">
-            <span class="hw-dot" style="background:#ff5f57"></span>
-            <span class="hw-dot" style="background:#febc2e"></span>
-            <span class="hw-dot" style="background:#28c840"></span>
-            <span class="hw-title">maia · hero</span>
-            <span class="hw-status"><i></i>live</span>
+        <div class="hero-console" id="heroConsole">
+          <div class="hc-chrome">
+            <div class="hc-path">
+              <span class="hc-path-tilde">~</span>
+              <span class="hc-path-sep">/</span>
+              <span>servicios</span>
+              <span class="hc-path-sep">/</span>
+              <b id="hcSlug">consultoria-ia</b>
+            </div>
           </div>
 
-          <div class="hw-body">
-            <h1 class="h1">
+          <div class="hc-body">
+            <h1 class="hc-h1">
               Donde la <em>inteligencia</em> trabaja<br/>
               <span class="dim">en equipo por tu negocio.</span>
             </h1>
 
-            <!-- Inner sub-window / carousel -->
-            <div class="window" id="winCarousel" data-style="macos">
-        <div class="maia-mark">// MAIA</div>
-        <div class="car-progress"><i id="carProg"></i></div>
+            <div class="hc-card" id="hcCard">
+              <div class="hc-tabs" role="tablist" id="hcTabs">
+                <button type="button" class="hc-tab active" data-svc="consultoria-ia">01 consultoría ia</button>
+                <button type="button" class="hc-tab" data-svc="desarrollo">02 desarrollo</button>
+                <button type="button" class="hc-tab" data-svc="sitios">03 sitios web</button>
+                <button type="button" class="hc-tab" data-svc="automatizacion">04 automatización</button>
+                <button type="button" class="hc-tab" data-svc="whatsapp">05 whatsapp</button>
+              </div>
 
-        <!-- chrome rendered by JS based on style -->
-        <div class="win-chrome" id="winChrome"></div>
+              <div class="hc-panels" id="hcPanels">
 
-        <div class="slides" id="slides">
+                <!-- ─── 01 · Consultoría IA — roadmap timeline ─── -->
+                <article class="hc-panel active" data-svc="consultoria-ia">
+                  <div class="hc-copy">
+                    <div class="hc-kick">// Consultoría IA</div>
+                    <h3 class="hc-h3">De la idea al ROI medible — sin humo.</h3>
+                    <p class="hc-p">Auditamos procesos, identificamos casos de uso de alto impacto y armamos un roadmap con métricas claras. Nada de "implementemos IA porque sí".</p>
+                    <div class="hc-chips">
+                      <span class="hc-chip">auditoría</span>
+                      <span class="hc-chip">roadmap</span>
+                      <span class="hc-chip">métricas ROI</span>
+                      <span class="hc-chip">change management</span>
+                    </div>
+                  </div>
+                  <div class="hc-visual">
+                    <div class="rm-mock">
+                      <div class="rm-title">ROADMAP · 90 días</div>
+                      <div class="rm-stage done">
+                        <div class="rm-num">1</div>
+                        <div class="rm-meta"><b>Discovery</b><span>auditoría · entrevistas</span></div>
+                      </div>
+                      <div class="rm-stage done">
+                        <div class="rm-num">2</div>
+                        <div class="rm-meta"><b>Quick wins</b><span>3 casos · 30 días</span></div>
+                      </div>
+                      <div class="rm-stage active">
+                        <div class="rm-num">3</div>
+                        <div class="rm-meta"><b>Piloto en producción</b><span>medición + iteración</span></div>
+                      </div>
+                      <div class="rm-stage">
+                        <div class="rm-num">4</div>
+                        <div class="rm-meta"><b>Escalamiento</b><span>roadmap 12 meses</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
 
-          <!-- slide 1: panel mock -->
-          <article class="slide active">
-            <div class="copy">
-              <div class="kicker">01 · Panel</div>
-              <h3>Un panel donde tus agentes operan a la vista.</h3>
-              <p>Tareas, conversaciones y acciones de cada agente — en un solo lugar.</p>
-              <div class="chips">
-                <span class="chip">tiempo real</span>
-                <span class="chip">multi-agente</span>
-                <span class="chip">auditable</span>
+                <!-- ─── 02 · Desarrollo — code editor ─── -->
+                <article class="hc-panel" data-svc="desarrollo">
+                  <div class="hc-copy">
+                    <div class="hc-kick">// Desarrollo de software</div>
+                    <h3 class="hc-h3">Productos a medida con IA en el core.</h3>
+                    <p class="hc-p">Del MVP a producción en semanas, no meses. Stack moderno, arquitectura limpia y modelos integrados desde el día uno.</p>
+                    <div class="hc-chips">
+                      <span class="hc-chip">Next.js</span>
+                      <span class="hc-chip">Python · FastAPI</span>
+                      <span class="hc-chip">PostgreSQL</span>
+                      <span class="hc-chip">OpenAI · Anthropic</span>
+                    </div>
+                  </div>
+                  <div class="hc-visual">
+                    <div class="ed-mock">
+                      <div class="ed-tree">
+                        <div class="ed-folder">▾ src</div>
+                        <div class="ed-file">  ├ agent.ts</div>
+                        <div class="ed-file active">  ├ pipeline.ts</div>
+                        <div class="ed-file">  ├ tools/</div>
+                        <div class="ed-file">  └ index.tsx</div>
+                      </div>
+                      <div class="ed-code">
+                        <div class="ed-line"><span class="ln">12</span><span class="kw">export</span> <span class="kw">async</span> <span class="kw">function</span> <span class="fn">runPipeline</span>() {</div>
+                        <div class="ed-line"><span class="ln">13</span>  <span class="kw">const</span> ctx = <span class="kw">await</span> <span class="fn">loadContext</span>();</div>
+                        <div class="ed-line"><span class="ln">14</span>  <span class="kw">const</span> result = <span class="kw">await</span> agent.<span class="fn">run</span>(ctx);</div>
+                        <div class="ed-line ed-hl"><span class="ln">15</span>  <span class="kw">return</span> <span class="fn">format</span>(result);</div>
+                        <div class="ed-line"><span class="ln">16</span>}</div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- ─── 03 · Sitios web — browser preview ─── -->
+                <article class="hc-panel" data-svc="sitios">
+                  <div class="hc-copy">
+                    <div class="hc-kick">// Sitios web</div>
+                    <h3 class="hc-h3">Sitios que cargan rápido y convierten.</h3>
+                    <p class="hc-p">Landing pages, sitios corporativos y e-commerce con foco en performance, SEO y experiencia. Diseño y código a medida — sin templates genéricos.</p>
+                    <div class="hc-chips">
+                      <span class="hc-chip">performance 95+</span>
+                      <span class="hc-chip">SEO técnico</span>
+                      <span class="hc-chip">CMS headless</span>
+                      <span class="hc-chip">responsive</span>
+                    </div>
+                  </div>
+                  <div class="hc-visual">
+                    <div class="br-mock">
+                      <div class="br-bar">
+                        <span class="br-dot"></span><span class="br-dot"></span><span class="br-dot"></span>
+                        <div class="br-url">cliente.com.ar</div>
+                      </div>
+                      <div class="br-page">
+                        <div class="br-hero"></div>
+                        <div class="br-section">
+                          <div class="br-block"></div>
+                          <div class="br-block gold"></div>
+                          <div class="br-block"></div>
+                        </div>
+                        <div class="br-line"></div>
+                        <div class="br-line short"></div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- ─── 04 · Automatización — node graph ─── -->
+                <article class="hc-panel" data-svc="automatizacion">
+                  <div class="hc-copy">
+                    <div class="hc-kick">// Automatización de flujos</div>
+                    <h3 class="hc-h3">Conectamos lo que ya usás.</h3>
+                    <p class="hc-p">n8n, Make, APIs internas. Workflows que mueven datos entre sistemas, disparan acciones y eliminan tareas repetitivas — con monitoreo y alertas.</p>
+                    <div class="hc-chips">
+                      <span class="hc-chip">n8n</span>
+                      <span class="hc-chip">Make</span>
+                      <span class="hc-chip">webhooks</span>
+                      <span class="hc-chip">REST + GraphQL</span>
+                    </div>
+                  </div>
+                  <div class="hc-visual">
+                    <div class="nd-mock">
+                      <div class="nd-node nd-trigger" style="left:6%;top:38%">
+                        <span class="nd-tag">TRIGGER</span>
+                        <b>Webhook</b>
+                      </div>
+                      <div class="nd-node" style="left:38%;top:14%">
+                        <span class="nd-tag">ACTION</span>
+                        <b>Validar</b>
+                      </div>
+                      <div class="nd-node nd-gold" style="left:38%;top:62%">
+                        <span class="nd-tag">AI</span>
+                        <b>Clasificar</b>
+                      </div>
+                      <div class="nd-node" style="left:72%;top:38%">
+                        <span class="nd-tag">OUTPUT</span>
+                        <b>CRM</b>
+                      </div>
+                      <svg class="nd-edges" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M 16 42 C 28 42, 28 22, 40 22" />
+                        <path d="M 16 46 C 28 46, 28 66, 40 66" />
+                        <path d="M 56 22 C 68 22, 68 42, 76 42" />
+                        <path d="M 56 66 C 68 66, 68 46, 76 46" />
+                      </svg>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- ─── 05 · WhatsApp — chat preview ─── -->
+                <article class="hc-panel" data-svc="whatsapp">
+                  <div class="hc-copy">
+                    <div class="hc-kick">// Asistentes WhatsApp</div>
+                    <h3 class="hc-h3">Bots que atienden, califican y derivan 24/7.</h3>
+                    <p class="hc-p">Asistentes conversacionales que entienden contexto, hacen preguntas inteligentes y pasan a humano cuando hace falta. Integrados a tu CRM.</p>
+                    <div class="hc-chips">
+                      <span class="hc-chip">24/7</span>
+                      <span class="hc-chip">multi-idioma</span>
+                      <span class="hc-chip">handoff humano</span>
+                      <span class="hc-chip">CRM-sync</span>
+                    </div>
+                  </div>
+                  <div class="hc-visual">
+                    <div class="ch-mock">
+                      <div class="ch-hd">
+                        <div class="ch-av"></div>
+                        <div class="ch-info">
+                          <b>Soporte · IA</b>
+                          <span>online · responde en segundos</span>
+                        </div>
+                      </div>
+                      <div class="ch-msg ch-in">Hola, quería saber el horario de atención.</div>
+                      <div class="ch-msg ch-bot">¡Hola! Atendemos de Lun a Vie, 9 a 18hs. ¿Necesitás reservar un turno?</div>
+                      <div class="ch-msg ch-in">Sí, mañana a las 11.</div>
+                      <div class="ch-msg ch-bot ch-typing"><span></span><span></span><span></span></div>
+                    </div>
+                  </div>
+                </article>
+
               </div>
             </div>
-            <div class="visual">
-              <div class="panel-mock">
-                <div class="pm-hd"><span class="pmd"></span><span class="pmt">PANEL · MAIA</span></div>
-                <div class="pm-row medium"></div>
-                <div class="pm-row short"></div>
-                <div class="pm-grid">
-                  <div class="pm-cell"></div>
-                  <div class="pm-cell gold"></div>
-                  <div class="pm-cell"></div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- slide 2: image placeholder -->
-          <article class="slide">
-            <div class="copy">
-              <div class="kicker">02 · Agentes</div>
-              <h3>Agentes especializados que se coordinan solos.</h3>
-              <p>Cada uno con su rol, sus permisos y su memoria — colaborando como un equipo real.</p>
-              <div class="chips">
-                <span class="chip">ventas</span>
-                <span class="chip">soporte</span>
-                <span class="chip">backoffice</span>
-              </div>
-            </div>
-            <div class="visual">
-              <div class="ph-img">[ imagen — agentes /<br/>orquestación ]</div>
-            </div>
-          </article>
-
-          <!-- slide 3: text + chart mock -->
-          <article class="slide">
-            <div class="copy">
-              <div class="kicker">03 · Resultados</div>
-              <h3>Tiempo de respuesta ↓ 84%. Costo operativo ↓ 37%.</h3>
-              <p>Resultados típicos durante el primer trimestre de operación con MAIA.</p>
-              <div class="chips">
-                <span class="chip">caso real</span>
-                <span class="chip">Q1 2026</span>
-              </div>
-            </div>
-            <div class="visual">
-              <div class="panel-mock">
-                <div class="pm-hd"><span class="pmd"></span><span class="pmt">METRICS · 90D</span></div>
-                <div class="pm-row short"></div>
-                <div style="flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;padding-top:6px;">
-                  <div style="height:30%;background:linear-gradient(180deg,rgba(125,160,216,.6),rgba(125,160,216,.15));border-radius:3px"></div>
-                  <div style="height:55%;background:linear-gradient(180deg,rgba(125,160,216,.6),rgba(125,160,216,.15));border-radius:3px"></div>
-                  <div style="height:42%;background:linear-gradient(180deg,rgba(125,160,216,.6),rgba(125,160,216,.15));border-radius:3px"></div>
-                  <div style="height:72%;background:linear-gradient(180deg,rgba(232,177,74,.85),rgba(232,177,74,.25));border-radius:3px"></div>
-                  <div style="height:60%;background:linear-gradient(180deg,rgba(125,160,216,.6),rgba(125,160,216,.15));border-radius:3px"></div>
-                  <div style="height:88%;background:linear-gradient(180deg,rgba(232,177,74,.85),rgba(232,177,74,.25));border-radius:3px"></div>
-                  <div style="height:78%;background:linear-gradient(180deg,rgba(232,177,74,.85),rgba(232,177,74,.25));border-radius:3px"></div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- slide 4: image placeholder -->
-          <article class="slide">
-            <div class="copy">
-              <div class="kicker">04 · Integraciones</div>
-              <h3>Se conecta con lo que ya usas.</h3>
-              <p>WhatsApp, CRM, ERP, hojas de cálculo, APIs internas — MAIA habla todos los idiomas.</p>
-              <div class="chips">
-                <span class="chip">WhatsApp</span>
-                <span class="chip">HubSpot</span>
-                <span class="chip">REST</span>
-                <span class="chip">+24 más</span>
-              </div>
-            </div>
-            <div class="visual">
-              <div class="ph-img">[ imagen — logos de<br/>integraciones / red ]</div>
-            </div>
-          </article>
-
-        </div>
-
-        <div class="car-ctrls">
-          <button class="car-arrow" id="prevBtn" aria-label="Anterior">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 2L3.5 6L7.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="car-dots" id="carDots"></div>
-          <button class="car-arrow" id="nextBtn" aria-label="Siguiente">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2L8.5 6L4.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
-          </div><!-- /.hw-body -->
-        </div><!-- /.hero-window -->
+          </div>
+        </div><!-- /.hero-console -->
       </div><!-- /.right-inner -->
     </div><!-- /.right -->
   </main>
@@ -947,9 +1524,9 @@
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
   <script type="text/babel" src="tweaks-panel.jsx"></script>
 
-  <!-- Carousel + dropdown logic -->
+  <!-- Service switcher + dropdown logic -->
   <script>
-    // ---- Servicios dropdown ----
+    // ---- Servicios dropdown (abrir / cerrar) ----
     const dd = document.getElementById('ddServicios');
     let ddOpen = false;
     const setDD = (v) => { ddOpen = v; dd.dataset.open = String(v); };
@@ -958,86 +1535,50 @@
     dd.addEventListener('click', (e) => { e.stopPropagation(); setDD(!ddOpen); });
     document.addEventListener('click', () => setDD(false));
 
-    // ---- Window chrome injection ----
-    const winEl = document.getElementById('winCarousel');
-    const chromeEl = document.getElementById('winChrome');
-    function renderChrome(style){
-      winEl.dataset.style = style;
-      let html = '';
-      if (style === 'macos'){
-        html = `
-          <div class="traffic"><i></i><i></i><i></i></div>
-          <div class="url">maia.gestion360ia.app /panel</div>
-          <div class="ph"></div>`;
-      } else if (style === 'glass'){
-        html = `
-          <div class="dots"><i></i><i></i><i></i></div>
-          <span class="label">MAIA · LIVE</span>
-          <div class="dots"><i></i><i></i><i></i></div>`;
-      } else if (style === 'solid'){
-        html = `
-          <div class="tab active">Panel</div>
-          <div class="tab">Agentes</div>
-          <div class="tab">Métricas</div>
-          <div class="tab">Logs</div>`;
-      } else if (style === 'browser'){
-        html = `
-          <div class="traffic"><i></i><i></i><i></i></div>
-          <div class="navs"><span>‹</span><span>›</span><span>↻</span></div>
-          <div class="urlbar">
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M9 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M6 8v2 M4.5 10h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-            maia.gestion360ia.app
-          </div>`;
-      }
-      chromeEl.innerHTML = html;
+    // ---- Service switcher: dropdown + tabs ↔ panel + cubo ----
+    const heroConsole = document.getElementById('heroConsole');
+    const hcSlug      = document.getElementById('hcSlug');
+    const tabs        = [...document.querySelectorAll('#hcTabs .hc-tab')];
+    const panels      = [...document.querySelectorAll('#hcPanels .hc-panel')];
+    const ddItems     = [...document.querySelectorAll('.dd .dd-item')];
+
+    let currentSvc = 'consultoria-ia';
+    let switching  = false;
+
+    function applySvc(svc){
+      currentSvc = svc;
+      hcSlug.textContent = svc;
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.svc === svc));
+      panels.forEach(p => p.classList.toggle('active', p.dataset.svc === svc));
+      ddItems.forEach(i => i.classList.toggle('is-active', i.dataset.svc === svc));
     }
-    renderChrome('macos');
 
-    // ---- Carousel ----
-    const slides = [...document.querySelectorAll('.slide')];
-    const dotsWrap = document.getElementById('carDots');
-    const prog = document.getElementById('carProg');
-    let idx = 0, autoTimer = null, progTimer = null, progress = 0, paused = false;
-    const SLIDE_MS = 5200;
+    function selectSvc(svc){
+      if (!svc || svc === currentSvc || switching) return;
+      switching = true;
+      heroConsole.classList.add('is-swapping');
 
-    slides.forEach((_, i) => {
-      const d = document.createElement('button');
-      d.className = 'car-dot' + (i===0?' active':'');
-      d.addEventListener('click', () => go(i, true));
-      dotsWrap.appendChild(d);
-    });
-    const dots = [...dotsWrap.children];
+      const doSwap = () => {
+        applySvc(svc);
+        heroConsole.classList.remove('is-swapping');
+        switching = false;
+      };
 
-    function go(n, manual){
-      idx = (n + slides.length) % slides.length;
-      slides.forEach((s,i) => s.classList.toggle('active', i===idx));
-      dots.forEach((d,i) => d.classList.toggle('active', i===idx));
-      progress = 0;
-      if (manual){ restart(); }
-    }
-    function tick(){
-      if (paused) return;
-      progress += 60;
-      prog.style.width = Math.min(100, (progress / SLIDE_MS) * 100) + '%';
-      if (progress >= SLIDE_MS){
-        progress = 0;
-        prog.style.width = '0%';
-        go(idx + 1);
+      // Si el cubo está listo, le pedimos un swap (desarmar → cambiar contenido → rearmar)
+      if (window.__cube && window.__cube.swap) {
+        window.__cube.swap(doSwap);
+      } else {
+        // sin cubo: cambio directo con un pequeño fade
+        setTimeout(doSwap, 220);
       }
     }
-    function restart(){
-      clearInterval(progTimer);
-      progress = 0; prog.style.width = '0%';
-      progTimer = setInterval(tick, 60);
-    }
-    document.getElementById('prevBtn').addEventListener('click', () => go(idx-1, true));
-    document.getElementById('nextBtn').addEventListener('click', () => go(idx+1, true));
-    winEl.addEventListener('mouseenter', () => paused = true);
-    winEl.addEventListener('mouseleave', () => paused = false);
-    restart();
 
-    // expose chrome render for tweaks panel
-    window.__setWindowStyle = renderChrome;
+    tabs.forEach(t    => t.addEventListener('click', () => selectSvc(t.dataset.svc)));
+    ddItems.forEach(i => i.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectSvc(i.dataset.svc);
+      setDD(false);
+    }));
   </script>
 
   <!-- Tweaks app -->
@@ -1131,6 +1672,67 @@
     const root = ReactDOM.createRoot(document.createElement('div'));
     document.body.appendChild(root._internalRoot.containerInfo);
     root.render(<App />);
+  </script>
+
+  <!-- ─── Login Modal HTML ─── -->
+  <div class="lm-overlay" id="loginModal" role="dialog" aria-modal="true" aria-label="Acceso clientes">
+    <div class="lm-card">
+      <button class="lm-close" id="loginClose" aria-label="Cerrar">&times;</button>
+      <div class="lm-logo">
+        <img src="assets/favicon.png" alt="G360iA" />
+        <span>Gestión 360 <em>iA</em></span>
+      </div>
+      <p class="lm-title">Bienvenido</p>
+      <p class="lm-sub">Seleccioná tu tipo de acceso para continuar.</p>
+      <div class="lm-roles">
+        <a class="lm-role lm-role--tenant disabled" href="#" aria-disabled="true">
+          <div class="lm-role-ic">🏢</div>
+          <div class="lm-role-meta">
+            <b>Tenant</b>
+            <span>Accedé al panel de tu negocio</span>
+          </div>
+          <span class="lm-badge">Próximamente</span>
+        </a>
+        <a class="lm-role lm-role--admin disabled" href="#" aria-disabled="true">
+          <div class="lm-role-ic">⚙️</div>
+          <div class="lm-role-meta">
+            <b>Admin</b>
+            <span>Gestión y configuración global</span>
+          </div>
+          <span class="lm-badge">Próximamente</span>
+        </a>
+        <a class="lm-role lm-role--dev" href="https://dev.g360ia.com.ar/login" rel="noopener">
+          <div class="lm-role-ic">🛠️</div>
+          <div class="lm-role-meta">
+            <b>Developers</b>
+            <span>Entorno de desarrollo G360iA</span>
+          </div>
+          <span class="lm-role-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const modal   = document.getElementById('loginModal');
+      const btnOpen = document.getElementById('btnAcceso');
+      const btnClose= document.getElementById('loginClose');
+
+      function openModal(){
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal(){
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      btnOpen.addEventListener('click', openModal);
+      btnClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+      document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+    })();
   </script>
 
 </body>
