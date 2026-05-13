@@ -1,0 +1,35 @@
+window.__G360_MODS['cli'] = {
+  id: 'cli',
+  name: 'Clientes',
+  eyebrow: 'Registro centralizado',
+  title: 'Ficha completa\nde cada <em>cliente real</em>',
+  subtitle: 'Registro post-CRM. Cuando un prospecto compra, se convierte en cliente con datos fiscales, precios y cuenta corriente propios.',
+  rubros: ['Todos los rubros', 'Comercios B2C', 'Distribuidoras B2B'],
+  cycle: ['CRM', 'Clientes', 'Ventas', 'Finanzas'],
+  features: [
+    {
+      icon: 'users',
+      title: 'Personas y empresas',
+      desc: 'Personas físicas con DNI o empresas con razón social y múltiples interlocutores. La UI adapta los campos según el tipo.',
+      chips: ['Personas', 'Empresas', 'Interlocutores'],
+    },
+    {
+      icon: 'percent',
+      title: 'Lista de precios y descuentos',
+      desc: 'Lista asignada por cliente (general, mayorista, especial) y descuento habitual. Ventas los aplica automáticamente.',
+      chips: ['Lista general', 'Mayorista', 'Descuento default'],
+    },
+    {
+      icon: 'folder-open',
+      title: 'Historial de documentos',
+      desc: 'OTs, ventas, facturas y recibos — todo desde la ficha del cliente sin saltar a otros módulos.',
+      chips: ['OTs', 'Ventas', 'Facturas'],
+    },
+    {
+      icon: 'wallet',
+      title: 'Cuenta corriente visible',
+      desc: 'Saldo deudor actualizado en tiempo real desde Finanzas. Visible directo desde la ficha.',
+      chips: ['Saldo real', 'Movimientos', 'Cobros pendientes'],
+    },
+  ],
+};
