@@ -1,0 +1,157 @@
+/**
+ * G360iA — Module Explorer
+ *
+ * LEFT:  dropdown → detalle del módulo reemplaza al hero
+ * RIGHT: stack de 3 cards con animación de barajado al seleccionar módulo
+ */
+
+const MODULE_LIST = [
+  { id: 'neg',  name: 'Mi Negocio',         eyebrow: 'Configuración base',      icon: 'store' },
+  { id: 'crm',  name: 'CRM',                eyebrow: 'Gestión de contactos',    icon: 'users' },
+  { id: 'ot',   name: 'Órdenes de Trabajo', eyebrow: 'Servicios técnicos',      icon: 'wrench' },
+  { id: 'cli',  name: 'Clientes',           eyebrow: 'Registro centralizado',   icon: 'user-check' },
+  { id: 'vta',  name: 'Ventas',             eyebrow: 'Ciclo comercial',         icon: 'receipt' },
+  { id: 'stk',  name: 'Stock',              eyebrow: 'Gestión de inventario',   icon: 'package' },
+  { id: 'cmp',  name: 'Compras',            eyebrow: 'Proveedores y órdenes',   icon: 'truck' },
+  { id: 'fin',  name: 'Finanzas',           eyebrow: 'Cuenta corriente y caja', icon: 'landmark' },
+  { id: 'user', name: 'Usuarios',           eyebrow: 'Control de acceso',       icon: 'shield-check' },
+  { id: 'mcp',  name: 'Integraciones',      eyebrow: 'Hub de conexiones',       icon: 'plug-2' },
+];
+
+// ─── DOM refs ─────────────────────────────────────────────────────────────────
+const menuBtn     = document.getElementById('menuBtn');
+const dropdown    = document.getElementById('dropdown');
+const heroDefault = document.getElementById('heroDefault');
+const modDetail   = document.getElementById('modDetail');
+const dEyebrow    = document.getElementById('dEyebrow');
+const dTitle      = document.getElementById('dTitle');
+const dSubtitle   = document.getElementById('dSubtitle');
+const dRubros     = document.getElementById('dRubros');
+const dScroll     = document.getElementById('dScroll');
+const dCycle      = document.getElementById('dCycle');
+const cardBack    = document.getElementById('cardBack');
+const cardMid     = document.getElementById('cardMid');
+const cardFront   = document.getElementById('cardFront');
+const cardLabel   = document.getElementById('cardLabel');
+const cardLabelText = document.getElementById('cardLabelText');
+
+let activeId = null;
+
+// ─── Build dropdown ───────────────────────────────────────────────────────────
+function buildDropdown() {
+  MODULE_LIST.forEach((m, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'dd-item';
+    btn.textContent = m.name;
+    btn.addEventListener('click', () => { selectModule(i); closeMenu(); });
+    dropdown.appendChild(btn);
+  });
+  if (window.lucide) lucide.createIcons();
+}
+
+// ─── Dropdown toggle ──────────────────────────────────────────────────────────
+menuBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const open = dropdown.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', open);
+});
+document.addEventListener('click', closeMenu);
+function closeMenu() {
+  dropdown.classList.remove('open');
+  menuBtn.setAttribute('aria-expanded', false);
+}
+
+// ─── Dynamic loader ───────────────────────────────────────────────────────────
+function loadModuleData(id) {
+  return new Promise((resolve, reject) => {
+    if (window.__G360_MODS[id]) { resolve(window.__G360_MODS[id]); return; }
+    const s = document.createElement('script');
+    s.src = `data/modules/${id}.js`;
+    s.onload  = () => window.__G360_MODS[id]
+      ? resolve(window.__G360_MODS[id])
+      : reject(new Error(`"${id}" no registró datos.`));
+    s.onerror = () => reject(new Error(`No se pudo cargar data/modules/${id}.js`));
+    document.head.appendChild(s);
+  });
+}
+
+// helper
+const delay = ms => new Promise(r => setTimeout(r, ms));
+
+// ─── Select module ────────────────────────────────────────────────────────────
+async function selectModule(idx) {
+  const m = MODULE_LIST[idx];
+  if (m.id === activeId) return;
+  activeId = m.id;
+
+  // Marcar activo en dropdown
+  dropdown.querySelectorAll('.dd-item').forEach((el, i) =>
+    el.classList.toggle('active', i === idx));
+
+  // Animar stack (right) y cargar data en paralelo
+  const [mod] = await Promise.all([
+    loadModuleData(m.id),
+    animateStack(m.name),
+  ]);
+
+  // Render left detail
+  renderLeft(mod);
+}
+
+// ─── Card stack animation ─────────────────────────────────────────────────────
+async function animateStack(moduleName) {
+  // Fase 1: fan out — cartas se separan hacia abajo
+  cardBack.style.transform  = 'translateY(52px) scale(0.88)';
+  cardMid.style.transform   = 'translateY(34px) scale(0.92)';
+  cardFront.style.transform = 'translateY(18px) scale(0.965)';
+
+  // Ocultar label mientras anima
+  cardLabel.classList.remove('visible');
+
+  await delay(260);
+
+  // Actualizar etiqueta del módulo
+  cardLabelText.textContent = moduleName;
+
+  // Fase 2: snap back — cartas vuelven al stack
+  cardBack.style.transform  = 'translateY(24px) scale(0.935)';
+  cardMid.style.transform   = 'translateY(13px) scale(0.966)';
+  cardFront.style.transform = 'translateY(0) scale(1)';
+
+  await delay(350);
+
+  // Mostrar label con fade
+  cardLabel.classList.add('visible');
+}
+
+// ─── Render left panel detail ─────────────────────────────────────────────────
+function renderLeft(mod) {
+  dEyebrow.textContent  = mod.eyebrow;
+  dTitle.innerHTML      = mod.title.replace('\n', '<br>');
+  dSubtitle.textContent = mod.subtitle;
+
+  dRubros.innerHTML = mod.rubros
+    .map(r => `<span class="mod-rubro">${r}</span>`).join('');
+
+  dScroll.innerHTML = mod.features.map(f => `
+    <div class="feat-card">
+      <p class="feat-title">${f.title}</p>
+      <p class="feat-desc">${f.desc}</p>
+      <div class="feat-chips">${f.chips.map(c => `<span class="feat-chip">${c}</span>`).join('')}</div>
+    </div>`).join('');
+
+  dCycle.innerHTML =
+    `<span class="mod-cycle-label">Ciclo:</span>` +
+    mod.cycle.map(c => `<span class="mod-cycle-tag">${c}</span>`).join('');
+
+  dScroll.scrollTop = 0;
+
+  // Cambiar hero → detalle
+  heroDefault.classList.add('hidden');
+  modDetail.classList.remove('visible');
+  void modDetail.offsetWidth;
+  modDetail.classList.add('visible');
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+buildDropdown();
