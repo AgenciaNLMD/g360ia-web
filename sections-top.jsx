@@ -31,7 +31,7 @@ function Header({ active, onNav }) {
       <header className={`header ${scrolled ? "scrolled" : ""}`}>
         <div className="container header-inner">
           <a href="#hero" className="logo" onClick={(e) => go(e, "hero")}>
-            <img src="logo.png" alt="Gestion360.iA" className="logo-img" />
+            <img src="logo.png" alt="Gestión 360 IA" className="logo-img" />
             <span className="logo-name">
               Gestion<span className="num">360</span><span className="ia">.iA</span>
             </span>
@@ -201,7 +201,7 @@ function Hero({ onNav }) {
       <div className="hero-bg"></div>
       <div className="container">
         <div className="hero-inner">
-          <span className="eyebrow reveal">Consultora de IA · Gestion360ia</span>
+          <span className="eyebrow reveal">Consultora de IA · Gestión 360 IA</span>
           <h1 className="h-display h1 reveal" style={{"--delay": "60ms"}}>
             Transformamos tu negocio con <em>Inteligencia Artificial</em>.
           </h1>

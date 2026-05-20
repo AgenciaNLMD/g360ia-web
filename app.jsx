@@ -174,4 +174,5 @@ function App() {
   );
 }
 
+document.getElementById("seo-fallback")?.remove();
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);
