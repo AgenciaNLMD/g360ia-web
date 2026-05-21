@@ -5,12 +5,24 @@ const { useState: useStateH, useEffect: useEffectH, useRef: useRefH } = React;
 function Header({ active, onNav }) {
   const [scrolled, setScrolled] = useStateH(false);
   const [menuOpen, setMenuOpen] = useStateH(false);
+  const [svcDropOpen, setSvcDropOpen] = useStateH(false);
+  const svcDropRef = useRefH(null);
 
   useEffectH(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffectH(() => {
+    const handler = (e) => {
+      if (svcDropRef.current && !svcDropRef.current.contains(e.target)) {
+        setSvcDropOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, []);
 
   const items = [
@@ -23,6 +35,7 @@ function Header({ active, onNav }) {
   const go = (e, id) => {
     e.preventDefault();
     setMenuOpen(false);
+    setSvcDropOpen(false);
     onNav(id);
   };
 
@@ -37,11 +50,42 @@ function Header({ active, onNav }) {
             </span>
           </a>
           <nav className="nav" aria-label="Principal">
-            {items.map(it => (
-              <a key={it.id} href={`#${it.id}`}
-                 className={active === it.id ? "is-active" : ""}
-                 onClick={(e) => go(e, it.id)}>{it.label}</a>
-            ))}
+            {items.map(it => {
+              if (it.id === "servicios") return (
+                <div key="servicios" className="nav-drop-wrap" ref={svcDropRef}>
+                  <button
+                    className={`nav-drop-btn ${active === "servicios" ? "is-active" : ""} ${svcDropOpen ? "is-open" : ""}`}
+                    onClick={() => setSvcDropOpen(o => !o)}
+                  >
+                    Servicios
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="nav-drop-chevron"><path d="M6 9l6 6 6-6"/></svg>
+                  </button>
+                  <div className={`nav-drop-panel ${svcDropOpen ? "is-open" : ""}`}>
+                    <a href="#servicios" className="nav-drop-item" onClick={(e) => go(e, "servicios")}>
+                      Ver todos los servicios
+                    </a>
+                    <div className="nav-drop-sep"/>
+                    <a href="/servicios/agentes-ia" className="nav-drop-item nav-drop-item--page">
+                      <span>Agentes IA</span>
+                      <span className="nav-drop-tag">Ver página</span>
+                    </a>
+                    <a href="/servicios/bots-whatsapp" className="nav-drop-item nav-drop-item--page">
+                      <span>Bots WhatsApp</span>
+                      <span className="nav-drop-tag">Ver página</span>
+                    </a>
+                    <a href="/servicios/sitios-web" className="nav-drop-item nav-drop-item--page">
+                      <span>Sitios web</span>
+                      <span className="nav-drop-tag">Ver página</span>
+                    </a>
+                  </div>
+                </div>
+              );
+              return (
+                <a key={it.id} href={`#${it.id}`}
+                   className={active === it.id ? "is-active" : ""}
+                   onClick={(e) => go(e, it.id)}>{it.label}</a>
+              );
+            })}
           </nav>
           <div className="header-cta">
             <button className="btn btn-primary btn-sm" onClick={(e) => go(e, "contacto")}>
@@ -57,7 +101,16 @@ function Header({ active, onNav }) {
 
       <div className={`mobile-menu ${menuOpen ? "is-open" : ""}`}>
         {items.map(it => (
-          <a key={it.id} href={`#${it.id}`} onClick={(e) => go(e, it.id)}>{it.label}</a>
+          <React.Fragment key={it.id}>
+            <a href={`#${it.id}`} onClick={(e) => go(e, it.id)}>{it.label}</a>
+            {it.id === "servicios" && (
+              <React.Fragment>
+                <a href="/servicios/agentes-ia" className="mobile-menu-subitem">↳ Agentes IA</a>
+                <a href="/servicios/bots-whatsapp" className="mobile-menu-subitem">↳ Bots WhatsApp</a>
+                <a href="/servicios/sitios-web" className="mobile-menu-subitem">↳ Sitios web</a>
+              </React.Fragment>
+            )}
+          </React.Fragment>
         ))}
         <button className="btn btn-primary" style={{marginTop: 12}} onClick={(e) => go(e, "contacto")}>
           Agendar reunión <span className="arrow"><Icon.arrow /></span>
@@ -251,11 +304,21 @@ function ServiceCard({ s, onOpen }) {
       <span className="tag">{s.tag}</span>
       <h3>{s.name}</h3>
       <p>{s.desc}</p>
-      <span className="svc-more">
-        <span className="dot"></span>
-        Ver más
-        <Icon.arrow style={{marginLeft: 4}}/>
-      </span>
+      <div className="svc-card-foot">
+        <span className="svc-more">
+          <span className="dot"></span>
+          Ver más
+          <Icon.arrow style={{marginLeft: 4}}/>
+        </span>
+        {s.page && (
+          <a href={s.page} className="svc-page-btn"
+             onClick={(e) => e.stopPropagation()}
+             aria-label={`Ver información completa de ${s.name}`}>
+            Ver información completa
+            <Icon.arrow/>
+          </a>
+        )}
+      </div>
     </article>
   );
 }
@@ -312,6 +375,13 @@ function ServiceModal({ service, onClose, onContact }) {
         </button>
         {service && (
           <React.Fragment>
+            {service.page && (
+              <a href={service.page} className="modal-detail-link">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
+                Ver información completa de este servicio
+                <Icon.arrow style={{marginLeft: "auto", flexShrink: 0}}/>
+              </a>
+            )}
             <div style={{display: "flex", alignItems: "center", gap: 14, marginBottom: 18}}>
               <span className="svc-icon" style={{margin: 0}}><IconComp /></span>
               <span className="tag">{service.tag}</span>

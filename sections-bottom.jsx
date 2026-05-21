@@ -291,6 +291,14 @@ function Footer({ onNav }) {
             </ul>
           </div>
           <div>
+            <h5>Servicios</h5>
+            <ul>
+              <li><a href="/servicios/agentes-ia">Agentes IA</a></li>
+              <li><a href="/servicios/bots-whatsapp">Bots WhatsApp</a></li>
+              <li><a href="/servicios/sitios-web">Sitios web</a></li>
+            </ul>
+          </div>
+          <div>
             <h5>Contacto</h5>
             <ul>
               <li><a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a></li>
