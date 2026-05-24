@@ -77,6 +77,14 @@ function Header({ active, onNav }) {
                       <span>Sitios web</span>
                       <span className="nav-drop-tag">Ver página</span>
                     </a>
+                    <a href="/servicios/desarrollo-software" className="nav-drop-item nav-drop-item--page">
+                      <span>Desarrollo de software</span>
+                      <span className="nav-drop-tag">Ver página</span>
+                    </a>
+                    <a href="/servicios/seo" className="nav-drop-item nav-drop-item--page">
+                      <span>SEO</span>
+                      <span className="nav-drop-tag">Ver página</span>
+                    </a>
                   </div>
                 </div>
               );
@@ -108,6 +116,8 @@ function Header({ active, onNav }) {
                 <a href="/servicios/agentes-ia" className="mobile-menu-subitem">↳ Agentes IA</a>
                 <a href="/servicios/bots-whatsapp" className="mobile-menu-subitem">↳ Bots WhatsApp</a>
                 <a href="/servicios/sitios-web" className="mobile-menu-subitem">↳ Sitios web</a>
+                <a href="/servicios/desarrollo-software" className="mobile-menu-subitem">↳ Desarrollo de software</a>
+                <a href="/servicios/seo" className="mobile-menu-subitem">↳ SEO</a>
               </React.Fragment>
             )}
           </React.Fragment>
@@ -120,175 +130,223 @@ function Header({ active, onNav }) {
   );
 }
 
-/* ===================== HERO VISUAL ===================== */
-function HeroVisual() {
-  return (
-    <div className="hero-stage">
-      <svg viewBox="0 0 500 600" width="100%" height="100%" style={{position: "absolute", inset: 0, overflow: "visible"}}>
-        <defs>
-          <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9"/>
-            <stop offset="100%" stopColor="#ece6d6" stopOpacity="0.5"/>
-          </linearGradient>
-          <linearGradient id="cardA" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#ffffff"/>
-            <stop offset="100%" stopColor="#faf9f6"/>
-          </linearGradient>
-          <linearGradient id="darkCard" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#3a485e"/>
-            <stop offset="100%" stopColor="#1f2937"/>
-          </linearGradient>
-          <pattern id="dots" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
-            <circle cx="2" cy="2" r="1" fill="#4a5a75" opacity="0.18"/>
-          </pattern>
-        </defs>
-
-        {/* Soft backdrop */}
-        <rect x="40" y="40" width="420" height="520" rx="28" fill="url(#bgGrad)" opacity="0.5"/>
-        <rect x="40" y="40" width="420" height="520" rx="28" fill="url(#dots)"/>
-
-        {/* Dark card — assistant conversation */}
-        <g transform="translate(60 80)" style={{animation: "drift 8s ease-in-out infinite"}}>
-          <rect width="280" height="200" rx="20" fill="url(#darkCard)"/>
-          <rect width="280" height="200" rx="20" fill="none" stroke="rgba(255,255,255,0.06)"/>
-
-          <g transform="translate(20 22)">
-            <circle r="4" cx="0" cy="0" fill="#c8b896"/>
-            <text x="12" y="4" fill="#c8b896" fontSize="10" fontFamily="JetBrains Mono, monospace" letterSpacing="1.5">ASISTENTE · EN LÍNEA</text>
-          </g>
-
-          {/* Chat bubbles */}
-          <g transform="translate(20 60)">
-            <rect width="180" height="34" rx="14" fill="rgba(255,255,255,0.07)"/>
-            <text x="14" y="22" fill="#ece6d6" fontSize="11" fontFamily="Plus Jakarta Sans">¿Hay stock del modelo X-200?</text>
-          </g>
-          <g transform="translate(80 102)">
-            <rect width="180" height="34" rx="14" fill="#c8b896"/>
-            <text x="14" y="22" fill="#1f2937" fontSize="11" fontFamily="Plus Jakarta Sans" fontWeight="600">Sí, 12 unidades en CABA.</text>
-          </g>
-          <g transform="translate(80 142)">
-            <rect width="200" height="34" rx="14" fill="#c8b896"/>
-            <text x="14" y="22" fill="#1f2937" fontSize="11" fontFamily="Plus Jakarta Sans" fontWeight="600">¿Coordinamos el envío?</text>
-          </g>
-          <g transform="translate(20 184)">
-            <circle r="2" cx="0" cy="0" fill="#c8b896">
-              <animate attributeName="opacity" values="0.3;1;0.3" dur="1.4s" repeatCount="indefinite" begin="0s"/>
-            </circle>
-            <circle r="2" cx="8" cy="0" fill="#c8b896">
-              <animate attributeName="opacity" values="0.3;1;0.3" dur="1.4s" repeatCount="indefinite" begin="0.2s"/>
-            </circle>
-            <circle r="2" cx="16" cy="0" fill="#c8b896">
-              <animate attributeName="opacity" values="0.3;1;0.3" dur="1.4s" repeatCount="indefinite" begin="0.4s"/>
-            </circle>
-            <text x="28" y="4" fontFamily="Plus Jakarta Sans" fontSize="10" fill="rgba(236,230,214,0.6)">cliente escribiendo</text>
-          </g>
-        </g>
-
-        {/* Metric card */}
-        <g transform="translate(250 250)" style={{animation: "drift 10s ease-in-out infinite", animationDelay: "-2s"}}>
-          <rect width="200" height="140" rx="18" fill="url(#cardA)" stroke="#d9dee6"/>
-          <text x="20" y="34" fontFamily="JetBrains Mono, monospace" fontSize="9.5" fill="#8a93a4" letterSpacing="1.2">CONVERSIÓN · 30D</text>
-          <text x="20" y="76" fontFamily="Plus Jakarta Sans" fontSize="38" fontWeight="600" fill="#3a485e" letterSpacing="-1.5">+34<tspan fontSize="22" fill="#8a93a4">%</tspan></text>
-
-          {/* mini sparkline */}
-          <polyline
-            points="20,114 50,108 80,112 110,98 140,102 170,86 180,88"
-            fill="none" stroke="#4a5a75" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-          />
-          <polyline
-            points="20,114 50,108 80,112 110,98 140,102 170,86 180,88 180,128 20,128"
-            fill="#4a5a75" opacity="0.08"
-          />
-          <circle cx="180" cy="88" r="3" fill="#3a485e"/>
-        </g>
-
-        {/* Workflow / nodes card */}
-        <g transform="translate(60 320)" style={{animation: "drift 9s ease-in-out infinite", animationDelay: "-4s"}}>
-          <rect width="220" height="170" rx="18" fill="url(#cardA)" stroke="#d9dee6"/>
-          <text x="20" y="32" fontFamily="JetBrains Mono, monospace" fontSize="9.5" fill="#8a93a4" letterSpacing="1.2">FLUJO ACTIVO</text>
-
-          <g transform="translate(20 56)">
-            {/* Nodes */}
-            <circle cx="14" cy="14" r="14" fill="#f6f3ec" stroke="#d9dee6"/>
-            <text x="14" y="18" textAnchor="middle" fontFamily="Plus Jakarta Sans" fontSize="11" fill="#4a5a75" fontWeight="600">1</text>
-
-            <line x1="32" y1="14" x2="76" y2="14" stroke="#b6c0cf" strokeWidth="1.5" strokeDasharray="3 3"/>
-
-            <circle cx="90" cy="14" r="14" fill="#4a5a75"/>
-            <text x="90" y="18" textAnchor="middle" fontFamily="Plus Jakarta Sans" fontSize="11" fill="#fff" fontWeight="600">2</text>
-
-            <line x1="108" y1="14" x2="152" y2="14" stroke="#b6c0cf" strokeWidth="1.5" strokeDasharray="3 3"/>
-
-            <circle cx="166" cy="14" r="14" fill="#f6f3ec" stroke="#d9dee6"/>
-            <text x="166" y="18" textAnchor="middle" fontFamily="Plus Jakarta Sans" fontSize="11" fill="#8a93a4" fontWeight="600">3</text>
-
-            <text x="14" y="50" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="8" fill="#8a93a4">RECIBO</text>
-            <text x="90" y="50" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="8" fill="#4a5a75">PROCESO</text>
-            <text x="166" y="50" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="8" fill="#8a93a4">RESPONDO</text>
-          </g>
-
-          <g transform="translate(20 138)">
-            <rect width="180" height="20" rx="10" fill="#f5f6f8"/>
-            <rect width="120" height="20" rx="10" fill="#4a5a75"/>
-            <text x="90" y="14" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="#fff">67% completado</text>
-          </g>
-        </g>
-
-        {/* Floating tag */}
-        <g transform="translate(320 60)">
-          <rect width="120" height="36" rx="18" fill="#ffffff" stroke="#d9dee6"/>
-          <circle cx="18" cy="18" r="4" fill="#5d6e88">
-            <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
-          </circle>
-          <text x="32" y="22" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#4a5a75" letterSpacing="0.5">IA · activa</text>
-        </g>
-      </svg>
-    </div>
-  );
-}
-
 /* ===================== HERO ===================== */
 function Hero({ onNav }) {
+  const particlesRef = useRefH(null);
+
+  /* Spawn floating particles */
+  useEffectH(() => {
+    const container = particlesRef.current;
+    if (!container) return;
+    const N = 22;
+    const palette = ['#e6a532', '#f0c46e', '#7ec8e3'];
+    container.innerHTML = '';
+    for (let i = 0; i < N; i++) {
+      const p = document.createElement('div');
+      p.className = 'hero-particle';
+      const x    = 4 + Math.random() * 48;
+      const y    = 18 + Math.random() * 65;
+      const sz   = 1.5 + Math.random() * 2.5;
+      const color = palette[Math.floor(Math.random() * palette.length)];
+      Object.assign(p.style, {
+        left:              x + '%',
+        top:               y + '%',
+        width:             sz + 'px',
+        height:            sz + 'px',
+        background:        color,
+        boxShadow:         `0 0 ${4 + sz * 2}px ${color}`,
+        animationDuration: (5 + Math.random() * 8) + 's',
+        animationDelay:    (-Math.random() * 10) + 's',
+      });
+      container.appendChild(p);
+    }
+    return () => { if (container) container.innerHTML = ''; };
+  }, []);
+
+  /* KPI count-up animation (loops) */
+  useEffectH(() => {
+    function animateCountUp(el) {
+      const target   = parseFloat(el.dataset.target);
+      const prefix   = el.dataset.prefix   || '';
+      const suffix   = el.dataset.suffix   || '';
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const dur      = 2200;
+
+      function fmt(n) {
+        const v    = n.toFixed(decimals);
+        const parts = v.split('.');
+        parts[0]   = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        return prefix + parts.join(',') + suffix;
+      }
+
+      function run() {
+        const t0 = performance.now();
+        (function step(t) {
+          const prog = Math.min(1, (t - t0) / dur);
+          const ease = 1 - Math.pow(1 - prog, 3);
+          el.textContent = fmt(target * ease);
+          if (prog < 1) requestAnimationFrame(step);
+          else setTimeout(run, 3200);
+        })(performance.now());
+      }
+      run();
+    }
+    document.querySelectorAll('.kpi-ku').forEach(animateCountUp);
+  }, []);
+
   return (
-    <section id="hero" className="hero hero-grain">
-      <div className="hero-bg"></div>
-      <div className="container">
-        <div className="hero-inner">
-          <span className="eyebrow reveal">Consultora de IA · Gestión 360 IA</span>
-          <h1 className="h-display h1 reveal" style={{"--delay": "60ms"}}>
-            Transformamos tu negocio con <em>Inteligencia Artificial</em>.
-          </h1>
-          <p className="lead reveal" style={{"--delay": "180ms"}}>
-            Consultoría, desarrollo y automatización con IA para empresas que quieren crecer
-            más rápido, vender más y operar mejor. Diseñamos soluciones a medida que se integran
-            con tu operación actual.
-          </p>
+    <section id="hero" className="hero hero-grain" aria-label="Hero Gestión 360 IA">
+      {/* ── Background image ── */}
+      <img
+        className="hero-bg-img"
+        src="hero-bg.png"
+        alt="Ejecutivo observando un dashboard analítico holográfico en una oficina nocturna con vista al skyline"
+      />
 
-          <div className="hero-ctas reveal" style={{"--delay": "280ms"}}>
-            <button className="btn btn-primary" onClick={() => onNav("contacto")}>
-              Agendar diagnóstico gratuito <span className="arrow"><Icon.arrow /></span>
-            </button>
-            <button className="btn btn-ghost" onClick={() => onNav("servicios")}>
-              Ver servicios <span className="arrow"><Icon.arrowDown /></span>
-            </button>
+      {/* ── SVG FX layer — aligned to image via preserveAspectRatio slice ── */}
+      <svg
+        className="hero-fx"
+        viewBox="0 0 720 1280"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stopColor="rgba(230,165,50,0)"/>
+            <stop offset="50%"  stopColor="rgba(230,165,50,0.18)"/>
+            <stop offset="100%" stopColor="rgba(230,165,50,0)"/>
+          </linearGradient>
+          <radialGradient id="haloGold" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="rgba(230,165,50,0.30)"/>
+            <stop offset="100%" stopColor="rgba(230,165,50,0)"/>
+          </radialGradient>
+          <radialGradient id="haloCyan" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="rgba(126,200,227,0.30)"/>
+            <stop offset="100%" stopColor="rgba(126,200,227,0)"/>
+          </radialGradient>
+        </defs>
+
+        {/* Soft halos */}
+        <ellipse cx="220" cy="280" rx="180" ry="120" fill="url(#haloGold)"/>
+        <ellipse cx="260" cy="780" rx="200" ry="130" fill="url(#haloCyan)" opacity="0.7"/>
+
+        {/* ── Node network (top-left dashboard area) ── */}
+        <g>
+          <line className="fx-link"           x1="100" y1="220" x2="170" y2="180"/>
+          <line className="fx-link fx-link-cy" x1="100" y1="220" x2="135" y2="280"/>
+          <line className="fx-link"           x1="170" y1="180" x2="215" y2="235"/>
+          <line className="fx-link fx-link-w"  x1="170" y1="180" x2="225" y2="135"/>
+          <line className="fx-link"           x1="215" y1="235" x2="180" y2="305"/>
+          <line className="fx-link fx-link-cy" x1="215" y1="235" x2="265" y2="280"/>
+          <line className="fx-link"           x1="135" y1="280" x2="180" y2="305"/>
+          <line className="fx-link fx-link-w"  x1="180" y1="305" x2="240" y2="325"/>
+          <line className="fx-link fx-link-cy" x1="265" y1="280" x2="240" y2="325"/>
+          <line className="fx-link"           x1="100" y1="220" x2="80"  y2="170"/>
+          <line className="fx-link fx-link-w"  x1="170" y1="180" x2="120" y2="140"/>
+
+          <circle className="fx-node fx-node-w"  cx="80"  cy="170" r="3"/>
+          <circle className="fx-node"            cx="120" cy="140" r="3.5" style={{animationDelay:'-0.4s'}}/>
+          <circle className="fx-node fx-node-cy" cx="100" cy="220" r="4"   style={{animationDelay:'-0.8s'}}/>
+          <circle className="fx-node fx-node-w"  cx="135" cy="280" r="3"   style={{animationDelay:'-1.2s'}}/>
+          <circle className="fx-node"            cx="170" cy="180" r="4"   style={{animationDelay:'-1.6s'}}/>
+          <circle className="fx-node fx-node-cy" cx="215" cy="235" r="3.5" style={{animationDelay:'-2.0s'}}/>
+          <circle className="fx-node"            cx="225" cy="135" r="3"   style={{animationDelay:'-2.4s'}}/>
+          <circle className="fx-node fx-node-w"  cx="180" cy="305" r="3.5" style={{animationDelay:'-0.6s'}}/>
+          <circle className="fx-node fx-node-cy" cx="265" cy="280" r="4"   style={{animationDelay:'-1.4s'}}/>
+          <circle className="fx-node"            cx="240" cy="325" r="3"   style={{animationDelay:'-2.2s'}}/>
+        </g>
+
+        {/* ── Upper line chart ── */}
+        <path className="fx-chart fx-chart-gold" d="M210 360 Q 230 320 250 335 T 290 320 T 330 305 T 370 315 T 410 295"/>
+        <path className="fx-chart fx-chart-cyan" d="M210 340 Q 240 305 270 320 T 320 300 T 370 290 T 410 275"/>
+        <path className="fx-chart fx-chart-soft" d="M210 375 Q 240 355 270 360 T 320 348 T 370 342 T 410 332"/>
+        <circle className="fx-chart-dot"              cx="410" cy="295" r="3"/>
+        <circle className="fx-chart-dot fx-chart-dot-cy" cx="410" cy="275" r="2.5"/>
+
+        {/* ── Lower line chart ── */}
+        <path className="fx-chart fx-chart-gold" d="M90 830 Q 130 780 170 800 T 230 760 T 290 740 T 350 720 T 410 705"/>
+        <path className="fx-chart fx-chart-cyan" d="M90 800 Q 130 760 170 770 T 230 740 T 290 715 T 350 720 T 410 690"/>
+        <path className="fx-chart fx-chart-soft" d="M90 860 Q 140 830 180 840 T 240 815 T 300 805 T 360 790 T 410 770"/>
+        <circle className="fx-chart-dot"              cx="410" cy="705" r="3"/>
+        <circle className="fx-chart-dot fx-chart-dot-cy" cx="410" cy="690" r="2.5"/>
+
+        {/* Grid accents */}
+        <line x1="90"  y1="690" x2="90"  y2="880" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5"/>
+        <line x1="410" y1="690" x2="410" y2="880" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5"/>
+        <rect className="fx-scan" x="80" y="680" width="350" height="2"/>
+
+        {/* ── KPI glass cards ── */}
+        <foreignObject x="60" y="80" width="220" height="50">
+          <div xmlns="http://www.w3.org/1999/xhtml" className="kpi">
+            <span className="kpi-label">Procesos analizados</span>
+            <span className="kpi-value">
+              <span className="kpi-ku" data-target="2847">0</span>
+            </span>
           </div>
+        </foreignObject>
 
-          <div className="trust-bar reveal" style={{"--delay": "380ms"}}>
-            <span className="trust-label">+24 empresas confían en nosotros</span>
-            <div className="trust-logos">
-              <span className="trust-logo">◆ Norte Capital</span>
-              <span className="trust-logo">⌬ Lumen</span>
-              <span className="trust-logo">▲ Studio Verde</span>
-              <span className="trust-logo">◉ Pampa Foods</span>
-              <span className="trust-logo">⬡ Astra</span>
-            </div>
+        <foreignObject x="60" y="400" width="220" height="60">
+          <div xmlns="http://www.w3.org/1999/xhtml" className="kpi kpi-2">
+            <span className="kpi-label">Ineficiencias detectadas</span>
+            <span className="kpi-value">
+              <span className="kpi-ku" data-target="34" data-prefix="US$ " data-suffix="K">0</span>
+            </span>
+            <span className="kpi-trend">▲ +12,4%</span>
           </div>
+        </foreignObject>
 
-          <div className="hero-cue reveal" style={{"--delay": "500ms"}}>
-            <span>Conocenos</span>
-            <span className="line"></span>
+        <foreignObject x="60" y="950" width="240" height="62">
+          <div xmlns="http://www.w3.org/1999/xhtml" className="kpi kpi-3">
+            <span className="kpi-label">Eficiencia operativa</span>
+            <span className="kpi-value">
+              <span className="kpi-ku" data-target="87">0</span>
+              <span className="unit">%</span>
+            </span>
+            <span className="kpi-trend">▲ vs. trimestre anterior</span>
+          </div>
+        </foreignObject>
+      </svg>
+
+      {/* ── Particles ── */}
+      <div className="hero-particles" ref={particlesRef} aria-hidden="true"/>
+
+      {/* ── Atmospheric overlays ── */}
+      <div className="hero-tint"/>
+      <div className="hero-vignette"/>
+
+      {/* ── Hero content ── */}
+      <div className="hero-content">
+        <span className="hero-eyebrow">Gestión 360 IA · Consultoría de IA</span>
+        <h1 className="hero-title">
+          Transformamos tu negocio<br/>con <span>Inteligencia Artificial</span>
+        </h1>
+        <p className="hero-subtitle">
+          Consultoría, desarrollo y automatización con IA para empresas
+          que quieren crecer más rápido, vender más y operar mejor.
+        </p>
+        <div className="hero-ctas">
+          <button className="btn btn-primary" onClick={() => onNav("contacto")}>
+            Agendar diagnóstico gratuito <span className="arrow"><Icon.arrow /></span>
+          </button>
+          <button className="btn btn-ghost" onClick={() => onNav("servicios")}>
+            Ver servicios <span className="arrow"><Icon.arrowDown /></span>
+          </button>
+        </div>
+        <div className="trust-bar">
+          <span className="trust-label">+24 empresas confían en nosotros</span>
+          <div className="trust-logos">
+            <span className="trust-logo">◆ Norte Capital</span>
+            <span className="trust-logo">⌬ Lumen</span>
+            <span className="trust-logo">▲ Studio Verde</span>
+            <span className="trust-logo">◉ Pampa Foods</span>
+            <span className="trust-logo">⬡ Astra</span>
           </div>
         </div>
+      </div>
+
+      <div className="hero-cue" aria-hidden="true">
+        <span>Conocenos</span>
+        <span className="hero-cue-line"/>
       </div>
     </section>
   );
@@ -387,14 +445,14 @@ function ServiceModal({ service, onClose, onContact }) {
               <span className="tag">{service.tag}</span>
             </div>
             <h3>{service.name}</h3>
-            <p style={{margin: "6px 0 0", color: "var(--slate-600)", fontSize: 15, fontStyle: "italic"}}>
+            <p style={{margin: "6px 0 0", color: "var(--ink-mute)", fontSize: 14, fontStyle: "italic"}}>
               {service.tagline}
             </p>
-            <p style={{marginTop: 22, color: "var(--ink-soft)", fontSize: 15.5, lineHeight: 1.6}}>
+            <p style={{marginTop: 20, color: "var(--ink-soft)", fontSize: 14.5, lineHeight: 1.6}}>
               {service.desc}
             </p>
 
-            <div style={{marginTop: 28}}>
+            <div style={{marginTop: 26}}>
               <span className="tag" style={{display: "block", marginBottom: 12}}>Qué incluye</span>
               <ul className="modal-list">
                 {service.includes.map((it, i) => (
@@ -406,7 +464,7 @@ function ServiceModal({ service, onClose, onContact }) {
               </ul>
             </div>
 
-            <div style={{display: "flex", gap: 10, marginTop: 28, flexWrap: "wrap"}}>
+            <div style={{display: "flex", gap: 10, marginTop: 26, flexWrap: "wrap"}}>
               <button className="btn btn-primary" onClick={() => { onClose(); onContact(service.id); }}>
                 Quiero este servicio <Icon.arrow/>
               </button>

@@ -2,8 +2,8 @@
 const { useState, useEffect, useRef } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "primary": "#5d7fa3",
-  "accent": "#e5b547",
+  "primary": "#e6a532",
+  "accent": "#f0c46e",
   "heroBg": "fade",
   "cardStyle": "soft",
   "density": "comfy",
