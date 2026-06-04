@@ -473,70 +473,6 @@
 </head>
 <body>
 
-  <!-- ===== HEADER ===== -->
-  <header class="header" id="site-header">
-    <div class="container header-inner">
-      <a href="/" class="logo">
-        <img src="/assets/gestion360ia.png" alt="Gestión 360 IA" class="logo-img" width="38" height="38" />
-        <span class="logo-name">Gestion<span class="num">360</span><span class="ia">.iA</span></span>
-      </a>
-      <nav class="nav" aria-label="Principal">
-        <a href="/">Inicio</a>
-        <div class="nav-drop-wrap" id="svc-drop">
-          <button class="nav-drop-btn is-active" id="svc-btn" onclick="toggleSvcDrop()" aria-expanded="false">
-            Servicios
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="nav-drop-chevron"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-          <div class="nav-drop-panel" id="svc-panel">
-            <a href="/#servicios" class="nav-drop-item">Ver todos los servicios</a>
-            <div class="nav-drop-sep"></div>
-            <a href="/servicios/agentes-ia" class="nav-drop-item nav-drop-item--page">
-              <span>Agentes IA</span>
-              <span class="nav-drop-tag">Ver página</span>
-            </a>
-            <a href="/servicios/bots-whatsapp" class="nav-drop-item nav-drop-item--page">
-              <span>Bots WhatsApp</span>
-              <span class="nav-drop-tag">Ver página</span>
-            </a>
-            <a href="/servicios/sitios-web" class="nav-drop-item nav-drop-item--page is-active" aria-current="page">
-              <span>Sitios web</span>
-              <span class="nav-drop-tag">Estás aquí</span>
-            </a>
-          </div>
-        </div>
-        <a href="/#proceso">Proceso</a>
-        <a href="/#casos">Casos</a>
-        <a href="/#contacto">Contacto</a>
-      </nav>
-      <div class="header-cta">
-        <a href="/contacto?servicio=sitios-web" class="btn btn-primary btn-sm">
-          Agendar diagnóstico
-          <span class="arrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-        </a>
-        <button class="menu-btn" aria-label="Menú" onclick="toggleMenu()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="/">Inicio</a>
-    <a href="/#servicios">Servicios</a>
-    <a href="/servicios/agentes-ia" class="mobile-menu-subitem">↳ Agentes IA</a>
-    <a href="/servicios/bots-whatsapp" class="mobile-menu-subitem">↳ Bots WhatsApp</a>
-    <a href="/servicios/sitios-web" class="mobile-menu-subitem" aria-current="page">↳ Sitios web</a>
-    <a href="/#proceso">Proceso</a>
-    <a href="/#casos">Casos</a>
-    <a href="/#contacto">Contacto</a>
-    <a href="/contacto?servicio=sitios-web" class="btn btn-primary" style="margin-top:12px">
-      Agendar diagnóstico
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
-  </div>
-
   <main>
 
     <!-- ===== SECCIÓN 1: HERO ===== -->
@@ -553,10 +489,6 @@
             Diseño + código + dominio + hosting + SEO + seguridad. Y cuando hace falta, panel administrativo, dashboards y KPIs a medida. No vendemos plantillas.
           </p>
           <div class="bw-hero-ctas">
-            <a href="/contacto?servicio=sitios-web" class="btn btn-primary">
-              Agendar diagnóstico
-              <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-            </a>
             <a href="#incluye" class="btn btn-ghost">
               Ver qué incluye
               <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -1086,10 +1018,6 @@
             <div class="sw-inv-title">Sitio web + software a medida</div>
             <div class="sw-inv-price">A medida según scope</div>
             <p class="sw-inv-desc">Panel, dashboards, e-commerce o sistema completo. El presupuesto se define después de entender el alcance técnico. Cotización sin compromiso.</p>
-            <a href="/contacto?servicio=sitios-web&nivel=2" class="btn btn-primary">
-              Agendar diagnóstico
-              <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-            </a>
             <p class="sw-inv-note">Mantenimiento mensual: a medida según complejidad del sistema.</p>
           </div>
         </div>
@@ -1168,10 +1096,6 @@
         <h2 class="h-display h2" style="color:#faf9f6">¿Qué nivel necesita tu empresa?</h2>
         <p class="lead" style="color:rgba(245,247,251,0.75);margin-top:16px">En 30 minutos te decimos qué nivel aplica a tu caso, qué tecnología tiene sentido y cuánto puede costar. Sin compromiso, sin venta de humo.</p>
         <div class="bw-cta-final-btns">
-          <a href="/contacto?servicio=sitios-web" class="btn btn-accent">
-            Agendar diagnóstico
-            <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </a>
           <a href="/" class="btn btn-ghost" style="color:#faf9f6;border-color:rgba(245,247,251,0.25)">
             Ver todos los servicios
             <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -1249,6 +1173,8 @@
             <li><a href="/servicios/agentes-ia">Agentes IA</a></li>
             <li><a href="/servicios/bots-whatsapp">Bots WhatsApp</a></li>
             <li><a href="/servicios/sitios-web">Sitios web</a></li>
+            <li><a href="/servicios/desarrollo-software">Desarrollo de software</a></li>
+            <li><a href="/servicios/seo">SEO</a></li>
           </ul>
         </div>
         <div>

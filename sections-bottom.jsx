@@ -73,17 +73,6 @@ function Cases() {
             </article>
           ))}
         </div>
-
-        <div className="client-logos reveal">
-          {CLIENT_LOGOS.map((l, i) => {
-            const marks = ["◆", "+", "▲", "◉", "⬡", "⌬"];
-            return (
-              <span key={l} className="trust-logo" style={{fontSize: 19}}>
-                <span style={{color: "var(--slate-500)"}}>{marks[i % marks.length]}</span> {l}
-              </span>
-            );
-          })}
-        </div>
       </div>
     </section>
   );
@@ -296,6 +285,8 @@ function Footer({ onNav }) {
               <li><a href="/servicios/agentes-ia">Agentes IA</a></li>
               <li><a href="/servicios/bots-whatsapp">Bots WhatsApp</a></li>
               <li><a href="/servicios/sitios-web">Sitios web</a></li>
+              <li><a href="/servicios/desarrollo-software">Desarrollo de software</a></li>
+              <li><a href="/servicios/seo">SEO</a></li>
             </ul>
           </div>
           <div>
