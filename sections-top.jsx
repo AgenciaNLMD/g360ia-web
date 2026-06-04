@@ -301,6 +301,10 @@ function Services({ onContact }) {
   /* Click handler: expand on click, collapse on second click or close button */
   const handleClick = (idx) => (e) => {
     const tile = e.currentTarget;
+    if (window.innerWidth <= 1024) {
+      flushSync(() => setExpandedIdx(tile.classList.contains('is-expanded') ? null : idx));
+      return;
+    }
     if (tile.classList.contains('is-expanded')) {
       doCollapse(tile, idx);
     } else {
@@ -361,8 +365,10 @@ function Services({ onContact }) {
 
         {/* collapsed card content */}
         <div className="svc-tile-ico" aria-hidden="true"><IconComp /></div>
-        <div className="svc-tile-kick">{s.tag}</div>
-        <h3 className="svc-tile-title">{wrapWords(s.name)}</h3>
+        <div className="svc-tile-text">
+          <div className="svc-tile-kick">{s.tag}</div>
+          <h3 className="svc-tile-title">{wrapWords(s.name)}</h3>
+        </div>
 
         {/* detail panel — visible only when expanded */}
         <div className="svc-tile-desc">
@@ -400,7 +406,11 @@ function Services({ onContact }) {
         <button
           className="svc-tile-close"
           aria-label="Cerrar"
-          onClick={(e) => { e.stopPropagation(); doCollapse(e.currentTarget.closest('.svc-tile'), idx); }}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (window.innerWidth <= 1024) { flushSync(() => setExpandedIdx(null)); return; }
+            doCollapse(e.currentTarget.closest('.svc-tile'), idx);
+          }}
         >✕</button>
       </article>
     );
