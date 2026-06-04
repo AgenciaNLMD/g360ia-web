@@ -1163,9 +1163,8 @@ img { display: block; max-width: 100%; }
     min-height: auto; flex: none;
     gap: 10px;
   }
-  /* Reset all span overrides */
-  .svc-tile--feature,
-  .svc-tile--tall { grid-column: span 1; grid-row: span 1; }
+  /* Override inline grid styles set by JS */
+  .svc-tile { grid-column: 1 / -1 !important; grid-row: auto !important; }
 
   /* Horizontal pill layout */
   .svc-tile {
