@@ -1,12 +1,9 @@
-/* global React, Icon, SERVICES */
+/* global React, ReactDOM, Icon, SERVICES */
 const { useState: useStateH, useEffect: useEffectH, useRef: useRefH } = React;
 
 /* ===================== HEADER ===================== */
 function Header({ active, onNav }) {
   const [scrolled, setScrolled] = useStateH(false);
-  const [menuOpen, setMenuOpen] = useStateH(false);
-  const [svcDropOpen, setSvcDropOpen] = useStateH(false);
-  const svcDropRef = useRefH(null);
 
   useEffectH(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -15,27 +12,8 @@ function Header({ active, onNav }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffectH(() => {
-    const handler = (e) => {
-      if (svcDropRef.current && !svcDropRef.current.contains(e.target)) {
-        setSvcDropOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
-
-  const items = [
-    { id: "servicios", label: "Servicios" },
-    { id: "proceso",   label: "Proceso" },
-    { id: "casos",     label: "Casos" },
-    { id: "contacto",  label: "Contacto" },
-  ];
-
   const go = (e, id) => {
     e.preventDefault();
-    setMenuOpen(false);
-    setSvcDropOpen(false);
     onNav(id);
   };
 
@@ -43,89 +21,16 @@ function Header({ active, onNav }) {
     <React.Fragment>
       <header className={`header ${scrolled ? "scrolled" : ""}`}>
         <div className="container header-inner">
-          <a href="#hero" className="logo" onClick={(e) => go(e, "hero")}>
-            <img src="logo.png" alt="Gestión 360 IA" className="logo-img" />
-            <span className="logo-name">
-              Gestion<span className="num">360</span><span className="ia">.iA</span>
-            </span>
-          </a>
-          <nav className="nav" aria-label="Principal">
-            {items.map(it => {
-              if (it.id === "servicios") return (
-                <div key="servicios" className="nav-drop-wrap" ref={svcDropRef}>
-                  <button
-                    className={`nav-drop-btn ${active === "servicios" ? "is-active" : ""} ${svcDropOpen ? "is-open" : ""}`}
-                    onClick={() => setSvcDropOpen(o => !o)}
-                  >
-                    Servicios
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="nav-drop-chevron"><path d="M6 9l6 6 6-6"/></svg>
-                  </button>
-                  <div className={`nav-drop-panel ${svcDropOpen ? "is-open" : ""}`}>
-                    <a href="#servicios" className="nav-drop-item" onClick={(e) => go(e, "servicios")}>
-                      Ver todos los servicios
-                    </a>
-                    <div className="nav-drop-sep"/>
-                    <a href="/servicios/agentes-ia" className="nav-drop-item nav-drop-item--page">
-                      <span>Agentes IA</span>
-                      <span className="nav-drop-tag">Ver página</span>
-                    </a>
-                    <a href="/servicios/bots-whatsapp" className="nav-drop-item nav-drop-item--page">
-                      <span>Bots WhatsApp</span>
-                      <span className="nav-drop-tag">Ver página</span>
-                    </a>
-                    <a href="/servicios/sitios-web" className="nav-drop-item nav-drop-item--page">
-                      <span>Sitios web</span>
-                      <span className="nav-drop-tag">Ver página</span>
-                    </a>
-                    <a href="/servicios/desarrollo-software" className="nav-drop-item nav-drop-item--page">
-                      <span>Desarrollo de software</span>
-                      <span className="nav-drop-tag">Ver página</span>
-                    </a>
-                    <a href="/servicios/seo" className="nav-drop-item nav-drop-item--page">
-                      <span>SEO</span>
-                      <span className="nav-drop-tag">Ver página</span>
-                    </a>
-                  </div>
-                </div>
-              );
-              return (
-                <a key={it.id} href={`#${it.id}`}
-                   className={active === it.id ? "is-active" : ""}
-                   onClick={(e) => go(e, it.id)}>{it.label}</a>
-              );
-            })}
-          </nav>
-          <div className="header-cta">
-            <button className="btn btn-primary btn-sm" onClick={(e) => go(e, "contacto")}>
-              Agendar reunión
-              <span className="arrow"><Icon.arrow /></span>
-            </button>
-            <button className="menu-btn" aria-label="Menú" onClick={() => setMenuOpen(o => !o)}>
-              <Icon.menu />
-            </button>
-          </div>
+          {active === "hero" && (
+            <div className="header-cta">
+              <button className="btn btn-primary btn-sm" onClick={(e) => go(e, "contacto")}>
+                Acceso clientes
+                <span className="arrow"><Icon.arrow /></span>
+              </button>
+            </div>
+          )}
         </div>
       </header>
-
-      <div className={`mobile-menu ${menuOpen ? "is-open" : ""}`}>
-        {items.map(it => (
-          <React.Fragment key={it.id}>
-            <a href={`#${it.id}`} onClick={(e) => go(e, it.id)}>{it.label}</a>
-            {it.id === "servicios" && (
-              <React.Fragment>
-                <a href="/servicios/agentes-ia" className="mobile-menu-subitem">↳ Agentes IA</a>
-                <a href="/servicios/bots-whatsapp" className="mobile-menu-subitem">↳ Bots WhatsApp</a>
-                <a href="/servicios/sitios-web" className="mobile-menu-subitem">↳ Sitios web</a>
-                <a href="/servicios/desarrollo-software" className="mobile-menu-subitem">↳ Desarrollo de software</a>
-                <a href="/servicios/seo" className="mobile-menu-subitem">↳ SEO</a>
-              </React.Fragment>
-            )}
-          </React.Fragment>
-        ))}
-        <button className="btn btn-primary" style={{marginTop: 12}} onClick={(e) => go(e, "contacto")}>
-          Agendar reunión <span className="arrow"><Icon.arrow /></span>
-        </button>
-      </div>
     </React.Fragment>
   );
 }
@@ -230,81 +135,39 @@ function Hero({ onNav }) {
         <ellipse cx="220" cy="280" rx="180" ry="120" fill="url(#haloGold)"/>
         <ellipse cx="260" cy="780" rx="200" ry="130" fill="url(#haloCyan)" opacity="0.7"/>
 
-        {/* ── Node network (top-left dashboard area) ── */}
-        <g>
-          <line className="fx-link"           x1="100" y1="220" x2="170" y2="180"/>
-          <line className="fx-link fx-link-cy" x1="100" y1="220" x2="135" y2="280"/>
-          <line className="fx-link"           x1="170" y1="180" x2="215" y2="235"/>
-          <line className="fx-link fx-link-w"  x1="170" y1="180" x2="225" y2="135"/>
-          <line className="fx-link"           x1="215" y1="235" x2="180" y2="305"/>
-          <line className="fx-link fx-link-cy" x1="215" y1="235" x2="265" y2="280"/>
-          <line className="fx-link"           x1="135" y1="280" x2="180" y2="305"/>
-          <line className="fx-link fx-link-w"  x1="180" y1="305" x2="240" y2="325"/>
-          <line className="fx-link fx-link-cy" x1="265" y1="280" x2="240" y2="325"/>
-          <line className="fx-link"           x1="100" y1="220" x2="80"  y2="170"/>
-          <line className="fx-link fx-link-w"  x1="170" y1="180" x2="120" y2="140"/>
+        {/* Scanline */}
+        <rect className="fx-scan" x="0" y="440" width="720" height="55"/>
 
-          <circle className="fx-node fx-node-w"  cx="80"  cy="170" r="3"/>
-          <circle className="fx-node"            cx="120" cy="140" r="3.5" style={{animationDelay:'-0.4s'}}/>
-          <circle className="fx-node fx-node-cy" cx="100" cy="220" r="4"   style={{animationDelay:'-0.8s'}}/>
-          <circle className="fx-node fx-node-w"  cx="135" cy="280" r="3"   style={{animationDelay:'-1.2s'}}/>
-          <circle className="fx-node"            cx="170" cy="180" r="4"   style={{animationDelay:'-1.6s'}}/>
-          <circle className="fx-node fx-node-cy" cx="215" cy="235" r="3.5" style={{animationDelay:'-2.0s'}}/>
-          <circle className="fx-node"            cx="225" cy="135" r="3"   style={{animationDelay:'-2.4s'}}/>
-          <circle className="fx-node fx-node-w"  cx="180" cy="305" r="3.5" style={{animationDelay:'-0.6s'}}/>
-          <circle className="fx-node fx-node-cy" cx="265" cy="280" r="4"   style={{animationDelay:'-1.4s'}}/>
-          <circle className="fx-node"            cx="240" cy="325" r="3"   style={{animationDelay:'-2.2s'}}/>
-        </g>
+        {/* Network links */}
+        <line className="fx-link fx-link-cy" x1="330" y1="490" x2="410" y2="458"/>
+        <line className="fx-link"            x1="410" y1="458" x2="500" y2="474"/>
+        <line className="fx-link fx-link-cy" x1="500" y1="474" x2="572" y2="505"/>
+        <line className="fx-link fx-link-w"  x1="330" y1="490" x2="455" y2="530"/>
+        <line className="fx-link"            x1="455" y1="530" x2="500" y2="474"/>
+        <line className="fx-link fx-link-cy" x1="455" y1="530" x2="380" y2="552"/>
 
-        {/* ── Upper line chart ── */}
-        <path className="fx-chart fx-chart-gold" d="M210 360 Q 230 320 250 335 T 290 320 T 330 305 T 370 315 T 410 295"/>
-        <path className="fx-chart fx-chart-cyan" d="M210 340 Q 240 305 270 320 T 320 300 T 370 290 T 410 275"/>
-        <path className="fx-chart fx-chart-soft" d="M210 375 Q 240 355 270 360 T 320 348 T 370 342 T 410 332"/>
-        <circle className="fx-chart-dot"              cx="410" cy="295" r="3"/>
-        <circle className="fx-chart-dot fx-chart-dot-cy" cx="410" cy="275" r="2.5"/>
+        {/* Network nodes */}
+        <circle className="fx-node fx-node-cy" cx="330" cy="490" r="3.5"/>
+        <circle className="fx-node"            cx="410" cy="458" r="3"   style={{animationDelay:'-0.8s'}}/>
+        <circle className="fx-node fx-node-cy" cx="500" cy="474" r="4"   style={{animationDelay:'-1.6s'}}/>
+        <circle className="fx-node fx-node-w"  cx="572" cy="505" r="2.5" style={{animationDelay:'-0.4s'}}/>
+        <circle className="fx-node"            cx="455" cy="530" r="3"   style={{animationDelay:'-2s'}}/>
+        <circle className="fx-node fx-node-cy" cx="380" cy="552" r="2"   style={{animationDelay:'-1.2s'}}/>
 
-        {/* ── Lower line chart ── */}
-        <path className="fx-chart fx-chart-gold" d="M90 830 Q 130 780 170 800 T 230 760 T 290 740 T 350 720 T 410 705"/>
-        <path className="fx-chart fx-chart-cyan" d="M90 800 Q 130 760 170 770 T 230 740 T 290 715 T 350 720 T 410 690"/>
-        <path className="fx-chart fx-chart-soft" d="M90 860 Q 140 830 180 840 T 240 815 T 300 805 T 360 790 T 410 770"/>
-        <circle className="fx-chart-dot"              cx="410" cy="705" r="3"/>
-        <circle className="fx-chart-dot fx-chart-dot-cy" cx="410" cy="690" r="2.5"/>
+        {/* Line charts — cyan crece primero, luego gold y soft */}
+        <path className="fx-chart fx-chart-cyan"
+          d="M 60,720 L 140,692 L 210,706 L 280,678 L 350,688 L 420,658 L 490,670 L 565,642 L 640,652"
+        />
+        <path className="fx-chart fx-chart-gold"
+          d="M 60,755 L 140,733 L 210,744 L 280,720 L 350,728 L 420,704 L 490,714 L 565,692 L 640,700"
+        />
+        <path className="fx-chart fx-chart-soft"
+          d="M 80,786 L 175,769 L 265,776 L 350,758 L 435,764 L 520,748 L 610,754"
+        />
 
-        {/* Grid accents */}
-        <line x1="90"  y1="690" x2="90"  y2="880" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5"/>
-        <line x1="410" y1="690" x2="410" y2="880" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5"/>
-        <rect className="fx-scan" x="80" y="680" width="350" height="2"/>
-
-        {/* ── KPI glass cards ── */}
-        <foreignObject x="60" y="80" width="220" height="50">
-          <div xmlns="http://www.w3.org/1999/xhtml" className="kpi">
-            <span className="kpi-label">Procesos analizados</span>
-            <span className="kpi-value">
-              <span className="kpi-ku" data-target="2847">0</span>
-            </span>
-          </div>
-        </foreignObject>
-
-        <foreignObject x="60" y="400" width="220" height="60">
-          <div xmlns="http://www.w3.org/1999/xhtml" className="kpi kpi-2">
-            <span className="kpi-label">Ineficiencias detectadas</span>
-            <span className="kpi-value">
-              <span className="kpi-ku" data-target="34" data-prefix="US$ " data-suffix="K">0</span>
-            </span>
-            <span className="kpi-trend">▲ +12,4%</span>
-          </div>
-        </foreignObject>
-
-        <foreignObject x="60" y="950" width="240" height="62">
-          <div xmlns="http://www.w3.org/1999/xhtml" className="kpi kpi-3">
-            <span className="kpi-label">Eficiencia operativa</span>
-            <span className="kpi-value">
-              <span className="kpi-ku" data-target="87">0</span>
-              <span className="unit">%</span>
-            </span>
-            <span className="kpi-trend">▲ vs. trimestre anterior</span>
-          </div>
-        </foreignObject>
+        {/* Chart endpoint dots */}
+        <circle className="fx-chart-dot fx-chart-dot-cy" cx="640" cy="652" r="4"/>
+        <circle className="fx-chart-dot"                 cx="640" cy="700" r="3.5"/>
       </svg>
 
       {/* ── Particles ── */}
@@ -316,75 +179,236 @@ function Hero({ onNav }) {
 
       {/* ── Hero content ── */}
       <div className="hero-content">
-        <span className="hero-eyebrow">Gestión 360 IA · Consultoría de IA</span>
         <h1 className="hero-title">
-          Transformamos tu negocio<br/>con <span>Inteligencia Artificial</span>
+          <span className="hero-title-line">Transformamos tu negocio</span>
+          <span className="hero-title-line">con <span>Inteligencia Artificial</span></span>
         </h1>
-        <p className="hero-subtitle">
-          Consultoría, desarrollo y automatización con IA para empresas
-          que quieren crecer más rápido, vender más y operar mejor.
-        </p>
         <div className="hero-ctas">
-          <button className="btn btn-primary" onClick={() => onNav("contacto")}>
-            Agendar diagnóstico gratuito <span className="arrow"><Icon.arrow /></span>
-          </button>
           <button className="btn btn-ghost" onClick={() => onNav("servicios")}>
             Ver servicios <span className="arrow"><Icon.arrowDown /></span>
           </button>
         </div>
-        <div className="trust-bar">
-          <span className="trust-label">+24 empresas confían en nosotros</span>
-          <div className="trust-logos">
-            <span className="trust-logo">◆ Norte Capital</span>
-            <span className="trust-logo">⌬ Lumen</span>
-            <span className="trust-logo">▲ Studio Verde</span>
-            <span className="trust-logo">◉ Pampa Foods</span>
-            <span className="trust-logo">⬡ Astra</span>
-          </div>
-        </div>
       </div>
 
-      <div className="hero-cue" aria-hidden="true">
-        <span>Conocenos</span>
-        <span className="hero-cue-line"/>
-      </div>
     </section>
   );
 }
 
-/* ===================== SERVICES ===================== */
-function ServiceCard({ s, onOpen }) {
-  const IconComp = Icon[s.icon];
-  return (
-    <article className="svc-card reveal" onClick={() => onOpen(s)} tabIndex="0"
-             onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onOpen(s)}>
-      <span className="svc-icon" aria-hidden="true"><IconComp /></span>
-      <span className="tag">{s.tag}</span>
-      <h3>{s.name}</h3>
-      <p>{s.desc}</p>
-      <div className="svc-card-foot">
-        <span className="svc-more">
-          <span className="dot"></span>
-          Ver más
-          <Icon.arrow style={{marginLeft: 4}}/>
-        </span>
-        {s.page && (
-          <a href={s.page} className="svc-page-btn"
-             onClick={(e) => e.stopPropagation()}
-             aria-label={`Ver información completa de ${s.name}`}>
-            Ver información completa
-            <Icon.arrow/>
-          </a>
-        )}
-      </div>
-    </article>
+/* ===================== SERVICES BENTO METRO ===================== */
+
+/* Split a string into word <span class="w"> elements for stagger animation */
+function wrapWords(text) {
+  return text.split(/(\s+)/).map((part, i) =>
+    /^\s+$/.test(part) ? part : React.createElement('span', { key: i, className: 'w' }, part)
   );
 }
 
-function Services({ onOpen }) {
+function Services({ onContact }) {
+  const [expandedIdx, setExpandedIdx] = useStateH(null);
+  const bentoRef = useRefH(null);
+  const timerRef = useRefH(null);
+  const animRef  = useRefH({ idx: null, geo: null }); /* animation state — kept in ref, not state */
+
+  /* Cleanup any pending expand timer on unmount */
+  useEffectH(() => () => clearTimeout(timerRef.current), []);
+
+  /* ── Expand — mismo enfoque del reference HTML ── */
+  const doExpand = (tile, idx) => {
+    const bento = bentoRef.current;
+    if (!bento || !tile) return;
+
+    const b = bento.getBoundingClientRect();
+    const r = tile.getBoundingClientRect();
+    const geo = {
+      left: r.left - b.left, top: r.top - b.top,
+      w: r.width,             h: r.height,
+      bW: b.width,            bH: b.height,
+    };
+    animRef.current = { idx, geo };
+
+    /* Guardar y limpiar grid-column/grid-row inline para que el containing block
+       sea el bento completo y no la grid area del tile */
+    tile.dataset.gridCol = tile.style.gridColumn;
+    tile.dataset.gridRow = tile.style.gridRow;
+    tile.style.gridColumn = '';
+    tile.style.gridRow    = '';
+
+    /* Pin al tamaño/posición actual ANTES de agregar is-expanded */
+    tile.style.left   = geo.left + 'px';
+    tile.style.top    = geo.top  + 'px';
+    tile.style.width  = geo.w   + 'px';
+    tile.style.height = geo.h   + 'px';
+
+    /* Agregar clase → position:absolute toma efecto */
+    ReactDOM.flushSync(() => setExpandedIdx(idx));
+
+    /* rAF: animar al overlay expandido */
+    requestAnimationFrame(() => {
+      tile.style.left   = '0';
+      tile.style.top    = '0';
+      tile.style.width  = b.width  + 'px';
+      tile.style.height = b.height + 'px';
+
+      animRef.current.expanding = true;
+      const onExpandDone = (e) => {
+        if (e.propertyName !== 'width') return;
+        tile.removeEventListener('transitionend', onExpandDone);
+        if (animRef.current) animRef.current.expanding = false;
+      };
+      tile.addEventListener('transitionend', onExpandDone);
+    });
+
+    /* Word stagger */
+    tile.querySelectorAll('.svc-tile-title .w').forEach((w, i) => {
+      w.style.animationDelay = (0.10 + i * 0.05) + 's';
+    });
+    tile.querySelectorAll('.svc-tile-desc .w').forEach((w, i) => {
+      w.style.transitionDelay = (0.35 + i * 0.025) + 's';
+    });
+  };
+
+  /* ── Collapse: fade text → animate back → remove overlay ── */
+  const doCollapse = (tile, idx) => {
+    const { idx: aIdx, geo, expanding } = animRef.current;
+    if (!tile || !geo || aIdx !== idx) return;
+    if (expanding) return; /* ignore mouseleave while expand animation is running */
+
+    /* Reset word stagger and hide sharp lens */
+    tile.querySelectorAll('.svc-tile-title .w').forEach(w => { w.style.animationDelay = '0s'; });
+    tile.querySelectorAll('.svc-tile-desc .w').forEach(w => { w.style.transitionDelay = '0s'; });
+    const sharp = tile.querySelector('.svc-bg-sharp');
+    if (sharp) { sharp.style.setProperty('--mx', '-9999px'); sharp.style.setProperty('--my', '-9999px'); }
+    animRef.current = { idx: null, geo: null };
+
+    /* Animar de vuelta a posición original */
+    tile.style.left   = geo.left + 'px';
+    tile.style.top    = geo.top  + 'px';
+    tile.style.width  = geo.w    + 'px';
+    tile.style.height = geo.h    + 'px';
+
+    const done = (e) => {
+      if (e.propertyName !== 'width') return;
+      tile.removeEventListener('transitionend', done);
+      ReactDOM.flushSync(() => setExpandedIdx(null));
+      /* Restaurar grid-column/grid-row y limpiar estilos de animación */
+      tile.style.gridColumn = tile.dataset.gridCol || '';
+      tile.style.gridRow    = tile.dataset.gridRow || '';
+      tile.style.left   = '';
+      tile.style.top    = '';
+      tile.style.width  = '';
+      tile.style.height = '';
+    };
+    tile.addEventListener('transitionend', done);
+  };
+
+  /* Factory handlers: capture tile element via e.currentTarget */
+  const handleEnter = (idx) => (e) => {
+    clearTimeout(timerRef.current);
+    if (animRef.current.idx !== null) return;   /* something already expanded */
+    const tile = e.currentTarget;
+    timerRef.current = setTimeout(() => doExpand(tile, idx), 2000);
+  };
+
+  const handleLeave = (idx) => (e) => {
+    clearTimeout(timerRef.current);
+    doCollapse(e.currentTarget, idx);
+  };
+
+  /* Mouse-move handler: moves the sharp-lens mask position */
+  const handleMouseMove = (e) => {
+    if (!e.currentTarget.classList.contains('is-expanded')) return;
+    const sharp = e.currentTarget.querySelector('.svc-bg-sharp');
+    if (!sharp) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    sharp.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    sharp.style.setProperty('--my', (e.clientY - r.top)  + 'px');
+  };
+
+  /* Render a single bento tile */
+  const renderTile = (s, idx) => {
+    const IconComp   = Icon[s.icon];
+    const isFeature  = s.id === 'software';
+    const hasBg      = !!s.bgImage;
+    const isExpanded = expandedIdx === idx;
+
+    let cls = 'svc-tile';
+    if (isFeature)  cls += ' svc-tile--feature';
+    if (hasBg)      cls += ' has-bg';
+    if (isExpanded) cls += ' is-expanded';
+
+    const tileStyle = s.grid
+      ? { gridColumn: s.grid.col, gridRow: s.grid.row }
+      : {};
+
+    return (
+      <article
+        key={s.id}
+        className={cls}
+        style={tileStyle}
+        role="listitem"
+        aria-label={s.name}
+        onMouseEnter={handleEnter(idx)}
+        onMouseLeave={handleLeave(idx)}
+        onMouseMove={handleMouseMove}
+      >
+        {/* per-tile background image layers */}
+        {hasBg && (
+          <React.Fragment>
+            <div className="svc-bg-sharp" aria-hidden="true"
+              style={{ backgroundImage: `url('${s.bgImage}')`, '--mx': '-9999px', '--my': '-9999px' }} />
+            <div className="svc-bg" aria-hidden="true"
+              style={{ backgroundImage: `url('${s.bgImage}')` }} />
+          </React.Fragment>
+        )}
+
+        {/* decorative layers */}
+        <div className="svc-tile-glow"    aria-hidden="true" />
+        <div className="svc-tile-wash"    aria-hidden="true" />
+        <div className="svc-tile-loadbar" aria-hidden="true" />
+
+        {/* collapsed card content */}
+        <div className="svc-tile-ico" aria-hidden="true"><IconComp /></div>
+        <div className="svc-tile-kick">{s.tag}</div>
+        <h3 className="svc-tile-title">{wrapWords(s.name)}</h3>
+
+        {/* detail panel — visible only when expanded */}
+        <div className="svc-tile-desc">
+          {s.tagline && <p className="svc-tile-tagline">{wrapWords(s.tagline)}</p>}
+          <p>{wrapWords(s.desc)}</p>
+          {s.includes && s.includes.length > 0 && (
+            <ul className="svc-tile-includes">
+              {s.includes.map((it, i) => (
+                <li key={i}>
+                  <span className="check"><Icon.check /></span>
+                  {it}
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="svc-tile-actions">
+            <button
+              className="btn btn-primary"
+              onClick={(e) => { e.stopPropagation(); onContact && onContact(s.id); }}
+            >
+              Quiero este servicio <Icon.arrow />
+            </button>
+            {s.page && (
+              <a href={s.page} className="btn btn-ghost" onClick={(e) => e.stopPropagation()}>
+                Ver más <Icon.arrow />
+              </a>
+            )}
+          </div>
+        </div>
+
+        {/* hover hint (hidden once expanded) */}
+        <div className="svc-tile-cta" aria-hidden="true">Ver más →</div>
+      </article>
+    );
+  };
+
   return (
-    <section id="servicios" className="section">
-      <div className="container">
+    <section id="servicios" className="section svc-bento-section">
+      <div className="container container--svc-head">
         <div className="section-head">
           <div>
             <span className="eyebrow reveal">Servicios</span>
@@ -398,83 +422,74 @@ function Services({ onOpen }) {
             de servicios digitales. Cada solución se integra con la siguiente.
           </p>
         </div>
+      </div>
 
-        <div className="services-grid">
-          {SERVICES.map((s, i) => (
-            <div key={s.id} className="reveal" style={{"--delay": `${60 + i * 40}ms`}}>
-              <ServiceCard s={s} onOpen={onOpen} />
-            </div>
-          ))}
+      <div className="svc-bento-outer">
+        <div className="svc-bento" ref={bentoRef} role="list" aria-label="Servicios de Gestión 360 IA">
+          {SERVICES.map((s, i) => renderTile(s, i))}
         </div>
       </div>
     </section>
   );
 }
 
-/* ===================== SERVICE MODAL ===================== */
-function ServiceModal({ service, onClose, onContact }) {
-  useEffectH(() => {
-    const onKey = (e) => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onKey);
-    if (service) document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [service, onClose]);
+/* ===================== FLOAT NAV ===================== */
+function FloatNav({ active, onNav }) {
+  const [svcOpen, setSvcOpen] = useStateH(false);
+  const dropRef = useRefH(null);
 
-  const IconComp = service ? Icon[service.icon] : null;
+  useEffectH(() => {
+    const handler = (e) => {
+      if (dropRef.current && !dropRef.current.contains(e.target)) setSvcOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  const go = (e, id) => {
+    e.preventDefault();
+    setSvcOpen(false);
+    onNav(id);
+  };
 
   return (
-    <div className={`modal-overlay ${service ? "is-open" : ""}`} onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()} style={{position: "relative"}}>
-        <button className="modal-close" onClick={onClose} aria-label="Cerrar">
-          <Icon.close/>
+    <nav className="floatnav" aria-label="Navegación">
+      <div className="floatnav-drop-wrap" ref={dropRef}>
+        <button
+          className={`floatnav-drop-btn${active === "servicios" ? " is-active" : ""}${svcOpen ? " is-open" : ""}`}
+          onClick={() => setSvcOpen(o => !o)}
+        >
+          Servicios
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="floatnav-chevron"><path d="M6 9l6 6 6-6"/></svg>
         </button>
-        {service && (
-          <React.Fragment>
-            {service.page && (
-              <a href={service.page} className="modal-detail-link">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-                Ver información completa de este servicio
-                <Icon.arrow style={{marginLeft: "auto", flexShrink: 0}}/>
-              </a>
-            )}
-            <div style={{display: "flex", alignItems: "center", gap: 14, marginBottom: 18}}>
-              <span className="svc-icon" style={{margin: 0}}><IconComp /></span>
-              <span className="tag">{service.tag}</span>
-            </div>
-            <h3>{service.name}</h3>
-            <p style={{margin: "6px 0 0", color: "var(--ink-mute)", fontSize: 14, fontStyle: "italic"}}>
-              {service.tagline}
-            </p>
-            <p style={{marginTop: 20, color: "var(--ink-soft)", fontSize: 14.5, lineHeight: 1.6}}>
-              {service.desc}
-            </p>
-
-            <div style={{marginTop: 26}}>
-              <span className="tag" style={{display: "block", marginBottom: 12}}>Qué incluye</span>
-              <ul className="modal-list">
-                {service.includes.map((it, i) => (
-                  <li key={i}>
-                    <span className="check"><Icon.check/></span>
-                    {it}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div style={{display: "flex", gap: 10, marginTop: 26, flexWrap: "wrap"}}>
-              <button className="btn btn-primary" onClick={() => { onClose(); onContact(service.id); }}>
-                Quiero este servicio <Icon.arrow/>
-              </button>
-              <button className="btn btn-ghost" onClick={onClose}>Volver</button>
-            </div>
-          </React.Fragment>
-        )}
+        <div className={`floatnav-drop-panel${svcOpen ? " is-open" : ""}`}>
+          <a href="#servicios" className="floatnav-drop-item" onClick={(e) => go(e, "servicios")}>
+            Ver todos los servicios
+          </a>
+          <div className="floatnav-drop-sep"/>
+          <a href="/servicios/desarrollo-software" className="floatnav-drop-item floatnav-drop-item--page">
+            <span>Software & Apps</span><span className="nav-drop-tag">Ver página</span>
+          </a>
+          <a href="/servicios/sitios-web" className="floatnav-drop-item floatnav-drop-item--page">
+            <span>SEO + Sitios web</span><span className="nav-drop-tag">Ver página</span>
+          </a>
+          <a href="/servicios/agentes-ia" className="floatnav-drop-item floatnav-drop-item--page">
+            <span>IA conversacionales</span><span className="nav-drop-tag">Ver página</span>
+          </a>
+          <a href="/servicios/bots-whatsapp" className="floatnav-drop-item floatnav-drop-item--page">
+            <span>Bots WhatsApp</span><span className="nav-drop-tag">Ver página</span>
+          </a>
+        </div>
       </div>
-    </div>
+      {["proceso","casos","contacto"].map(id => (
+        <a key={id} href={`#${id}`}
+           className={`floatnav-link${active === id ? " is-active" : ""}`}
+           onClick={(e) => go(e, id)}>
+          {id.charAt(0).toUpperCase() + id.slice(1)}
+        </a>
+      ))}
+    </nav>
   );
 }
 
-Object.assign(window, { Header, Hero, Services, ServiceModal });
+Object.assign(window, { Header, Hero, Services, FloatNav });
