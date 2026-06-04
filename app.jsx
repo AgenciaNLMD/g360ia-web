@@ -1,5 +1,9 @@
-/* global React, ReactDOM, Header, Hero, Services, FloatNav, Process, Cases, Contact, Footer, TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakSlider, TweakColor, TweakToggle, SidebarNav, gsap */
-const { useState, useEffect, useRef, useCallback } = React;
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import gsap from 'gsap';
+import { Header, Hero, Services, FloatNav } from './sections-top.jsx';
+import { Process, Cases, Contact, Footer } from './sections-bottom.jsx';
+import { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakSlider, TweakColor, TweakToggle } from './tweaks-panel.jsx';
+import { SidebarNav } from './sidebar-nav.jsx';
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "primary": "#e6a532",
@@ -408,5 +412,4 @@ function App() {
   );
 }
 
-document.getElementById("seo-fallback")?.remove();
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+export default App;

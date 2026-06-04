@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ====================================================================
    GLASS — Dark glassmorphism theme for Gestión 360 IA
    Palette: deep navy #050b15 / #0a1628  ·  gold #e6a532 / #f0c46e  ·  cyan #7ec8e3

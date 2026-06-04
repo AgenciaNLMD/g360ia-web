@@ -1,5 +1,5 @@
-/* global React, ReactDOM, Icon, SERVICES */
-const { useState: useStateH, useEffect: useEffectH, useRef: useRefH } = React;
+import React, { useState as useStateH, useEffect as useEffectH, useRef as useRefH } from 'react';
+import { Icon, SERVICES } from './data.jsx';
 
 /* ===================== HEADER ===================== */
 function Header({ active, onNav }) {
@@ -492,4 +492,4 @@ function FloatNav({ active, onNav }) {
   );
 }
 
-Object.assign(window, { Header, Hero, Services, FloatNav });
+export { Header, Hero, Services, FloatNav };

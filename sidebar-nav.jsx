@@ -6,9 +6,8 @@
  * Uso en app.jsx: <SidebarNav onNavigate={(id) => onNav(id)} />
  */
 
-/* global React, Motion */
-const { useState, useEffect, useRef } = React;
-const { motion, AnimatePresence } = Motion;
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // ═══════════════════════════════════════════════════════════════
 // ICONOS SVG INLINE (estilo Lucide — viewBox 24x24, stroke)
@@ -365,5 +364,4 @@ function SidebarNav({ onNavigate = () => {} }) {
   );
 }
 
-// Exportar al scope global
-window.SidebarNav = SidebarNav;
+export { SidebarNav };

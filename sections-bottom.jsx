@@ -1,5 +1,5 @@
-/* global React, Icon, PROCESS, CASES, CLIENT_LOGOS, SERVICES */
-const { useState: useStateB, useEffect: useEffectB } = React;
+import React, { useState as useStateB, useEffect as useEffectB } from 'react';
+import { Icon, PROCESS, CASES, CLIENT_LOGOS, SERVICES } from './data.jsx';
 
 /* ===================== PROCESS ===================== */
 function Process() {
@@ -315,4 +315,4 @@ function Footer({ onNav }) {
   );
 }
 
-Object.assign(window, { Process, Cases, Contact, Footer });
+export { Process, Cases, Contact, Footer };
