@@ -1030,14 +1030,6 @@ img { display: block; max-width: 100%; }
   top: -45px; right: -45px; filter: blur(10px); opacity: .45; pointer-events: none;
 }
 
-/* ── Load bar: scaleX 0→1 over 1s on hover ── */
-.svc-tile-loadbar {
-  position: absolute; left: 0; bottom: 0; height: 3px; width: 100%;
-  background: var(--gold); transform: scaleX(0); transform-origin: left; pointer-events: none;
-}
-.svc-tile:hover .svc-tile-loadbar { transform: scaleX(1); transition: transform 2s linear; }
-.svc-tile.is-expanded .svc-tile-loadbar { display: none; }
-
 /* ── Gold wash on hover ── */
 .svc-tile-wash {
   position: absolute; inset: 0;
@@ -1046,7 +1038,7 @@ img { display: block; max-width: 100%; }
 }
 .svc-tile:hover .svc-tile-wash { opacity: 1; }
 
-/* ── "Ver más →" hint (rises on hover, hidden when expanded) ── */
+/* ── "Ver detalle →" hint (rises on hover, hidden when expanded) ── */
 .svc-tile-cta {
   position: absolute; left: 22px; bottom: 18px;
   font-size: 12.5px; font-weight: 600; color: var(--gold);
@@ -1055,6 +1047,19 @@ img { display: block; max-width: 100%; }
 }
 .svc-tile:hover .svc-tile-cta { opacity: 1; transform: translateY(0); transition-delay: .15s; }
 .svc-tile.is-expanded .svc-tile-cta { display: none; }
+
+/* ── Close button (only visible when expanded) ── */
+.svc-tile-close {
+  display: none;
+  position: absolute; top: 14px; right: 14px; z-index: 30;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.20);
+  color: var(--ink); font-size: 14px; line-height: 1;
+  cursor: pointer; align-items: center; justify-content: center;
+  transition: background .2s ease;
+}
+.svc-tile.is-expanded .svc-tile-close { display: flex; }
+.svc-tile-close:hover { background: rgba(255,255,255,.20); }
 
 /* ── Hover: gold border ── */
 .svc-tile:hover { border-color: rgba(230,165,50,.35); z-index: 5; }
@@ -1097,9 +1102,8 @@ img { display: block; max-width: 100%; }
 .svc-tile.has-bg .svc-tile-desc,
 .svc-tile.has-bg .svc-tile-cta,
 .svc-tile.has-bg .svc-tile-glow { position: relative; z-index: 3; }
-/* wash and loadbar stay position:absolute — only need z-index */
-.svc-tile.has-bg .svc-tile-wash,
-.svc-tile.has-bg .svc-tile-loadbar { z-index: 3; }
+/* wash stays position:absolute — only needs z-index */
+.svc-tile.has-bg .svc-tile-wash { z-index: 3; }
 /* Expanded: more blur, slightly lighter veil so lens contrast is visible */
 .svc-tile.has-bg.is-expanded .svc-bg {
   filter: blur(6px) saturate(1.1) brightness(.75);
@@ -2038,7 +2042,6 @@ img { display: block; max-width: 100%; }
   .spatial-cell .svc-tile-title   { font-size: 10.5px; }
   .spatial-cell .svc-tile--feature .svc-tile-title { font-size: 13px; }
   /* Disable load-bar animation in compact mode (too subtle at small size) */
-  .spatial-cell .svc-tile:hover .svc-tile-loadbar { transition: transform 2s linear; }
   /* Hide "Ver más →" hint in compact mode */
   .spatial-cell .svc-tile-cta    { display: none; }
 

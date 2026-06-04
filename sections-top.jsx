@@ -1,4 +1,5 @@
 import React, { useState as useStateH, useEffect as useEffectH, useRef as useRefH } from 'react';
+import { flushSync } from 'react-dom';
 import { Icon, SERVICES } from './data.jsx';
 
 /* ===================== HEADER ===================== */
@@ -206,11 +207,7 @@ function wrapWords(text) {
 function Services({ onContact }) {
   const [expandedIdx, setExpandedIdx] = useStateH(null);
   const bentoRef = useRefH(null);
-  const timerRef = useRefH(null);
   const animRef  = useRefH({ idx: null, geo: null }); /* animation state — kept in ref, not state */
-
-  /* Cleanup any pending expand timer on unmount */
-  useEffectH(() => () => clearTimeout(timerRef.current), []);
 
   /* ── Expand — mismo enfoque del reference HTML ── */
   const doExpand = (tile, idx) => {
@@ -240,7 +237,7 @@ function Services({ onContact }) {
     tile.style.height = geo.h   + 'px';
 
     /* Agregar clase → position:absolute toma efecto */
-    ReactDOM.flushSync(() => setExpandedIdx(idx));
+    flushSync(() => setExpandedIdx(idx));
 
     /* rAF: animar al overlay expandido */
     requestAnimationFrame(() => {
@@ -289,7 +286,7 @@ function Services({ onContact }) {
     const done = (e) => {
       if (e.propertyName !== 'width') return;
       tile.removeEventListener('transitionend', done);
-      ReactDOM.flushSync(() => setExpandedIdx(null));
+      flushSync(() => setExpandedIdx(null));
       /* Restaurar grid-column/grid-row y limpiar estilos de animación */
       tile.style.gridColumn = tile.dataset.gridCol || '';
       tile.style.gridRow    = tile.dataset.gridRow || '';
@@ -301,17 +298,15 @@ function Services({ onContact }) {
     tile.addEventListener('transitionend', done);
   };
 
-  /* Factory handlers: capture tile element via e.currentTarget */
-  const handleEnter = (idx) => (e) => {
-    clearTimeout(timerRef.current);
-    if (animRef.current.idx !== null) return;   /* something already expanded */
+  /* Click handler: expand on click, collapse on second click or close button */
+  const handleClick = (idx) => (e) => {
     const tile = e.currentTarget;
-    timerRef.current = setTimeout(() => doExpand(tile, idx), 2000);
-  };
-
-  const handleLeave = (idx) => (e) => {
-    clearTimeout(timerRef.current);
-    doCollapse(e.currentTarget, idx);
+    if (tile.classList.contains('is-expanded')) {
+      doCollapse(tile, idx);
+    } else {
+      if (animRef.current.idx !== null) return;
+      doExpand(tile, idx);
+    }
   };
 
   /* Mouse-move handler: moves the sharp-lens mask position */
@@ -336,7 +331,7 @@ function Services({ onContact }) {
     if (hasBg)      cls += ' has-bg';
     if (isExpanded) cls += ' is-expanded';
 
-    const tileStyle = s.grid
+    const tileStyle = (s.grid && !isExpanded)
       ? { gridColumn: s.grid.col, gridRow: s.grid.row }
       : {};
 
@@ -347,8 +342,7 @@ function Services({ onContact }) {
         style={tileStyle}
         role="listitem"
         aria-label={s.name}
-        onMouseEnter={handleEnter(idx)}
-        onMouseLeave={handleLeave(idx)}
+        onClick={handleClick(idx)}
         onMouseMove={handleMouseMove}
       >
         {/* per-tile background image layers */}
@@ -362,9 +356,8 @@ function Services({ onContact }) {
         )}
 
         {/* decorative layers */}
-        <div className="svc-tile-glow"    aria-hidden="true" />
-        <div className="svc-tile-wash"    aria-hidden="true" />
-        <div className="svc-tile-loadbar" aria-hidden="true" />
+        <div className="svc-tile-glow" aria-hidden="true" />
+        <div className="svc-tile-wash" aria-hidden="true" />
 
         {/* collapsed card content */}
         <div className="svc-tile-ico" aria-hidden="true"><IconComp /></div>
@@ -400,8 +393,15 @@ function Services({ onContact }) {
           </div>
         </div>
 
-        {/* hover hint (hidden once expanded) */}
-        <div className="svc-tile-cta" aria-hidden="true">Ver más →</div>
+        {/* click hint (hidden once expanded) */}
+        <div className="svc-tile-cta" aria-hidden="true">Ver detalle →</div>
+
+        {/* close button — only visible when expanded */}
+        <button
+          className="svc-tile-close"
+          aria-label="Cerrar"
+          onClick={(e) => { e.stopPropagation(); doCollapse(e.currentTarget.closest('.svc-tile'), idx); }}
+        >✕</button>
       </article>
     );
   };
