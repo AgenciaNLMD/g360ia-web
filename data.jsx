@@ -1,5 +1,4 @@
-/* global React */
-const { useState, useEffect, useRef, useCallback, useMemo } = React;
+import React from 'react';
 
 /* ===================== ICONS ===================== */
 const Icon = {
@@ -290,4 +289,4 @@ const CASES = [
 
 const CLIENT_LOGOS = ["Norte Capital", "Salud+ Clínica", "Studio Verde", "Lumen Retail", "Astra Ventures", "Pampa Foods"];
 
-Object.assign(window, { Icon, SERVICES, PROCESS, CASES, CLIENT_LOGOS });
+export { Icon, SERVICES, PROCESS, CASES, CLIENT_LOGOS };
