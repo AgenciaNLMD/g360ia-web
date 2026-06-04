@@ -1097,6 +1097,7 @@ img { display: block; max-width: 100%; }
 }
 /* Content above the image layers */
 .svc-tile.has-bg .svc-tile-ico,
+.svc-tile.has-bg .svc-tile-text,
 .svc-tile.has-bg .svc-tile-kick,
 .svc-tile.has-bg .svc-tile-title,
 .svc-tile.has-bg .svc-tile-desc,
@@ -1152,23 +1153,83 @@ img { display: block; max-width: 100%; }
   100% { opacity: 1; transform: translateY(0);    filter: blur(0);   }
 }
 
-/* ── Mobile ── */
-@media (max-width: 768px) {
+/* ── Mobile & Tablet (≤1024px): horizontal cards stacked, expand in-flow ── */
+@media (max-width: 1024px) {
   .svc-bento-section { min-height: auto; padding-top: 50px; }
-  .svc-bento-outer   { padding: 0 20px 28px; }
+  .svc-bento-outer   { padding: 0 16px 28px; }
   .svc-bento {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     grid-template-rows: auto;
     min-height: auto; flex: none;
+    gap: 10px;
   }
-  .svc-tile--feature { grid-column: span 2; grid-row: span 1; }
-  /* On mobile, expanded tile becomes a full-screen fixed overlay */
+  /* Reset all span overrides */
+  .svc-tile--feature,
+  .svc-tile--tall { grid-column: span 1; grid-row: span 1; }
+
+  /* Horizontal pill layout */
+  .svc-tile {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 14px;
+    min-height: 76px;
+    padding: 14px 16px;
+    transition: border-color .3s ease, box-shadow .3s ease;
+  }
+
+  /* Icon stays on the left, no bottom margin */
+  .svc-tile .svc-tile-ico { margin-bottom: 0; flex-shrink: 0; }
+
+  /* Text group: kick + title in a column, takes remaining width */
+  .svc-tile .svc-tile-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .svc-tile .svc-tile-kick { margin: 0 0 3px; }
+  .svc-tile .svc-tile-title { font-size: 14px; }
+  .svc-tile--feature .svc-tile-title { font-size: 15px; }
+
+  /* Detail panel: wraps to full width below icon+text row */
+  .svc-tile .svc-tile-desc {
+    flex-basis: 100%;
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    opacity: 0;
+    transition: max-height .45s cubic-bezier(.2,.85,.25,1), opacity .3s ease, margin-top .3s ease;
+  }
+  .svc-tile.is-expanded .svc-tile-desc {
+    max-height: 700px;
+    opacity: 1;
+    margin-top: 14px;
+    pointer-events: auto;
+  }
+
+  /* Expanded tile stays in flow — override desktop absolute */
   .svc-tile.is-expanded {
-    position: fixed !important;
-    left: 16px !important; top: 16px !important;
-    width: calc(100vw - 32px) !important;
-    height: calc(100vh - 32px) !important;
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: auto !important;
+    height: auto !important;
+    z-index: 2;
+    align-items: flex-start;
+    box-shadow: 0 12px 40px -10px rgba(0,0,0,.6), 0 0 0 1px rgba(230,165,50,.35);
   }
+
+  /* Word animations: skip delay on mobile for snappier feel */
+  .svc-tile.is-expanded .svc-tile-desc .w {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+    transition: none;
+  }
+
+  /* Hide hover hint on mobile */
+  .svc-tile-cta { display: none; }
 }
 
 /* (carousel removed — see SERVICES BENTO METRO above) */
