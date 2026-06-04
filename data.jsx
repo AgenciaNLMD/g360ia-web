@@ -138,7 +138,7 @@ const SERVICES = [
   {
     id: "software",
     icon: "code",
-    bgImage: "assets/software-bg.jpg.png",
+    bgImage: "assets/software-bg.jpg.webp",
     grid: { col: "1/3", row: "1/3" },
     name: "Software, apps móviles y dashboards",
     tag: "Producto",
@@ -157,7 +157,7 @@ const SERVICES = [
   {
     id: "seo-web",
     icon: "web",
-    bgImage: "assets/web-bg.png",
+    bgImage: "assets/web-bg.webp",
     grid: { col: "3/5", row: "1/2" },
     name: "SEO + Sitios web",
     tag: "Posicionamiento & Desarrollo",
@@ -175,7 +175,7 @@ const SERVICES = [
   {
     id: "social",
     icon: "social",
-    bgImage: "assets/rrss-bg.png",
+    bgImage: "assets/rrss-bg.webp",
     grid: { col: "3/4", row: "2/3" },
     page: "/servicios/social-media",
     name: "Social Media",
@@ -193,7 +193,7 @@ const SERVICES = [
   {
     id: "ads",
     icon: "ads",
-    bgImage: "assets/ads-bg.png",
+    bgImage: "assets/ads-bg.webp",
     grid: { col: "4/5", row: "2/4" },
     page: "/servicios/ads",
     name: "ADS",
@@ -211,7 +211,7 @@ const SERVICES = [
   {
     id: "asistentes",
     icon: "flow",
-    bgImage: "assets/agentes-bg.png",
+    bgImage: "assets/agentes-bg.webp",
     grid: { col: "1/2", row: "3/4" },
     name: "IA conversacionales",
     tag: "IA Operativa",
@@ -229,7 +229,7 @@ const SERVICES = [
   {
     id: "chatbots",
     icon: "bot",
-    bgImage: "assets/bots-bg.png",
+    bgImage: "assets/bots-bg.webp",
     grid: { col: "2/3", row: "3/4" },
     name: "Bots de WhatsApp",
     tag: "Automatización",
@@ -247,7 +247,7 @@ const SERVICES = [
   {
     id: "branding",
     icon: "palette",
-    bgImage: "assets/brand-bg.png",
+    bgImage: "assets/brand-bg.webp",
     grid: { col: "3/4", row: "3/4" },
     page: "/servicios/branding-uiux",
     name: "Branding & UI/UX",
