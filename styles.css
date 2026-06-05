@@ -961,27 +961,27 @@ img { display: block; max-width: 100%; }
 
 /* Icon container */
 .svc-tile-ico {
-  width: 48px; height: 48px; border-radius: 12px;
+  width: 58px; height: 58px; border-radius: 14px;
   background: rgba(230,165,50,.10); border: 1px solid var(--glass-border);
   display: flex; align-items: center; justify-content: center;
   color: var(--gold); flex-shrink: 0; margin-bottom: auto;
 }
-.svc-tile-ico svg { width: 24px; height: 24px; }
+.svc-tile-ico svg { width: 30px; height: 30px; }
 
 /* Kicker / category label */
 .svc-tile-kick {
-  font-size: 11px; letter-spacing: 1.5px;
+  font-size: 12px; letter-spacing: 1.5px;
   color: var(--gold); text-transform: uppercase;
-  margin: 12px 0 4px;
+  margin: 14px 0 5px;
 }
 
 /* Tile title */
 .svc-tile-title {
-  font-size: 18px; font-weight: 700; line-height: 1.25; color: var(--ink);
+  font-size: 21px; font-weight: 700; line-height: 1.25; color: var(--ink);
   transition: font-size .55s cubic-bezier(.4,0,.1,1);
 }
-.svc-tile--feature .svc-tile-title { font-size: 26px; line-height: 1.15; }
-.svc-tile.is-expanded .svc-tile-title { font-size: 26px; }
+.svc-tile--feature .svc-tile-title { font-size: 30px; line-height: 1.15; }
+.svc-tile.is-expanded .svc-tile-title { font-size: 30px; }
 
 /* ── Detail panel (hidden when collapsed; words stagger in when expanded) ── */
 .svc-tile-desc {
