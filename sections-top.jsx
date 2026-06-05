@@ -491,7 +491,7 @@ function FloatNav({ active, onNav }) {
           </a>
         </div>
       </div>
-      {["proceso","casos","contacto"].map(id => (
+      {[].map(id => (
         <a key={id} href={`#${id}`}
            className={`floatnav-link${active === id ? " is-active" : ""}`}
            onClick={(e) => go(e, id)}>
@@ -502,4 +502,55 @@ function FloatNav({ active, onNav }) {
   );
 }
 
-export { Header, Hero, Services, FloatNav };
+/* ===================== VALOR PROP ===================== */
+function ValorProp({ onNav }) {
+  return (
+    <section id="valor" className="section valor-section" aria-label="Propuesta de Valor">
+      <img className="valor-bg" src="hero-bg.png" alt="" aria-hidden="true" />
+      <div className="valor-tint" aria-hidden="true" />
+      <div className="container valor-inner">
+
+        {/* Left column */}
+        <div className="valor-left">
+          <span className="valor-eyebrow reveal" style={{"--delay":"0ms"}}>Strategic Automation // Latam Division</span>
+          <h2 className="valor-heading">
+            <span className="valor-line valor-line--l reveal">Transformamos tu negocio</span>
+            <span className="valor-line valor-line--r reveal" style={{"--delay":"200ms"}}>con <em>Inteligencia Artificial</em></span>
+          </h2>
+          <p className="valor-desc reveal" style={{"--delay":"400ms"}}>
+            Impulsamos la eficiencia operativa de tu empresa mediante agentes
+            conversacionales, automatización de procesos estratégicos y
+            desarrollo de productos digitales a medida.
+          </p>
+        </div>
+
+        {/* Right column — terminal widget */}
+        <div className="reveal" style={{"--delay":"220ms"}}>
+          <div className="valor-terminal">
+            <div className="vt-header">
+              <span className="vt-dot" />
+              <span className="vt-title">OPERATIONAL_EFFICIENCY_DASHBOARD</span>
+            </div>
+            <div className="vt-body">
+              <div className="vt-line">
+                <span className="vt-prompt">&gt;</span>
+                AI_AGENT_STATUS: <span className="vt-green">ACTIVE</span>
+              </div>
+              <div className="vt-line">
+                <span className="vt-prompt">&gt;</span>
+                OPTIMIZING_PROCESSES<span className="vt-blink-dots">...</span>
+              </div>
+              <div className="vt-line">
+                <span className="vt-prompt">&gt;</span>
+                COST_REDUCTION: <span className="vt-gold">+34%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+export { Header, Hero, Services, FloatNav, ValorProp };
