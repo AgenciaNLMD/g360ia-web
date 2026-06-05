@@ -330,7 +330,7 @@ function Contact({ presetService, onClearPreset }) {
 
 /* ===================== FOOTER ===================== */
 function Footer({ onNav }) {
-  const year = new Date().getFullYear();
+  const year = 2025;
   const go = (e, id) => { e.preventDefault(); onNav(id); };
   return (
     <footer className="footer">
@@ -380,7 +380,7 @@ function Footer({ onNav }) {
         </div>
         <div className="footer-bottom">
           <span>© {year} Gestion360ia · Todos los derechos reservados</span>
-          <span><a href="#" style={{marginRight: 16}}>Aviso legal</a><a href="#">Política de privacidad</a></span>
+          <span><a href="/legal/aviso-legal" style={{marginRight: 16}}>Aviso legal</a><a href="/legal/privacidad">Política de privacidad</a></span>
         </div>
       </div>
     </footer>
