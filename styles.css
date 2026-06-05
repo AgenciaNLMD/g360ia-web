@@ -1105,33 +1105,19 @@ img { display: block; max-width: 100%; }
 .svc-tile.has-bg .svc-tile-glow { position: relative; z-index: 3; }
 /* wash stays position:absolute — only needs z-index */
 .svc-tile.has-bg .svc-tile-wash { z-index: 3; }
-/* Expanded: more blur, slightly lighter veil so lens contrast is visible */
+/* Expanded: imagen casi visible, blur mínimo */
 .svc-tile.has-bg.is-expanded .svc-bg {
-  filter: blur(6px) saturate(1.1) brightness(.75);
-  transform: scale(1.05);
+  filter: blur(1px) saturate(1.15) brightness(.85);
+  transform: scale(1.02);
 }
 .svc-tile.has-bg.is-expanded::before {
-  background: linear-gradient(160deg, rgba(7,11,20,.35), rgba(7,11,20,.6));
+  background: linear-gradient(160deg, rgba(7,11,20,.20), rgba(7,11,20,.40));
 }
 .svc-tile.has-bg.is-expanded {
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-
-/* Sharp lens layer — clipped circle follows the mouse */
-.svc-tile .svc-bg-sharp {
-  position: absolute; inset: 0; z-index: 2;
-  background-size: cover; background-position: center;
-  transform: scale(1.02);
-  opacity: 0; pointer-events: none;
-  --mx: -9999px; --my: -9999px;
-  -webkit-mask-image: radial-gradient(circle 100px at var(--mx) var(--my),
-    #000 0, #000 69px, transparent 100px);
-  mask-image: radial-gradient(circle 100px at var(--mx) var(--my),
-    #000 0, #000 69px, transparent 100px);
-}
-.svc-tile.is-expanded.has-bg .svc-bg-sharp { opacity: 1; }
 
 /* ── Word stagger animation ── */
 /* Title words: always visible, re-animate on each expand */

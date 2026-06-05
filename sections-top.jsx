@@ -273,8 +273,6 @@ function Services({ onContact }) {
     /* Reset word stagger and hide sharp lens */
     tile.querySelectorAll('.svc-tile-title .w').forEach(w => { w.style.animationDelay = '0s'; });
     tile.querySelectorAll('.svc-tile-desc .w').forEach(w => { w.style.transitionDelay = '0s'; });
-    const sharp = tile.querySelector('.svc-bg-sharp');
-    if (sharp) { sharp.style.setProperty('--mx', '-9999px'); sharp.style.setProperty('--my', '-9999px'); }
     animRef.current = { idx: null, geo: null };
 
     /* Animar de vuelta a posición original */
@@ -313,15 +311,6 @@ function Services({ onContact }) {
     }
   };
 
-  /* Mouse-move handler: moves the sharp-lens mask position */
-  const handleMouseMove = (e) => {
-    if (!e.currentTarget.classList.contains('is-expanded')) return;
-    const sharp = e.currentTarget.querySelector('.svc-bg-sharp');
-    if (!sharp) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    sharp.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-    sharp.style.setProperty('--my', (e.clientY - r.top)  + 'px');
-  };
 
   /* Render a single bento tile */
   const renderTile = (s, idx) => {
@@ -347,16 +336,11 @@ function Services({ onContact }) {
         role="listitem"
         aria-label={s.name}
         onClick={handleClick(idx)}
-        onMouseMove={handleMouseMove}
       >
         {/* per-tile background image layers */}
         {hasBg && (
-          <React.Fragment>
-            <div className="svc-bg-sharp" aria-hidden="true"
-              style={{ backgroundImage: `url('${s.bgImage}')`, '--mx': '-9999px', '--my': '-9999px' }} />
-            <div className="svc-bg" aria-hidden="true"
-              style={{ backgroundImage: `url('${s.bgImage}')` }} />
-          </React.Fragment>
+          <div className="svc-bg" aria-hidden="true"
+            style={{ backgroundImage: `url('${s.bgImage}')` }} />
         )}
 
         {/* decorative layers */}
