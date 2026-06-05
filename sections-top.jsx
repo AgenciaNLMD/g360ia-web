@@ -377,7 +377,7 @@ function Services({ onContact }) {
             </button>
             {s.page && (
               <a href={s.page} className="btn btn-ghost" onClick={(e) => e.stopPropagation()}>
-                Ver más <Icon.arrow />
+                Saber más <Icon.arrow />
               </a>
             )}
           </div>
