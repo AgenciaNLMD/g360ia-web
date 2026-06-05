@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
-import { Header, Hero, Services, FloatNav } from './sections-top.jsx';
-import { Process, Cases, Contact, Footer } from './sections-bottom.jsx';
+import { Header, Hero, Services, FloatNav, ValorProp } from './sections-top.jsx';
+import { Footer } from './sections-bottom.jsx';
 import { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakSlider, TweakColor, TweakToggle } from './tweaks-panel.jsx';
 import { SidebarNav } from './sidebar-nav.jsx';
 
@@ -45,7 +45,7 @@ function App() {
   /* ── Scrollspy (mobile only — desktop uses GSAP onUpdate) ── */
   useEffect(() => {
     if (isDesktop) return;
-    const ids = ["hero", "servicios", "proceso", "casos", "contacto"];
+    const ids = ["hero", "servicios", "contacto"];
     const obs = new IntersectionObserver((entries) => {
       const visible = entries
         .filter(e => e.isIntersecting)
@@ -111,19 +111,17 @@ function App() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const SECTION_IDS = ["hero", "servicios", "proceso", "casos", "contacto"];
-    const TOTAL = SECTION_IDS.length; // 5
+    const SECTION_IDS = ["hero", "servicios", "contacto"];
+    const TOTAL = SECTION_IDS.length; // 3
 
     // Compute camera position for section idx using live viewport size
     const pos = (idx) => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       return [
-        [0,        0    ],  // Hero       col 0, row 0
-        [-vw,      0    ],  // Servicios  col 1, row 0
-        [-vw,      -vh  ],  // Proceso    col 1, row 1
-        [0,        -vh  ],  // Casos      col 0, row 1
-        [0,    -2 * vh  ],  // Contacto   col 0, row 2
+        [0,    0   ],  // Hero      col 0, row 0
+        [-vw,  0   ],  // Servicios col 1, row 0
+        [-vw,  -vh ],  // Contacto  col 1, row 1
       ][idx] || [0, 0];
     };
 
@@ -249,7 +247,7 @@ function App() {
   /* ── Nav helper — works in both modes ── */
   const onNav = useCallback((id) => {
     if (isDesktopRef.current) {
-      const map = { hero: 0, servicios: 1, proceso: 2, casos: 3, contacto: 4, proyectos: 3 };
+      const map = { hero: 0, servicios: 1, contacto: 2 };
       const idx = map[id];
       if (idx !== undefined && goToRef.current) goToRef.current(idx);
       return;
@@ -315,18 +313,8 @@ function App() {
             </div>
 
             {/* ── Row 1 ── */}
-            <div className="spatial-cell" style={{ left: "100vw", top: "100vh" }}>
-              <Process />
-            </div>
-            <div className="spatial-cell" style={{ left: 0, top: "100vh" }}>
-              <Cases />
-            </div>
             <div className="spatial-cell spatial-cell--final"
-                 style={{ left: 0, top: "200vh" }}>
-              <Contact
-                presetService={presetService}
-                onClearPreset={() => setPresetService(null)}
-              />
+                 style={{ left: "100vw", top: "100vh" }}>
               <Footer onNav={onNav} />
             </div>
 
@@ -340,12 +328,6 @@ function App() {
           <main>
             <Hero onNav={onNav} />
             <Services onContact={handleContact} />
-            <Process />
-            <Cases />
-            <Contact
-              presetService={presetService}
-              onClearPreset={() => setPresetService(null)}
-            />
           </main>
           <Footer onNav={onNav} />
         </React.Fragment>
