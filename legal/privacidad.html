@@ -171,6 +171,17 @@
     .footer-links a { font-size: 13px; color: var(--ink-soft); text-decoration: none; }
     .footer-links a:hover { color: var(--gold); }
     .footer-links a.active { color: var(--gold); }
+
+    /* footer grid responsive */
+    @media (max-width: 1024px) {
+      .footer-grid-inner { grid-template-columns: 1fr 1fr 1fr !important; }
+    }
+    @media (max-width: 720px) {
+      .footer-grid-inner { grid-template-columns: 1fr 1fr !important; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid-inner { grid-template-columns: 1fr !important; }
+    }
   </style>
 </head>
 <body>
@@ -324,14 +335,74 @@
     </div>
   </main>
 
-  <footer>
-    <div class="footer-inner">
-      <span class="footer-copy">© 2025 Gestión 360 IA · Todos los derechos reservados</span>
-      <nav class="footer-links">
-        <a href="/legal/aviso-legal">Aviso legal</a>
-        <a href="/legal/privacidad" class="active">Política de privacidad</a>
-        <a href="https://g360ia.com.ar">Inicio</a>
-      </nav>
+  <footer style="background:#050810;border-top:1px solid rgba(255,255,255,.07);padding:64px 0 32px;margin-top:auto;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
+
+      <div class="footer-grid-inner" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;">
+
+        <!-- Marca -->
+        <div>
+          <a href="https://g360ia.com.ar" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;margin-bottom:14px;">
+            <span style="font-size:15px;font-weight:700;color:#f0f2f7;letter-spacing:-.3px;">
+              Gestion<span style="color:#e6a532;">360</span><span style="color:#e6a532;">.iA</span>
+            </span>
+          </a>
+          <p style="font-size:13px;color:rgba(240,242,247,.45);line-height:1.55;max-width:260px;">
+            Consultora de IA. Ayudamos a empresas a crecer con automatización, datos y producto.
+          </p>
+        </div>
+
+        <!-- Navegación -->
+        <div>
+          <h5 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#e6a532;margin:0 0 16px;font-family:monospace;">Navegación</h5>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;">
+            <li><a href="https://g360ia.com.ar#servicios" style="font-size:13.5px;color:rgba(240,242,247,.45);text-decoration:none;">Servicios</a></li>
+          </ul>
+        </div>
+
+        <!-- Servicios -->
+        <div>
+          <h5 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#e6a532;margin:0 0 16px;font-family:monospace;">Servicios</h5>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;">
+            <li><a href="/servicios/desarrollo-software" style="font-size:13.5px;color:rgba(240,242,247,.45);text-decoration:none;">Software & Apps</a></li>
+            <li><a href="/servicios/sitios-web" style="font-size:13.5px;color:rgba(240,242,247,.45);text-decoration:none;">SEO + Sitios web</a></li>
+            <li><a href="/servicios/agentes-ia" style="font-size:13.5px;color:rgba(240,242,247,.45);text-decoration:none;">IA conversacionales</a></li>
+            <li><a href="/servicios/bots-whatsapp" style="font-size:13.5px;color:rgba(240,242,247,.45);text-decoration:none;">Bots WhatsApp</a></li>
+            <li><a href="https://g360ia.com.ar#servicios" style="font-size:13.5px;color:rgba(240,242,247,.45);text-decoration:none;">Social Media</a></li>
+          </ul>
+        </div>
+
+        <!-- Contacto -->
+        <div>
+          <h5 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#e6a532;margin:0 0 16px;font-family:monospace;">Contacto</h5>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;">
+            <li><a href="mailto:consultora@g360ia.com.ar" style="font-size:13.5px;color:rgba(240,242,247,.45);text-decoration:none;">consultora@g360ia.com.ar</a></li>
+            <li><a href="https://wa.me/5491125526561" style="font-size:13.5px;color:rgba(240,242,247,.45);text-decoration:none;">+54 9 11 2552-6561</a></li>
+            <li><span style="font-size:13.5px;color:rgba(240,242,247,.45);">Buenos Aires, AR</span></li>
+          </ul>
+        </div>
+
+        <!-- Seguinos -->
+        <div>
+          <h5 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#e6a532;margin:0 0 16px;font-family:monospace;">Seguinos</h5>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;">
+            <li><a href="https://instagram.com" target="_blank" rel="noopener" style="font-size:13.5px;color:rgba(240,242,247,.45);text-decoration:none;">Instagram</a></li>
+            <li><a href="https://linkedin.com" target="_blank" rel="noopener" style="font-size:13.5px;color:rgba(240,242,247,.45);text-decoration:none;">LinkedIn</a></li>
+            <li><a href="#" style="font-size:13.5px;color:rgba(240,242,247,.45);text-decoration:none;">X / Twitter</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Footer bottom -->
+      <div style="border-top:1px solid rgba(255,255,255,.07);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+        <span style="font-size:13px;color:rgba(240,242,247,.35);">© 2025 Gestion360ia · Todos los derechos reservados</span>
+        <span>
+          <a href="/legal/aviso-legal" style="font-size:13px;color:rgba(240,242,247,.35);text-decoration:none;margin-right:16px;">Aviso legal</a>
+          <a href="/legal/privacidad" style="font-size:13px;color:#e6a532;text-decoration:none;">Política de privacidad</a>
+        </span>
+      </div>
+
     </div>
   </footer>
 
