@@ -309,10 +309,10 @@ function Contact({ presetService, onClearPreset }) {
 
         {/* Social sidebar */}
         <nav className="cs-social" aria-label="Redes sociales">
-          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+          <a href="https://instagram.com/g360ia" target="_blank" rel="noopener" aria-label="Instagram">
             <Icon.ig/>
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/company/g360ia" target="_blank" rel="noopener" aria-label="LinkedIn">
             <Icon.li/>
           </a>
           <a href="mailto:consultora@g360ia.com.ar" aria-label="Email">
@@ -330,7 +330,7 @@ function Contact({ presetService, onClearPreset }) {
 
 /* ===================== FOOTER ===================== */
 function Footer({ onNav }) {
-  const year = 2025;
+  const year = new Date().getFullYear();
   const go = (e, id) => { e.preventDefault(); onNav(id); };
   return (
     <footer className="footer">
@@ -372,15 +372,15 @@ function Footer({ onNav }) {
           <div>
             <h5>Seguinos</h5>
             <ul>
-              <li><a href="#">Instagram</a></li>
-              <li><a href="#">LinkedIn</a></li>
+              <li><a href="https://instagram.com/g360ia" target="_blank" rel="noopener">Instagram</a></li>
+              <li><a href="https://www.linkedin.com/company/g360ia" target="_blank" rel="noopener">LinkedIn</a></li>
               <li><a href="#">X / Twitter</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <span>© {year} Gestion360ia · Todos los derechos reservados</span>
-          <span><a href="/legal/aviso-legal" style={{marginRight: 16}}>Aviso legal</a><a href="/legal/privacidad">Política de privacidad</a></span>
+          <span><a href="/legal/aviso-legal.html" style={{marginRight: 16}}>Aviso legal</a><a href="/legal/privacidad.html">Política de privacidad</a></span>
         </div>
       </div>
     </footer>
