@@ -3,7 +3,12 @@
     "allow": [
       "Bash(node -e ' *)",
       "Bash(npm init *)",
-      "Bash(npx vite *)"
+      "Bash(npx vite *)",
+      "Bash(npm run *)",
+      "Bash(git commit -m ' *)",
+      "Bash(hero\")",
+      "Bash(git add *)",
+      "Bash(dir)"
     ]
   }
 }
