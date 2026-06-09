@@ -2891,17 +2891,17 @@ a.maia-contact-item:hover .maia-contact-value {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: rgba(120,120,128,0.22);
-  backdrop-filter: blur(32px) saturate(1.1) brightness(1.12);
-  -webkit-backdrop-filter: blur(32px) saturate(1.1) brightness(1.12);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-top-color: rgba(255,255,255,0.18);
+  background: rgba(10,18,35,0.35);
+  backdrop-filter: blur(28px) saturate(1.1);
+  -webkit-backdrop-filter: blur(28px) saturate(1.1);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-top-color: rgba(255,255,255,0.13);
   border-radius: 20px;
   box-shadow:
-    0 0 0 1px rgba(0,0,0,0.38),
-    0 24px 70px rgba(0,0,0,0.55),
-    0 0 80px rgba(93,127,163,0.10),
-    inset 0 1px 0 rgba(255,255,255,0.11);
+    0 0 0 1px rgba(0,0,0,0.22),
+    0 24px 70px rgba(0,0,0,0.45),
+    0 0 80px rgba(93,127,163,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.08);
   overflow: hidden;
   transform: perspective(1400px) rotateY(0deg) rotateX(0deg);
   transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
