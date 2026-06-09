@@ -282,7 +282,7 @@ function Footer({ onNav }) {
         <div className="footer-grid">
           <div>
             <a href="#hero" className="logo" onClick={(e) => go(e, "hero")}>
-              <img src="logo.png" alt="Gestión 360 IA" className="logo-img" />
+              <img src="logo.webp" alt="Gestión 360 IA" className="logo-img" width="36" height="36" loading="lazy" />
               <span className="logo-name">
                 Gestion<span className="num">360</span><span className="ia">.iA</span>
               </span>

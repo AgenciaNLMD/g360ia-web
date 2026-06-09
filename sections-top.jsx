@@ -199,8 +199,21 @@ function wrapWords(text) {
 
 function Services({ onContact }) {
   const [expandedIdx, setExpandedIdx] = useStateH(null);
+  const [bgReady, setBgReady] = useStateH(false);
   const bentoRef = useRefH(null);
   const animRef  = useRefH({ idx: null, geo: null }); /* animation state — kept in ref, not state */
+
+  /* ── Lazy backgrounds: los webp de fondo (~1.3 MB en total) recién se piden
+     cuando el bento está a menos de una pantalla de distancia del viewport ── */
+  useEffectH(() => {
+    const bento = bentoRef.current;
+    if (!bento) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setBgReady(true); obs.disconnect(); }
+    }, { rootMargin: '100% 0px' });
+    obs.observe(bento);
+    return () => obs.disconnect();
+  }, []);
 
   /* ── Tile entrance animation ──
      Desktop: revela todas las tiles en cascada cuando el bento entra en vista.
@@ -400,7 +413,7 @@ function Services({ onContact }) {
         {/* per-tile background image layers */}
         {hasBg && (
           <div className="svc-bg" aria-hidden="true"
-            style={{ backgroundImage: `url('${s.bgImage}')` }} />
+            style={bgReady ? { backgroundImage: `url('${s.bgImage}')` } : undefined} />
         )}
 
         {/* decorative layers */}
@@ -570,7 +583,7 @@ function FloatNav({ active, onNav }) {
 function ValorProp({ onNav }) {
   return (
     <section id="valor" className="section valor-section" aria-label="Propuesta de Valor">
-      <img className="valor-bg" src="hero-bg.png" alt="" aria-hidden="true" />
+      <img className="valor-bg" src="hero-bg.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
       <div className="valor-tint" aria-hidden="true" />
       <div className="container valor-inner">
 
