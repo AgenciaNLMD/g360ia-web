@@ -434,6 +434,22 @@ function Services({ onContact }) {
           </div>
         </div>
 
+        {/* close button — visible only when expanded */}
+        <button
+          className="svc-tile-close"
+          aria-label="Cerrar"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (window.innerWidth <= 1024) {
+              document.body.style.overflow = '';
+              flushSync(() => setExpandedIdx(null));
+              e.currentTarget.closest('.svc-tile')?.classList.add('tile-visible');
+            } else {
+              doCollapse(e.currentTarget.closest('.svc-tile'), idx);
+            }
+          }}
+        >✕</button>
+
         {/* click hint (hidden once expanded) */}
         <div className="svc-tile-cta" aria-hidden="true">Ver detalle →</div>
 
