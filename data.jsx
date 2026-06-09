@@ -36,36 +36,36 @@ const Icon = {
     </svg>
   ),
   web: () => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="4" width="18" height="14" rx="2"/>
-      <path d="M3 9h18M7 6.5h.01M10 6.5h.01"/>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="M21 21l-5.2-5.2"/>
     </svg>
   ),
   social: () => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="6" cy="6" r="2.5"/>
-      <circle cx="18" cy="6" r="2.5"/>
-      <circle cx="12" cy="18" r="2.5"/>
-      <path d="M7.5 7.8l3 7.8M16.5 7.8l-3 7.8"/>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 12c-2-2.8-4-4.5-6-4.5a4.5 4.5 0 000 9C8 16.5 10 14.8 12 12z"/>
+      <path d="M12 12c2 2.8 4 4.5 6 4.5a4.5 4.5 0 000-9C16 7.5 14 9.2 12 12z"/>
     </svg>
   ),
   bot: () => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="4" y="6" width="16" height="12" rx="3"/>
-      <path d="M9 11v1M15 11v1M9 15h6M12 2v4"/>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+      <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4-.1-.5-.1-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.2 3.4 5.3 4.7.7.3 1.3.5 1.8.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5C8.3 21.5 10.1 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.4 1 1-3.3-.2-.3C3.5 14.4 3 13.2 3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9z"/>
     </svg>
   ),
   flow: () => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="5" cy="5" r="2"/>
-      <circle cx="19" cy="12" r="2"/>
-      <circle cx="5" cy="19" r="2"/>
-      <path d="M7 5h6a4 4 0 014 4v1M17 14v1a4 4 0 01-4 4H7"/>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="8" width="16" height="11" rx="2"/>
+      <circle cx="9.5" cy="13" r="1" fill="currentColor" stroke="none"/>
+      <circle cx="14.5" cy="13" r="1" fill="currentColor" stroke="none"/>
+      <path d="M9 17h6"/>
+      <path d="M12 4v4"/>
+      <path d="M2 14h2M20 14h2"/>
     </svg>
   ),
   code: () => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 6l-4 12"/>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="7" y="2" width="10" height="20" rx="2"/>
+      <circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/>
     </svg>
   ),
   seo: () => (
@@ -75,18 +75,29 @@ const Icon = {
     </svg>
   ),
   ads: () => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 11l14-6v14L3 13z"/>
-      <path d="M7 13v4M20 11h2"/>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/>
     </svg>
   ),
   palette: () => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2C6.5 2 2 6.5 2 12c0 5.5 4.5 10 10 10 1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.4-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.4c3.1 0 5.6-2.5 5.6-5.6C22 6.2 17.5 2 12 2z"/>
+      <circle cx="6.5" cy="11.5" r="1" fill="currentColor" stroke="none"/>
+      <circle cx="9.5" cy="7.5" r="1" fill="currentColor" stroke="none"/>
+      <circle cx="14.5" cy="7" r="1" fill="currentColor" stroke="none"/>
+      <circle cx="17.5" cy="11" r="1" fill="currentColor" stroke="none"/>
+    </svg>
+  ),
+  google: () => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="9"/>
-      <circle cx="8.5" cy="10" r="1.5" fill="currentColor"/>
-      <circle cx="15.5" cy="10" r="1.5" fill="currentColor"/>
-      <circle cx="8.5" cy="14.5" r="1.5" fill="currentColor"/>
-      <path d="M15.5 14.5c0 1.7-1.6 3-3.5 3s-3.5-1.3-3.5-3"/>
+      <path d="M17 12h-5v0a5 5 0 105-5"/>
+    </svg>
+  ),
+  meta: () => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
     </svg>
   ),
   mail: () => (
@@ -139,7 +150,7 @@ const SERVICES = [
     icon: "code",
     bgImage: "software-bg.jpg.webp",
     grid: { col: "1/3", row: "1/3" },
-    name: "Software, apps móviles y dashboards",
+    name: "Tu Aplicación o Software Propio",
     tag: "Producto",
     tagline: "Software a medida para resolver tu problema real",
     page: "/servicios/desarrollo-software.html",
@@ -155,11 +166,11 @@ const SERVICES = [
   },
   {
     id: "seo-web",
-    icon: "web",
+    icon: "google",
     bgImage: "web-bg.webp",
     grid: { col: "3/5", row: "1/2" },
-    name: "SEO + Sitios web",
-    tag: "Posicionamiento & Desarrollo",
+    name: "Tu Sitio Web Moderno, Para Móvil y Pc",
+    tag: "Posicionate en Google",
     tagline: "Aparecé primero en Google y convertí ese tráfico",
     page: "/servicios/sitios-web.html",
     desc: "Aparecé primero en Google y convertí ese tráfico con un sitio profesional, rápido y optimizado. Hosting, dominio y SEO técnico incluidos.",
@@ -173,13 +184,13 @@ const SERVICES = [
   },
   {
     id: "social",
-    icon: "social",
+    icon: "meta",
     bgImage: "rrss-bg.webp",
     grid: { col: "3/4", row: "2/3" },
     page: "/servicios/social-media.html",
-    name: "Social Media",
-    tag: "Presencia Digital",
-    tagline: "Presencia constante, contenido que conecta",
+    name: "Redes Sociales",
+    tag: "Social Media",
+    tagline: "Destaca en las Redes Sociales",
     desc: "Creamos y gestionamos tu presencia en Meta, Instagram, TikTok, YouTube y LinkedIn. Estrategia, contenido y crecimiento real.",
     includes: [
       "Estrategia de contenido por plataforma",
@@ -195,8 +206,8 @@ const SERVICES = [
     bgImage: "ads-bg.webp",
     grid: { col: "4/5", row: "2/4" },
     page: "/servicios/ads.html",
-    name: "ADS",
-    tag: "Performance",
+    name: "Anuncios en Google & Redes Sociales",
+    tag: "Campañas Publicitarias",
     tagline: "Inversión publicitaria con retorno medible",
     desc: "Campañas en Google, Meta, TikTok y LinkedIn. Optimizamos cada peso invertido para generar leads, ventas o reconocimiento.",
     includes: [
@@ -212,8 +223,8 @@ const SERVICES = [
     icon: "flow",
     bgImage: "agentes-bg.webp",
     grid: { col: "1/2", row: "3/4" },
-    name: "IA conversacionales",
-    tag: "IA Operativa",
+    name: "Agentes iA Atendiendo Tu Negocio",
+    tag: "Inteligencia Artificial",
     tagline: "No un bot con reglas: un agente que razona y actúa",
     page: "/servicios/agentes-ia.html",
     desc: "Agentes que razonan en cada interacción, consultan tu CRM o base de conocimiento y ejecutan acciones reales.",
@@ -249,9 +260,9 @@ const SERVICES = [
     bgImage: "brand-bg.webp",
     grid: { col: "3/4", row: "3/4" },
     page: "/servicios/branding-uiux.html",
-    name: "Branding & UI/UX",
-    tag: "Diseño",
-    tagline: "Identidad visual que genera confianza y conversión",
+    name: "Branding",
+    tag: "Branding",
+    tagline: "Desarrollamos la identidad de tu Marca, Producto o Servicio",
     desc: "Identidad visual e interfaces que generan confianza y conversión. Diseño con intención, no decoración.",
     includes: [
       "Diseño de identidad visual y branding",

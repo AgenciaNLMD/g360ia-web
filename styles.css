@@ -1017,25 +1017,25 @@ img { display: block; max-width: 100%; }
   display: flex; align-items: center; justify-content: center;
   color: var(--gold); flex-shrink: 0; margin-bottom: auto;
 }
-.svc-tile-ico svg { width: 34px; height: 34px; }
+.svc-tile-ico svg { width: 42px; height: 42px; }
 
 /* Kicker / category label */
 .svc-tile-kick {
-  font-size: 13px; letter-spacing: 1.5px;
+  font-size: 13px !important; letter-spacing: 1.5px;
   color: var(--gold); text-transform: uppercase;
   margin: 16px 0 6px;
 }
 
 /* Tile title — degradé blanco→dorado igual que hero */
 .svc-tile-title {
-  font-size: 24px; font-weight: 700; line-height: 1.2;
+  font-size: 19px !important; font-weight: 700; line-height: 1.2;
   background: linear-gradient(135deg, #fff 0%, var(--gold-soft) 52%, var(--gold) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   transition: font-size .55s cubic-bezier(.4,0,.1,1);
 }
-.svc-tile--feature .svc-tile-title { font-size: 34px; line-height: 1.12; }
+.svc-tile--feature .svc-tile-title { font-size: 26px !important; line-height: 1.12; }
 .svc-tile.is-expanded .svc-tile-title { font-size: 32px; }
 
 /* â”€â”€ Detail panel (hidden when collapsed; words stagger in when expanded) â”€â”€ */
@@ -1177,27 +1177,7 @@ img { display: block; max-width: 100%; }
 }
 
 /* ── Word stagger animation ── */
-/* Default: siempre visible — si tile-visible nunca llega, el texto igual se ve */
 .svc-tile .svc-tile-title .w { display: inline-block; }
-
-/* Animación de entrada via keyframes (no transitions) al obtener tile-visible */
-.svc-tile.tile-visible .svc-tile-title .w {
-  animation: svcTitleWordIn .5s cubic-bezier(.2,.85,.25,1) both;
-}
-.svc-tile.tile-visible .svc-tile-title .w:nth-child(1) { animation-delay: .00s; }
-.svc-tile.tile-visible .svc-tile-title .w:nth-child(2) { animation-delay: .07s; }
-.svc-tile.tile-visible .svc-tile-title .w:nth-child(3) { animation-delay: .14s; }
-.svc-tile.tile-visible .svc-tile-title .w:nth-child(4) { animation-delay: .21s; }
-.svc-tile.tile-visible .svc-tile-title .w:nth-child(5) { animation-delay: .28s; }
-.svc-tile.tile-visible .svc-tile-title .w:nth-child(6) { animation-delay: .35s; }
-.svc-tile.tile-visible .svc-tile-title .w:nth-child(7) { animation-delay: .42s; }
-.svc-tile.tile-visible .svc-tile-title .w:nth-child(8) { animation-delay: .49s; }
-@keyframes svcTitleWordIn {
-  from { opacity: 0; transform: translateY(10px); filter: blur(4px); }
-  to   { opacity: 1; transform: translateY(0);    filter: blur(0);   }
-}
-
-/* Al expandir: re-anima con svcWordIn */
 .svc-tile.is-expanded .svc-tile-title .w {
   animation: svcWordIn .6s cubic-bezier(.2,.85,.25,1) both;
 }
