@@ -1028,14 +1028,14 @@ img { display: block; max-width: 100%; }
 
 /* Tile title — degradé blanco→dorado igual que hero */
 .svc-tile-title {
-  font-size: 19px !important; font-weight: 700; line-height: 1.2;
+  font-size: 17px !important; font-weight: 700; line-height: 1.2;
   background: linear-gradient(135deg, #fff 0%, var(--gold-soft) 52%, var(--gold) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   transition: font-size .55s cubic-bezier(.4,0,.1,1);
 }
-.svc-tile--feature .svc-tile-title { font-size: 26px !important; line-height: 1.12; }
+.svc-tile--feature .svc-tile-title { font-size: 24px !important; line-height: 1.12; }
 .svc-tile.is-expanded .svc-tile-title { font-size: 32px; }
 
 /* â”€â”€ Detail panel (hidden when collapsed; words stagger in when expanded) â”€â”€ */
