@@ -1103,7 +1103,7 @@ img { display: block; max-width: 100%; }
   cursor: pointer; align-items: center; justify-content: center;
   transition: background .2s ease;
 }
-.svc-tile.is-expanded .svc-tile-close { display: none; }
+.svc-tile.is-expanded .svc-tile-close { display: flex; }
 .svc-tile-close:hover { background: rgba(255,255,255,.20); }
 
 /* â”€â”€ Hover: gold border â”€â”€ */
