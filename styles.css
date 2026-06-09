@@ -1026,9 +1026,13 @@ img { display: block; max-width: 100%; }
   margin: 16px 0 6px;
 }
 
-/* Tile title */
+/* Tile title — degradé blanco→dorado igual que hero */
 .svc-tile-title {
-  font-size: 24px; font-weight: 700; line-height: 1.2; color: var(--ink);
+  font-size: 24px; font-weight: 700; line-height: 1.2;
+  background: linear-gradient(135deg, #fff 0%, var(--gold-soft) 52%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   transition: font-size .55s cubic-bezier(.4,0,.1,1);
 }
 .svc-tile--feature .svc-tile-title { font-size: 34px; line-height: 1.12; }
@@ -1173,10 +1177,32 @@ img { display: block; max-width: 100%; }
 }
 
 /* â”€â”€ Word stagger animation â”€â”€ */
-/* Title words: always visible, re-animate on each expand */
-.svc-tile .svc-tile-title .w { display: inline-block; }
+/* Title words: entran al aparecer el tile (tile-visible), re-animan al expandir */
+.svc-tile .svc-tile-title .w {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  filter: blur(4px);
+  transition: opacity .45s ease, transform .5s cubic-bezier(.2,.85,.25,1), filter .45s ease;
+}
+/* Stagger por posición de palabra (cubre hasta 8 palabras por título) */
+.svc-tile.tile-visible .svc-tile-title .w:nth-child(1)  { transition-delay: .00s; }
+.svc-tile.tile-visible .svc-tile-title .w:nth-child(2)  { transition-delay: .07s; }
+.svc-tile.tile-visible .svc-tile-title .w:nth-child(3)  { transition-delay: .14s; }
+.svc-tile.tile-visible .svc-tile-title .w:nth-child(4)  { transition-delay: .21s; }
+.svc-tile.tile-visible .svc-tile-title .w:nth-child(5)  { transition-delay: .28s; }
+.svc-tile.tile-visible .svc-tile-title .w:nth-child(6)  { transition-delay: .35s; }
+.svc-tile.tile-visible .svc-tile-title .w:nth-child(7)  { transition-delay: .42s; }
+.svc-tile.tile-visible .svc-tile-title .w:nth-child(8)  { transition-delay: .49s; }
+.svc-tile.tile-visible .svc-tile-title .w,
+.svc-tile.is-expanded  .svc-tile-title .w {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
 .svc-tile.is-expanded .svc-tile-title .w {
   animation: svcWordIn .6s cubic-bezier(.2,.85,.25,1) both;
+  transition-delay: 0s !important;
 }
 /* Desc words: hidden by default, stagger in on expand */
 .svc-tile-desc { pointer-events: none; }
