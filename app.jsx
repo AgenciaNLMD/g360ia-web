@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import { Header, Hero, Services, FloatNav, ValorProp } from './sections-top.jsx';
 import { Footer } from './sections-bottom.jsx';
+import MaiaContact from './components/MaiaContact.jsx';
 import { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakSlider, TweakColor, TweakToggle } from './tweaks-panel.jsx';
 import { SidebarNav } from './sidebar-nav.jsx';
 
@@ -185,6 +186,35 @@ function App() {
                 : e.deltaMode === 2 ? e.deltaY * window.innerHeight
                 : e.deltaY;
 
+      // ── En la última sección: enrutar scroll hacia la celda final ──
+      // Así el usuario puede bajar al footer sin salir de la navegación.
+      if (currentIdxRef.current === TOTAL - 1) {
+        const finalCell = document.querySelector('.spatial-cell--final');
+        if (finalCell) {
+          const atBottom = finalCell.scrollTop >= finalCell.scrollHeight - finalCell.clientHeight - 4;
+          const atTop    = finalCell.scrollTop <= 4;
+          const goingDown = raw > 0;
+          const goingUp   = raw < 0;
+
+          if (goingDown && !atBottom) {
+            finalCell.scrollBy({ top: raw * 0.6, behavior: 'smooth' });
+            return;
+          }
+          if (goingUp && !atTop) {
+            finalCell.scrollBy({ top: raw * 0.6, behavior: 'smooth' });
+            return;
+          }
+          // Si ya está arriba y sube → navegar a sección anterior
+          if (goingUp && atTop) {
+            goTo(currentIdxRef.current - 1);
+            lastNav = now;
+            return;
+          }
+          // Si ya está abajo y baja → no hay más secciones, ignorar
+          return;
+        }
+      }
+
       wheelAccum += raw;
 
       // Reset accumulator if wheel pauses (trackpad deceleration)
@@ -292,6 +322,11 @@ function App() {
   /* ── Render ── */
   return (
     <React.Fragment>
+      {/* Fixed background image — stays behind everything while sections scroll over it */}
+      <div className="global-fixed-bg" aria-hidden="true">
+        <img src="hero-bg.png" alt="" />
+      </div>
+
       <Header active={active} onNav={onNav} />
 
       {isDesktop ? (
@@ -315,6 +350,7 @@ function App() {
             {/* ── Row 1 ── */}
             <div className="spatial-cell spatial-cell--final"
                  style={{ left: "100vw", top: "100vh" }}>
+              <MaiaContact />
               <Footer onNav={onNav} />
             </div>
 
@@ -328,6 +364,7 @@ function App() {
           <main>
             <Hero onNav={onNav} />
             <Services onContact={handleContact} />
+            <MaiaContact />
           </main>
           <Footer onNav={onNav} />
         </React.Fragment>
