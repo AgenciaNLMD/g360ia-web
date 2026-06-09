@@ -3,7 +3,12 @@ import gsap from 'gsap';
 import { Header, Hero, Services, FloatNav, ValorProp } from './sections-top.jsx';
 import { Footer } from './sections-bottom.jsx';
 import MaiaContact from './components/MaiaContact.jsx';
-import { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakSlider, TweakColor, TweakToggle } from './tweaks-panel.jsx';
+import { useTweaks } from './tweaks-panel.jsx';
+
+/* Panel de tweaks: solo en dev — en producción el chunk no se descarga */
+const DevTweaks = import.meta.env.DEV
+  ? React.lazy(() => import('./dev-tweaks.jsx'))
+  : null;
 import { SidebarNav } from './sidebar-nav.jsx';
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -324,7 +329,7 @@ function App() {
     <React.Fragment>
       {/* Fixed background image — stays behind everything while sections scroll over it */}
       <div className="global-fixed-bg" aria-hidden="true">
-        <img src="hero-bg.png" alt="" />
+        <img src="hero-bg.webp" alt="" fetchpriority="high" decoding="async" />
       </div>
 
       <Header active={active} onNav={onNav} />
@@ -370,63 +375,11 @@ function App() {
         </React.Fragment>
       )}
 
-      <TweaksPanel title="Tweaks">
-        <TweakSection label="Color">
-          <TweakColor
-            label="Primario"
-            value={tweaks.primary}
-            onChange={(v) => setTweak("primary", v)}
-            options={["#5d7fa3", "#34547a", "#7e9ab8", "#1a2c44"]}
-          />
-          <TweakColor
-            label="Acento"
-            value={tweaks.accent}
-            onChange={(v) => setTweak("accent", v)}
-            options={["#e5b547", "#f0c870", "#5d7fa3", "#a4b8cf"]}
-          />
-        </TweakSection>
-
-        <TweakSection label="Hero">
-          <TweakRadio
-            label="Fondo"
-            value={tweaks.heroBg}
-            onChange={(v) => setTweak("heroBg", v)}
-            options={[
-              { value: "fade",  label: "Degradé" },
-              { value: "light", label: "Claro"   },
-              { value: "navy",  label: "Oscuro"  },
-            ]}
-          />
-        </TweakSection>
-
-        <TweakSection label="Estilo">
-          <TweakRadio
-            label="Cards"
-            value={tweaks.cardStyle}
-            onChange={(v) => setTweak("cardStyle", v)}
-            options={[
-              { value: "soft",     label: "Suaves"  },
-              { value: "flat",     label: "Planas"  },
-              { value: "bordered", label: "Bordes"  },
-            ]}
-          />
-          <TweakRadio
-            label="Densidad"
-            value={tweaks.density}
-            onChange={(v) => setTweak("density", v)}
-            options={[
-              { value: "compact", label: "Densa"  },
-              { value: "comfy",   label: "Cómoda" },
-              { value: "airy",    label: "Amplia" },
-            ]}
-          />
-          <TweakToggle
-            label="Animaciones al hacer scroll"
-            value={tweaks.reveal}
-            onChange={(v) => setTweak("reveal", v)}
-          />
-        </TweakSection>
-      </TweaksPanel>
+      {DevTweaks && (
+        <React.Suspense fallback={null}>
+          <DevTweaks tweaks={tweaks} setTweak={setTweak} />
+        </React.Suspense>
+      )}
     </React.Fragment>
   );
 }
