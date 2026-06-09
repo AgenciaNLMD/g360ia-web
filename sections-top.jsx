@@ -22,14 +22,6 @@ function Header({ active, onNav }) {
     <React.Fragment>
       <header className={`header ${scrolled ? "scrolled" : ""}`}>
         <div className="container header-inner">
-          {active === "hero" && (
-            <div className="header-cta">
-              <button className="btn btn-primary btn-sm" onClick={(e) => go(e, "contacto")}>
-                Acceso clientes
-                <span className="arrow"><Icon.arrow /></span>
-              </button>
-            </div>
-          )}
         </div>
       </header>
     </React.Fragment>
@@ -102,12 +94,7 @@ function Hero({ onNav }) {
 
   return (
     <section id="hero" className="hero hero-grain" aria-label="Hero Gestión 360 IA">
-      {/* ── Background image ── */}
-      <img
-        className="hero-bg-img"
-        src="hero-bg.png"
-        alt="Ejecutivo observando un dashboard analítico holográfico en una oficina nocturna con vista al skyline"
-      />
+      {/* Background image is now global-fixed-bg in app.jsx */}
 
       {/* ── SVG FX layer — aligned to image via preserveAspectRatio slice ── */}
       <svg
@@ -180,14 +167,20 @@ function Hero({ onNav }) {
 
       {/* ── Hero content ── */}
       <div className="hero-content">
-        <h1 className="hero-title">
-          <span className="hero-title-line">Transformamos tu negocio</span>
-          <span className="hero-title-line">con <span>Inteligencia Artificial</span></span>
-        </h1>
-        <div className="hero-ctas">
-          <button className="btn btn-ghost" onClick={() => onNav("servicios")}>
-            Ver servicios <span className="arrow"><Icon.arrowDown /></span>
-          </button>
+        <button className="btn btn-primary btn-sm hero-acceso-btn" onClick={() => onNav("contacto")}>
+          Acceso clientes
+          <span className="arrow"><Icon.arrow /></span>
+        </button>
+        <div className="hero-bottom-row">
+          <h1 className="hero-title">
+            <span className="hero-title-line">Transformamos tu negocio</span>
+            <span className="hero-title-line">con <span>Inteligencia Artificial</span></span>
+          </h1>
+          <div className="hero-ctas">
+            <button className="btn btn-ghost" onClick={() => onNav("servicios")}>
+              Ver servicios <span className="arrow"><Icon.arrowDown /></span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -208,6 +201,26 @@ function Services({ onContact }) {
   const [expandedIdx, setExpandedIdx] = useStateH(null);
   const bentoRef = useRefH(null);
   const animRef  = useRefH({ idx: null, geo: null }); /* animation state — kept in ref, not state */
+
+  /* ── Tile entrance animation (desktop + mobile) ── */
+  useEffectH(() => {
+    const bento = bentoRef.current;
+    if (!bento) return;
+    const tiles = Array.from(bento.querySelectorAll('.svc-tile'));
+    let fired = false;
+    const reveal = () => {
+      if (fired) return;
+      fired = true;
+      tiles.forEach((tile, i) => {
+        setTimeout(() => tile.classList.add('tile-visible'), 80 + i * 70);
+      });
+    };
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { reveal(); obs.disconnect(); }
+    }, { threshold: 0.08 });
+    obs.observe(bento);
+    return () => obs.disconnect();
+  }, []);
 
   /* ── Expand — mismo enfoque del reference HTML ── */
   const doExpand = (tile, idx) => {
@@ -292,15 +305,22 @@ function Services({ onContact }) {
       tile.style.top    = '';
       tile.style.width  = '';
       tile.style.height = '';
+      /* React re-renderiza y borra tile-visible — la restauramos */
+      tile.classList.add('tile-visible');
     };
     tile.addEventListener('transitionend', done);
   };
 
-  /* Click handler: expand on click, collapse on second click or close button */
+  /* Click handler: expand on click, collapse on second click */
   const handleClick = (idx) => (e) => {
     const tile = e.currentTarget;
     if (window.innerWidth <= 1024) {
-      flushSync(() => setExpandedIdx(tile.classList.contains('is-expanded') ? null : idx));
+      const isExpanding = !tile.classList.contains('is-expanded');
+      flushSync(() => setExpandedIdx(isExpanding ? idx : null));
+      /* Lock/unlock body scroll for full-screen overlay */
+      document.body.style.overflow = isExpanding ? 'hidden' : '';
+      /* Restaurar tile-visible que React borra al re-renderizar */
+      if (!isExpanding) tile.classList.add('tile-visible');
       return;
     }
     if (tile.classList.contains('is-expanded')) {
@@ -310,6 +330,24 @@ function Services({ onContact }) {
       doExpand(tile, idx);
     }
   };
+
+  /* Close when clicking outside the expanded tile */
+  useEffectH(() => {
+    if (expandedIdx === null) return;
+    const handleOutside = (e) => {
+      const expandedTile = bentoRef.current?.querySelector('.is-expanded');
+      if (expandedTile && !expandedTile.contains(e.target)) {
+        if (window.innerWidth <= 1024) {
+          flushSync(() => setExpandedIdx(null));
+          document.body.style.overflow = '';
+        } else {
+          doCollapse(expandedTile, expandedIdx);
+        }
+      }
+    };
+    document.addEventListener('click', handleOutside);
+    return () => document.removeEventListener('click', handleOutside);
+  }, [expandedIdx]);
 
 
   /* Render a single bento tile */
@@ -371,7 +409,20 @@ function Services({ onContact }) {
           <div className="svc-tile-actions">
             <button
               className="btn btn-primary"
-              onClick={(e) => { e.stopPropagation(); onContact && onContact(s.id); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                const tile = e.currentTarget.closest('.svc-tile');
+                if (tile) {
+                  if (window.innerWidth <= 1024) {
+                    document.body.style.overflow = '';
+                    flushSync(() => setExpandedIdx(null));
+                    tile.classList.add('tile-visible');
+                  } else {
+                    doCollapse(tile, idx);
+                  }
+                }
+                setTimeout(() => onContact && onContact(s.id), 350);
+              }}
             >
               Quiero este servicio <Icon.arrow />
             </button>
@@ -386,16 +437,6 @@ function Services({ onContact }) {
         {/* click hint (hidden once expanded) */}
         <div className="svc-tile-cta" aria-hidden="true">Ver detalle →</div>
 
-        {/* close button — only visible when expanded */}
-        <button
-          className="svc-tile-close"
-          aria-label="Cerrar"
-          onClick={(e) => {
-            e.stopPropagation();
-            if (window.innerWidth <= 1024) { flushSync(() => setExpandedIdx(null)); return; }
-            doCollapse(e.currentTarget.closest('.svc-tile'), idx);
-          }}
-        >✕</button>
       </article>
     );
   };
@@ -419,7 +460,8 @@ function Services({ onContact }) {
       </div>
 
       <div className="svc-bento-outer">
-        <div className="svc-bento" ref={bentoRef} role="list" aria-label="Servicios de Gestión 360 IA">
+        <div className="svc-bento" ref={bentoRef} role="list" aria-label="Servicios de Gestión 360 IA"
+          onWheel={(e) => { if (expandedIdx !== null) e.stopPropagation(); }}>
           {SERVICES.map((s, i) => renderTile(s, i))}
         </div>
       </div>
