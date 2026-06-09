@@ -363,6 +363,11 @@ img { display: block; max-width: 100%; }
 @media (max-width: 880px) {
   .nav { display: none; }
 }
+/* Header vacío (sin logo/nav/cta) — en móvil solo genera una franja oscura
+   con blur sobre el contenido al scrollear. Se oculta. Desktop intacto. */
+@media (max-width: 1024px) {
+  .header { display: none; }
+}
 
 /* Nav dropdown */
 .nav-drop-wrap { position: relative; }
@@ -1198,47 +1203,85 @@ img { display: block; max-width: 100%; }
 /* â”€â”€ Mobile & Tablet (â‰¤1024px): horizontal cards stacked, expand in-flow â”€â”€ */
 @media (max-width: 1024px) {
   .svc-bento-section { min-height: auto; padding-top: 50px; }
-  .svc-bento-outer   { padding: 0 16px 28px; }
+  .svc-bento-outer   { padding: 0 14px 20px; flex: 0 0 auto; }
   .svc-bento {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     min-height: auto; flex: none;
-    gap: 10px;
+    gap: 8px;
+    align-content: start;   /* evita que las filas se estiren si el bento tiene altura extra */
   }
   /* Override inline grid styles set by JS */
   .svc-tile { grid-column: 1 / -1 !important; grid-row: auto !important; }
 
-  /* Horizontal pill layout — original */
+  /* El glow decorativo pasa a relative en tiles has-bg (regla desktop) y
+     ocuparía 150px en el flex row, empujando todo a la derecha — forzar absolute */
+  .svc-tile .svc-tile-glow,
+  .svc-tile.has-bg .svc-tile-glow { position: absolute !important; top: -45px; right: -45px; }
+
+  /* ── Layout mobile: ico izquierda · text(kick+title) derecha ──
+     flex-wrap: wrap es CLAVE — .svc-tile-desc tiene flex-basis:100% y debe
+     envolver a una segunda línea; con nowrap aplasta el texto a ancho 0 */
   .svc-tile {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 0 14px;
-    min-height: 76px;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    align-items: center;            /* ico y tag centrados entre sí en su línea */
+    align-content: flex-start;      /* contenido arriba de la card */
+    justify-content: flex-start;    /* contenido a la izquierda */
+    gap: 8px 10px;
     padding: 14px 16px;
-    transition: border-color .3s ease, box-shadow .3s ease;
+    min-height: 150px;         /* altura de card */
+    align-self: start !important;   /* no estira la tile en la fila del bento */
+    transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.85,.25,1),
+                border-color .3s ease, box-shadow .3s ease;
   }
 
-  .svc-tile .svc-tile-ico { margin-bottom: 0; flex-shrink: 0; }
-
-  .svc-tile .svc-tile-text {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
+  /* Icono — arriba a la izquierda, 30px */
+  .svc-tile .svc-tile-ico {
+    flex-shrink: 0;
+    width: 50px; height: 50px;
+    border-radius: 12px;
+    margin-bottom: 0;
+    align-self: center;
   }
-  .svc-tile .svc-tile-kick { margin: 0 0 3px; font-size: 11px; }
+  .svc-tile .svc-tile-ico svg { width: 30px; height: 30px; }
+
+  /* El wrapper se disuelve: kick acompaña al icono en línea 1,
+     title baja a línea 2 con flex-basis 100% */
+  .svc-tile .svc-tile-text { display: contents; }
+
+  /* Tag/kick — pill de 30px de alto, al lado del icono */
+  .svc-tile .svc-tile-kick {
+    display: inline-flex;
+    align-items: center;
+    height: 50px;
+    background: rgba(230,165,50,.10);
+    border: 1px solid rgba(230,165,50,.28);
+    border-radius: 12px;
+    padding: 0 14px;
+    font-size: 11px !important;
+    letter-spacing: 1px;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 60px);
+  }
+
+  /* Título — línea propia debajo, alineado a la izquierda */
   .svc-tile .svc-tile-title {
-    font-size: 16px;
+    flex-basis: 100%;
+    font-size: 15px !important;
+    text-align: left;
     white-space: normal;
     word-break: normal;
     overflow-wrap: normal;
-    min-width: 0;
-    line-height: 1.3;
+    line-height: 1.25;
   }
-  .svc-tile--feature .svc-tile-title { font-size: 17px; }
+  .svc-tile--feature .svc-tile-title { font-size: 15px !important; }
 
-  /* Detail panel: full width below icon+text */
+  /* Detail panel — oculto cuando está colapsado */
   .svc-tile .svc-tile-desc {
     flex-basis: 100%;
     max-height: 0;
@@ -1292,6 +1335,9 @@ img { display: block; max-width: 100%; }
     /* Column layout that fills the screen */
     display: flex !important;
     flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-content: stretch !important;
+    min-height: 0 !important;
     align-items: stretch !important;
     justify-content: flex-start !important;
     gap: 0 !important;
@@ -1318,12 +1364,21 @@ img { display: block; max-width: 100%; }
     align-self: auto;
   }
   .svc-tile.is-expanded .svc-tile-text {
+    display: flex;
+    flex-direction: column;
     flex: 0 0 auto;
     min-width: 0;
   }
   .svc-tile.is-expanded .svc-tile-kick {
-    font-size: 10px;
+    font-size: 10px !important;
     margin: 0 0 4px;
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    letter-spacing: 1.5px;
+    white-space: normal;
+    overflow: visible;
   }
   .svc-tile.is-expanded .svc-tile-title {
     font-size: 20px !important;
@@ -1341,14 +1396,14 @@ img { display: block; max-width: 100%; }
     opacity: 1; transform: translateY(0); filter: blur(0); transition: none;
   }
 
-  /* ── Desc panel fills remaining space, scrollable so buttons are always reachable ── */
+  /* ── Desc panel fills remaining space — SIN scroll: el contenido se ajusta
+     a la pantalla y lo que no entra se recorta en la lista de includes ── */
   .svc-tile.is-expanded .svc-tile-desc {
     flex: 1 !important;
+    min-height: 0 !important;
     max-height: none !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
+    overflow: hidden !important;
+    touch-action: none;
     overscroll-behavior: contain;
     opacity: 1 !important;
     margin-top: 20px !important;
@@ -1383,6 +1438,8 @@ img { display: block; max-width: 100%; }
   }
   .svc-tile.is-expanded .svc-tile-includes {
     flex: 1;
+    min-height: 0;        /* permite encoger la lista si no entra */
+    overflow: hidden;     /* el exceso se recorta — los CTA nunca se tapan */
     margin: 0 0 12px;
     display: flex;
     flex-direction: column;
@@ -1413,6 +1470,20 @@ img { display: block; max-width: 100%; }
 
   /* Hide hover hint on mobile */
   .svc-tile-cta { display: none; }
+
+  /* Card expandida: el bento tiene z-index:1 y atrapa el overlay en su
+     stacking context — al expandir (html.svc-lock) se eleva todo el árbol
+     para que el overlay quede sobre las demás secciones */
+  html.svc-lock .svc-bento,
+  html.svc-lock .svc-bento-outer,
+  html.svc-lock .svc-bento-section { z-index: 500; }
+
+  /* Slide-in alternado al hacer scroll: impares desde la derecha,
+     pares desde la izquierda — cada tile dispara al entrar al viewport */
+  .svc-tile:nth-child(odd)  { transform: translateX( 72px); }
+  .svc-tile:nth-child(even) { transform: translateX(-72px); }
+  .svc-tile.tile-visible    { transform: translateX(0); }
+  .svc-tile.is-expanded     { transform: none !important; }
 }
 
 /* ── Extra-small screens (360px Android) — expanded card tweaks only ── */

@@ -202,11 +202,33 @@ function Services({ onContact }) {
   const bentoRef = useRefH(null);
   const animRef  = useRefH({ idx: null, geo: null }); /* animation state — kept in ref, not state */
 
-  /* ── Tile entrance animation (desktop + mobile) ── */
+  /* ── Tile entrance animation ──
+     Desktop: revela todas las tiles en cascada cuando el bento entra en vista.
+     Mobile:  cada tile se revela individualmente al entrar al viewport
+              (el CSS alterna la dirección: impares desde la izq, pares desde la der) */
   useEffectH(() => {
     const bento = bentoRef.current;
     if (!bento) return;
     const tiles = Array.from(bento.querySelectorAll('.svc-tile'));
+
+    if (window.innerWidth <= 1024) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.target.classList.contains('is-expanded')) return;
+          if (entry.intersectionRatio >= 0.25) {
+            /* Entró lo suficiente — animar */
+            entry.target.classList.add('tile-visible');
+          } else if (!entry.isIntersecting) {
+            /* Salió COMPLETAMENTE de la vista — reset para re-animar al volver.
+               Entre 0% y 25% no se toca: evita que se desvanezca estando aún visible */
+            entry.target.classList.remove('tile-visible');
+          }
+        });
+      }, { threshold: [0, 0.25] });
+      tiles.forEach((tile) => obs.observe(tile));
+      return () => obs.disconnect();
+    }
+
     let fired = false;
     const reveal = () => {
       if (fired) return;
