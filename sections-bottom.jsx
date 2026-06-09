@@ -300,7 +300,7 @@ function Footer({ onNav }) {
             <ul>
               {SERVICES.map(s => (
                 <li key={s.id}>
-                  <a href={s.page || '#'}>{s.name}</a>
+                  <a href={s.page || '#'}>{s.tag}</a>
                 </li>
               ))}
             </ul>
