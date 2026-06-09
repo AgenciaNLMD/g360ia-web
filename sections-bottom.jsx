@@ -1,5 +1,5 @@
-import React, { useState as useStateB, useEffect as useEffectB } from 'react';
-import { Icon, PROCESS, CASES, CLIENT_LOGOS, SERVICES } from './data.jsx';
+import React from 'react';
+import { Icon, PROCESS, CASES, SERVICES } from './data.jsx';
 
 /* ===================== PROCESS ===================== */
 function Process() {
@@ -78,253 +78,196 @@ function Cases() {
   );
 }
 
-/* ===================== WORLD MAP ===================== */
-function WorldMap() {
-  const OX = 252, OY = 290; /* Argentina */
+/* WorldMap — delegated to WorldMapGL component */
 
-  const dests = [
-    { id:'wm1', x:220,  y:108, dur:'6s',   delay:'0s'   }, /* Nueva York  */
-    { id:'wm2', x:396,  y:86,  dur:'8.5s', delay:'1.3s' }, /* Londres     */
-    { id:'wm3', x:387,  y:108, dur:'7.5s', delay:'2.2s' }, /* Madrid      */
-    { id:'wm4', x:183,  y:158, dur:'5s',   delay:'0.7s' }, /* México      */
-    { id:'wm5', x:714,  y:118, dur:'12s',  delay:'3.1s' }, /* Tokio       */
-    { id:'wm6', x:527,  y:140, dur:'9s',   delay:'1.9s' }, /* Dubai       */
-    { id:'wm7', x:736,  y:272, dur:'10.5s',delay:'2.7s' }, /* Sídney      */
-  ];
+/* ===================== TOOLS CAROUSEL ===================== */
+const TOOLS = [
+  {
+    name: 'HTML5',
+    color: '#e34f26',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M4 2l2.4 27L16 31l9.6-2L28 2H4z" fill="#e34f26"/><path d="M16 28.6l7.8-2.16L25.6 8H16v20.6z" fill="#ef652a"/><path d="M16 13.6h4.2l-.3 3.4-3.9.96v3.56l3.9-.96 3.1-.76.56-6.2H16v-3.6h8.56l-.1 1.6-.88 9.56L16 23.6v-3.56l3.9-.96.1-1.4H16v-4.04z" fill="#fff"/><path d="M16 13.6v4.04H12.1l-.1 1.4 3.9.96v3.56l-7.7-2.14-.56-6.2 3.1.76 3.9.96V13.6H16zM16 10H7.44l.1-1.6L16 10z" fill="#ebebeb"/></svg>
+    ),
+  },
+  {
+    name: 'CSS3',
+    color: '#264de4',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M4 2l2.4 27L16 31l9.6-2L28 2H4z" fill="#264de4"/><path d="M16 28.6l7.8-2.16L25.6 8H16v20.6z" fill="#2965f1"/><path d="M16 13.6h4.5l-.15 2.4-4.35 1.2v3.56l4.05-1.12 3.45-.96.4-4.8.1-1.6.3-3.68H16v4.0z" fill="#fff"/><path d="M16 13.6H11.5l.3 3.4 4.2-.84v-2.56zM16 19.8l-.06.02-2.14-.54-.14-1.56H10.1l.26 3.44 5.64 1.56V19.8z" fill="#ebebeb"/></svg>
+    ),
+  },
+  {
+    name: 'React',
+    color: '#61dafb',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="2.8" fill="#61dafb"/><ellipse cx="16" cy="16" rx="12" ry="4.5" stroke="#61dafb" strokeWidth="1.5" fill="none"/><ellipse cx="16" cy="16" rx="12" ry="4.5" stroke="#61dafb" strokeWidth="1.5" fill="none" transform="rotate(60 16 16)"/><ellipse cx="16" cy="16" rx="12" ry="4.5" stroke="#61dafb" strokeWidth="1.5" fill="none" transform="rotate(120 16 16)"/></svg>
+    ),
+  },
+  {
+    name: 'Vite',
+    color: '#646cff',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M29 5L16.4 27.5l-1.4-2.5L26 5h3z" fill="#646cff"/><path d="M3 5l13 22.5L27.5 5H22l-6 11L10 5H3z" fill="#ffbd44"/></svg>
+    ),
+  },
+  {
+    name: 'Google Analytics',
+    color: '#f9ab00',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><rect x="4" y="18" width="6" height="10" rx="3" fill="#f9ab00"/><rect x="13" y="10" width="6" height="18" rx="3" fill="#e37400"/><rect x="22" y="4" width="6" height="24" rx="3" fill="#f9ab00"/></svg>
+    ),
+  },
+  {
+    name: 'PageSpeed',
+    color: '#4285f4',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M16 4a12 12 0 100 24A12 12 0 0016 4z" stroke="#4285f4" strokeWidth="2" fill="none"/><path d="M16 16l-5-8" stroke="#ea4335" strokeWidth="2" strokeLinecap="round"/><circle cx="16" cy="16" r="2" fill="#4285f4"/><path d="M8 20h16" stroke="#34a853" strokeWidth="1.5" strokeLinecap="round"/></svg>
+    ),
+  },
+  {
+    name: 'Meta',
+    color: '#0082fb',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M4 20c0 3.3 1.5 5.5 3.8 5.5 1.8 0 3-1 4.7-3.8l1.7-2.9-2.5-4.3C10.3 12.4 9.3 12 8.5 12 6 12 4 15.5 4 20z" fill="#0082fb"/><path d="M20.5 11.6c-1.6 0-3 .8-4.5 3.2L11 24.2C9.6 26.4 8.5 27.5 6.8 27.5" stroke="#0082fb" strokeWidth="0" fill="none"/><ellipse cx="22" cy="19.5" rx="6" ry="8" fill="none" stroke="#0082fb" strokeWidth="2.5"/><path d="M16 15c1.5-2.4 3-3.4 4.8-3.4 3 0 5.2 3.4 5.2 8.4 0 3.3-1.2 5.5-3.3 5.5-1.3 0-2.2-.8-3.7-3.3l-3-5.2" fill="none"/><path d="M4 19.8C4 15.4 6.2 12 8.7 12c1.6 0 2.8.9 4.3 3.4l7 12.1c1.3 2.2 2.4 3 3.8 3 2.3 0 4.2-2.6 4.2-6.5 0-5-2.2-8.5-5-8.5-1.6 0-2.9 1-4.3 3.3" stroke="#0082fb" strokeWidth="2.5" fill="none" strokeLinecap="round"/></svg>
+    ),
+  },
+  {
+    name: 'Facebook',
+    color: '#1877f2',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M21 10h-3c-.8 0-1 .4-1 1.2V13h4l-.5 4h-3.5v10h-4V17H11v-4h2v-2c0-3.3 2-5 5-5 1.4 0 3 .3 3 .3V10z" fill="#1877f2"/></svg>
+    ),
+  },
+  {
+    name: 'Instagram',
+    color: '#e4405f',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><rect x="7" y="7" width="18" height="18" rx="5" stroke="#e4405f" strokeWidth="2" fill="none"/><circle cx="16" cy="16" r="5" stroke="#e4405f" strokeWidth="2" fill="none"/><circle cx="22.5" cy="9.5" r="1.5" fill="#e4405f"/></svg>
+    ),
+  },
+  {
+    name: 'WhatsApp',
+    color: '#25d366',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M16 3C8.8 3 3 8.8 3 16c0 2.5.7 4.8 1.9 6.8L3 29l6.5-1.7C11.2 28.3 13.6 29 16 29c7.2 0 13-5.8 13-13S23.2 3 16 3z" stroke="#25d366" strokeWidth="2" fill="none"/><path d="M22 18.9c-.3-.14-1.8-.9-2.08-.98-.28-.1-.49-.14-.69.14-.2.27-.78.98-.96 1.18-.17.2-.35.22-.65.07a10.2 10.2 0 01-3-1.85c-.83-.8-1.4-1.76-1.56-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.14-.7-1.68-.96-2.3-.25-.6-.5-.52-.7-.53h-.6c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.14.2 2.1 3.2 5.08 4.49.7.3 1.25.48 1.68.62.7.22 1.35.19 1.86.12.57-.08 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.07-.12-.27-.2-.57-.34z" fill="#25d366"/></svg>
+    ),
+  },
+  {
+    name: 'Google Ads',
+    color: '#fbbc05',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M5 26l9-16" stroke="#fbbc05" strokeWidth="4" strokeLinecap="round"/><path d="M27 26l-9-16" stroke="#4285f4" strokeWidth="4" strokeLinecap="round"/><path d="M5 26h22" stroke="#34a853" strokeWidth="4" strokeLinecap="round"/></svg>
+    ),
+  },
+  {
+    name: 'TikTok',
+    color: '#fff',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M21 6c.3 2 1.7 3.5 3.5 3.7v3.5c-1.3-.1-2.5-.5-3.5-1.2v6.3c0 3.7-3 6.7-6.7 6.7S7.6 22 7.6 18.3 10.6 11.6 14.3 11.6c.4 0 .7 0 1 .1v3.6c-.3-.1-.7-.1-1-.1-1.9 0-3.4 1.5-3.4 3.4s1.5 3.4 3.4 3.4 3.4-1.5 3.4-3.4V6H21z" fill="#fff"/><path d="M21 6c.3 2 1.7 3.5 3.5 3.7" stroke="#fe2c55" strokeWidth="1.2" fill="none"/><path d="M14.3 15.2c-.3-.1-.7-.1-1-.1" stroke="#25f4ee" strokeWidth="1.2" fill="none"/></svg>
+    ),
+  },
+  {
+    name: 'LinkedIn',
+    color: '#0a66c2',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><rect x="6" y="12" width="4" height="14" rx="1" fill="#0a66c2"/><circle cx="8" cy="8" r="2.5" fill="#0a66c2"/><path d="M14 12h4v2s1-2 3.5-2c3 0 4.5 2 4.5 5v7h-4v-6.5c0-1.5-.7-2.5-2-2.5s-2 1-2 2.5V24h-4V12z" fill="#0a66c2"/></svg>
+    ),
+  },
+  {
+    name: 'VS Code',
+    color: '#007acc',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M23.5 3l-12 11L5 9l-2 1.5v11L5 23l6.5-5 12 11 3.5-1.5V4.5L23.5 3z" fill="#007acc"/><path d="M23.5 3L11.5 14 5 9l-2 1.5v11L5 23l6.5-5 12 11 3.5-1.5V4.5L23.5 3zM23.5 8.2v15.6l-9-7.8 9-7.8z" fill="#fff" fillOpacity=".3"/><path d="M3 10.5v11L5 23l6.5-5-6.5-5.5L3 10.5z" fill="#fff" fillOpacity=".2"/></svg>
+    ),
+  },
+  {
+    name: 'GitHub',
+    color: '#fff',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M16 2C8.27 2 2 8.27 2 16c0 6.18 4.01 11.42 9.57 13.27.7.13.96-.3.96-.68v-2.37c-3.89.84-4.71-1.88-4.71-1.88-.63-1.61-1.55-2.04-1.55-2.04-1.27-.87.1-.85.1-.85 1.4.1 2.14 1.44 2.14 1.44 1.25 2.14 3.27 1.52 4.07 1.16.13-.9.49-1.52.89-1.87-3.1-.35-6.37-1.55-6.37-6.9 0-1.52.54-2.77 1.43-3.74-.14-.36-.62-1.77.14-3.69 0 0 1.17-.37 3.83 1.43A13.3 13.3 0 0116 9.2c1.18.01 2.37.16 3.48.47 2.65-1.8 3.82-1.43 3.82-1.43.76 1.92.28 3.33.14 3.69.89.97 1.43 2.22 1.43 3.74 0 5.36-3.27 6.54-6.39 6.89.5.44.95 1.3.95 2.61v3.87c0 .38.25.82.96.68C25.99 27.42 30 22.18 30 16c0-7.73-6.27-14-14-14z" fill="#fff"/></svg>
+    ),
+  },
+  {
+    name: 'Node.js',
+    color: '#68a063',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M16 2L3 9.5v13L16 30l13-7.5V9.5L16 2z" stroke="#68a063" strokeWidth="2" fill="none"/><path d="M16 8c-.6 0-1 .4-1 1v8.5c0 .4.2.7.5.85l7 4a1 1 0 001-1.73L17 16.8V9a1 1 0 00-1-1z" fill="#68a063"/></svg>
+    ),
+  },
+  {
+    name: 'MySQL',
+    color: '#00758f',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><ellipse cx="16" cy="8" rx="11" ry="4" fill="#00758f"/><path d="M5 8v5c0 2.2 4.9 4 11 4s11-1.8 11-4V8" stroke="#00758f" strokeWidth="0" fill="#00758f" fillOpacity=".3"/><ellipse cx="16" cy="8" rx="11" ry="4" fill="#00758f"/><path d="M5 8v5c0 2.2 4.9 4 11 4s11-1.8 11-4V8" fill="#00758f" fillOpacity=".5"/><ellipse cx="16" cy="13" rx="11" ry="4" fill="#00758f" fillOpacity=".8"/><path d="M5 13v5c0 2.2 4.9 4 11 4s11-1.8 11-4v-5" fill="#00758f" fillOpacity=".35"/><ellipse cx="16" cy="18" rx="11" ry="4" fill="#00758f"/><path d="M5 18v5c0 2.2 4.9 4 11 4s11-1.8 11-4v-5" fill="#00758f" fillOpacity=".5"/><ellipse cx="16" cy="23" rx="11" ry="4" fill="#00758f" fillOpacity=".9"/><path d="M22 20l4 4-4 4" stroke="#f9a825" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+    ),
+  },
+  {
+    name: 'Nginx',
+    color: '#009639',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M16 2L3 9v14l13 7 13-7V9L16 2z" stroke="#009639" strokeWidth="2" fill="none"/><path d="M10 22V10l12 12V10" stroke="#009639" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+    ),
+  },
+  {
+    name: 'Java',
+    color: '#f89820',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M12 22s-1 .6 .7.8c2 .2 3 .2 5.2-.2 0 0 .6.4 1.4.7-5 2.1-11.2-.1-7.3-1.3zM11.3 19s-1.1.8.6 1c2.3.2 4.1.2 7.2-.3 0 0 .4.4 1 .6-6.4 1.9-13.5.2-8.8-1.3z" fill="#5382a1"/><path d="M17.7 13.7c1.3 1.5-.3 2.8-.3 2.8s3.3-1.7 1.8-3.8c-1.4-2-2.5-2.9 3.3-6.3 0 0-9 2.2-4.8 7.3z" fill="#f89820"/><path d="M23.3 24.6s.7.6-.8.1c-2.9-.8-12-.6-14.5 0-1.4.3-.8-.1-.8-.1-2.8 1 4.9 1.5 8.3 1.5 4 0 10-1 7.8-1.5z" fill="#5382a1"/><path d="M12.7 16.1s-4.6 1.1-1.6 1.5c1.2.2 3.7.1 6-.1 1.9-.1 3.8-.4 3.8-.4s-.7.3-1.1.5c-4.7 1.2-13.7.7-11.1-.5 2.2-1 3.5-.9 4-.9z" fill="#5382a1"/><path d="M21 21.4c4.7-2.4 2.5-4.8 1-4.5-.4.1-.6.2-.6.2s.1-.2.4-.3c3-1.1 5.3 3.2-1 4.8 0-.1.1-.2.2-.2z" fill="#f89820"/><path d="M18.5 4S21 6.5 16.1 10.2c-3.9 3.1-.9 4.8 0 6.8-2.3-2-3.9-3.8-2.8-5.5 1.7-2.5 6.3-3.7 5.2-7.5z" fill="#f89820"/><path d="M13.3 28.3c4.5.3 11.4-.2 11.6-2.2 0 0-.3.8-3.7 1.4-3.9.6-8.6.5-11.4.1 0 0 .6.5 3.5.7z" fill="#5382a1"/></svg>
+    ),
+  },
+  {
+    name: 'Anthropic',
+    color: '#d97757',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M18.8 6h-3.8L8 26h3.8l1.6-4.4h5.2L20.2 26H24L18.8 6zm-4.4 12.4L16 11.2l1.6 7.2h-3.2z" fill="#d97757"/></svg>
+    ),
+  },
+  {
+    name: 'Claude',
+    color: '#d97757',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><path d="M18.8 9h-3.8L8 23h3.8l1.4-3.8h4.8L19.4 23H23L18.8 9zm-3.8 7.8L16.4 13l1.4 3.8h-2.8z" fill="#d97757"/></svg>
+    ),
+  },
+  {
+    name: 'Gemini',
+    color: '#8ab4f8',
+    icon: (
+      <svg viewBox="0 0 32 32" fill="none"><defs><linearGradient id="gem" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#4285f4"/><stop offset="50%" stopColor="#9b72cb"/><stop offset="100%" stopColor="#d96570"/></linearGradient></defs><path d="M16 3C16 3 16 13 9 16C16 19 16 29 16 29C16 29 16 19 23 16C16 13 16 3 16 3Z" fill="url(#gem)"/></svg>
+    ),
+  },
+];
 
-  const arc = ([x, y]) => {
-    const dx = x - OX, dy = y - OY;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    const elev = Math.min(dist * 0.30, 165);
-    return `M ${OX},${OY} Q ${OX + dx / 2},${OY + dy / 2 - elev} ${x},${y}`;
-  };
-
-  const GY = [70, 140, 210, 280, 350];
-  const GX = [67, 133, 200, 267, 333, 400, 467, 533, 600, 667, 733];
-
+function ToolsCarousel() {
+  const row1 = [...TOOLS, ...TOOLS];
+  const row2 = [...TOOLS, ...TOOLS];
   return (
-    <svg viewBox="0 0 800 420" className="wmap" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
-      <defs>
-        <radialGradient id="wmHalo" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#e6a532" stopOpacity="0.55"/>
-          <stop offset="100%" stopColor="#e6a532" stopOpacity="0"/>
-        </radialGradient>
-        <filter id="wmGlow" x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur stdDeviation="2.5" result="b"/>
-          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <filter id="wmNodeGlow" x="-80%" y="-80%" width="260%" height="260%">
-          <feGaussianBlur stdDeviation="1.8" result="b"/>
-          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
+    <div className="ft-tools">
+      <p className="ft-tools-label">Tecnologías y plataformas que usamos</p>
 
-      {/* Lat/lon grid */}
-      {GY.map(y => (
-        <line key={'gy'+y} x1="0" y1={y} x2="800" y2={y}
-          stroke={y===210 ? "rgba(126,200,227,0.20)" : "rgba(126,200,227,0.06)"}
-          strokeWidth={y===210 ? 0.9 : 0.5}
-          strokeDasharray={y===210 ? "5,9" : undefined}/>
-      ))}
-      {GX.map(x => (
-        <line key={'gx'+x} x1={x} y1="0" x2={x} y2="420"
-          stroke="rgba(126,200,227,0.06)" strokeWidth="0.5"/>
-      ))}
-
-      {/* Continents */}
-      <path className="wm-cont" d="M 88,72 L 125,52 L 162,48 L 210,62 L 245,88 L 248,115 L 232,142 L 208,162 L 188,178 L 160,186 L 130,184 L 108,170 L 95,148 L 80,124 L 78,100 Z"/>
-      <path className="wm-cont" d="M 178,178 L 210,168 L 242,172 L 262,192 L 268,222 L 264,255 L 250,284 L 232,308 L 215,320 L 198,308 L 186,282 L 180,255 L 178,225 Z"/>
-      <path className="wm-cont" d="M 352,58 L 382,50 L 408,50 L 432,58 L 448,72 L 445,90 L 428,98 L 408,102 L 390,108 L 375,100 L 360,90 L 350,74 Z"/>
-      <path className="wm-cont" d="M 358,115 L 395,100 L 428,100 L 458,108 L 478,128 L 480,158 L 472,190 L 455,218 L 436,240 L 412,252 L 390,248 L 370,228 L 355,198 L 350,165 L 354,135 Z"/>
-      <path className="wm-cont" d="M 448,72 L 485,62 L 535,50 L 592,48 L 648,54 L 698,68 L 722,85 L 725,110 L 710,130 L 668,142 L 625,150 L 588,158 L 555,152 L 518,140 L 490,122 L 468,105 Z"/>
-      <path className="wm-cont" d="M 658,238 L 695,228 L 735,235 L 758,260 L 752,292 L 726,304 L 695,296 L 668,280 L 656,260 Z"/>
-
-      {/* Arc paths */}
-      {dests.map(d => (
-        <path key={d.id} id={d.id} className="wm-arc" d={arc([d.x,d.y])}
-          pathLength="1" style={{animationDelay: d.delay}}/>
-      ))}
-
-      {/* Traveling dots */}
-      {dests.map(d => (
-        <circle key={'td'+d.id} r="3.5" className="wm-traveler" filter="url(#wmGlow)">
-          <animateMotion dur={d.dur} repeatCount="indefinite"
-            keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear">
-            <mpath href={'#'+d.id}/>
-          </animateMotion>
-        </circle>
-      ))}
-
-      {/* Destination nodes */}
-      {dests.map(d => (
-        <circle key={'dn'+d.id} cx={d.x} cy={d.y} r="3"
-          className="wm-dest" filter="url(#wmNodeGlow)"
-          style={{animationDelay: d.delay}}/>
-      ))}
-
-      {/* Argentina origin */}
-      <circle cx={OX} cy={OY} r="26" fill="url(#wmHalo)"/>
-      <circle cx={OX} cy={OY} r="8"  className="wm-origin-ring"/>
-      <circle cx={OX} cy={OY} r="3.5" fill="#e6a532"/>
-      <text x={OX+14} y={OY-8} className="wm-label">Buenos Aires</text>
-    </svg>
-  );
-}
-
-/* ===================== CONTACT ===================== */
-function Contact({ presetService, onClearPreset }) {
-  const [form, setForm] = useStateB({ name:"", email:"", company:"", phone:"", message:"" });
-  const [picked, setPicked]   = useStateB(new Set());
-  const [errors, setErrors]   = useStateB({});
-  const [sent, setSent]       = useStateB(false);
-  const [active, setActive]   = useStateB('form'); /* 'form' | 'map' */
-
-  useEffectB(() => {
-    if (presetService) {
-      setPicked(prev => { const n = new Set(prev); n.add(presetService); return n; });
-      onClearPreset && onClearPreset();
-    }
-  }, [presetService]);
-
-  const togglePick = id => setPicked(prev => {
-    const n = new Set(prev);
-    n.has(id) ? n.delete(id) : n.add(id);
-    return n;
-  });
-
-  const update = key => e => {
-    setForm(f => ({ ...f, [key]: e.target.value }));
-    if (errors[key]) setErrors(er => ({ ...er, [key]: null }));
-  };
-
-  const submit = e => {
-    e.preventDefault();
-    const er = {};
-    if (!form.name.trim()) er.name = true;
-    if (!form.email.trim() || !/^\S+@\S+\.\S+$/.test(form.email)) er.email = true;
-    if (!form.message.trim()) er.message = true;
-    setErrors(er);
-    if (Object.keys(er).length) return;
-    setSent(true);
-  };
-
-  const errStyle = ok => ok ? {} : { borderColor:"#c87158" };
-
-  return (
-    <section id="contacto" className="contact-split">
-
-      {/* ── Left half: Form ── */}
-      <div
-        className={`cs-half cs-half--form${active==='form' ? ' is-clear' : ''}`}
-        onMouseEnter={() => setActive('form')}
-      >
-        <div className="cs-frost"/>
-        <div className="cs-content">
-
-          <span className="eyebrow">Contacto</span>
-          <h2 className="cs-heading">Hablemos de <em>tu proyecto</em></h2>
-          <p className="cs-lead">Contanos qué necesitás y te respondemos en menos de 24hs.</p>
-
-          <form className={`form cs-form${sent ? ' is-sent' : ''}`} onSubmit={submit} noValidate>
-            <div className="form-inner">
-              <div className="form-row">
-                <div className="field">
-                  <label>Nombre</label>
-                  <input type="text" placeholder="Tu nombre"
-                    value={form.name} onChange={update("name")} style={errStyle(!errors.name)}/>
-                </div>
-                <div className="field">
-                  <label>Email</label>
-                  <input type="email" placeholder="vos@empresa.com"
-                    value={form.email} onChange={update("email")} style={errStyle(!errors.email)}/>
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="field">
-                  <label>Empresa</label>
-                  <input type="text" placeholder="Nombre de tu empresa"
-                    value={form.company} onChange={update("company")}/>
-                </div>
-                <div className="field">
-                  <label>Teléfono / WhatsApp</label>
-                  <input type="tel" placeholder="+54 9 11..."
-                    value={form.phone} onChange={update("phone")}/>
-                </div>
-              </div>
-
-              <div className="field">
-                <label>Servicios de interés</label>
-                <div className="services-pick">
-                  {SERVICES.map(s => (
-                    <button type="button" key={s.id}
-                      className={`pill${picked.has(s.id) ? ' is-on' : ''}`}
-                      onClick={() => togglePick(s.id)}>
-                      {picked.has(s.id) && <Icon.check/>}
-                      {s.name.replace(" con alta y alojamiento","")}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="field">
-                <label>Contanos sobre tu proyecto</label>
-                <textarea rows="3" placeholder="¿Qué problema querés resolver?"
-                  value={form.message} onChange={update("message")}
-                  style={errStyle(!errors.message)}/>
-              </div>
-
-              <div className="form-foot">
-                <span className="form-note">Respondemos en menos de 24hs hábiles.</span>
-                <button type="submit" className="btn btn-primary">
-                  Enviar consulta <Icon.arrow/>
-                </button>
-              </div>
+      <div className="ft-track-wrap">
+        <div className="ft-track ft-track--ltr">
+          {row1.map((t, i) => (
+            <div key={i} className="ft-tool-item">
+              <div className="ft-tool-icon">{t.icon}</div>
+              <span className="ft-tool-name">{t.name}</span>
             </div>
-
-            <div className="form-sent">
-              <div className="check-circle">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12l5 5L20 7"/>
-                </svg>
-              </div>
-              <h4>Listo, {form.name.split(" ")[0] || "gracias"}.</h4>
-              <p>Recibimos tu consulta y te respondemos antes de 24hs hábiles.</p>
-            </div>
-          </form>
-
+          ))}
         </div>
       </div>
 
-      {/* ── Right half: Map ── */}
-      <div
-        className={`cs-half cs-half--map${active==='map' ? ' is-clear' : ''}`}
-        onMouseEnter={() => setActive('map')}
-      >
-        <div className="cs-frost"/>
-        <div className="cs-content cs-content--map">
-          <p className="wm-tagline">Trabajamos con toda LATAM y el mundo</p>
-          <WorldMap/>
+      <div className="ft-track-wrap">
+        <div className="ft-track ft-track--rtl">
+          {row2.map((t, i) => (
+            <div key={i} className="ft-tool-item">
+              <div className="ft-tool-icon">{t.icon}</div>
+              <span className="ft-tool-name">{t.name}</span>
+            </div>
+          ))}
         </div>
-
-        {/* Social sidebar */}
-        <nav className="cs-social" aria-label="Redes sociales">
-          <a href="https://instagram.com/g360ia" target="_blank" rel="noopener" aria-label="Instagram">
-            <Icon.ig/>
-          </a>
-          <a href="https://www.linkedin.com/company/g360ia" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <Icon.li/>
-          </a>
-          <a href="mailto:consultora@g360ia.com.ar" aria-label="Email">
-            <Icon.mail/>
-          </a>
-          <a href="https://wa.me/5491125526561" target="_blank" rel="noopener" aria-label="WhatsApp">
-            <Icon.whatsapp/>
-          </a>
-        </nav>
       </div>
 
-    </section>
+    </div>
   );
 }
 
@@ -334,6 +277,7 @@ function Footer({ onNav }) {
   const go = (e, id) => { e.preventDefault(); onNav(id); };
   return (
     <footer className="footer">
+      <ToolsCarousel />
       <div className="container">
         <div className="footer-grid">
           <div>
@@ -374,7 +318,6 @@ function Footer({ onNav }) {
             <ul>
               <li><a href="https://instagram.com/g360ia" target="_blank" rel="noopener">Instagram</a></li>
               <li><a href="https://www.linkedin.com/company/g360ia" target="_blank" rel="noopener">LinkedIn</a></li>
-              <li><a href="#">X / Twitter</a></li>
             </ul>
           </div>
         </div>
@@ -387,4 +330,4 @@ function Footer({ onNav }) {
   );
 }
 
-export { Process, Cases, Contact, Footer };
+export { Process, Cases, Footer };
