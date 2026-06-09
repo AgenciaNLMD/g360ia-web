@@ -318,7 +318,7 @@ function Services({ onContact }) {
       const isExpanding = !tile.classList.contains('is-expanded');
       flushSync(() => setExpandedIdx(isExpanding ? idx : null));
       /* Lock/unlock body scroll for full-screen overlay */
-      document.body.style.overflow = isExpanding ? 'hidden' : '';
+      document.documentElement.classList.toggle('svc-lock', isExpanding);
       /* Restaurar tile-visible que React borra al re-renderizar */
       if (!isExpanding) tile.classList.add('tile-visible');
       return;
@@ -339,7 +339,7 @@ function Services({ onContact }) {
       if (expandedTile && !expandedTile.contains(e.target)) {
         if (window.innerWidth <= 1024) {
           flushSync(() => setExpandedIdx(null));
-          document.body.style.overflow = '';
+          document.documentElement.classList.remove('svc-lock');
         } else {
           doCollapse(expandedTile, expandedIdx);
         }
@@ -414,7 +414,7 @@ function Services({ onContact }) {
                 const tile = e.currentTarget.closest('.svc-tile');
                 if (tile) {
                   if (window.innerWidth <= 1024) {
-                    document.body.style.overflow = '';
+                    document.documentElement.classList.remove('svc-lock');
                     flushSync(() => setExpandedIdx(null));
                     tile.classList.add('tile-visible');
                   } else {
@@ -441,7 +441,7 @@ function Services({ onContact }) {
           onClick={(e) => {
             e.stopPropagation();
             if (window.innerWidth <= 1024) {
-              document.body.style.overflow = '';
+              document.documentElement.classList.remove('svc-lock');
               flushSync(() => setExpandedIdx(null));
               e.currentTarget.closest('.svc-tile')?.classList.add('tile-visible');
             } else {
