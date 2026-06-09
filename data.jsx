@@ -188,9 +188,9 @@ const SERVICES = [
     bgImage: "rrss-bg.webp",
     grid: { col: "3/4", row: "2/3" },
     page: "/servicios/social-media.html",
-    name: "Redes Sociales",
+    name: "Destaca en las Redes Sociales",
     tag: "Social Media",
-    tagline: "Destaca en las Redes Sociales",
+    tagline: "Presencia constante, contenido que conecta",
     desc: "Creamos y gestionamos tu presencia en Meta, Instagram, TikTok, YouTube y LinkedIn. Estrategia, contenido y crecimiento real.",
     includes: [
       "Estrategia de contenido por plataforma",
@@ -260,9 +260,9 @@ const SERVICES = [
     bgImage: "brand-bg.webp",
     grid: { col: "3/4", row: "3/4" },
     page: "/servicios/branding-uiux.html",
-    name: "Branding",
+    name: "Desarrollamos la identidad de tu Marca, Producto o Servicio",
     tag: "Branding",
-    tagline: "Desarrollamos la identidad de tu Marca, Producto o Servicio",
+    tagline: "Identidad visual que genera confianza y conversión",
     desc: "Identidad visual e interfaces que generan confianza y conversión. Diseño con intención, no decoración.",
     includes: [
       "Diseño de identidad visual y branding",
