@@ -327,11 +327,7 @@ function App() {
   /* ── Render ── */
   return (
     <React.Fragment>
-      {/* Fixed background image — stays behind everything while sections scroll over it */}
-      <div className="global-fixed-bg" aria-hidden="true">
-        <img src="hero-bg.webp" alt="" fetchpriority="high" decoding="async" />
-      </div>
-
+      {/* Fixed background image: vive estático en index.html (mejora LCP) */}
       <Header active={active} onNav={onNav} />
 
       {isDesktop ? (

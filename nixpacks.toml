@@ -2,4 +2,4 @@
 cmds = ["npm run build"]
 
 [start]
-cmd = "caddy file-server --root /app/dist --listen :$PORT"
+cmd = "caddy run --config /app/Caddyfile --adapter caddyfile"

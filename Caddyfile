@@ -1,0 +1,13 @@
+:{$PORT} {
+	root * /app/dist
+	encode zstd gzip
+
+	# Assets con hash en el nombre: cachear un año, inmutables
+	header /assets/* Cache-Control "public, max-age=31536000, immutable"
+
+	# Imágenes y estáticos sin hash: 30 días
+	@media path *.webp *.png *.jpg *.jpeg *.ico *.svg *.woff2
+	header @media Cache-Control "public, max-age=2592000"
+
+	file_server
+}
