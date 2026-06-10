@@ -9,5 +9,8 @@
 	@media path *.webp *.png *.jpg *.jpeg *.ico *.svg *.woff2
 	header @media Cache-Control "public, max-age=2592000"
 
+	# URLs limpias: /servicios/ads sirve servicios/ads.html (coincide con los canonical)
+	try_files {path} {path}.html {path}/
+
 	file_server
 }
