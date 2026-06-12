@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es-AR">
 <head>
   <meta charset="utf-8" />
@@ -14,6 +14,8 @@
 
   <!-- Favicon -->
   <link rel="icon" href="/gestion360ia.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" href="/gestion360ia.png" />
+  <link rel="apple-touch-icon" href="/gestion360ia.png" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -38,6 +40,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif&display=swap" rel="stylesheet" />
 
+  <link rel="preload" as="image" href="/software-bg.jpg.webp" fetchpriority="high" />
   <link rel="stylesheet" href="/styles.css" />
 
   <!-- JSON-LD: Service -->
@@ -152,60 +155,119 @@
   <style>
     /* �"?�"? Desarrollo de software: estilos de página �"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"? */
 
-    /* Hero: terminal card */
-    .dev-term-card {
-      background: #1a1f2e;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius-l);
+    /* Hero: app preview card */
+    .dev-app-card {
+      background: #fff;
+      border-radius: 14px;
       overflow: hidden;
-      width: 400px;
+      width: 420px;
       max-width: 100%;
-      font-family: var(--font-mono);
-      box-shadow: var(--shadow-lift);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.1);
     }
-    .dev-term-header {
-      background: #151924;
-      padding: 12px 16px;
+    .dev-app-bar {
+      background: #1a1f2e;
+      padding: 10px 14px;
       display: flex;
       align-items: center;
       gap: 6px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
-    .dev-term-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-    .dev-term-filename {
-      margin-left: 10px;
-      font-size: 11px;
+    .dev-app-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .dev-app-urlbar {
+      margin-left: 8px;
+      flex: 1;
+      background: rgba(255,255,255,0.07);
+      border-radius: 5px;
+      padding: 3px 10px;
+      font-family: var(--font-mono);
+      font-size: 10px;
       color: rgba(255,255,255,0.35);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .dev-term-body {
-      padding: 18px 20px;
-      font-size: 12.5px;
-      line-height: 1.8;
-      color: #abb2bf;
+    .dev-app-scenes {
+      position: relative;
+      background: #f0f3f8;
     }
-    .dev-kw  { color: #c678dd; }
-    .dev-fn  { color: #61afef; }
-    .dev-str { color: #98c379; }
-    .dev-cm  { color: #5c6370; font-style: italic; }
-    .dev-var { color: #e06c75; }
-    .dev-term-footer {
-      background: #151924;
-      padding: 10px 16px;
+    .dev-scene {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+      pointer-events: none;
+    }
+    .dev-scene.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .dev-scene svg { display: block; width: 100%; height: 100%; }
+    .dev-app-footer {
+      background: #1a1f2e;
+      padding: 8px 14px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      font-family: var(--font-mono);
-      font-size: 11px;
+      justify-content: space-between;
     }
-    .dev-status-ok { color: #98c379; }
-    .dev-badge-tag {
-      margin-left: auto;
-      background: rgba(97,175,239,0.15);
-      color: #61afef;
-      padding: 2px 8px;
-      border-radius: 4px;
+    .dev-app-scene-dots {
+      display: flex;
+      gap: 5px;
+    }
+    .dev-app-scene-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transition: background 0.3s;
+    }
+    .dev-app-scene-dot.is-active { background: rgba(255,255,255,0.7); }
+    .dev-app-footer-label {
+      font-family: var(--font-mono);
       font-size: 10px;
+      color: rgba(255,255,255,0.3);
+    }
+    /* ── Hero: animaciones de entrada ── */
+    .bw-hero-text,
+    .bw-hero-mock {
+      opacity: 0;
+    }
+    .bw-hero.hero-in .bw-hero-text {
+      animation: heroFromLeft 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .bw-hero.hero-in .bw-hero-mock {
+      animation: heroFromRight 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
+    }
+    @keyframes heroFromLeft {
+      from { opacity: 0; transform: translateX(-60px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes heroFromRight {
+      from { opacity: 0; transform: translateX(60px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Desktop: card sin límite de ancho, escenas más altas */
+    .dev-app-card { width: 100%; }
+    .dev-app-scenes { height: 300px !important; }
+
+    @media (max-width: 960px) {
+      .dev-app-scenes { height: 220px !important; }
+    }
+    /* Hero mobile: texto compacto para darle más espacio a la card */
+    @media (max-width: 767px) {
+      .bw-hero .bw-hero-text .h1 {
+        font-size: clamp(1.45rem, 5.5vw, 1.9rem);
+        line-height: 1.2;
+        margin-bottom: 6px;
+      }
+      .bw-hero .bw-hero-text .lead {
+        font-size: 0.82rem;
+        margin-top: 8px !important;
+        line-height: 1.45;
+      }
+      .bw-hero .bw-hero-ctas { margin-top: 12px; }
+      .bw-hero .bw-hero-mock { width: 100%; }
+      .dev-app-scenes { height: 210px !important; }
     }
 
     /* Stack section */
@@ -307,13 +369,20 @@
       line-height: 1.55;
     }
   </style>
+  <script src="/snap-manager.js" defer></script>
+  <script src="/navbar-init.js" defer></script>
 </head>
-<body>
+<body class="svc-page">
+
+  <!-- Fondo fijo del servicio: la imagen queda detrás de todo el contenido -->
+  <div class="global-fixed-bg" aria-hidden="true">
+    <img src="/software-bg.jpg.webp" alt="" fetchpriority="high" decoding="async" />
+  </div>
 
   <main>
 
     <!-- ===== SECCI�"N 1: HERO ===== -->
-    <section class="bw-hero">
+    <section class="bw-hero" data-nav-label="Inicio">
       <div class="bw-hero-bg"></div>
       <div class="container bw-hero-inner">
 
@@ -333,31 +402,250 @@
           </div>
         </div>
 
-        <!-- Terminal code card visual -->
+        <!-- App preview card — 3 escenas animadas -->
         <div class="bw-hero-mock" aria-hidden="true">
-          <div class="dev-term-card">
-            <div class="dev-term-header">
-              <span class="dev-term-dot" style="background:#ff5f57"></span>
-              <span class="dev-term-dot" style="background:#ffbd2e"></span>
-              <span class="dev-term-dot" style="background:#28c840"></span>
-              <span class="dev-term-filename">app/api/orders/route.ts</span>
+          <div class="dev-app-card" id="dev-app-card">
+            <div class="dev-app-bar">
+              <span class="dev-app-dot" style="background:#ff5f57"></span>
+              <span class="dev-app-dot" style="background:#ffbd2e"></span>
+              <span class="dev-app-dot" style="background:#28c840"></span>
+              <span class="dev-app-urlbar" id="dev-app-urlbar">app.miempresa.com/dashboard</span>
             </div>
-            <div class="dev-term-body">
-              <div><span class="dev-kw">export async function</span> <span class="dev-fn">POST</span>(req: Request) {</div>
-              <div>&nbsp;&nbsp;<span class="dev-kw">const</span> { <span class="dev-var">orderId</span> } = <span class="dev-kw">await</span> req.<span class="dev-fn">json</span>()</div>
-              <div>&nbsp;</div>
-              <div>&nbsp;&nbsp;<span class="dev-cm">// Consultar agente IA con contexto</span></div>
-              <div>&nbsp;&nbsp;<span class="dev-kw">const</span> <span class="dev-var">result</span> = <span class="dev-kw">await</span> agent.<span class="dev-fn">run</span>({</div>
-              <div>&nbsp;&nbsp;&nbsp;&nbsp;tool: <span class="dev-str">"check_order"</span>,</div>
-              <div>&nbsp;&nbsp;&nbsp;&nbsp;input: { <span class="dev-var">orderId</span> }</div>
-              <div>&nbsp;&nbsp;})</div>
-              <div>&nbsp;</div>
-              <div>&nbsp;&nbsp;<span class="dev-kw">return</span> Response.<span class="dev-fn">json</span>(<span class="dev-var">result</span>)</div>
-              <div>}</div>
-            </div>
-            <div class="dev-term-footer">
-              <span class="dev-status-ok">�o" Build 1.4s &nbsp;·&nbsp; �o" Tests 24/24</span>
-              <span class="dev-badge-tag">Railway · prod</span>
+            <div class="dev-app-scenes" style="height:300px" id="dev-scenes">
+
+              <!-- Escena 1: Dashboard -->
+              <div class="dev-scene is-active" id="dev-scene-0">
+                <svg viewBox="0 0 420 240" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="420" height="240" fill="#f0f3f8"/>
+                  <rect width="52" height="240" fill="#1a1f2e"/>
+                  <circle cx="26" cy="22" r="9" fill="rgba(255,255,255,0.12)"/>
+                  <rect x="14" y="40" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.2)"/>
+                  <rect x="8" y="60" width="36" height="28" rx="6" fill="rgba(93,127,163,0.4)"/>
+                  <rect x="14" y="70" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.7)"/>
+                  <rect x="14" y="76" width="16" height="2" rx="1" fill="rgba(255,255,255,0.35)"/>
+                  <rect x="8" y="96" width="36" height="28" rx="6" fill="rgba(255,255,255,0.04)"/>
+                  <rect x="14" y="106" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+                  <rect x="8" y="132" width="36" height="28" rx="6" fill="rgba(255,255,255,0.04)"/>
+                  <rect x="14" y="142" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+                  <rect x="8" y="168" width="36" height="28" rx="6" fill="rgba(255,255,255,0.04)"/>
+                  <rect x="14" y="178" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+                  <rect x="60" y="10" width="90" height="12" rx="3" fill="#1a1f2e" opacity="0.7"/>
+                  <rect x="370" y="8" width="36" height="16" rx="8" fill="#5d7fa3" opacity="0.8"/>
+                  <rect x="60" y="34" width="82" height="52" rx="6" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+                  <text x="70" y="50" font-family="sans-serif" font-size="8" fill="#94a3b8">Ingresos</text>
+                  <text x="70" y="65" font-family="sans-serif" font-size="13" font-weight="700" fill="#1a1f2e">$84.2k</text>
+                  <text x="70" y="78" font-family="sans-serif" font-size="7" fill="#22c55e">&#x2191; 12.4%</text>
+                  <rect x="150" y="34" width="82" height="52" rx="6" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+                  <text x="160" y="50" font-family="sans-serif" font-size="8" fill="#94a3b8">Clientes</text>
+                  <text x="160" y="65" font-family="sans-serif" font-size="13" font-weight="700" fill="#1a1f2e">1,248</text>
+                  <text x="160" y="78" font-family="sans-serif" font-size="7" fill="#22c55e">&#x2191; 8.1%</text>
+                  <rect x="240" y="34" width="82" height="52" rx="6" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+                  <text x="250" y="50" font-family="sans-serif" font-size="8" fill="#94a3b8">Pedidos</text>
+                  <text x="250" y="65" font-family="sans-serif" font-size="13" font-weight="700" fill="#1a1f2e">326</text>
+                  <text x="250" y="78" font-family="sans-serif" font-size="7" fill="#ef4444">&#x2193; 2.3%</text>
+                  <rect x="330" y="34" width="82" height="52" rx="6" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+                  <text x="340" y="50" font-family="sans-serif" font-size="8" fill="#94a3b8">Conversi&#xf3;n</text>
+                  <text x="340" y="65" font-family="sans-serif" font-size="13" font-weight="700" fill="#1a1f2e">3.7%</text>
+                  <text x="340" y="78" font-family="sans-serif" font-size="7" fill="#22c55e">&#x2191; 0.5pp</text>
+                  <rect x="60" y="96" width="250" height="132" rx="6" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+                  <text x="72" y="112" font-family="sans-serif" font-size="8" font-weight="600" fill="#1a1f2e">Ingresos mensuales</text>
+                  <line x1="72" y1="122" x2="298" y2="122" stroke="#f1f5f9" stroke-width="1"/>
+                  <line x1="72" y1="138" x2="298" y2="138" stroke="#f1f5f9" stroke-width="1"/>
+                  <line x1="72" y1="154" x2="298" y2="154" stroke="#f1f5f9" stroke-width="1"/>
+                  <line x1="72" y1="170" x2="298" y2="170" stroke="#f1f5f9" stroke-width="1"/>
+                  <line x1="72" y1="186" x2="298" y2="186" stroke="#f1f5f9" stroke-width="1"/>
+                  <rect x="84"  y="160" width="18" height="26" rx="3" fill="#5d7fa3" opacity="0.55"/>
+                  <rect x="112" y="148" width="18" height="38" rx="3" fill="#5d7fa3" opacity="0.55"/>
+                  <rect x="140" y="138" width="18" height="48" rx="3" fill="#5d7fa3" opacity="0.55"/>
+                  <rect x="168" y="150" width="18" height="36" rx="3" fill="#5d7fa3" opacity="0.55"/>
+                  <rect x="196" y="132" width="18" height="54" rx="3" fill="#5d7fa3" opacity="0.75"/>
+                  <rect x="224" y="124" width="18" height="62" rx="3" fill="#1a1f2e" opacity="0.85"/>
+                  <rect x="252" y="140" width="18" height="46" rx="3" fill="#5d7fa3" opacity="0.55"/>
+                  <text x="87"  y="197" font-family="sans-serif" font-size="7" fill="#94a3b8">Jun</text>
+                  <text x="115" y="197" font-family="sans-serif" font-size="7" fill="#94a3b8">Jul</text>
+                  <text x="143" y="197" font-family="sans-serif" font-size="7" fill="#94a3b8">Ago</text>
+                  <text x="171" y="197" font-family="sans-serif" font-size="7" fill="#94a3b8">Sep</text>
+                  <text x="199" y="197" font-family="sans-serif" font-size="7" fill="#94a3b8">Oct</text>
+                  <text x="225" y="197" font-family="sans-serif" font-size="7" fill="#1a1f2e" font-weight="600">Nov</text>
+                  <text x="254" y="197" font-family="sans-serif" font-size="7" fill="#94a3b8">Dic</text>
+                  <rect x="320" y="96" width="92" height="58" rx="6" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+                  <text x="330" y="112" font-family="sans-serif" font-size="8" font-weight="600" fill="#1a1f2e">Top productos</text>
+                  <rect x="330" y="118" width="58" height="6" rx="3" fill="#1a1f2e" opacity="0.75"/>
+                  <text x="393" y="124" font-family="sans-serif" font-size="7" fill="#94a3b8">68%</text>
+                  <rect x="330" y="128" width="38" height="6" rx="3" fill="#5d7fa3" opacity="0.7"/>
+                  <text x="373" y="134" font-family="sans-serif" font-size="7" fill="#94a3b8">44%</text>
+                  <rect x="330" y="138" width="24" height="6" rx="3" fill="#5d7fa3" opacity="0.35"/>
+                  <text x="359" y="144" font-family="sans-serif" font-size="7" fill="#94a3b8">28%</text>
+                  <rect x="320" y="162" width="92" height="66" rx="6" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+                  <text x="330" y="178" font-family="sans-serif" font-size="8" font-weight="600" fill="#1a1f2e">Actividad</text>
+                  <circle cx="334" cy="191" r="3.5" fill="#22c55e" opacity="0.8"/>
+                  <text x="342" y="194" font-family="sans-serif" font-size="7" fill="#64748b">Pedido #3412</text>
+                  <circle cx="334" cy="204" r="3.5" fill="#5d7fa3" opacity="0.8"/>
+                  <text x="342" y="207" font-family="sans-serif" font-size="7" fill="#64748b">Cliente actualizado</text>
+                  <circle cx="334" cy="217" r="3.5" fill="#f59e0b" opacity="0.8"/>
+                  <text x="342" y="220" font-family="sans-serif" font-size="7" fill="#64748b">Alerta de stock</text>
+                </svg>
+              </div>
+
+              <!-- Escena 2: CRM Contactos -->
+              <div class="dev-scene" id="dev-scene-1">
+                <svg viewBox="0 0 420 240" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="420" height="240" fill="#f0f3f8"/>
+                  <rect width="52" height="240" fill="#1a1f2e"/>
+                  <circle cx="26" cy="22" r="9" fill="rgba(255,255,255,0.12)"/>
+                  <rect x="14" y="40" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.2)"/>
+                  <rect x="8" y="60" width="36" height="28" rx="6" fill="rgba(255,255,255,0.04)"/>
+                  <rect x="14" y="70" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+                  <rect x="8" y="96" width="36" height="28" rx="6" fill="rgba(93,127,163,0.4)"/>
+                  <rect x="14" y="106" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.7)"/>
+                  <rect x="14" y="112" width="16" height="2" rx="1" fill="rgba(255,255,255,0.35)"/>
+                  <rect x="8" y="132" width="36" height="28" rx="6" fill="rgba(255,255,255,0.04)"/>
+                  <rect x="14" y="142" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+                  <rect x="8" y="168" width="36" height="28" rx="6" fill="rgba(255,255,255,0.04)"/>
+                  <rect x="14" y="178" width="24" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+                  <text x="66" y="22" font-family="sans-serif" font-size="11" font-weight="700" fill="#1a1f2e">Contactos CRM</text>
+                  <text x="66" y="33" font-family="sans-serif" font-size="8" fill="#94a3b8">1,248 contactos · 2 min ago</text>
+                  <rect x="66" y="40" width="180" height="18" rx="5" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+                  <text x="76" y="52" font-family="sans-serif" font-size="8" fill="#cbd5e1">Buscar contacto...</text>
+                  <rect x="252" y="40" width="44" height="18" rx="9" fill="#1a1f2e" opacity="0.08"/>
+                  <text x="264" y="52" font-family="sans-serif" font-size="8" fill="#64748b">Todos</text>
+                  <rect x="302" y="40" width="46" height="18" rx="9" fill="#5d7fa3" opacity="0.15"/>
+                  <text x="312" y="52" font-family="sans-serif" font-size="8" fill="#5d7fa3">Activos</text>
+                  <rect x="354" y="40" width="54" height="18" rx="9" fill="#1a1f2e" opacity="0.08"/>
+                  <text x="362" y="52" font-family="sans-serif" font-size="8" fill="#64748b">Prospects</text>
+                  <rect x="60" y="64" width="352" height="16" fill="#f8fafc"/>
+                  <text x="100" y="75" font-family="sans-serif" font-size="8" font-weight="600" fill="#94a3b8">NOMBRE</text>
+                  <text x="210" y="75" font-family="sans-serif" font-size="8" font-weight="600" fill="#94a3b8">EMPRESA</text>
+                  <text x="300" y="75" font-family="sans-serif" font-size="8" font-weight="600" fill="#94a3b8">ESTADO</text>
+                  <text x="362" y="75" font-family="sans-serif" font-size="8" font-weight="600" fill="#94a3b8">VALOR</text>
+                  <rect x="60" y="80" width="352" height="28" fill="white"/>
+                  <circle cx="80" cy="94" r="9" fill="#5d7fa3" opacity="0.7"/><text x="76" y="97" font-family="sans-serif" font-size="8" font-weight="700" fill="white">MG</text>
+                  <text x="96" y="92" font-family="sans-serif" font-size="9" font-weight="600" fill="#1a1f2e">Mart&#xed;n Garc&#xed;a</text>
+                  <text x="96" y="103" font-family="sans-serif" font-size="7" fill="#94a3b8">martin@empresa.com</text>
+                  <text x="210" y="97" font-family="sans-serif" font-size="8" fill="#475569">TechSol S.A.</text>
+                  <rect x="300" y="87" width="44" height="14" rx="7" fill="#dcfce7"/>
+                  <text x="308" y="97" font-family="sans-serif" font-size="7" fill="#16a34a">&#x25cf; Activo</text>
+                  <text x="362" y="97" font-family="sans-serif" font-size="9" font-weight="600" fill="#1a1f2e">$12,400</text>
+                  <line x1="60" y1="108" x2="412" y2="108" stroke="#f1f5f9" stroke-width="1"/>
+                  <rect x="60" y="108" width="352" height="28" fill="white"/>
+                  <circle cx="80" cy="122" r="9" fill="#f59e0b" opacity="0.7"/><text x="76" y="125" font-family="sans-serif" font-size="8" font-weight="700" fill="white">LR</text>
+                  <text x="96" y="120" font-family="sans-serif" font-size="9" font-weight="600" fill="#1a1f2e">Laura Rodr&#xed;guez</text>
+                  <text x="96" y="131" font-family="sans-serif" font-size="7" fill="#94a3b8">laura@grupo.com</text>
+                  <text x="210" y="125" font-family="sans-serif" font-size="8" fill="#475569">Grupo Nortes</text>
+                  <rect x="300" y="115" width="52" height="14" rx="7" fill="#fef9c3"/>
+                  <text x="306" y="125" font-family="sans-serif" font-size="7" fill="#ca8a04">&#x25cf; Prospect</text>
+                  <text x="362" y="125" font-family="sans-serif" font-size="9" font-weight="600" fill="#1a1f2e">$5,800</text>
+                  <line x1="60" y1="136" x2="412" y2="136" stroke="#f1f5f9" stroke-width="1"/>
+                  <rect x="60" y="136" width="352" height="28" fill="white"/>
+                  <circle cx="80" cy="150" r="9" fill="#8b5cf6" opacity="0.7"/><text x="76" y="153" font-family="sans-serif" font-size="8" font-weight="700" fill="white">CP</text>
+                  <text x="96" y="148" font-family="sans-serif" font-size="9" font-weight="600" fill="#1a1f2e">Carlos Peralta</text>
+                  <text x="96" y="159" font-family="sans-serif" font-size="7" fill="#94a3b8">cperalta@logis.ar</text>
+                  <text x="210" y="153" font-family="sans-serif" font-size="8" fill="#475569">LogisTrans</text>
+                  <rect x="300" y="143" width="44" height="14" rx="7" fill="#dcfce7"/>
+                  <text x="308" y="153" font-family="sans-serif" font-size="7" fill="#16a34a">&#x25cf; Activo</text>
+                  <text x="362" y="153" font-family="sans-serif" font-size="9" font-weight="600" fill="#1a1f2e">$31,200</text>
+                  <line x1="60" y1="164" x2="412" y2="164" stroke="#f1f5f9" stroke-width="1"/>
+                  <rect x="60" y="164" width="352" height="28" fill="white"/>
+                  <circle cx="80" cy="178" r="9" fill="#ec4899" opacity="0.6"/><text x="76" y="181" font-family="sans-serif" font-size="8" font-weight="700" fill="white">SV</text>
+                  <text x="96" y="176" font-family="sans-serif" font-size="9" font-weight="600" fill="#1a1f2e">Sof&#xed;a Vega</text>
+                  <text x="96" y="187" font-family="sans-serif" font-size="7" fill="#94a3b8">sofia@retail.com</text>
+                  <text x="210" y="181" font-family="sans-serif" font-size="8" fill="#475569">RetailPlus</text>
+                  <rect x="300" y="171" width="52" height="14" rx="7" fill="#fef9c3"/>
+                  <text x="306" y="181" font-family="sans-serif" font-size="7" fill="#ca8a04">&#x25cf; Prospect</text>
+                  <text x="362" y="181" font-family="sans-serif" font-size="9" font-weight="600" fill="#1a1f2e">$8,950</text>
+                  <line x1="60" y1="192" x2="412" y2="192" stroke="#f1f5f9" stroke-width="1"/>
+                  <rect x="60" y="192" width="352" height="28" fill="white"/>
+                  <circle cx="80" cy="206" r="9" fill="#0ea5e9" opacity="0.6"/><text x="76" y="209" font-family="sans-serif" font-size="8" font-weight="700" fill="white">JM</text>
+                  <text x="96" y="204" font-family="sans-serif" font-size="9" font-weight="600" fill="#1a1f2e">Juan M&#xe9;ndez</text>
+                  <text x="96" y="215" font-family="sans-serif" font-size="7" fill="#94a3b8">jmendez@cons.ar</text>
+                  <text x="210" y="209" font-family="sans-serif" font-size="8" fill="#475569">Construdoc</text>
+                  <rect x="300" y="199" width="56" height="14" rx="7" fill="#fee2e2"/>
+                  <text x="306" y="209" font-family="sans-serif" font-size="7" fill="#dc2626">&#x25cf; Inactivo</text>
+                  <text x="362" y="209" font-family="sans-serif" font-size="9" font-weight="600" fill="#1a1f2e">$2,100</text>
+                  <line x1="60" y1="220" x2="412" y2="220" stroke="#f1f5f9" stroke-width="1"/>
+                  <text x="66" y="233" font-family="sans-serif" font-size="7" fill="#94a3b8">Mostrando 1&#x2013;5 de 1,248</text>
+                  <rect x="350" y="225" width="20" height="12" rx="3" fill="#f1f5f9"/>
+                  <text x="357" y="234" font-family="sans-serif" font-size="8" fill="#64748b">&#x2039;</text>
+                  <rect x="374" y="225" width="20" height="12" rx="3" fill="#1a1f2e" opacity="0.8"/>
+                  <text x="381" y="234" font-family="sans-serif" font-size="8" fill="white">&#x203a;</text>
+                </svg>
+              </div>
+
+              <!-- Escena 3: Mapa + Seguimiento de flota -->
+              <div class="dev-scene" id="dev-scene-2">
+                <svg viewBox="0 0 420 240" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="420" height="240" fill="#eef1f7"/>
+                  <rect x="0"   y="0"   width="54"  height="44"  fill="#e2e8f0" rx="2"/>
+                  <rect x="64"  y="0"   width="62"  height="44"  fill="#e2e8f0" rx="2"/>
+                  <rect x="136" y="0"   width="52"  height="44"  fill="#e2e8f0" rx="2"/>
+                  <rect x="198" y="0"   width="62"  height="44"  fill="#e2e8f0" rx="2"/>
+                  <rect x="270" y="0"   width="54"  height="44"  fill="#e2e8f0" rx="2"/>
+                  <rect x="334" y="0"   width="86"  height="44"  fill="#e2e8f0" rx="2"/>
+                  <rect x="0"   y="54"  width="54"  height="54"  fill="#e2e8f0" rx="2"/>
+                  <rect x="64"  y="54"  width="62"  height="54"  fill="#e2e8f0" rx="2"/>
+                  <rect x="136" y="54"  width="52"  height="54"  fill="#e2e8f0" rx="2"/>
+                  <rect x="198" y="54"  width="62"  height="54"  fill="#e2e8f0" rx="2"/>
+                  <rect x="270" y="54"  width="54"  height="54"  fill="#e2e8f0" rx="2"/>
+                  <rect x="334" y="54"  width="86"  height="54"  fill="#e2e8f0" rx="2"/>
+                  <rect x="0"   y="118" width="54"  height="52"  fill="#e2e8f0" rx="2"/>
+                  <rect x="64"  y="118" width="62"  height="52"  fill="#e2e8f0" rx="2"/>
+                  <rect x="136" y="118" width="52"  height="52"  fill="#e2e8f0" rx="2"/>
+                  <rect x="198" y="118" width="62"  height="52"  fill="#e2e8f0" rx="2"/>
+                  <rect x="270" y="118" width="54"  height="52"  fill="#e2e8f0" rx="2"/>
+                  <rect x="334" y="118" width="86"  height="52"  fill="#e2e8f0" rx="2"/>
+                  <rect x="0"   y="180" width="54"  height="60"  fill="#e2e8f0" rx="2"/>
+                  <rect x="64"  y="180" width="62"  height="60"  fill="#e2e8f0" rx="2"/>
+                  <rect x="136" y="180" width="52"  height="60"  fill="#e2e8f0" rx="2"/>
+                  <rect x="198" y="180" width="62"  height="60"  fill="#e2e8f0" rx="2"/>
+                  <rect x="270" y="180" width="54"  height="60"  fill="#e2e8f0" rx="2"/>
+                  <rect x="334" y="180" width="86"  height="60"  fill="#e2e8f0" rx="2"/>
+                  <rect x="0" y="108" width="420" height="10" fill="#dde3ed"/>
+                  <rect x="260" y="0" width="10" height="240" fill="#dde3ed"/>
+                  <polyline points="95,28 95,108 190,108 190,168" stroke="#5d7fa3" stroke-width="1.5" fill="none" stroke-dasharray="4,3" opacity="0.55"/>
+                  <polyline points="305,158 305,108 375,108 375,28" stroke="#f59e0b" stroke-width="1.5" fill="none" stroke-dasharray="4,3" opacity="0.55"/>
+                  <polyline points="160,198 160,108 225,108 225,58" stroke="#22c55e" stroke-width="1.5" fill="none" stroke-dasharray="4,3" opacity="0.55"/>
+                  <circle cx="190" cy="150" r="8" fill="#5d7fa3" opacity="0.18"/>
+                  <circle cx="190" cy="150" r="5" fill="#5d7fa3"/>
+                  <text x="187" y="153" font-family="sans-serif" font-size="6" font-weight="700" fill="white">V1</text>
+                  <circle cx="305" cy="132" r="8" fill="#f59e0b" opacity="0.18"/>
+                  <circle cx="305" cy="132" r="5" fill="#f59e0b"/>
+                  <text x="302" y="135" font-family="sans-serif" font-size="6" font-weight="700" fill="white">V2</text>
+                  <circle cx="225" cy="76" r="8" fill="#22c55e" opacity="0.18"/>
+                  <circle cx="225" cy="76" r="5" fill="#22c55e"/>
+                  <text x="222" y="79" font-family="sans-serif" font-size="6" font-weight="700" fill="white">V3</text>
+                  <polygon points="95,24 99,34 91,34" fill="#5d7fa3" opacity="0.5"/>
+                  <polygon points="375,24 379,34 371,34" fill="#f59e0b" opacity="0.5"/>
+                  <polygon points="160,194 164,204 156,204" fill="#22c55e" opacity="0.5"/>
+                  <rect x="282" y="148" width="132" height="86" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+                  <text x="293" y="163" font-family="sans-serif" font-size="8" font-weight="700" fill="#1a1f2e">Estado de flota</text>
+                  <circle cx="403" cy="160" r="3" fill="#22c55e"/>
+                  <text x="390" y="163" font-family="sans-serif" font-size="7" fill="#94a3b8">En vivo</text>
+                  <line x1="282" y1="168" x2="414" y2="168" stroke="#f1f5f9" stroke-width="1"/>
+                  <circle cx="293" cy="179" r="4" fill="#5d7fa3"/>
+                  <text x="301" y="182" font-family="sans-serif" font-size="8" fill="#1a1f2e" font-weight="600">Unidad 1</text>
+                  <text x="360" y="182" font-family="sans-serif" font-size="7" fill="#22c55e">En ruta</text>
+                  <line x1="282" y1="186" x2="414" y2="186" stroke="#f1f5f9" stroke-width="1"/>
+                  <circle cx="293" cy="196" r="4" fill="#f59e0b"/>
+                  <text x="301" y="199" font-family="sans-serif" font-size="8" fill="#1a1f2e" font-weight="600">Unidad 2</text>
+                  <text x="360" y="199" font-family="sans-serif" font-size="7" fill="#22c55e">En ruta</text>
+                  <line x1="282" y1="203" x2="414" y2="203" stroke="#f1f5f9" stroke-width="1"/>
+                  <circle cx="293" cy="213" r="4" fill="#22c55e"/>
+                  <text x="301" y="216" font-family="sans-serif" font-size="8" fill="#1a1f2e" font-weight="600">Unidad 3</text>
+                  <text x="355" y="216" font-family="sans-serif" font-size="7" fill="#f59e0b">Llegando</text>
+                  <line x1="282" y1="220" x2="414" y2="220" stroke="#f1f5f9" stroke-width="1"/>
+                  <text x="293" y="229" font-family="sans-serif" font-size="7" fill="#94a3b8">3 activas &#xb7; 0 alertas &#xb7; 12 viajes hoy</text>
+                </svg>
+              </div>
+
+            </div><!-- /dev-app-scenes -->
+
+            <div class="dev-app-footer">
+              <div class="dev-app-scene-dots">
+                <span class="dev-app-scene-dot is-active" id="dev-dot-0"></span>
+                <span class="dev-app-scene-dot" id="dev-dot-1"></span>
+                <span class="dev-app-scene-dot" id="dev-dot-2"></span>
+              </div>
+              <span class="dev-app-footer-label" id="dev-scene-label">Dashboard</span>
             </div>
           </div>
         </div>
@@ -366,7 +654,7 @@
     </section>
 
     <!-- ===== SECCI�"N 2: PARA QUI�?N ES / NO ES ===== -->
-    <section class="section" style="padding-top:0">
+    <section class="section" style="padding-top:0" data-nav-label="Para quién">
       <div class="container">
         <div class="bw-forwhom">
 
@@ -403,7 +691,7 @@
     </section>
 
     <!-- ===== SECCI�"N 3: QU�? INCLUYE ===== -->
-    <section class="section" style="background:var(--slate-50)">
+    <section class="section" id="ia-software" style="background:var(--slate-50)" data-nav-label="Qué incluye">
       <div class="container">
         <span class="eyebrow">Qué incluye</span>
         <h2 class="h-display h2" style="margin-bottom:48px">Lo que construimos juntos</h2>
@@ -462,7 +750,7 @@
     </section>
 
     <!-- ===== SECCI�"N 4: STACK TÍPICO ===== -->
-    <section class="section">
+    <section class="section" data-nav-label="Stack">
       <div class="container">
         <span class="eyebrow">Stack técnico</span>
         <h2 class="h-display h2" style="margin-bottom:16px">Tecnologías que usamos y por qué</h2>
@@ -517,7 +805,7 @@
     </section>
 
     <!-- ===== SECCI�"N 5: C�"MO TRABAJAMOS ===== -->
-    <section class="section" id="proceso" style="padding:60px 0">
+    <section class="section" id="proceso" data-nav-label="Proceso" style="padding:60px 0">
       <div class="process" style="margin:0 32px">
         <div class="container" style="padding:96px 64px">
           <span class="eyebrow">Proceso</span>
@@ -554,7 +842,7 @@
     </section>
 
     <!-- ===== SECCI�"N 6: INVERSI�"N ===== -->
-    <section class="section">
+    <section class="section" data-nav-label="Inversión">
       <div class="container">
         <span class="eyebrow">Inversión</span>
         <h2 class="h-display h2" style="margin-bottom:16px">Cotización a medida: no hay precio fijo</h2>
@@ -597,7 +885,7 @@
     </section>
 
     <!-- ===== SECCI�"N 7: RESULTADOS ESPERABLES ===== -->
-    <section class="section" style="background:var(--slate-50)">
+    <section class="section" style="background:var(--slate-50)" data-nav-label="Resultados">
       <div class="container">
         <span class="eyebrow">Lo que podés esperar</span>
         <h2 class="h-display h2" style="margin-bottom:16px">Sin métricas inventadas: así trabajamos</h2>
@@ -669,59 +957,12 @@
       </div>
     </section>
 
-    <!-- ===== SECCI�"N 8: FAQ ===== -->
-    <section class="section">
-      <div class="container">
-        <span class="eyebrow">FAQ</span>
-        <h2 class="h-display h2" style="margin-bottom:48px">Preguntas frecuentes</h2>
-        <div class="bw-faq" id="faq">
-
-          <details class="bw-faq-item">
-            <summary class="bw-faq-q">¿Cuánto tiempo lleva desarrollar una aplicación a medida?</summary>
-            <div class="bw-faq-a">Depende del alcance. Un MVP funcional puede estar listo en 6-8 semanas. Una aplicación completa con integraciones puede llevar entre 3 y 6 meses. Después del Discovery te presentamos un cronograma con hitos claros y fechas de demo quincenales.</div>
-          </details>
-
-          <details class="bw-faq-item">
-            <summary class="bw-faq-q">¿Pueden integrarse con los sistemas que ya uso (CRM, ERP, pasarelas de pago)?</summary>
-            <div class="bw-faq-a">En la mayoría de los casos sí. Si tu sistema tiene API (HubSpot, Salesforce, MercadoPago, Stripe, SAP u otras), podemos conectarnos. Si no tiene API, evaluamos acceso directo a base de datos u otras alternativas. Lo determinamos en el Discovery.</div>
-          </details>
-
-          <details class="bw-faq-item">
-            <summary class="bw-faq-q">¿Qué pasa si los requerimientos cambian durante el proyecto?</summary>
-            <div class="bw-faq-a">Trabajamos en sprints quincenales. Los cambios pueden incorporarse en el sprint siguiente o priorizarse según su impacto. No congelamos el scope ni paralizamos el proyecto ante cambios: los gestionamos con vos en cada ciclo.</div>
-          </details>
-
-          <details class="bw-faq-item">
-            <summary class="bw-faq-q">¿El hosting y la infraestructura están incluidos?</summary>
-            <div class="bw-faq-a">No automáticamente. La infraestructura (servidores, dominios, cuentas cloud) es un costo separado que va directo a las plataformas (Vercel, Railway, AWS, etc.). Te asesoramos en la elección y, si querés, lo gestionamos nosotros. Se define en la propuesta.</div>
-          </details>
-
-          <details class="bw-faq-item">
-            <summary class="bw-faq-q">¿Pueden agregar IA a un software que ya tenemos?</summary>
-            <div class="bw-faq-a">Sí. Podemos integrar agentes IA, LLMs o automatizaciones en sistemas existentes, siempre que el código sea accesible o el sistema tenga API. Lo evaluamos en el Discovery. El módulo de IA es opcional �?" no es obligatorio en todos los proyectos.</div>
-          </details>
-
-          <details class="bw-faq-item">
-            <summary class="bw-faq-q">¿Cómo se cotiza un proyecto de software a medida?</summary>
-            <div class="bw-faq-a">Después del Discovery (gratuito) presentamos una propuesta con alcance, tecnología, cronograma y presupuesto. El precio depende de la complejidad funcional, las integraciones necesarias y el tiempo estimado. No hay precio fijo: cada proyecto es diferente.</div>
-          </details>
-
-          <details class="bw-faq-item">
-            <summary class="bw-faq-q">¿El código fuente es nuestro?</summary>
-            <div class="bw-faq-a">Sí, el código fuente es tuyo desde el día uno. Trabajamos en tu repositorio o en uno que te entregamos con acceso completo. Al finalizar el proyecto entregamos documentación técnica para que tu equipo o cualquier otro desarrollador pueda continuar el trabajo.</div>
-          </details>
-
-          <details class="bw-faq-item">
-            <summary class="bw-faq-q">¿Qué tecnologías usan y por qué?</summary>
-            <div class="bw-faq-a">Preferimos un stack mantenible a largo plazo: Next.js o Astro para frontend, NestJS o FastAPI para backend, PostgreSQL como base de datos principal, Railway o Vercel para deploy. La elección depende del caso �?" no usamos herramientas por moda sino por adecuación al problema.</div>
-          </details>
-
-        </div>
-      </div>
-    </section>
+    <!-- ===== SECCIÓN 8: FAQ (React island) ===== -->
+    <div id="faq-root-software"></div>
+    <script type="module" src="/faq-software.jsx"></script>
 
     <!-- ===== SECCI�"N 9: CTA FINAL + SERVICIOS RELACIONADOS ===== -->
-    <section class="bw-cta-final">
+    <section class="bw-cta-final" data-nav-label="Contacto">
       <div class="container bw-cta-final-inner">
         <h2 class="h-display h2" style="color:#faf9f6">¿Tenés un proyecto de software en mente?</h2>
         <p class="lead" style="color:rgba(245,247,251,0.75);margin-top:16px">En 30 minutos te decimos si tiene sentido construirlo a medida, qué stack aplicaría y cuánto podría costar. Sin compromiso, sin venta de humo.</p>
@@ -778,58 +1019,16 @@
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <a href="/" class="logo">
-            <img src="/logo.webp" alt="Gestión 360 IA" class="logo-img" />
-            <span class="logo-name">Gestion<span class="num">360</span><span class="ia">.iA</span></span>
-          </a>
-          <p class="footer-tag">Consultora de IA. Ayudamos a empresas a crecer con automatización, datos y producto.</p>
-        </div>
-        <div>
-          <h5>Navegación</h5>
-          <ul>
-            <li><a href="/#servicios">Servicios</a></li>
-            <li><a href="/#proceso">Proceso</a></li>
-            <li><a href="/#casos">Casos</a></li>
-            <li><a href="/#contacto">Contacto</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Servicios</h5>
-          <ul>
-            <li><a href="/servicios/agentes-ia">Agentes IA</a></li>
-            <li><a href="/servicios/bots-whatsapp">Bots WhatsApp</a></li>
-            <li><a href="/servicios/sitios-web">Sitios web</a></li>
-            <li><a href="/servicios/desarrollo-software" aria-current="page">Desarrollo de software</a></li>
-            <li><a href="/servicios/seo">SEO</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Contacto</h5>
-          <ul>
-            <li><a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a></li>
-            <li><a href="https://wa.me/5491125526561">+54 9 11 2552-6561</a></li>
-            <li><a href="#">Buenos Aires, AR</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Seguinos</h5>
-          <ul>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">LinkedIn</a></li>
-            <li><a href="#">X / Twitter</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2025 Gestion360ia · Todos los derechos reservados</span>
-        <span><a href="#" style="margin-right:16px">Aviso legal</a><a href="#">Política de privacidad</a></span>
-      </div>
-    </div>
-  </footer>
+  <div id="site-footer"></div>
+  <script>
+    fetch('/partials/footer.html')
+      .then(function(r){ return r.text(); })
+      .then(function(h){
+        document.getElementById('site-footer').outerHTML = h;
+        var y = document.getElementById('footer-year-text');
+        if (y) y.textContent = '© ' + new Date().getFullYear() + ' Gestion360ia · Todos los derechos reservados';
+      });
+  </script>
 
   <script>
     (function () {
@@ -868,6 +1067,46 @@
         });
       }, { threshold: 0.12 });
       els.forEach(function (el) { obs.observe(el); });
+    })();
+
+    /* Hero — animación de entrada, se re-ejecuta al volver al segmento */
+    (function () {
+      var hero = document.querySelector('.bw-hero');
+      if (!hero) return;
+      function triggerAnim() {
+        hero.classList.remove('hero-in');
+        void hero.offsetWidth; /* fuerza reflow para reiniciar la animación */
+        hero.classList.add('hero-in');
+      }
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) triggerAnim();
+        });
+      }, { threshold: 0.35 });
+      obs.observe(hero);
+    })();
+
+    /* App preview — ciclo de escenas */
+    (function () {
+      var scenes  = [
+        { el: document.getElementById('dev-scene-0'), dot: document.getElementById('dev-dot-0'), url: 'app.miempresa.com/dashboard',  label: 'Dashboard' },
+        { el: document.getElementById('dev-scene-1'), dot: document.getElementById('dev-dot-1'), url: 'app.miempresa.com/crm/contactos', label: 'CRM · Contactos' },
+        { el: document.getElementById('dev-scene-2'), dot: document.getElementById('dev-dot-2'), url: 'app.miempresa.com/flota/mapa',   label: 'Flota · Mapa' }
+      ];
+      var urlEl   = document.getElementById('dev-app-urlbar');
+      var labelEl = document.getElementById('dev-scene-label');
+      if (!scenes[0].el) return;
+      var current = 0;
+      function goTo(next) {
+        scenes[current].el.classList.remove('is-active');
+        scenes[current].dot.classList.remove('is-active');
+        current = next % scenes.length;
+        scenes[current].el.classList.add('is-active');
+        scenes[current].dot.classList.add('is-active');
+        if (urlEl)   urlEl.textContent   = scenes[current].url;
+        if (labelEl) labelEl.textContent = scenes[current].label;
+      }
+      setInterval(function () { goTo(current + 1); }, 3800);
     })();
   </script>
 
