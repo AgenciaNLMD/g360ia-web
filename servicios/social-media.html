@@ -14,6 +14,8 @@
 
   <!-- Favicon -->
   <link rel="icon" href="/gestion360ia.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" href="/gestion360ia.png" />
+  <link rel="apple-touch-icon" href="/gestion360ia.png" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -37,6 +39,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif&display=swap" rel="stylesheet" />
 
+  <link rel="preload" as="image" href="/rrss-bg.webp" fetchpriority="high" />
   <link rel="stylesheet" href="/styles.css" />
 
   <!-- JSON-LD: Service -->
@@ -206,14 +209,19 @@
     .sm-platform-dot.li      { background: #0a66c2; }
   </style>
 
+  <script src="/snap-manager.js" defer></script>
 </head>
-<body>
+<body class="svc-page">
 
+  <!-- Fondo fijo del servicio: la imagen queda detrás de todo el contenido -->
+  <div class="global-fixed-bg" aria-hidden="true">
+    <img src="/rrss-bg.webp" alt="" fetchpriority="high" decoding="async" />
+  </div>
 
   <main>
 
     <!-- ===== SECCI�"N 1: HERO ===== -->
-    <section class="bw-hero">
+    <section class="bw-hero" data-nav-label="Inicio">
       <div class="bw-hero-bg"></div>
       <div class="container bw-hero-inner">
 
@@ -245,7 +253,7 @@
     </section>
 
     <!-- ===== SECCI�"N 2: PARA QUI�?N ES / NO ES ===== -->
-    <section class="section" style="padding-top:0">
+    <section class="section" style="padding-top:0" data-nav-label="Para quién">
       <div class="container">
         <div class="bw-forwhom">
 
@@ -283,7 +291,7 @@
     </section>
 
     <!-- ===== SECCI�"N 3: QU�? INCLUYE ===== -->
-    <section class="section" style="background:var(--slate-50)">
+    <section class="section" style="background:var(--slate-50)" data-nav-label="Qué incluye">
       <div class="container">
         <span class="eyebrow">Qué incluye</span>
         <h2 class="h-display h2" style="margin-bottom:48px">Todo lo que gestionamos por vos</h2>
@@ -342,7 +350,7 @@
     </section>
 
     <!-- ===== SECCI�"N 4: C�"MO TRABAJAMOS ===== -->
-    <section class="section" id="proceso" style="padding:60px 0">
+    <section class="section" id="proceso" style="padding:60px 0" data-nav-label="Proceso">
       <div class="process" style="margin:0 32px">
         <div class="container" style="padding:96px 64px">
           <span class="eyebrow">Proceso</span>
@@ -379,7 +387,7 @@
     </section>
 
     <!-- ===== SECCI�"N 5: INVERSI�"N ===== -->
-    <section class="section">
+    <section class="section" data-nav-label="Inversión">
       <div class="container">
         <span class="eyebrow">Inversión</span>
         <h2 class="h-display h2" style="margin-bottom:16px">Planes adaptados a tu negocio</h2>
@@ -420,7 +428,7 @@
     </section>
 
     <!-- ===== SECCI�"N 6: FAQ ===== -->
-    <section class="section" style="background:var(--slate-50)">
+    <section class="section" style="background:var(--slate-50)" data-nav-label="FAQ">
       <div class="container">
         <span class="eyebrow">FAQ</span>
         <h2 class="h-display h2" style="margin-bottom:48px">Preguntas frecuentes</h2>
@@ -471,7 +479,7 @@
     </section>
 
     <!-- ===== SECCI�"N 7: CTA FINAL + SERVICIOS RELACIONADOS ===== -->
-    <section class="bw-cta-final">
+    <section class="bw-cta-final" data-nav-label="Contacto">
       <div class="container bw-cta-final-inner">
         <h2 class="h-display h2" style="color:#faf9f6">¿Querés que tu marca tenga presencia real en redes?</h2>
         <p class="lead" style="color:rgba(245,247,251,0.75);margin-top:16px">En 30 minutos te decimos qué plataformas tienen más sentido para tu negocio, qué tipo de contenido funciona y cómo podemos trabajar juntos.</p>
@@ -528,58 +536,16 @@
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <a href="/" class="logo">
-            <img src="/logo.webp" alt="Gestión 360 IA" class="logo-img" />
-            <span class="logo-name">Gestion<span class="num">360</span><span class="ia">.iA</span></span>
-          </a>
-          <p class="footer-tag">Consultora de IA. Ayudamos a empresas a crecer con automatización, datos y producto.</p>
-        </div>
-        <div>
-          <h5>Navegación</h5>
-          <ul>
-            <li><a href="/#servicios">Servicios</a></li>
-            <li><a href="/#proceso">Proceso</a></li>
-            <li><a href="/#casos">Casos</a></li>
-            <li><a href="/#contacto">Contacto</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Servicios</h5>
-          <ul>
-            <li><a href="/servicios/agentes-ia">Agentes IA</a></li>
-            <li><a href="/servicios/bots-whatsapp">Bots WhatsApp</a></li>
-            <li><a href="/servicios/sitios-web">Sitios web</a></li>
-            <li><a href="/servicios/desarrollo-software">Desarrollo de software</a></li>
-            <li><a href="/servicios/seo">SEO</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Contacto</h5>
-          <ul>
-            <li><a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a></li>
-            <li><a href="https://wa.me/5491125526561">+54 9 11 2552-6561</a></li>
-            <li><a href="#">Buenos Aires, AR</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Seguinos</h5>
-          <ul>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">LinkedIn</a></li>
-            <li><a href="#">X / Twitter</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2025 Gestion360ia · Todos los derechos reservados</span>
-        <span><a href="/legal/aviso-legal" style="margin-right:16px">Aviso legal</a><a href="/legal/privacidad">Política de privacidad</a></span>
-      </div>
-    </div>
-  </footer>
+  <div id="site-footer"></div>
+  <script>
+    fetch('/partials/footer.html')
+      .then(function(r){ return r.text(); })
+      .then(function(h){
+        document.getElementById('site-footer').outerHTML = h;
+        var y = document.getElementById('footer-year-text');
+        if (y) y.textContent = '© ' + new Date().getFullYear() + ' Gestion360ia · Todos los derechos reservados';
+      });
+  </script>
 
   <script>
     (function () {
@@ -619,8 +585,23 @@
       }, { threshold: 0.12 });
       els.forEach(function (el) { obs.observe(el); });
     })();
+
+    (function () {
+      var hero = document.querySelector('.bw-hero');
+      if (!hero) return;
+      function triggerAnim() {
+        hero.classList.remove('hero-in');
+        void hero.offsetWidth;
+        hero.classList.add('hero-in');
+      }
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) triggerAnim(); });
+      }, { threshold: 0.35 });
+      obs.observe(hero);
+    })();
   </script>
 
+  <script src="/navbar-init.js" defer></script>
 </body>
 </html>
 
