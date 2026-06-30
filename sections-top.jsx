@@ -177,9 +177,9 @@ function Hero({ onNav }) {
             <span className="hero-title-line">con <span>Inteligencia Artificial</span></span>
           </h1>
           <div className="hero-ctas">
-            <button className="btn btn-ghost" onClick={() => onNav("servicios")}>
-              Ver servicios <span className="arrow"><Icon.arrowDown /></span>
-            </button>
+            <a className="btn btn-ghost" href="/blog/">
+              Visitá el blog <span className="arrow"><Icon.arrow /></span>
+            </a>
           </div>
         </div>
       </div>

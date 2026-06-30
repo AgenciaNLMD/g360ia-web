@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Blog de inteligencia artificial para empresas | Gestión 360 IA</title>
+  <meta name="description" content="Casos reales, tutoriales y tendencias sobre automatización e inteligencia artificial aplicada a pymes argentinas. Estrategia concreta, sin humo." />
+  <link rel="canonical" href="https://g360ia.com.ar/blog" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="author" content="Gestión 360 IA" />
+  <meta name="theme-color" content="#0a1628" />
+
+  <link rel="icon" href="/gestion360ia.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" href="/gestion360ia.png" />
+  <link rel="apple-touch-icon" href="/gestion360ia.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Gestión 360 IA" />
+  <meta property="og:title" content="Blog de inteligencia artificial para empresas | Gestión 360 IA" />
+  <meta property="og:description" content="Casos reales, tutoriales y tendencias sobre automatización e IA aplicada a pymes argentinas." />
+  <meta property="og:url" content="https://g360ia.com.ar/blog" />
+  <meta property="og:image" content="https://g360ia.com.ar/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_AR" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Blog de inteligencia artificial para empresas | Gestión 360 IA" />
+  <meta name="twitter:description" content="Casos reales, tutoriales y tendencias sobre IA para pymes." />
+  <meta name="twitter:image" content="https://g360ia.com.ar/og-image.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- JSON-LD: Blog -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": "https://g360ia.com.ar/blog#blog",
+  "name": "Blog de Gestión 360 IA",
+  "description": "Casos reales, tutoriales y tendencias sobre automatización e inteligencia artificial aplicada a pymes argentinas.",
+  "url": "https://g360ia.com.ar/blog",
+  "inLanguage": "es-AR",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Gestión 360 IA",
+    "url": "https://g360ia.com.ar/",
+    "logo": "https://g360ia.com.ar/gestion360ia.png"
+  }
+}
+  </script>
+
+  <style>
+    /* ====================================================================
+       BLOG · tema claro, superficies planas
+       Acento: gold del proyecto · resto neutros · colores por categoría
+    ==================================================================== */
+    :root {
+      --bx-bg:          #0a1628;           /* navy del proyecto */
+      --bx-surface:     rgba(17,31,56,0.55); /* glass oscuro */
+      --bx-soft:        rgba(255,255,255,0.06);
+      --bx-soft-2:      rgba(255,255,255,0.10);
+      --bx-text:        rgba(255,255,255,0.92);
+      --bx-text-soft:   rgba(255,255,255,0.66);
+      --bx-muted:       rgba(255,255,255,0.42);
+      --bx-border:      rgba(230,165,50,0.18);   /* borde dorado tenue */
+      --bx-border-2:    rgba(255,255,255,0.08);
+      --bx-accent:      #e6a532;           /* gold de la marca */
+      --bx-accent-bg:   rgba(230,165,50,0.12);
+      --bx-accent-bg-2: rgba(230,165,50,0.20);
+      --bx-r-m: 10px;                      /* radius medio: pills, inputs, badges */
+      --bx-r-l: 18px;                      /* radius grande: cards */
+    }
+
+    /* Override del tema oscuro global para este documento */
+    html, body { background: #050b15 !important; overflow-x: hidden; max-width: 100%; }
+    body {
+      overflow-y: auto !important;
+      color: var(--bx-text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      /* mismo fondo cinemático que el resto del sitio: hero-bg fija + velo navy */
+      background: linear-gradient(rgba(5,11,21,0.85), rgba(5,11,21,0.92)),
+                  url('/hero-bg.webp') center top / cover fixed no-repeat !important;
+    }
+    body::before, body::after { display: none !important; }
+    .global-fixed-bg { display: none !important; }
+    /* en el blog no mostramos el carrusel de tecnologías del footer */
+    .ft-tools { display: none !important; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* Colores semánticos por categoría (badge, ícono, acento) */
+    /* Categorías dentro de la paleta del sitio: dorado + cyan alternados */
+    [data-cat="automatizacion"] { --cat: #7ec8e3; --cat-bg: rgba(126,200,227,0.12); }
+    [data-cat="ia-generativa"]  { --cat: #e6a532; --cat-bg: rgba(230,165,50,0.12); }
+    [data-cat="casos"]          { --cat: #7ec8e3; --cat-bg: rgba(126,200,227,0.12); }
+    [data-cat="implementacion"] { --cat: #e6a532; --cat-bg: rgba(230,165,50,0.12); }
+    [data-cat="tendencias"]     { --cat: #e6a532; --cat-bg: rgba(230,165,50,0.12); }
+    [data-cat="tutoriales"]     { --cat: #7ec8e3; --cat-bg: rgba(126,200,227,0.12); }
+
+    /* ===================== HEADER slim (claro) ===================== */
+    .bx-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10,22,40,0.72);
+      backdrop-filter: saturate(160%) blur(12px); -webkit-backdrop-filter: saturate(160%) blur(12px);
+      border-bottom: 0.5px solid var(--bx-border);
+    }
+    .bx-header-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .bx-logo { display: inline-flex; align-items: center; gap: 9px; font-weight: 500; font-size: 15px; color: var(--bx-text); }
+    .bx-logo-mark {
+      width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center;
+      background: var(--bx-accent-bg); border: 0.5px solid var(--bx-border);
+    }
+    .bx-logo-mark svg { color: var(--bx-accent); }
+    .bx-logo .n { color: var(--bx-accent); }
+    .bx-header-nav { display: flex; align-items: center; gap: 4px; }
+    .bx-header-nav a {
+      font-size: 13.5px; color: var(--bx-text-soft); padding: 7px 12px; border-radius: var(--bx-r-m);
+      transition: background .15s, color .15s;
+    }
+    .bx-header-nav a:hover { background: var(--bx-soft); color: var(--bx-text); }
+    .bx-header-cta {
+      font-size: 13.5px; color: #fff; background: var(--bx-accent);
+      padding: 8px 16px; border-radius: var(--bx-r-m);
+    }
+    .bx-header-cta:hover { background: #b3790f; }
+    @media (max-width: 680px) { .bx-header-nav a:not(.bx-header-cta) { display: none; } }
+
+    /* ===================== LAYOUT base ===================== */
+    .bx-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===================== DESTACADOS (apilados) ===================== */
+    .bx-feature { padding: 36px 0 24px; display: flex; flex-direction: column; gap: 18px; }
+
+    /* ilustración / superficie tintada (compartida con cards) */
+    .bx-illu {
+      position: relative; display: grid; place-items: center; background: var(--cat-bg, var(--bx-soft));
+      border-bottom: 0.5px solid var(--bx-border-2);
+    }
+    .bx-illu svg { color: var(--cat, var(--bx-accent)); opacity: .9; }
+    .bx-illu img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .bx-illu-lines {
+      position: absolute; inset: 0; opacity: .5;
+      background-image: linear-gradient(var(--bx-border-2) 0.5px, transparent 0.5px),
+                        linear-gradient(90deg, var(--bx-border-2) 0.5px, transparent 0.5px);
+      background-size: 28px 28px;
+    }
+
+    /* badges / meta / avatar / leer (compartidos) */
+    .bx-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .bx-badge {
+      display: inline-flex; align-items: center; font-size: 12px; font-weight: 500;
+      padding: 4px 10px; border-radius: var(--bx-r-m); line-height: 1;
+      color: var(--cat, var(--bx-accent)); background: var(--cat-bg, var(--bx-accent-bg));
+    }
+    .bx-avatar {
+      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center;
+      background: var(--bx-soft); border: 0.5px solid var(--bx-border); color: var(--bx-text-soft);
+      font-size: 11px; font-weight: 500;
+    }
+    .bx-meta { display: flex; align-items: center; gap: 10px; }
+    .bx-meta-text { font-size: 12.5px; color: var(--bx-muted); }
+    .bx-meta-text b { font-weight: 500; color: var(--bx-text-soft); }
+    .bx-readmore { font-size: 13.5px; font-weight: 500; color: var(--cat, var(--bx-accent)); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+
+    /* estelar: banner horizontal destacado */
+    .bx-star {
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      padding: 30px 34px; border-radius: var(--bx-r-l); min-height: 190px;
+      background: #0d1e35;
+      border: 0.5px solid var(--bx-border);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      box-shadow: 0 18px 42px -22px rgba(0,0,0,0.65);
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    /* barra dorada lateral: marca de "destacado" */
+    .bx-star::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; z-index: 3;
+      background: linear-gradient(180deg, #f0c46e, var(--bx-accent));
+    }
+    /* imagen a sangre + velo navy/dorado para que el texto siga legible */
+    .bx-star-media { position: absolute; inset: 0; z-index: 0; }
+    .bx-star-media img { width: 100%; height: 100%; object-fit: cover; }
+    .bx-star-media::after {
+      content: ""; position: absolute; inset: 0;
+      background:
+        linear-gradient(90deg, rgba(5,11,21,0.86) 0%, rgba(5,11,21,0.68) 38%, rgba(5,11,21,0.34) 68%, rgba(5,11,21,0.08) 100%),
+        radial-gradient(130% 150% at 0% 0%, rgba(230,165,50,0.16), transparent 55%);
+    }
+    .bx-star:hover {
+      border-color: var(--bx-accent); transform: translateY(-2px);
+      box-shadow: 0 0 0 1px rgba(230,165,50,0.30), 0 26px 54px -24px rgba(0,0,0,0.75);
+    }
+    .bx-star-text { position: relative; z-index: 2; min-width: 0; }
+    .bx-star-eyebrow {
+      display: inline-flex; align-items: center; gap: 6px; margin: 0 0 9px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase;
+      color: var(--bx-accent);
+    }
+    .bx-star-title {
+      font-size: clamp(21px, 2.5vw, 29px); font-weight: 600; line-height: 1.18; letter-spacing: -0.015em; margin: 0 0 8px;
+      background: linear-gradient(120deg, #ffffff 0%, #ffffff 55%, #f0c46e 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+      filter: drop-shadow(0 1px 10px rgba(0,0,0,0.55));
+    }
+    .bx-star-cats { font-size: 13px; color: var(--bx-text-soft); margin: 0; text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
+    .bx-star-cta { position: relative; z-index: 2; display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+    .bx-star-cta .bx-readmore {
+      background: var(--bx-accent); color: #0a1628; font-weight: 600;
+      padding: 11px 20px; border-radius: var(--bx-r-m); transition: background .18s;
+    }
+    .bx-star:hover .bx-star-cta .bx-readmore { background: #f0c46e; }
+    @media (max-width: 640px) { .bx-star { flex-direction: column; align-items: flex-start; gap: 16px; } }
+
+    /* secundario: fila texto-izquierda / miniatura-derecha */
+    .bx-second {
+      display: grid; grid-template-columns: 1fr 230px; gap: 28px; align-items: center;
+      padding: 2px 4px 22px; border-bottom: 0.5px solid var(--bx-border-2);
+    }
+    @media (max-width: 640px) { .bx-second { grid-template-columns: 1fr; gap: 16px; } }
+    .bx-second-main { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .bx-second-title { font-size: 19px; font-weight: 500; line-height: 1.28; letter-spacing: -0.01em; color: var(--bx-text); margin: 0; }
+    .bx-second-excerpt {
+      font-size: 13.5px; line-height: 1.55; color: var(--bx-text-soft); margin: 0;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .bx-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+    .bx-tag { font-size: 12px; font-weight: 400; padding: 4px 10px; border-radius: var(--bx-r-m); color: var(--cat, var(--bx-accent)); background: var(--cat-bg, var(--bx-accent-bg)); }
+    .bx-second-thumb {
+      position: relative; aspect-ratio: 16 / 9; border-radius: var(--bx-r-m); overflow: hidden;
+      border: 0.5px solid var(--bx-border); background: var(--bx-soft);
+      display: grid; place-items: center; color: var(--bx-muted); font-size: 12px;
+    }
+    .bx-second-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ===================== TOOLBAR: filtros + buscador ===================== */
+    .bx-toolbar { display: grid; grid-template-columns: 1fr 300px; gap: 32px; align-items: start; padding: 18px 0 22px; }
+    @media (max-width: 980px) { .bx-toolbar { grid-template-columns: 1fr; gap: 18px; } }
+    .bx-toolbar-label { font-size: 11px; letter-spacing: 0.06em; color: var(--bx-muted); margin: 0 0 10px; }
+
+    /* ===================== BARRA DE FILTROS ===================== */
+    .bx-filters { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .bx-filters-label { font-size: 13px; color: var(--bx-muted); margin-right: 2px; }
+    .bx-pill {
+      font-size: 13px; font-weight: 400; color: var(--bx-text-soft); cursor: pointer;
+      padding: 7px 14px; border-radius: var(--bx-r-m);
+      background: var(--bx-soft); border: 0.5px solid var(--bx-border-2);
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .bx-pill:hover { border-color: var(--bx-border); color: var(--bx-text); }
+    .bx-pill.is-active { background: var(--bx-accent); color: #fff; border-color: var(--bx-accent); }
+
+    /* ===================== CUERPO: grid + sidebar ===================== */
+    .bx-main { display: grid; grid-template-columns: 1fr 300px; gap: 32px; align-items: start; padding-bottom: 64px; min-width: 0; }
+    .bx-main > * { min-width: 0; }
+    @media (max-width: 980px) { .bx-main { grid-template-columns: 1fr; gap: 40px; } }
+
+    .bx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; min-width: 0; }
+    .bx-grid > * { min-width: 0; }
+    @media (max-width: 1180px) { .bx-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px)  { .bx-grid { grid-template-columns: 1fr; } }
+
+    .bx-card {
+      border: 0.5px solid var(--bx-border); border-radius: var(--bx-r-l); overflow: hidden;
+      background: var(--bx-surface); display: flex; flex-direction: column; transition: border-color .18s;
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    }
+    .bx-card[href]:hover { border-color: var(--cat, var(--bx-accent)); }
+    .bx-card.is-hidden { display: none; }
+    .bx-card .bx-illu { aspect-ratio: 16 / 9; }
+    .bx-card .bx-illu svg { width: 38px; height: 38px; }
+    .bx-card-body { padding: 16px 16px 16px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
+    .bx-card-title {
+      font-size: 15.5px; font-weight: 500; line-height: 1.32; letter-spacing: -0.005em; color: var(--bx-text); margin: 0;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .bx-card-excerpt {
+      font-size: 13px; line-height: 1.5; color: var(--bx-text-soft); margin: 0;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .bx-card-foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 8px; }
+    .bx-card-foot .bx-avatar { width: 26px; height: 26px; font-size: 10px; }
+    .bx-card-read { font-size: 12px; color: var(--bx-muted); }
+
+    /* card "cargar más" */
+    .bx-loadmore {
+      border: 0.5px dashed var(--bx-border); border-radius: var(--bx-r-l);
+      background: var(--bx-soft); color: var(--bx-text-soft); cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      min-height: 180px; font-size: 13.5px; font-weight: 500; transition: background .15s, border-color .15s, color .15s;
+    }
+    .bx-loadmore:hover { background: var(--bx-soft-2); border-color: var(--bx-accent); color: var(--bx-accent); }
+    .bx-loadmore-plus {
+      width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center;
+      border: 0.5px solid var(--bx-border); background: var(--bx-surface);
+    }
+
+    .bx-empty { display: none; color: var(--bx-muted); font-size: 14px; padding: 40px 4px; }
+    .bx-empty.is-visible { display: block; }
+
+    /* ===================== SIDEBAR ===================== */
+    .bx-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 18px; }
+    @media (max-width: 980px) { .bx-sidebar { position: static; } }
+
+    .bx-block { border: 0.5px solid var(--bx-border); border-radius: var(--bx-r-l); padding: 18px; background: var(--bx-surface); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+    .bx-block-title { font-size: 14px; font-weight: 500; color: var(--bx-text); margin: 0 0 12px; }
+    .bx-block-sub { font-size: 13px; line-height: 1.5; color: var(--bx-text-soft); margin: 0 0 14px; }
+
+    /* buscador */
+    .bx-search { position: relative; }
+    .bx-search svg { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--bx-muted); pointer-events: none; }
+    .bx-search input {
+      width: 100%; height: 42px; padding: 0 14px 0 38px; font-family: inherit; font-size: 13.5px; color: var(--bx-text);
+      background: var(--bx-soft); border: 0.5px solid var(--bx-border-2); border-radius: var(--bx-r-m); outline: none;
+      transition: border-color .15s, background .15s;
+    }
+    .bx-search input::placeholder { color: var(--bx-muted); }
+    .bx-search input:focus { border-color: var(--bx-accent); background: var(--bx-surface); }
+
+    /* newsletter (acento suave) */
+    .bx-block--news { background: var(--bx-accent-bg); border-color: var(--bx-accent-bg-2); }
+
+    /* lo más leído */
+    .bx-pop { display: flex; flex-direction: column; gap: 2px; }
+    .bx-pop-item { display: flex; gap: 12px; padding: 11px 0; border-top: 0.5px solid var(--bx-border-2); }
+    .bx-pop-item:first-child { border-top: none; }
+    .bx-pop-bar { width: 3px; border-radius: 3px; flex-shrink: 0; background: var(--bx-accent); }
+    .bx-pop-item:nth-child(2) .bx-pop-bar { background: rgba(230,165,50,0.55); }
+    .bx-pop-item:nth-child(3) .bx-pop-bar { background: rgba(230,165,50,0.30); }
+    .bx-pop-title {
+      font-size: 13px; font-weight: 500; line-height: 1.38; color: var(--bx-text); margin: 0 0 4px;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .bx-pop-item:hover .bx-pop-title { color: var(--bx-accent); }
+    .bx-pop-views { font-size: 11.5px; color: var(--bx-muted); }
+
+    /* CTA servicios (acento distinto) */
+    .bx-block--cta { background: rgba(230,165,50,0.12); border-color: var(--bx-border); }
+    .bx-block--cta .bx-block-title { color: #fff; }
+    .bx-block--cta .bx-block-sub { color: var(--bx-text-soft); }
+
+    .bx-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%;
+      font-family: inherit; font-size: 13.5px; font-weight: 500; cursor: pointer;
+      padding: 10px 16px; border-radius: var(--bx-r-m); border: 0.5px solid transparent;
+    }
+    .bx-btn--accent { background: var(--bx-accent); color: #fff; }
+    .bx-btn--accent:hover { background: #b3790f; }
+    .bx-btn--light { background: var(--bx-accent); color: #0a1628; }
+    .bx-btn--light:hover { background: #f0c46e; }
+
+    /* ============ RESPONSIVE · celular / tablet ============ */
+    @media (max-width: 760px) {
+      /* el fondo fijo rompe/zoomea en iOS Safari → scroll en mobile */
+      body { background-attachment: scroll !important; }
+      .bx-wrap { padding: 0 16px; }
+      .bx-header-inner { padding: 0 16px; }
+      .bx-feature { padding: 24px 0 18px; }
+      .bx-star { padding: 24px 22px; }
+      .bx-star-title { font-size: clamp(19px, 6vw, 25px); }
+      .bx-toolbar { padding: 14px 0 18px; }
+      .bx-main { padding-bottom: 48px; }
+    }
+    @media (max-width: 420px) {
+      .bx-grid { gap: 16px; }
+      .bx-filters { gap: 7px; }
+      .bx-pill { padding: 6px 11px; font-size: 12.5px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER slim ===== -->
+  <header class="bx-header">
+    <div class="bx-header-inner">
+      <a href="/" class="bx-logo" aria-label="Gestión 360 IA — Inicio">
+        <span class="bx-logo-mark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </span>
+        <span>Gestion<span class="n">360</span>.iA</span>
+      </a>
+      <nav class="bx-header-nav" aria-label="Navegación">
+        <a href="/">Inicio</a>
+        <a href="/#servicios">Servicios</a>
+        <a href="/contacto" class="bx-header-cta">Diagnóstico gratis</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="bx-wrap">
+
+    <!-- ===== DESTACADOS (apilados) ===== -->
+    <section class="bx-feature" aria-label="Artículos destacados">
+
+      <!-- estelar: banner horizontal -->
+      <a class="bx-star" href="/blog/geo-vs-seo-posicionar-pyme-ia" data-cat="tendencias">
+        <div class="bx-star-media"><img src="/multimedia/geo-vs-seo.webp" alt="" loading="lazy" /></div>
+        <div class="bx-star-text">
+          <span class="bx-star-eyebrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.6L21 9.3l-4.9 4.3 1.5 6.8L12 17.1 6.4 20.4l1.5-6.8L3 9.3l6.4-.7L12 2z"/></svg>
+            Artículo destacado
+          </span>
+          <h2 class="bx-star-title">GEO vs SEO: cómo posicionar tu pyme en Google y en las IA</h2>
+          <p class="bx-star-cats">Tendencias · SEO · GEO</p>
+        </div>
+        <div class="bx-star-cta">
+          <span class="bx-badge">Guía</span>
+          <span class="bx-readmore">Leer
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- secundario: fila texto / miniatura -->
+      <span class="bx-second" data-cat="implementacion">
+        <div class="bx-second-main">
+          <div class="bx-meta">
+            <span class="bx-avatar">G3</span>
+            <span class="bx-meta-text"><b>Equipo Gestión 360 IA</b> · 6 min de lectura</span>
+          </div>
+          <h3 class="bx-second-title">Los 5 errores al implementar IA en pymes</h3>
+          <p class="bx-second-excerpt">Los tropiezos más comunes al adoptar inteligencia artificial en una empresa chica, y cómo evitarlos desde el primer paso.</p>
+          <div class="bx-tags">
+            <span class="bx-tag">Estrategia</span>
+            <span class="bx-tag">Implementación</span>
+          </div>
+        </div>
+        <div class="bx-second-thumb">
+          <img src="/multimedia/errores-ia-pymes.webp" alt="Los 5 errores al implementar IA en pymes" loading="lazy" width="1200" height="675" />
+        </div>
+      </span>
+
+    </section>
+
+    <!-- ===== TOOLBAR: filtros + buscador ===== -->
+    <div class="bx-toolbar">
+      <div class="bx-toolbar-filters">
+        <p class="bx-toolbar-label">Filtros</p>
+        <div class="bx-filters" id="bx-filters" role="tablist" aria-label="Filtrar por categoría">
+          <span class="bx-filters-label">Categorías:</span>
+          <button class="bx-pill is-active" data-filter="all">Todos</button>
+          <button class="bx-pill" data-filter="automatizacion">Automatización</button>
+          <button class="bx-pill" data-filter="ia-generativa">IA generativa</button>
+          <button class="bx-pill" data-filter="casos">Casos de uso</button>
+          <button class="bx-pill" data-filter="implementacion">Implementación</button>
+          <button class="bx-pill" data-filter="tendencias">Tendencias</button>
+          <button class="bx-pill" data-filter="tutoriales">Tutoriales</button>
+        </div>
+      </div>
+      <div class="bx-toolbar-search">
+        <p class="bx-toolbar-label">Buscar</p>
+        <div class="bx-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+          <input type="search" id="bx-search-input" placeholder="Buscar artículos..." aria-label="Buscar artículos" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== GRID + SIDEBAR ===== -->
+    <div class="bx-main">
+
+      <!-- grid -->
+      <div>
+        <div class="bx-grid" id="bx-grid">
+
+          <a class="bx-card" href="/blog/geo-vs-seo-posicionar-pyme-ia" data-cat="tendencias" data-title="geo seo posicionar google ia chatgpt gemini perplexity">
+            <div class="bx-illu">
+              <img src="/multimedia/geo-vs-seo.webp" alt="GEO vs SEO: posicionar tu pyme en Google y en las IA" loading="lazy" width="1200" height="675" />
+            </div>
+            <div class="bx-card-body">
+              <div class="bx-badges"><span class="bx-badge">Tendencias</span></div>
+              <h3 class="bx-card-title">GEO vs SEO: cómo posicionar tu pyme en Google y en las IA</h3>
+              <p class="bx-card-excerpt">Qué es el GEO y cómo aparecer en las respuestas de ChatGPT, Gemini y Perplexity.</p>
+              <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">12 min</span></div>
+            </div>
+          </a>
+
+          <a class="bx-card" href="/blog/bots-whatsapp-cuando-automatizar" data-cat="automatizacion" data-title="bots whatsapp automatizar atencion clientes">
+            <div class="bx-illu">
+              <img src="/multimedia/automatizacion.webp" alt="Bots de WhatsApp: cuándo automatizar la atención al cliente" loading="lazy" width="1200" height="675" />
+            </div>
+            <div class="bx-card-body">
+              <div class="bx-badges"><span class="bx-badge">Automatización</span></div>
+              <h3 class="bx-card-title">Bots de WhatsApp: cuándo automatizar y cuándo no</h3>
+              <p class="bx-card-excerpt">Qué conviene resolver con un bot y qué dejar siempre a una persona.</p>
+              <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">9 min</span></div>
+            </div>
+          </a>
+
+          <a class="bx-card" href="/blog/prompts-para-tu-negocio" data-cat="ia-generativa" data-title="prompts chatgpt negocio plantillas">
+            <div class="bx-illu">
+              <img src="/multimedia/ia-prompts.webp" alt="Prompts para tu negocio: plantillas que funcionan" loading="lazy" width="1200" height="675" />
+            </div>
+            <div class="bx-card-body">
+              <div class="bx-badges"><span class="bx-badge">IA generativa</span></div>
+              <h3 class="bx-card-title">Prompts para tu negocio: 10 plantillas que sí funcionan</h3>
+              <p class="bx-card-excerpt">Plantillas listas para redactar, vender y atender mejor con IA.</p>
+              <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">10 min</span></div>
+            </div>
+          </a>
+
+          <span class="bx-card" data-cat="casos" data-title="estudio contable facturas ocr ia caso real">
+            <div class="bx-illu">
+              <img src="/multimedia/caso-contable.webp" alt="Estudio contable que automatizó la carga de facturas con OCR e IA" loading="lazy" width="1200" height="675" />
+            </div>
+            <div class="bx-card-body">
+              <div class="bx-badges"><span class="bx-badge">Casos de uso</span></div>
+              <h3 class="bx-card-title">Un estudio contable que automatizó la carga de facturas</h3>
+              <p class="bx-card-excerpt">70% menos tiempo de data entry combinando OCR e IA.</p>
+              <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">Próximamente</span></div>
+            </div>
+          </span>
+
+          <span class="bx-card" data-cat="implementacion" data-title="implementar ia empresa primeros pasos roadmap">
+            <div class="bx-illu">
+              <img src="/multimedia/implementacion.webp" alt="Cómo empezar con IA en tu empresa: roadmap por etapas" loading="lazy" width="1200" height="675" />
+            </div>
+            <div class="bx-card-body">
+              <div class="bx-badges"><span class="bx-badge">Implementación</span></div>
+              <h3 class="bx-card-title">Cómo empezar con IA en tu empresa sin tirar plata</h3>
+              <p class="bx-card-excerpt">Un roadmap de adopción por etapas, pensado para pymes.</p>
+              <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">Próximamente</span></div>
+            </div>
+          </span>
+
+          <a class="bx-card" href="/blog/google-business-profile" data-cat="tutoriales" data-title="google business profile ficha local maps tutorial">
+            <div class="bx-illu">
+              <img src="/multimedia/google-business.webp" alt="Google Business Profile: optimizá tu ficha para Maps" loading="lazy" width="1200" height="675" />
+            </div>
+            <div class="bx-card-body">
+              <div class="bx-badges"><span class="bx-badge">Tutoriales</span></div>
+              <h3 class="bx-card-title">Google Business Profile: optimizá tu ficha paso a paso</h3>
+              <p class="bx-card-excerpt">Aparecé en Maps y en las búsquedas "cerca mío" de tu zona.</p>
+              <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">9 min</span></div>
+            </div>
+          </a>
+
+          <span class="bx-card bx-extra is-hidden" data-cat="ia-generativa" data-title="agentes ia autonomos empresa">
+            <div class="bx-illu">
+              <img src="/multimedia/agentes-ia.webp" alt="Agentes de IA: qué son y cómo trabajan en tu negocio" loading="lazy" width="1200" height="675" />
+            </div>
+            <div class="bx-card-body">
+              <div class="bx-badges"><span class="bx-badge">IA generativa</span></div>
+              <h3 class="bx-card-title">Agentes de IA: qué son y cómo trabajan dentro de tu negocio</h3>
+              <p class="bx-card-excerpt">Más allá del chatbot: agentes que razonan y ejecutan acciones.</p>
+              <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">Próximamente</span></div>
+            </div>
+          </span>
+
+          <span class="bx-card bx-extra is-hidden" data-cat="tendencias" data-title="datos estructurados schema google ia">
+            <div class="bx-illu">
+              <img src="/multimedia/datos-estructurados.webp" alt="Datos estructurados: el schema que entienden Google y las IA" loading="lazy" width="1200" height="675" />
+            </div>
+            <div class="bx-card-body">
+              <div class="bx-badges"><span class="bx-badge">Tendencias</span></div>
+              <h3 class="bx-card-title">Datos estructurados: el lenguaje que entienden Google y las IA</h3>
+              <p class="bx-card-excerpt">Qué es el schema markup y por qué te hace más citable.</p>
+              <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">Próximamente</span></div>
+            </div>
+          </span>
+
+          <!-- cargar más -->
+          <button class="bx-loadmore" id="bx-loadmore" type="button">
+            <span class="bx-loadmore-plus">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+            Cargar más
+          </button>
+
+        </div>
+
+        <p class="bx-empty" id="bx-empty">No encontramos artículos con ese criterio. Probá con otra categoría o término.</p>
+      </div>
+
+      <!-- sidebar -->
+      <aside class="bx-sidebar">
+
+        <!-- 1. newsletter -->
+        <div class="bx-block bx-block--news">
+          <p class="bx-block-title">Newsletter semanal</p>
+          <p class="bx-block-sub">Un correo por semana con casos reales de IA aplicada a pymes.</p>
+          <a href="/contacto?ref=newsletter" class="bx-btn bx-btn--accent">Suscribirme gratis</a>
+        </div>
+
+        <!-- 2. lo más leído -->
+        <div class="bx-block">
+          <p class="bx-block-title">Lo más leído</p>
+          <div class="bx-pop">
+            <a class="bx-pop-item" href="/blog/geo-vs-seo-posicionar-pyme-ia">
+              <span class="bx-pop-bar"></span>
+              <span><span class="bx-pop-title">GEO vs SEO: cómo posicionar tu pyme en Google y en las IA</span><span class="bx-pop-views">2.4k lecturas</span></span>
+            </a>
+            <a class="bx-pop-item" href="/blog/geo-vs-seo-posicionar-pyme-ia">
+              <span class="bx-pop-bar"></span>
+              <span><span class="bx-pop-title">Cómo aparecer cuando alguien le pregunta a ChatGPT por tu rubro</span><span class="bx-pop-views">1.8k lecturas</span></span>
+            </a>
+            <a class="bx-pop-item" href="/blog/geo-vs-seo-posicionar-pyme-ia">
+              <span class="bx-pop-bar"></span>
+              <span><span class="bx-pop-title">Datos estructurados: el lenguaje que entienden Google y las IA</span><span class="bx-pop-views">1.3k lecturas</span></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. CTA servicios -->
+        <div class="bx-block bx-block--cta">
+          <p class="bx-block-title">¿Querés implementar IA?</p>
+          <p class="bx-block-sub">Diagnosticamos tu negocio y te decimos por dónde empezar.</p>
+          <a href="/#servicios" class="bx-btn bx-btn--light">Ver servicios
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <div id="site-footer"></div>
+  <script>
+    fetch('/partials/footer.html')
+      .then(function(r){ return r.text(); })
+      .then(function(h){
+        document.getElementById('site-footer').outerHTML = h;
+        var y = document.getElementById('footer-year-text');
+        if (y) y.textContent = '© ' + new Date().getFullYear() + ' Gestion360ia · Todos los derechos reservados';
+      });
+  </script>
+
+  <script>
+    /* Filtro por categoría + búsqueda + cargar más */
+    (function () {
+      var grid    = document.getElementById('bx-grid');
+      var cards   = Array.prototype.slice.call(grid.querySelectorAll('.bx-card'));
+      var pills   = Array.prototype.slice.call(document.querySelectorAll('.bx-pill'));
+      var search  = document.getElementById('bx-search-input');
+      var empty   = document.getElementById('bx-empty');
+      var loadBtn = document.getElementById('bx-loadmore');
+
+      var state = { cat: 'all', q: '', expanded: false };
+
+      function matches(card) {
+        var okCat = state.cat === 'all' || card.getAttribute('data-cat') === state.cat;
+        var hay = (card.getAttribute('data-title') + ' ' + card.textContent).toLowerCase();
+        var okQ = state.q === '' || hay.indexOf(state.q) !== -1;
+        return okCat && okQ;
+      }
+
+      function render() {
+        var total = 0;
+        var filtering = state.cat !== 'all' || state.q !== '';
+        cards.forEach(function (card) {
+          var ok = matches(card);
+          var isExtra = card.classList.contains('bx-extra');
+          var visible = ok && (filtering || state.expanded || !isExtra);
+          card.classList.toggle('is-hidden', !visible);
+          if (ok) total++;
+        });
+        empty.classList.toggle('is-visible', total === 0);
+        /* la card "cargar más" solo aparece sin filtros y con extras por mostrar */
+        loadBtn.style.display = (!filtering && !state.expanded) ? 'flex' : 'none';
+      }
+
+      pills.forEach(function (p) {
+        p.addEventListener('click', function () {
+          pills.forEach(function (x) { x.classList.remove('is-active'); });
+          p.classList.add('is-active');
+          state.cat = p.getAttribute('data-filter');
+          render();
+        });
+      });
+      search.addEventListener('input', function () { state.q = search.value.trim().toLowerCase(); render(); });
+      loadBtn.addEventListener('click', function () { state.expanded = true; render(); });
+
+      render();
+    })();
+  </script>
+</body>
+</html>

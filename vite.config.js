@@ -13,6 +13,13 @@ const servicios = Object.fromEntries(
     .map((f) => ['servicios/' + f.replace('.html', ''), resolve(root, 'servicios', f)])
 )
 
+/* Blog: cada .html entra al build y sale en dist/blog/ */
+const blog = Object.fromEntries(
+  readdirSync(resolve(root, 'blog'))
+    .filter((f) => f.endsWith('.html'))
+    .map((f) => ['blog/' + f.replace('.html', ''), resolve(root, 'blog', f)])
+)
+
 export default defineConfig({
   plugins: [react()],
   build: {
@@ -21,6 +28,7 @@ export default defineConfig({
       input: {
         main: resolve(root, 'index.html'),
         ...servicios,
+        ...blog,
       },
     },
   },
