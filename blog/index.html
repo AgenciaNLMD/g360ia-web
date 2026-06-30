@@ -293,19 +293,6 @@
     .bx-card-foot .bx-avatar { width: 26px; height: 26px; font-size: 10px; }
     .bx-card-read { font-size: 12px; color: var(--bx-muted); }
 
-    /* card "cargar más" */
-    .bx-loadmore {
-      border: 0.5px dashed var(--bx-border); border-radius: var(--bx-r-l);
-      background: var(--bx-soft); color: var(--bx-text-soft); cursor: pointer;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-      min-height: 180px; font-size: 13.5px; font-weight: 500; transition: background .15s, border-color .15s, color .15s;
-    }
-    .bx-loadmore:hover { background: var(--bx-soft-2); border-color: var(--bx-accent); color: var(--bx-accent); }
-    .bx-loadmore-plus {
-      width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center;
-      border: 0.5px solid var(--bx-border); background: var(--bx-surface);
-    }
-
     .bx-empty { display: none; color: var(--bx-muted); font-size: 14px; padding: 40px 4px; }
     .bx-empty.is-visible { display: block; }
 
@@ -422,25 +409,6 @@
         </div>
       </a>
 
-      <!-- secundario: fila texto / miniatura -->
-      <span class="bx-second" data-cat="implementacion">
-        <div class="bx-second-main">
-          <div class="bx-meta">
-            <span class="bx-avatar">G3</span>
-            <span class="bx-meta-text"><b>Equipo Gestión 360 IA</b> · 6 min de lectura</span>
-          </div>
-          <h3 class="bx-second-title">Los 5 errores al implementar IA en pymes</h3>
-          <p class="bx-second-excerpt">Los tropiezos más comunes al adoptar inteligencia artificial en una empresa chica, y cómo evitarlos desde el primer paso.</p>
-          <div class="bx-tags">
-            <span class="bx-tag">Estrategia</span>
-            <span class="bx-tag">Implementación</span>
-          </div>
-        </div>
-        <div class="bx-second-thumb">
-          <img src="/multimedia/errores-ia-pymes.webp" alt="Los 5 errores al implementar IA en pymes" loading="lazy" width="1200" height="675" />
-        </div>
-      </span>
-
     </section>
 
     <!-- ===== TOOLBAR: filtros + buscador ===== -->
@@ -450,11 +418,9 @@
         <div class="bx-filters" id="bx-filters" role="tablist" aria-label="Filtrar por categoría">
           <span class="bx-filters-label">Categorías:</span>
           <button class="bx-pill is-active" data-filter="all">Todos</button>
+          <button class="bx-pill" data-filter="tendencias">Tendencias</button>
           <button class="bx-pill" data-filter="automatizacion">Automatización</button>
           <button class="bx-pill" data-filter="ia-generativa">IA generativa</button>
-          <button class="bx-pill" data-filter="casos">Casos de uso</button>
-          <button class="bx-pill" data-filter="implementacion">Implementación</button>
-          <button class="bx-pill" data-filter="tendencias">Tendencias</button>
           <button class="bx-pill" data-filter="tutoriales">Tutoriales</button>
         </div>
       </div>
@@ -510,30 +476,6 @@
             </div>
           </a>
 
-          <span class="bx-card" data-cat="casos" data-title="estudio contable facturas ocr ia caso real">
-            <div class="bx-illu">
-              <img src="/multimedia/caso-contable.webp" alt="Estudio contable que automatizó la carga de facturas con OCR e IA" loading="lazy" width="1200" height="675" />
-            </div>
-            <div class="bx-card-body">
-              <div class="bx-badges"><span class="bx-badge">Casos de uso</span></div>
-              <h3 class="bx-card-title">Un estudio contable que automatizó la carga de facturas</h3>
-              <p class="bx-card-excerpt">70% menos tiempo de data entry combinando OCR e IA.</p>
-              <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">Próximamente</span></div>
-            </div>
-          </span>
-
-          <span class="bx-card" data-cat="implementacion" data-title="implementar ia empresa primeros pasos roadmap">
-            <div class="bx-illu">
-              <img src="/multimedia/implementacion.webp" alt="Cómo empezar con IA en tu empresa: roadmap por etapas" loading="lazy" width="1200" height="675" />
-            </div>
-            <div class="bx-card-body">
-              <div class="bx-badges"><span class="bx-badge">Implementación</span></div>
-              <h3 class="bx-card-title">Cómo empezar con IA en tu empresa sin tirar plata</h3>
-              <p class="bx-card-excerpt">Un roadmap de adopción por etapas, pensado para pymes.</p>
-              <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">Próximamente</span></div>
-            </div>
-          </span>
-
           <a class="bx-card" href="/blog/google-business-profile" data-cat="tutoriales" data-title="google business profile ficha local maps tutorial">
             <div class="bx-illu">
               <img src="/multimedia/google-business.webp" alt="Google Business Profile: optimizá tu ficha para Maps" loading="lazy" width="1200" height="675" />
@@ -545,38 +487,6 @@
               <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">9 min</span></div>
             </div>
           </a>
-
-          <span class="bx-card bx-extra is-hidden" data-cat="ia-generativa" data-title="agentes ia autonomos empresa">
-            <div class="bx-illu">
-              <img src="/multimedia/agentes-ia.webp" alt="Agentes de IA: qué son y cómo trabajan en tu negocio" loading="lazy" width="1200" height="675" />
-            </div>
-            <div class="bx-card-body">
-              <div class="bx-badges"><span class="bx-badge">IA generativa</span></div>
-              <h3 class="bx-card-title">Agentes de IA: qué son y cómo trabajan dentro de tu negocio</h3>
-              <p class="bx-card-excerpt">Más allá del chatbot: agentes que razonan y ejecutan acciones.</p>
-              <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">Próximamente</span></div>
-            </div>
-          </span>
-
-          <span class="bx-card bx-extra is-hidden" data-cat="tendencias" data-title="datos estructurados schema google ia">
-            <div class="bx-illu">
-              <img src="/multimedia/datos-estructurados.webp" alt="Datos estructurados: el schema que entienden Google y las IA" loading="lazy" width="1200" height="675" />
-            </div>
-            <div class="bx-card-body">
-              <div class="bx-badges"><span class="bx-badge">Tendencias</span></div>
-              <h3 class="bx-card-title">Datos estructurados: el lenguaje que entienden Google y las IA</h3>
-              <p class="bx-card-excerpt">Qué es el schema markup y por qué te hace más citable.</p>
-              <div class="bx-card-foot"><span class="bx-avatar">G3</span><span class="bx-card-read">Próximamente</span></div>
-            </div>
-          </span>
-
-          <!-- cargar más -->
-          <button class="bx-loadmore" id="bx-loadmore" type="button">
-            <span class="bx-loadmore-plus">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-            </span>
-            Cargar más
-          </button>
 
         </div>
 
@@ -601,13 +511,13 @@
               <span class="bx-pop-bar"></span>
               <span><span class="bx-pop-title">GEO vs SEO: cómo posicionar tu pyme en Google y en las IA</span><span class="bx-pop-views">2.4k lecturas</span></span>
             </a>
-            <a class="bx-pop-item" href="/blog/geo-vs-seo-posicionar-pyme-ia">
+            <a class="bx-pop-item" href="/blog/google-business-profile">
               <span class="bx-pop-bar"></span>
-              <span><span class="bx-pop-title">Cómo aparecer cuando alguien le pregunta a ChatGPT por tu rubro</span><span class="bx-pop-views">1.8k lecturas</span></span>
+              <span><span class="bx-pop-title">Google Business Profile: optimizá tu ficha paso a paso</span><span class="bx-pop-views">960 lecturas</span></span>
             </a>
-            <a class="bx-pop-item" href="/blog/geo-vs-seo-posicionar-pyme-ia">
+            <a class="bx-pop-item" href="/blog/prompts-para-tu-negocio">
               <span class="bx-pop-bar"></span>
-              <span><span class="bx-pop-title">Datos estructurados: el lenguaje que entienden Google y las IA</span><span class="bx-pop-views">1.3k lecturas</span></span>
+              <span><span class="bx-pop-title">Prompts para tu negocio: 10 plantillas que sí funcionan</span><span class="bx-pop-views">870 lecturas</span></span>
             </a>
           </div>
         </div>
@@ -640,16 +550,15 @@
   </script>
 
   <script>
-    /* Filtro por categoría + búsqueda + cargar más */
+    /* Filtro por categoría + búsqueda */
     (function () {
       var grid    = document.getElementById('bx-grid');
       var cards   = Array.prototype.slice.call(grid.querySelectorAll('.bx-card'));
       var pills   = Array.prototype.slice.call(document.querySelectorAll('.bx-pill'));
       var search  = document.getElementById('bx-search-input');
       var empty   = document.getElementById('bx-empty');
-      var loadBtn = document.getElementById('bx-loadmore');
 
-      var state = { cat: 'all', q: '', expanded: false };
+      var state = { cat: 'all', q: '' };
 
       function matches(card) {
         var okCat = state.cat === 'all' || card.getAttribute('data-cat') === state.cat;
@@ -660,17 +569,12 @@
 
       function render() {
         var total = 0;
-        var filtering = state.cat !== 'all' || state.q !== '';
         cards.forEach(function (card) {
           var ok = matches(card);
-          var isExtra = card.classList.contains('bx-extra');
-          var visible = ok && (filtering || state.expanded || !isExtra);
-          card.classList.toggle('is-hidden', !visible);
+          card.classList.toggle('is-hidden', !ok);
           if (ok) total++;
         });
         empty.classList.toggle('is-visible', total === 0);
-        /* la card "cargar más" solo aparece sin filtros y con extras por mostrar */
-        loadBtn.style.display = (!filtering && !state.expanded) ? 'flex' : 'none';
       }
 
       pills.forEach(function (p) {
@@ -682,7 +586,6 @@
         });
       });
       search.addEventListener('input', function () { state.q = search.value.trim().toLowerCase(); render(); });
-      loadBtn.addEventListener('click', function () { state.expanded = true; render(); });
 
       render();
     })();
