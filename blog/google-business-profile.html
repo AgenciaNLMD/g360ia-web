@@ -169,6 +169,16 @@
     .bx-header-cta:hover { background: #b3790f; }
     @media (max-width: 680px) { .bx-back span { display: none; } }
 
+    /* menú hamburguesa del header */
+    .bx-menu-wrap { position: relative; }
+    .bx-menu-btn { width: 38px; height: 38px; display: grid; place-items: center; border-radius: var(--bx-r-m); background: var(--bx-surface); border: 0.5px solid var(--bx-border); color: var(--bx-text); cursor: pointer; transition: border-color .15s, color .15s, background .15s; }
+    .bx-menu-btn:hover { border-color: var(--bx-accent); color: var(--bx-accent); }
+    .bx-menu { position: absolute; top: calc(100% + 8px); right: 0; z-index: 70; min-width: 168px; background: #0c1830; border: 0.5px solid var(--bx-border); border-radius: var(--bx-r-m); box-shadow: 0 18px 40px -16px rgba(0,0,0,0.7); padding: 6px; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .16s, transform .16s, visibility .16s; }
+    .bx-menu.is-open { opacity: 1; visibility: visible; transform: none; }
+    .bx-menu a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 7px; font-size: 13.5px; color: var(--bx-text-soft); }
+    .bx-menu a svg { color: var(--bx-accent); flex-shrink: 0; }
+    .bx-menu a:hover { background: var(--bx-soft); color: var(--bx-text); }
+
     /* ===== LAYOUT artículo ===== */
     .bx-article { max-width: 1120px; margin: 0 auto; padding: 36px 24px 72px; }
     .bx-art-grid { display: grid; grid-template-columns: 1fr 260px; gap: 48px; align-items: start; min-width: 0; }
@@ -547,7 +557,8 @@
       .bx-rank-carousel .bx-card-thumb { aspect-ratio: 16/10; }
 
       /* el bloque "Más leídos" no es acordeón en mobile: siempre desplegado */
-      #bx-rank-block .bx-collapse-body { grid-template-rows: 1fr !important; margin-top: 12px !important; }
+      #bx-rank-block .bx-collapse-body { display: block !important; margin-top: 12px !important; }
+      #bx-rank-block .bx-collapse-inner { overflow: visible !important; }
       #bx-rank-block .bx-collapse-head { cursor: default; pointer-events: none; }
       #bx-rank-block .bx-collapse-chevron { display: none; }
     }
@@ -611,11 +622,21 @@
         <span>Gestion<span class="n">360</span>.iA</span>
       </a>
       <nav class="bx-header-nav" aria-label="Navegación">
-        <a href="/blog/" class="bx-back">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
-          <span>Volver al blog</span>
-        </a>
-        <a href="/contacto?servicio=seo" class="bx-header-cta" id="bx-header-cta">Diagnóstico gratis</a>
+        <div class="bx-menu-wrap">
+          <button class="bx-menu-btn" id="bx-menu-btn" type="button" aria-label="Abrir menú" aria-haspopup="true" aria-expanded="false">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+          <div class="bx-menu" id="bx-menu" role="menu">
+            <a href="/" role="menuitem">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20h5v-6h4v6h5V9.5"/></svg>
+              Inicio
+            </a>
+            <a href="/blog/" role="menuitem">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+              Blog
+            </a>
+          </div>
+        </div>
       </nav>
     </div>
   </header>
@@ -1116,6 +1137,18 @@
         localStorage.setItem(key, on ? '1' : '0');
       });
     })();
+
+    /* Menú hamburguesa del header (Inicio / Blog) */
+    (function () {
+      var btn = document.getElementById('bx-menu-btn');
+      var menu = document.getElementById('bx-menu');
+      if (!btn || !menu) return;
+      function setOpen(open) { menu.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+      btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!menu.classList.contains('is-open')); });
+      menu.addEventListener('click', function (e) { e.stopPropagation(); });
+      document.addEventListener('click', function () { setOpen(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    })();
   </script>
 
   <script>
@@ -1224,9 +1257,9 @@
       function open() { modal.classList.add('is-open'); if (bar) bar.classList.remove('is-visible'); seed(); setTimeout(function () { input.focus(); }, 300); }
       function close() { modal.classList.remove('is-open'); }
 
-      ['bx-servicebar-cta', 'bx-cta-chat', 'bx-header-cta'].forEach(function (id) {
+      ['bx-servicebar-cta', 'bx-cta-chat'].forEach(function (id) {
         var b = document.getElementById(id);
-        if (b) b.addEventListener('click', function (e) { if (e && e.preventDefault) e.preventDefault(); open(); });
+        if (b) b.addEventListener('click', open);
       });
       Array.prototype.slice.call(modal.querySelectorAll('[data-close]')).forEach(function (b) { b.addEventListener('click', close); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
