@@ -134,7 +134,6 @@
       padding: 8px 16px; border-radius: var(--bx-r-m);
     }
     .bx-header-cta:hover { background: #b3790f; }
-    @media (max-width: 680px) { .bx-header-nav a:not(.bx-header-cta) { display: none; } }
 
     /* ===================== LAYOUT base ===================== */
     .bx-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
@@ -222,6 +221,16 @@
     }
     .bx-star:hover .bx-star-cta .bx-readmore { background: #f0c46e; }
     @media (max-width: 640px) { .bx-star { flex-direction: column; align-items: flex-start; gap: 16px; } }
+
+    /* slider de destacados: autoplay entre los más leídos (slides apilados con grid) */
+    .bx-slider { display: grid; }
+    .bx-slider > .bx-star { grid-area: 1 / 1; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .55s ease, visibility .55s ease, border-color .2s, box-shadow .2s, transform .2s; }
+    .bx-slider > .bx-star.is-active { opacity: 1; visibility: visible; pointer-events: auto; z-index: 1; }
+    .bx-slider-dots { display: flex; justify-content: center; gap: 8px; }
+    .bx-slider-dot { width: 8px; height: 8px; padding: 0; border: none; border-radius: 999px; background: var(--bx-border); cursor: pointer; transition: background .2s, width .2s; }
+    .bx-slider-dot:hover { background: var(--bx-accent-bg-2); }
+    .bx-slider-dot.is-active { background: var(--bx-accent); width: 22px; }
+    @media (prefers-reduced-motion: reduce) { .bx-slider > .bx-star { transition: none; } }
 
     /* secundario: fila texto-izquierda / miniatura-derecha */
     .bx-second {
@@ -380,7 +389,6 @@
       <nav class="bx-header-nav" aria-label="Navegación">
         <a href="/">Inicio</a>
         <a href="/#servicios">Servicios</a>
-        <a href="/contacto" class="bx-header-cta">Diagnóstico gratis</a>
       </nav>
     </div>
   </header>
@@ -390,24 +398,83 @@
     <!-- ===== DESTACADOS (apilados) ===== -->
     <section class="bx-feature" aria-label="Artículos destacados">
 
-      <!-- estelar: banner horizontal -->
-      <a class="bx-star" href="/blog/geo-vs-seo-posicionar-pyme-ia" data-cat="tendencias">
-        <div class="bx-star-media"><img src="/multimedia/geo-vs-seo.webp" alt="" loading="lazy" /></div>
-        <div class="bx-star-text">
-          <span class="bx-star-eyebrow">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.6L21 9.3l-4.9 4.3 1.5 6.8L12 17.1 6.4 20.4l1.5-6.8L3 9.3l6.4-.7L12 2z"/></svg>
-            Artículo destacado
-          </span>
-          <h2 class="bx-star-title">GEO vs SEO: cómo posicionar tu pyme en Google y en las IA</h2>
-          <p class="bx-star-cats">Tendencias · SEO · GEO</p>
-        </div>
-        <div class="bx-star-cta">
-          <span class="bx-badge">Guía</span>
-          <span class="bx-readmore">Leer
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-        </div>
-      </a>
+      <!-- slider de destacados: rota automáticamente entre los más leídos -->
+      <div class="bx-slider" id="bx-slider">
+
+        <a class="bx-star is-active" href="/blog/geo-vs-seo-posicionar-pyme-ia" data-cat="tendencias">
+          <div class="bx-star-media"><img src="/multimedia/geo-vs-seo.webp" alt="" /></div>
+          <div class="bx-star-text">
+            <span class="bx-star-eyebrow">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.6L21 9.3l-4.9 4.3 1.5 6.8L12 17.1 6.4 20.4l1.5-6.8L3 9.3l6.4-.7L12 2z"/></svg>
+              Artículo destacado
+            </span>
+            <h2 class="bx-star-title">GEO vs SEO: cómo posicionar tu pyme en Google y en las IA</h2>
+            <p class="bx-star-cats">Tendencias · SEO · GEO</p>
+          </div>
+          <div class="bx-star-cta">
+            <span class="bx-badge">Guía</span>
+            <span class="bx-readmore">Leer
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="bx-star" href="/blog/google-business-profile" data-cat="tutoriales">
+          <div class="bx-star-media"><img src="/multimedia/google-business.webp" alt="" loading="lazy" /></div>
+          <div class="bx-star-text">
+            <span class="bx-star-eyebrow">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.6L21 9.3l-4.9 4.3 1.5 6.8L12 17.1 6.4 20.4l1.5-6.8L3 9.3l6.4-.7L12 2z"/></svg>
+              Artículo destacado
+            </span>
+            <h2 class="bx-star-title">Google Business Profile: optimizá tu ficha paso a paso</h2>
+            <p class="bx-star-cats">Tutoriales · SEO local · Google Maps</p>
+          </div>
+          <div class="bx-star-cta">
+            <span class="bx-badge">Tutorial</span>
+            <span class="bx-readmore">Leer
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="bx-star" href="/blog/prompts-para-tu-negocio" data-cat="ia-generativa">
+          <div class="bx-star-media"><img src="/multimedia/ia-prompts.webp" alt="" loading="lazy" /></div>
+          <div class="bx-star-text">
+            <span class="bx-star-eyebrow">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.6L21 9.3l-4.9 4.3 1.5 6.8L12 17.1 6.4 20.4l1.5-6.8L3 9.3l6.4-.7L12 2z"/></svg>
+              Artículo destacado
+            </span>
+            <h2 class="bx-star-title">Prompts para tu negocio: 10 plantillas que sí funcionan</h2>
+            <p class="bx-star-cats">IA generativa · ChatGPT · Productividad</p>
+          </div>
+          <div class="bx-star-cta">
+            <span class="bx-badge">Plantillas</span>
+            <span class="bx-readmore">Leer
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="bx-star" href="/blog/bots-whatsapp-cuando-automatizar" data-cat="automatizacion">
+          <div class="bx-star-media"><img src="/multimedia/automatizacion.webp" alt="" loading="lazy" /></div>
+          <div class="bx-star-text">
+            <span class="bx-star-eyebrow">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.6L21 9.3l-4.9 4.3 1.5 6.8L12 17.1 6.4 20.4l1.5-6.8L3 9.3l6.4-.7L12 2z"/></svg>
+              Artículo destacado
+            </span>
+            <h2 class="bx-star-title">Bots de WhatsApp: cuándo automatizar y cuándo no</h2>
+            <p class="bx-star-cats">Automatización · WhatsApp · Atención</p>
+          </div>
+          <div class="bx-star-cta">
+            <span class="bx-badge">Guía</span>
+            <span class="bx-readmore">Leer
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+        </a>
+
+      </div>
+      <div class="bx-slider-dots" id="bx-slider-dots" role="tablist" aria-label="Elegir artículo destacado"></div>
 
     </section>
 
@@ -588,6 +655,40 @@
       search.addEventListener('input', function () { state.q = search.value.trim().toLowerCase(); render(); });
 
       render();
+    })();
+  </script>
+
+  <script>
+    /* Slider de destacados: autoplay + dots, se pausa al pasar el mouse */
+    (function () {
+      var slider = document.getElementById('bx-slider');
+      var dotsWrap = document.getElementById('bx-slider-dots');
+      if (!slider || !dotsWrap) return;
+      var slides = Array.prototype.slice.call(slider.querySelectorAll('.bx-star'));
+      if (slides.length < 2) return;
+
+      var i = 0, timer = null, DELAY = 5500;
+      var dots = slides.map(function (s, idx) {
+        var d = document.createElement('button');
+        d.type = 'button';
+        d.className = 'bx-slider-dot' + (idx === 0 ? ' is-active' : '');
+        d.setAttribute('aria-label', 'Artículo destacado ' + (idx + 1));
+        d.addEventListener('click', function () { show(idx); restart(); });
+        dotsWrap.appendChild(d);
+        return d;
+      });
+
+      function show(n) {
+        slides[i].classList.remove('is-active'); dots[i].classList.remove('is-active');
+        i = (n + slides.length) % slides.length;
+        slides[i].classList.add('is-active'); dots[i].classList.add('is-active');
+      }
+      function next() { show(i + 1); }
+      function restart() { if (timer) clearInterval(timer); timer = setInterval(next, DELAY); }
+
+      slider.addEventListener('mouseenter', function () { if (timer) clearInterval(timer); });
+      slider.addEventListener('mouseleave', restart);
+      restart();
     })();
   </script>
 </body>

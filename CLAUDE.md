@@ -34,9 +34,12 @@ se cancela ese tick. El siguiente scroll navega al segmento siguiente/anterior.
 
 ## Regla 4 — Footer compartido
 
-El footer de todas las páginas de servicios se carga dinámicamente desde `/partials/footer.html`
-vía `fetch`. No editar el footer en cada página de servicio individualmente.
-Para cambiar el footer de todas las páginas de servicios, editar solo `/partials/footer.html`.
+El footer de todas las páginas de servicios y del blog se carga dinámicamente vía `fetch`
+desde la URL `/partials/footer.html`. El archivo fuente vive en **`public/partials/footer.html`**
+(tiene que estar en `public/` porque en producción Caddy sólo sirve `dist/`, y Vite únicamente
+copia `public/` al build — si estuviera en la raíz, el `fetch` da 404 y el footer desaparece).
+No editar el footer en cada página individualmente: para cambiarlo en todas, editar solo
+`public/partials/footer.html`.
 
 ## Regla 5 — SEO/GEO de artículos del blog (`/blog/*.html`)
 
