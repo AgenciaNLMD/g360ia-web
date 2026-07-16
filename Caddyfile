@@ -6,7 +6,27 @@
 	# Canónica = https://g360ia.com.ar/... (sin www, sin /index, sin .html)
 	# Los <link rel="canonical"> del HTML ya apuntan ahí; esto lo fuerza con 301.
 
-	# 1) www -> apex
+	# 1) www -> apex, siempre en UN solo salto (sin cadenas de redirección).
+	# Las reglas de www que normalizan el path van primero: si sólo estuviera la
+	# genérica, www/index haría 301 a apex/index y recién ahí a / (dos saltos).
+	# Entre redir del mismo tipo, Caddy respeta el orden del archivo.
+
+	# 1a) www + /index(.html) -> raíz del apex
+	@www_index {
+		host www.g360ia.com.ar
+		path /index /index.html
+	}
+	redir @www_index https://g360ia.com.ar/ permanent
+
+	# 1b) www + /algo.html -> apex /algo
+	@www_html {
+		host www.g360ia.com.ar
+		path_regexp wwwhtml ^/(.+)\.html$
+		not path /partials/*
+	}
+	redir @www_html https://g360ia.com.ar/{re.wwwhtml.1} permanent
+
+	# 1c) www, resto de las URLs -> apex tal cual
 	@www host www.g360ia.com.ar
 	redir @www https://g360ia.com.ar{uri} permanent
 
