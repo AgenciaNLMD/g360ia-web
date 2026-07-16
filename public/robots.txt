@@ -1,4 +1,28 @@
+# robots.txt — Gestión 360 IA
+# https://g360ia.com.ar/robots.txt
+#
+# Fuente única. Tiene que vivir en public/ porque en producción Caddy sólo
+# sirve dist/ y Vite únicamente copia public/ al build.
+
 User-agent: *
+Allow: /
+
+# Assets para renderizado
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$
+
+# Bots de IA — permitidos (decidir según política)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
 Allow: /
 
 Sitemap: https://g360ia.com.ar/sitemap.xml

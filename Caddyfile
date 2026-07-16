@@ -2,6 +2,27 @@
 	root * /app/dist
 	encode zstd gzip
 
+	# --- Canonicalización: una sola versión de cada URL ---
+	# Canónica = https://g360ia.com.ar/... (sin www, sin /index, sin .html)
+	# Los <link rel="canonical"> del HTML ya apuntan ahí; esto lo fuerza con 301.
+
+	# 1) www -> apex
+	@www host www.g360ia.com.ar
+	redir @www https://g360ia.com.ar{uri} permanent
+
+	# 2) /index y /index.html -> /
+	redir /index / permanent
+	redir /index.html / permanent
+
+	# 3) /loquesea.html -> /loquesea
+	# /partials/* queda excluido: no son páginas, son fragmentos que se piden por fetch
+	# (ver Regla 4 / footer compartido). Redirigirlos sólo agrega un salto a cada carga.
+	@htmlext {
+		path_regexp htmlext ^/(.+)\.html$
+		not path /partials/*
+	}
+	redir @htmlext /{re.htmlext.1} permanent
+
 	# Assets con hash en el nombre: cachear un año, inmutables
 	header /assets/* Cache-Control "public, max-age=31536000, immutable"
 
@@ -9,8 +30,12 @@
 	@media path *.webp *.png *.jpg *.jpeg *.ico *.svg *.woff2
 	header @media Cache-Control "public, max-age=2592000"
 
-	# URLs limpias: /servicios/ads sirve servicios/ads.html (coincide con los canonical)
-	try_files {path} {path}.html {path}/
+	# URLs limpias: /servicios/ads sirve servicios/ads.html (coincide con los canonical).
+	# El orden importa: {path}.html y {path}/index.html van ANTES que {path}, porque si
+	# {path} matchea primero un directorio (ej. /blog -> dist/blog/), file_server responde
+	# 308 a /blog/ y el sitemap/canonical (que declaran /blog) quedarían apuntando a una
+	# URL que redirige.
+	try_files {path}.html {path}/index.html {path} {path}/
 
 	file_server
 }

@@ -323,7 +323,7 @@ function Footer({ onNav }) {
         </div>
         <div className="footer-bottom">
           <span>© {year} Gestion360ia · Todos los derechos reservados</span>
-          <span><a href="/legal/aviso-legal.html" style={{marginRight: 16}}>Aviso legal</a><a href="/legal/privacidad.html">Política de privacidad</a></span>
+          <span><a href="/legal/aviso-legal" style={{marginRight: 16}}>Aviso legal</a><a href="/legal/privacidad">Política de privacidad</a></span>
         </div>
       </div>
     </footer>
