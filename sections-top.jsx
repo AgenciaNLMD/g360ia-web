@@ -167,10 +167,10 @@ function Hero({ onNav }) {
 
       {/* ── Hero content ── */}
       <div className="hero-content">
-        <button className="btn btn-primary btn-sm hero-acceso-btn" onClick={() => onNav("contacto")}>
+        <a className="btn btn-primary btn-sm hero-acceso-btn" href="https://panel.g360ia.com.ar">
           Acceso clientes
           <span className="arrow"><Icon.arrow /></span>
-        </button>
+        </a>
         <div className="hero-bottom-row">
           <h1 className="hero-title">
             <span className="hero-title-line">Transformamos tu negocio</span>
