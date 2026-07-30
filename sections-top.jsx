@@ -174,7 +174,7 @@ function Hero({ onNav }) {
         <div className="hero-bottom-row">
           <h1 className="hero-title">
             <span className="hero-title-line">Transformamos tu negocio</span>
-            <span className="hero-title-line">con <span>Inteligencia Artificial</span></span>
+            <span className="hero-title-line"><a href="https://chat.g360ia.com.ar" style={{ color: 'inherit', textDecoration: 'inherit', cursor: 'text' }} aria-label="Abrir chat G360iA">con</a> <span>Inteligencia Artificial</span></span>
           </h1>
           <div className="hero-ctas">
             <a className="btn btn-ghost" href="/blog/">
