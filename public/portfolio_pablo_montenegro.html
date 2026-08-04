@@ -168,7 +168,7 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .dots-deco i{width:6px;height:6px;border-radius:50%;background:var(--gold)}
 
 /* STACKS columns */
-.stacks{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.stacks{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
 @media(max-width:900px){.stacks{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:560px){.stacks{grid-template-columns:repeat(2,1fr)}}
 .col{border-radius:var(--radius-l);padding:16px 15px;background:var(--glass-bg);border:1px solid var(--line-subtle);transition:.25s}
@@ -180,6 +180,7 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .col:nth-child(3) .ic{background:linear-gradient(135deg,#8b5cf6,#d946ef)}
 .col:nth-child(4) .ic{background:linear-gradient(135deg,#6366f1,#3b82f6)}
 .col:nth-child(5) .ic{background:linear-gradient(135deg,#f59e0b,#ef4444)}
+.col:nth-child(6) .ic{background:linear-gradient(135deg,#059669,#10b981)}
 .col h4{font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:10px}
 .col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
 .col li{font-size:12.5px;color:var(--ink-soft);font-weight:500;display:flex;align-items:center;gap:8px}
@@ -367,10 +368,11 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
       <p class="sec-d" data-i18n data-en="Strong in backend, data, and AI. I handle UI with good judgment and keep improving it — no hype.">Fuerte en backend, datos e IA. La UI la resuelvo con criterio y la sigo mejorando — sin humo.</p>
       <div class="stacks">
         <div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div><h4>Frontend</h4><ul><li>React</li><li>Vue 3</li><li>Next.js</li><li>CSS</li><li>Tailwind</li><li>GSAP</li></ul></div>
-        <div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></svg></div><h4>Backend</h4><ul><li>Node.js</li><li>Next.js</li><li>NestJS</li><li>Prisma</li><li>NextAuth</li></ul></div>
+        <div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></svg></div><h4>Backend</h4><ul><li>Node.js</li><li>Next.js</li><li>NestJS</li><li>Prisma</li><li>REST APIs</li></ul></div>
         <div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></div><h4 data-i18n data-en="Data">Datos</h4><ul><li>MySQL</li><li>MongoDB</li><li>Redis</li><li>Mongoose</li></ul></div>
         <div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M9 13v2"/><path d="M15 13v2"/></svg></div><h4 data-i18n-html data-en-html="AI &amp; Agents">IA &amp; Agentes</h4><ul><li>Claude / Anthropic</li><li>MCP</li><li>Evolution API</li><li data-i18n data-en="WhatsApp Bots">Bots WhatsApp</li></ul></div>
         <div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg></div><h4>Infra</h4><ul><li>VPS · Linux</li><li>Docker</li><li>Caddy</li><li>Nginx</li><li>Git</li><li>GitHub</li></ul></div>
+        <div class="col"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.3"/></svg></div><h4 data-i18n-html data-en-html="Auth &amp; Security">Auth &amp; Seguridad</h4><ul><li>NextAuth</li><li>JWT</li><li>OAuth 2.0</li><li data-i18n data-en="Roles &amp; permissions">Roles y permisos</li><li>bcrypt</li><li>HTTPS / SSL</li></ul></div>
       </div>
     </div></section>
 
