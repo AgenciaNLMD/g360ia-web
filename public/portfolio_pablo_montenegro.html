@@ -66,7 +66,7 @@ h1,h2,h3,h4{font-family:var(--fh);font-weight:700;letter-spacing:-.02em;line-hei
 .langsw button{font-family:var(--fh);cursor:pointer;border:none;background:none;color:var(--ink-mute);font-size:11.5px;font-weight:700;letter-spacing:.04em;padding:6px 12px;border-radius:7px;transition:.18s}
 .langsw button:hover{color:var(--ink)}
 .langsw button.active{background:var(--gold);color:#0a1628}
-@media(max-width:900px){.langsw{top:auto;bottom:14px;right:14px}}
+@media(max-width:900px){.langsw{top:calc(var(--barh) + 10px);bottom:auto;right:12px}}
 
 /* SIDEBAR */
 aside.side{position:fixed;top:var(--gap);left:var(--gap);bottom:var(--gap);width:var(--sidebar);z-index:40;
@@ -137,7 +137,7 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .dots{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:20;display:flex;gap:10px;align-items:center}
 .dots button{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.22);cursor:pointer;padding:0;transition:.25s}
 .dots button.active{background:var(--gold);width:26px;border-radius:5px}
-.counter{position:absolute;bottom:20px;right:24px;z-index:20;font-size:12px;color:var(--ink-mute);font-weight:600;letter-spacing:.08em}
+.counter{position:absolute;bottom:20px;left:24px;z-index:20;font-size:12px;color:var(--ink-mute);font-weight:600;letter-spacing:.08em}
 
 /* HERO */
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
@@ -265,11 +265,11 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 }
 
 /* WHATSAPP WIDGET */
-.wa-fab{position:fixed;right:20px;bottom:48px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25d366;border:none;cursor:pointer;display:grid;place-items:center;box-shadow:0 14px 34px -8px rgba(37,211,102,.55);transition:.2s}
+.wa-fab{position:fixed;right:20px;bottom:24px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25d366;border:none;cursor:pointer;display:grid;place-items:center;box-shadow:0 14px 34px -8px rgba(37,211,102,.55);transition:.2s}
 .wa-fab:hover{transform:scale(1.06)}
 .wa-fab svg{width:30px;height:30px;fill:#fff}
 .wa-fab .badge{position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;border-radius:9px;background:#ef4444;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;border:2px solid #050a14;padding:0 4px}
-.wa-chat{position:fixed;right:20px;bottom:116px;z-index:91;width:min(378px,calc(100vw - 26px));height:min(680px,calc(100dvh - 150px));display:none;flex-direction:column;border-radius:14px;overflow:hidden;background:#0b141a;border:1px solid rgba(255,255,255,.08);box-shadow:0 34px 80px -16px rgba(0,0,0,.85)}
+.wa-chat{position:fixed;right:20px;bottom:92px;z-index:91;width:min(378px,calc(100vw - 26px));height:min(680px,calc(100dvh - 128px));display:none;flex-direction:column;border-radius:14px;overflow:hidden;background:#0b141a;border:1px solid rgba(255,255,255,.08);box-shadow:0 34px 80px -16px rgba(0,0,0,.85)}
 .wa-chat.on{display:flex;animation:waIn .24s cubic-bezier(.2,.7,.3,1)}
 @keyframes waIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
 .wa-head{background:linear-gradient(120deg,#009d81,#008069);padding:12px 14px;display:flex;align-items:center;gap:11px;flex:none;box-shadow:0 1px 3px rgba(0,0,0,.35)}
@@ -307,7 +307,6 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .wa-foot a{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#052e16;font-weight:700;font-size:13px;padding:11px;border-radius:24px;font-family:var(--f);transition:.15s}
 .wa-foot a:hover{background:#1fbe5b}
 .wa-foot a svg{width:18px;height:18px;fill:#052e16}
-@media(max-width:900px){.langsw{right:auto;left:14px}}
 </style>
 </head>
 <body>
