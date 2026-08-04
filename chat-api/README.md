@@ -23,7 +23,13 @@ Navegador → g360ia.com.ar/api/chat → Caddy → Node 127.0.0.1:8787 (tiene la
 | `ANTHROPIC_API_KEY` | **Sí** | — | La API key de Anthropic. Sin esto, el chat cae al fallback de WhatsApp. |
 | `CHAT_RATE_MAX` | No | `10` | Preguntas por persona (IP) **por día**. Se renueva cada día. Al superarlo, deriva a WhatsApp. |
 | `CHAT_MAX_DAILY` | No | `600` | Techo **global** de llamadas a la IA por día (freno de gasto). Al superarlo, fallback. |
-| `CHAT_WHATSAPP` | No | `541130720676` | Número de WhatsApp al que derivan los mensajes (formato wa.me, sin `+` ni espacios). |
+| `CHAT_WHATSAPP` | No | `541130720676` | Número de WhatsApp de Pablo (destino del aviso de formulario). |
+| `WA_NOTIFY_URL` | No | — | Endpoint para avisar a Pablo al recibir un formulario. Ej. Evolution API: `https://tu-evolution/message/sendText/tuInstancia`. Sin esto, el lead solo se registra en el log. |
+| `WA_NOTIFY_KEY` | No | — | `apikey` de Evolution (se manda como header). |
+| `WA_NOTIFY_TO` | No | `CHAT_WHATSAPP` | Número que recibe el aviso (el de Pablo). |
+| `CONTACT_RATE_MAX` | No | `5` | Envíos de formulario por IP por día. |
+
+**Formulario → aviso por WhatsApp:** `POST /api/contact` valida el formulario y le manda a Pablo un WhatsApp con los datos del lead vía `WA_NOTIFY_URL` (formato Evolution v2: `{ number, text }` + header `apikey`). El visitante recibe el "gracias" al instante; el aviso se envía en segundo plano.
 
 Por defecto: **10 preguntas por persona por día**; al día siguiente se renueva.
 

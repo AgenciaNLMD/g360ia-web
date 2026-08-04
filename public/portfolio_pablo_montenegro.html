@@ -236,6 +236,11 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .form input,.form textarea{width:100%;font-family:var(--f);font-size:13.5px;color:var(--ink);background:rgba(255,255,255,.04);border:1px solid var(--line-subtle);border-radius:11px;padding:12px 13px;outline:none;transition:.2s}
 .form input:focus,.form textarea:focus{border-color:var(--gold);background:rgba(230,165,50,.05)}
 .form textarea{min-height:82px;resize:vertical;margin-bottom:11px}
+.form select.fsel{width:100%;font-family:var(--f);font-size:13.5px;color:var(--ink);background:rgba(255,255,255,.04);border:1px solid var(--line-subtle);border-radius:11px;padding:12px 13px;outline:none;margin-bottom:11px;transition:.2s;cursor:pointer}
+.form select.fsel:focus{border-color:var(--gold);background:rgba(230,165,50,.05)}
+.form select.fsel option{background:var(--bg-elevated);color:var(--ink)}
+.fmsg{font-size:12.5px;margin-top:10px;min-height:1em;line-height:1.4}
+.fmsg.ok{color:#4ade80}.fmsg.err{color:#f87171}
 .form .btn.primary{width:100%;justify-content:center}
 
 /* MOBILE: sidebar -> top bar */
@@ -308,7 +313,7 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .wa-chip:hover{background:#e7f8ef;border-color:#075e54}
 .wa-contacts{display:flex;flex-direction:column;gap:7px;margin:5px 0 2px;animation:msgIn .2s ease}
 .wa-cbtn{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--f);font-weight:700;font-size:13px;color:#fff;padding:11px;border-radius:12px;transition:.15s}
-.wa-cbtn.wa{background:#25d366}.wa-cbtn.wa:hover{background:#1fbe5b}
+.wa-cbtn.form{background:var(--gold);color:#0a1628}.wa-cbtn.form:hover{background:var(--gold-soft)}
 .wa-cbtn.em{background:#5b6470}.wa-cbtn.em:hover{background:#4b535e}
 .wa-cbtn.li{background:#0a66c2}.wa-cbtn.li:hover{background:#0955a4}
 .wa-input{display:flex;align-items:center;gap:7px}
@@ -459,10 +464,22 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
             <a href="https://www.linkedin.com/in/pablo-montenegr0/" target="_blank" rel="noopener"><span class="ci">in</span><span><b>LinkedIn</b><small>/in/pablo-montenegr0</small></span></a>
           </div>
         </div>
-        <form class="form" onsubmit="return false">
-          <div class="r"><input placeholder="Tu nombre" data-i18n-ph data-en-ph="Your name" /><input placeholder="Tu email" data-i18n-ph data-en-ph="Your email" /></div>
-          <textarea placeholder="Contame tu proyecto..." data-i18n-ph data-en-ph="Tell me about your project..."></textarea>
-          <button class="btn primary" data-i18n data-en="Send message →">Enviar mensaje →</button>
+        <form class="form" id="contactForm">
+          <div class="r"><input name="name" placeholder="Tu nombre" required data-i18n-ph data-en-ph="Your name" /><input name="email" type="email" placeholder="Tu email" required data-i18n-ph data-en-ph="Your email" /></div>
+          <div class="r"><input name="company" placeholder="Empresa / negocio (opcional)" data-i18n-ph data-en-ph="Company / business (optional)" /><input name="phone" placeholder="Teléfono (opcional)" data-i18n-ph data-en-ph="Phone (optional)" /></div>
+          <select name="type" class="fsel">
+            <option value="" data-i18n data-en="Type of project…">Tipo de proyecto…</option>
+            <option data-i18n data-en="Custom software / ERP">Software a medida / ERP</option>
+            <option data-i18n data-en="CRM / sales management">CRM / gestión de ventas</option>
+            <option data-i18n data-en="WhatsApp chatbot / AI agent">Chatbot de WhatsApp / agente IA</option>
+            <option data-i18n data-en="Website / web app">Sitio web / app web</option>
+            <option data-i18n data-en="Automation / integrations">Automatización / integraciones</option>
+            <option data-i18n data-en="Infrastructure / deploy">Infraestructura / deploy</option>
+            <option data-i18n data-en="Other">Otro</option>
+          </select>
+          <textarea name="message" placeholder="Contame tu proyecto: qué necesitás, rubro, usuarios, integraciones..." required data-i18n-ph data-en-ph="Tell me about your project: what you need, industry, users, integrations..."></textarea>
+          <button type="submit" class="btn primary" data-i18n data-en="Send request →">Enviar consulta →</button>
+          <div class="fmsg" id="contactMsg"></div>
         </form>
       </div>
     </div></section>
@@ -594,12 +611,36 @@ function applyLang(){
 langBtns.forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.lang;applyLang();}));
 applyLang();
 
-// WIDGET WHATSAPP — respuestas precargadas (sin backend ni IA)
+// FORMULARIO DE CONTACTO -> /api/contact (le avisa a Pablo por WhatsApp)
+(function(){
+  const f=document.getElementById('contactForm');if(!f)return;
+  const msg=document.getElementById('contactMsg');
+  const en=()=>(typeof lang!=='undefined'&&lang==='en');
+  const val=n=>{const el=f.elements[n];return el?el.value.trim():'';};
+  f.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const btn=f.querySelector('button[type=submit]');
+    const data={name:val('name'),email:val('email'),company:val('company'),phone:val('phone'),type:val('type'),message:val('message')};
+    if(!data.name||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)||!data.message){
+      msg.className='fmsg err';msg.textContent=en()?'Please complete name, a valid email and your message.':'Completá nombre, un email válido y tu mensaje.';return;
+    }
+    btn.disabled=true;msg.className='fmsg';msg.textContent=en()?'Sending…':'Enviando…';
+    try{
+      const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+      if(r.ok){f.reset();msg.className='fmsg ok';msg.textContent=en()?'Thanks! Your request was sent — Pablo will get back to you soon.':'¡Gracias! Tu consulta fue enviada — Pablo te va a responder a la brevedad.';}
+      else if(r.status===429){msg.className='fmsg err';msg.textContent=en()?'Too many submissions, please try again later.':'Demasiados envíos, probá más tarde.';}
+      else{throw new Error();}
+    }catch(_){msg.className='fmsg err';msg.textContent=en()?"Couldn't send it right now. Please try again in a bit.":'No se pudo enviar ahora. Probá de nuevo en un rato.';}
+    btn.disabled=false;
+  });
+})();
+
+// WIDGET DE CHAT — IA acotada vía /api/chat
 (function(){
   const PHONE="541130720676";
   const LIMIT=10;
   const CONTACTS=[
-    {label:"💬 WhatsApp",href:"https://wa.me/"+PHONE,cls:"wa"},
+    {label:"📋 Ir al formulario de contacto",action:"contact",cls:"form"},
     {label:"✉️ Email",href:"mailto:Agencianlmd@gmail.com",cls:"em"},
     {label:"🔗 LinkedIn",href:"https://www.linkedin.com/in/pablo-montenegr0/",cls:"li"}
   ];
@@ -609,7 +650,7 @@ applyLang();
       sugIntro:"Algunas cosas que podés preguntarme 👇",
       suggestions:["¿Qué stack manejás?","¿Qué experiencia tenés?","¿Qué proyectos desarrollaste?","¿Trabajás con IA y automatizaciones?","¿Estás disponible para nuevos proyectos?","¿Trabajás en modo remoto?"],
       placeholder:"Escribí tu pregunta…",
-      aiFail:"Uf, no pude procesar eso ahora mismo 😅 Mejor escribime por WhatsApp 👉 https://wa.me/"+PHONE,
+      aiFail:"Uf, no pude procesar eso ahora mismo 😅 Dejale tu consulta a Pablo en el formulario de la sección Contacto 👇",
       contactsIntro:"¡Buenísimo! Con esto llegamos a las 10 preguntas 🙂 Para seguir la charla con Pablo, elegí por dónde contactarlo:",
       limitAgain:"Ya usaste tus 10 preguntas por hoy 🙂 Seguí la charla con Pablo por acá:",
       qs:[
@@ -632,7 +673,7 @@ applyLang();
       sugIntro:"A few things you can ask me 👇",
       suggestions:["What's your tech stack?","What experience do you have?","What projects have you built?","Do you work with AI and automation?","Are you available for new projects?","Do you work remotely?"],
       placeholder:"Type your question…",
-      aiFail:"Hmm, I couldn't process that right now 😅 Better message me on WhatsApp 👉 https://wa.me/"+PHONE,
+      aiFail:"Hmm, I couldn't process that right now 😅 Leave Pablo a message in the Contact section form 👇",
       contactsIntro:"Awesome! That's your 10 questions 🙂 To keep the conversation going with Pablo, pick how to reach him:",
       limitAgain:"You've used your 10 questions for today 🙂 Continue with Pablo here:",
       qs:[
@@ -687,7 +728,12 @@ applyLang();
   function showContacts(key){
     addMsg(d()[key],'bot');
     const wrap=document.createElement('div');wrap.className='wa-contacts';
-    CONTACTS.forEach(c=>{const a=document.createElement('a');a.className='wa-cbtn '+c.cls;a.href=c.href;a.target='_blank';a.rel='noopener';a.textContent=c.label;wrap.appendChild(a);});
+    CONTACTS.forEach(c=>{
+      let el;
+      if(c.href){el=document.createElement('a');el.href=c.href;el.target='_blank';el.rel='noopener';}
+      else{el=document.createElement('button');el.type='button';el.onclick=()=>{closeChat();if(window.go)window.go(5);};}
+      el.className='wa-cbtn '+c.cls;el.textContent=c.label;wrap.appendChild(el);
+    });
     bodyEl.appendChild(wrap);scrollDown();
   }
   async function sendQuestion(text){
