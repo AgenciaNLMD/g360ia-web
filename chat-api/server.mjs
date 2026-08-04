@@ -24,10 +24,10 @@ const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
 // --- Límites configurables por env ---
 const MAX_BODY_BYTES   = 2000;                                   // body máximo
 const MAX_MSG_CHARS     = 500;                                    // largo máximo del mensaje
-const RATE_WINDOW_MS    = Number(process.env.CHAT_RATE_WINDOW_MIN || 5) * 60 * 1000; // ventana (minutos)
-const RATE_MAX          = Number(process.env.CHAT_RATE_MAX || 12);// req por IP por ventana
-const MAX_DAILY         = Number(process.env.CHAT_MAX_DAILY || 600); // techo de llamadas IA por día
+const PER_IP_DAILY      = Number(process.env.CHAT_RATE_MAX || 10);   // preguntas por persona (IP) por día
+const MAX_DAILY         = Number(process.env.CHAT_MAX_DAILY || 600); // techo global de llamadas IA por día
 const UPSTREAM_TIMEOUT  = 15000;                                  // timeout hacia Anthropic
+const PHONE             = process.env.CHAT_WHATSAPP || '541130720676'; // WhatsApp para el handoff
 
 const ALLOWED_HOSTS = ['g360ia.com.ar', 'www.g360ia.com.ar'];
 
@@ -78,24 +78,29 @@ Respondé en ${idioma}, en 1 a 3 frases, con tono cordial y directo.
 ${KB}`;
 }
 
-// --- Estado en memoria ---
-const rate = new Map();        // ip -> [timestamps]
+// --- Estado en memoria (se reinicia si se redeploya el servicio) ---
 let dayKey = new Date().toISOString().slice(0, 10);
-let dayCount = 0;
+let dayCount = 0;              // total global del día
+const ipDaily = new Map();     // ip -> { day, count }
+
+function today() { return new Date().toISOString().slice(0, 10); }
 
 function checkDaily() {
-  const today = new Date().toISOString().slice(0, 10);
-  if (today !== dayKey) { dayKey = today; dayCount = 0; }
+  const t = today();
+  if (t !== dayKey) { dayKey = t; dayCount = 0; }
   return dayCount < MAX_DAILY;
 }
 
-function checkRate(ip) {
-  const now = Date.now();
-  const arr = (rate.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
-  if (arr.length >= RATE_MAX) { rate.set(ip, arr); return false; }
-  arr.push(now);
-  rate.set(ip, arr);
-  return true;
+// Límite por persona (IP) que se renueva cada día.
+function ipUnderLimit(ip) {
+  const t = today();
+  let rec = ipDaily.get(ip);
+  if (!rec || rec.day !== t) { rec = { day: t, count: 0 }; ipDaily.set(ip, rec); }
+  return rec.count < PER_IP_DAILY;
+}
+function ipBump(ip) {
+  const rec = ipDaily.get(ip);
+  if (rec) rec.count++;
 }
 
 function clientIp(req) {
@@ -124,8 +129,11 @@ function sendJson(res, status, obj) {
   res.end(body);
 }
 
-const FALLBACK_ES = 'Uf, no pude procesar eso ahora mismo 😅 Escribime por WhatsApp y te respondo al toque: wa.me/541130720676';
-const FALLBACK_EN = "Hmm, I couldn't process that right now 😅 Message me on WhatsApp and I'll reply right away: wa.me/541130720676";
+const WA = `https://wa.me/${PHONE}`;
+const FALLBACK_ES = `Uf, no pude procesar eso ahora mismo 😅 Escribime por WhatsApp y te respondo al toque 👉 ${WA}`;
+const FALLBACK_EN = `Hmm, I couldn't process that right now 😅 Message me on WhatsApp and I'll reply right away 👉 ${WA}`;
+const LIMIT_ES = `Veo que tenés varias consultas 🙂 Mejor seguí directo por WhatsApp, así te ayudo mejor 👉 ${WA}`;
+const LIMIT_EN = `I see you have several questions 🙂 Better to continue directly on WhatsApp so I can help you better 👉 ${WA}`;
 
 async function callAnthropic(message, lang) {
   const controller = new AbortController();
@@ -171,11 +179,6 @@ const server = http.createServer((req, res) => {
   }
 
   const ip = clientIp(req);
-  if (!checkRate(ip)) {
-    return sendJson(res, 429, {
-      reply: 'Llegaste al límite de preguntas por ahora 🙂 Seguimos por WhatsApp y te respondo directo: wa.me/541130720676',
-    });
-  }
 
   // Leer body con tope de tamaño
   let raw = '';
@@ -200,10 +203,16 @@ const server = http.createServer((req, res) => {
     if (!API_KEY) {
       return sendJson(res, 200, { reply: lang === 'en' ? FALLBACK_EN : FALLBACK_ES });
     }
+    // Límite por persona (IP) por día -> deriva a WhatsApp
+    if (!ipUnderLimit(ip)) {
+      return sendJson(res, 429, { reply: lang === 'en' ? LIMIT_EN : LIMIT_ES });
+    }
+    // Techo global de gasto del día
     if (!checkDaily()) {
       return sendJson(res, 200, { reply: lang === 'en' ? FALLBACK_EN : FALLBACK_ES });
     }
 
+    ipBump(ip);
     dayCount++;
     const reply = await callAnthropic(message, lang);
     return sendJson(res, 200, { reply: reply || (lang === 'en' ? FALLBACK_EN : FALLBACK_ES) });

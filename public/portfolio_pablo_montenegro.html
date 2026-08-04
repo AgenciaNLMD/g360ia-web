@@ -288,6 +288,7 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .wa-msg{position:relative;display:flex;flex-direction:column;max-width:82%;padding:6px 9px 5px;border-radius:8px;box-shadow:0 1px .5px rgba(11,20,26,.13);animation:msgIn .2s ease}
 @keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .wa-msg .tx{font-size:13.2px;line-height:1.45;color:#111b21;white-space:pre-line}
+.wa-msg .tx a{color:#027eb5;text-decoration:underline;word-break:break-word}
 .wa-msg .t{align-self:flex-end;font-size:10px;color:rgba(17,27,33,.45);margin-top:2px;line-height:1}
 .wa-msg .t .tk{color:#53bdeb;margin-left:2px;letter-spacing:-2px}
 .wa-msg.bot{align-self:flex-start;background:#ffffff;border-top-left-radius:0}
@@ -651,9 +652,20 @@ applyLang();
   function d(){return waData[typeof lang!=='undefined'&&waData[lang]?lang:'es'];}
   function scrollDown(){bodyEl.scrollTop=bodyEl.scrollHeight;}
   function nowT(){const dt=new Date(),p=n=>n<10?'0'+n:''+n;return p(dt.getHours())+':'+p(dt.getMinutes());}
+  function linkify(el,txt){
+    const re=/(https?:\/\/[^\s]+|wa\.me\/\d+)/g;let last=0,m;
+    while((m=re.exec(txt))){
+      if(m.index>last)el.appendChild(document.createTextNode(txt.slice(last,m.index)));
+      const a=document.createElement('a');
+      a.href=/^https?:\/\//.test(m[0])?m[0]:'https://'+m[0];
+      a.target='_blank';a.rel='noopener';a.textContent=m[0];
+      el.appendChild(a);last=m.index+m[0].length;
+    }
+    if(last<txt.length)el.appendChild(document.createTextNode(txt.slice(last)));
+  }
   function addMsg(txt,who){
     const m=document.createElement('div');m.className='wa-msg '+who;
-    const tx=document.createElement('span');tx.className='tx';tx.textContent=txt;m.appendChild(tx);
+    const tx=document.createElement('span');tx.className='tx';linkify(tx,txt);m.appendChild(tx);
     const t=document.createElement('span');t.className='t';t.textContent=nowT();
     if(who==='me'){const k=document.createElement('span');k.className='tk';k.textContent='✓✓';t.appendChild(k);}
     m.appendChild(t);bodyEl.appendChild(m);scrollDown();
