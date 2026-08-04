@@ -269,7 +269,7 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .wa-fab:hover{transform:scale(1.06)}
 .wa-fab svg{width:30px;height:30px;fill:#fff}
 .wa-fab .badge{position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;border-radius:9px;background:#ef4444;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;border:2px solid #050a14;padding:0 4px}
-.wa-chat{position:fixed;right:20px;bottom:92px;z-index:91;width:min(378px,calc(100vw - 26px));height:min(680px,calc(100dvh - 128px));display:none;flex-direction:column;border-radius:14px;overflow:hidden;background:#efeae2;border:1px solid rgba(0,0,0,.14);box-shadow:0 34px 80px -16px rgba(0,0,0,.85)}
+.wa-chat{position:fixed;right:20px;bottom:92px;z-index:91;width:min(344px,calc(100vw - 26px));height:min(720px,calc(100dvh - 112px));display:none;flex-direction:column;border-radius:14px;overflow:hidden;background:#efeae2;border:1px solid rgba(0,0,0,.14);box-shadow:0 34px 80px -16px rgba(0,0,0,.85)}
 .wa-chat.on{display:flex;animation:waIn .24s cubic-bezier(.2,.7,.3,1)}
 @keyframes waIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
 .wa-head{background:linear-gradient(120deg,#009d81,#008069);padding:12px 14px;display:flex;align-items:center;gap:11px;flex:none;box-shadow:0 1px 3px rgba(0,0,0,.35)}
@@ -299,7 +299,7 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .wa-typing span:nth-child(2){animation-delay:.2s}
 .wa-typing span:nth-child(3){animation-delay:.4s}
 @keyframes waDot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
-.wa-qs{display:flex;flex-wrap:nowrap;gap:7px;padding:9px 12px;overflow-x:auto;background:#f0f2f5;border-top:1px solid rgba(0,0,0,.08);flex:none;scrollbar-width:none}
+.wa-qs{display:flex;flex-wrap:nowrap;gap:7px;padding:9px 12px;overflow-x:auto;background:#f0f2f5;border-top:1px solid rgba(0,0,0,.08);flex:none;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 87%,transparent);mask-image:linear-gradient(90deg,#000 87%,transparent)}
 .wa-qs::-webkit-scrollbar{display:none}
 .wa-q{white-space:nowrap;font-family:var(--f);cursor:pointer;font-size:12px;color:#008069;background:#fff;border:1px solid rgba(0,128,105,.28);border-radius:16px;padding:7px 13px;transition:.15s;flex:none}
 .wa-q:hover{background:#e7f8ef;color:#00694f}
@@ -593,10 +593,17 @@ applyLang();
       cta:"Seguir en WhatsApp",
       qs:[
         {q:"¿Qué hace Pablo?",a:"Es Full Stack Developer. Construye software a medida, bots y agentes de IA que se usan de verdad — del código al deploy."},
-        {q:"¿Qué stack usa?",a:"Backend con Node.js, Next.js y NestJS; front con React + Vite; datos con MySQL, Prisma y MongoDB; e IA con Claude + MCP. También VPS con Caddy, colas Redis/BullMQ y S3."},
         {q:"¿Qué servicios ofrece?",a:"Software a medida, automatizaciones, chatbots de WhatsApp con IA, integración de APIs e infraestructura (deploy en VPS). Cinco cosas que resuelve de punta a punta."},
-        {q:"¿Qué proyectos tiene?",a:"Un ERP modular por rubros, un sistema de gestión municipal (GovTech), chatbots con agentes de IA en WhatsApp, un panel interno con IA + analítica, y este mismo sitio."},
+        {q:"¿Hace sitios web?",a:"Sí. Desarrolla sitios y apps a medida con React/Vite y Next.js, con animaciones y optimizados para SEO/GEO — como este mismo sitio."},
+        {q:"¿Puede automatizar mi negocio?",a:"Sí. Conecta tus sistemas con APIs y arma automatizaciones para sacarte de encima las tareas repetitivas."},
         {q:"¿Trabaja con IA y WhatsApp?",a:"Sí. Arma bots en WhatsApp vía Evolution API con agentes que usan Claude y herramientas propias (MCP): no solo responden, ejecutan acciones sobre el sistema."},
+        {q:"¿Qué es un agente de IA?",a:"Un asistente que no solo responde: usa herramientas (MCP) para ejecutar acciones reales sobre tus sistemas — consultar datos, cargar registros o avisarte."},
+        {q:"¿Qué proyectos tiene?",a:"Un ERP modular por rubros, un sistema de gestión municipal (GovTech), chatbots con agentes de IA en WhatsApp, un panel interno con IA + analítica, y este mismo sitio."},
+        {q:"¿Trabaja con municipios?",a:"Sí. Desarrolló un sistema de gestión municipal con turnos, reclamos ubicados en mapa y panel de administración, pensado para el sector público."},
+        {q:"¿Qué stack usa?",a:"Backend con Node.js, Next.js y NestJS; front con React + Vite; datos con MySQL, Prisma y MongoDB; e IA con Claude + MCP. También VPS con Caddy, colas Redis/BullMQ y S3."},
+        {q:"¿Está disponible?",a:"Sí, está disponible para nuevos proyectos: software, bots o agentes de IA. Escribile y lo charlan sin compromiso."},
+        {q:"¿Trabaja remoto?",a:"Sí, trabaja de forma remota y da atención bilingüe (español / inglés)."},
+        {q:"¿Cuánto cuesta un proyecto?",a:"Cada proyecto es distinto. Contale por WhatsApp qué necesitás y te arma un presupuesto a medida."},
         {q:"¿Cómo lo contacto?",a:"Por WhatsApp (+54 11 3072-0676), email (Agencianlmd@gmail.com) o LinkedIn. Tocá el botón verde de abajo para escribirle directo. 👇"}
       ]},
     en:{title:"Pablo · Assistant",status:"Usually replies right away",
@@ -604,10 +611,17 @@ applyLang();
       cta:"Continue on WhatsApp",
       qs:[
         {q:"What does Pablo do?",a:"He's a Full Stack Developer. He builds custom software, bots and AI agents that people actually use — from code to deploy."},
-        {q:"What's his stack?",a:"Backend with Node.js, Next.js and NestJS; front with React + Vite; data with MySQL, Prisma and MongoDB; and AI with Claude + MCP. Plus VPS with Caddy, Redis/BullMQ queues and S3."},
         {q:"What services does he offer?",a:"Custom software, automations, AI-powered WhatsApp chatbots, API integrations and infrastructure (VPS deploy). Five things he handles end-to-end."},
-        {q:"What projects has he built?",a:"A modular ERP by industry, a municipal management system (GovTech), WhatsApp chatbots with AI agents, an internal panel with AI + analytics, and this very site."},
+        {q:"Does he build websites?",a:"Yes. He builds custom sites and apps with React/Vite and Next.js, with animations and optimized for SEO/GEO — like this very site."},
+        {q:"Can he automate my business?",a:"Yes. He connects your systems with APIs and builds automations to take repetitive tasks off your plate."},
         {q:"Does he work with AI and WhatsApp?",a:"Yes. He builds WhatsApp bots via Evolution API with agents that use Claude and custom tools (MCP): they don't just reply, they take action on the system."},
+        {q:"What's an AI agent?",a:"An assistant that doesn't just reply: it uses tools (MCP) to take real actions on your systems — query data, log records or notify you."},
+        {q:"What projects has he built?",a:"A modular ERP by industry, a municipal management system (GovTech), WhatsApp chatbots with AI agents, an internal panel with AI + analytics, and this very site."},
+        {q:"Does he work with governments?",a:"Yes. He built a municipal management system with appointments, map-located complaints and an admin panel, designed for the public sector."},
+        {q:"What's his stack?",a:"Backend with Node.js, Next.js and NestJS; front with React + Vite; data with MySQL, Prisma and MongoDB; and AI with Claude + MCP. Plus VPS with Caddy, Redis/BullMQ queues and S3."},
+        {q:"Is he available?",a:"Yes, he's available for new projects: software, bots or AI agents. Message him and talk it through, no strings attached."},
+        {q:"Does he work remotely?",a:"Yes, he works remotely and offers bilingual support (Spanish / English)."},
+        {q:"How much does a project cost?",a:"Every project is different. Tell him on WhatsApp what you need and he'll put together a custom quote."},
         {q:"How do I contact him?",a:"Via WhatsApp (+54 11 3072-0676), email (Agencianlmd@gmail.com) or LinkedIn. Tap the green button below to message him directly. 👇"}
       ]}
   };
@@ -645,6 +659,7 @@ applyLang();
   }
   fab.onclick=()=>{chat.classList.toggle('on');if(badge)badge.style.display='none';};
   document.getElementById('waClose').onclick=()=>chat.classList.remove('on');
+  qsBox.addEventListener('wheel',e=>{if(e.deltaY){qsBox.scrollLeft+=e.deltaY;e.preventDefault();}},{passive:false});
   render();
   window.__waRender=render;
 })();
