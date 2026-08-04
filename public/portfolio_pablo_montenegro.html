@@ -266,15 +266,16 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 }
 
 /* WHATSAPP WIDGET */
-.wa-fab{position:fixed;right:20px;bottom:24px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25d366;border:none;cursor:pointer;display:grid;place-items:center;box-shadow:0 14px 34px -8px rgba(37,211,102,.55);transition:.2s}
+.wa-fab{position:fixed;right:20px;bottom:24px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25d366;border:none;cursor:pointer;display:grid;place-items:center;box-shadow:0 14px 34px -8px rgba(37,211,102,.55);transition:transform .3s cubic-bezier(.34,1.4,.5,1),opacity .2s ease}
 .wa-fab:hover{transform:scale(1.06)}
+.wa-fab.hidden{transform:scale(0) translateY(16px);opacity:0;pointer-events:none}
 .wa-fab svg{width:30px;height:30px;fill:#fff}
 .wa-fab .badge{position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;border-radius:9px;background:#ef4444;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;border:2px solid #050a14;padding:0 4px}
-.wa-chat{position:fixed;right:20px;bottom:92px;z-index:91;width:min(344px,calc(100vw - 26px));height:min(720px,calc(100dvh - 112px));display:none;flex-direction:column;border-radius:14px;overflow:hidden;background:#efeae2;border:1px solid rgba(0,0,0,.14);box-shadow:0 34px 80px -16px rgba(0,0,0,.85)}
-.wa-chat.on{display:flex;animation:waIn .24s cubic-bezier(.2,.7,.3,1)}
-@keyframes waIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.wa-chat{position:fixed;right:20px;bottom:20px;z-index:91;width:min(360px,calc(100vw - 26px));height:min(760px,calc(100dvh - 40px));display:flex;flex-direction:column;border-radius:14px;overflow:hidden;background:#efeae2;border:1px solid rgba(0,0,0,.14);box-shadow:0 34px 80px -16px rgba(0,0,0,.85);transform:translateY(110%);opacity:0;visibility:hidden;pointer-events:none;transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .3s ease,visibility .4s}
+.wa-chat.on{transform:translateY(0);opacity:1;visibility:visible;pointer-events:auto}
 .wa-head{background:linear-gradient(120deg,#009d81,#008069);padding:12px 14px;display:flex;align-items:center;gap:11px;flex:none;box-shadow:0 1px 3px rgba(0,0,0,.35)}
-.wa-head .av{position:relative;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold-soft),var(--gold-deep));display:grid;place-items:center;font-weight:800;color:#0a1628;font-family:var(--fh);font-size:16px;flex:none}
+.wa-head .av{position:relative;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold-soft),var(--gold-deep));display:grid;place-items:center;flex:none}
+.wa-head .av svg{width:24px;height:24px}
 .wa-head .av::after{content:"";position:absolute;right:0;bottom:0;width:11px;height:11px;border-radius:50%;background:#4ade80;border:2px solid #008069}
 .wa-head b{font-size:15px;color:#fff;display:block;font-weight:600;letter-spacing:.01em}
 .wa-head small{font-size:11.5px;color:rgba(255,255,255,.8);display:block;margin-top:1px}
@@ -302,9 +303,14 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .wa-typing span:nth-child(3){animation-delay:.4s}
 @keyframes waDot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
 .wa-foot{padding:9px 10px 10px;background:#f0f2f5;border-top:1px solid rgba(0,0,0,.08);flex:none;display:flex;flex-direction:column;gap:8px}
-.wa-cta{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#052e16;font-weight:700;font-size:12.5px;padding:9px;border-radius:22px;font-family:var(--f);transition:.15s}
-.wa-cta:hover{background:#1fbe5b}
-.wa-cta svg{width:17px;height:17px;fill:#052e16}
+.wa-sug{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 4px;animation:msgIn .2s ease}
+.wa-chip{font-family:var(--f);cursor:pointer;font-size:12px;color:#075e54;background:#fff;border:1px solid rgba(7,94,84,.35);border-radius:16px;padding:7px 12px;transition:.15s;text-align:left;line-height:1.3;box-shadow:0 1px .5px rgba(11,20,26,.12)}
+.wa-chip:hover{background:#e7f8ef;border-color:#075e54}
+.wa-contacts{display:flex;flex-direction:column;gap:7px;margin:5px 0 2px;animation:msgIn .2s ease}
+.wa-cbtn{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--f);font-weight:700;font-size:13px;color:#fff;padding:11px;border-radius:12px;transition:.15s}
+.wa-cbtn.wa{background:#25d366}.wa-cbtn.wa:hover{background:#1fbe5b}
+.wa-cbtn.em{background:#5b6470}.wa-cbtn.em:hover{background:#4b535e}
+.wa-cbtn.li{background:#0a66c2}.wa-cbtn.li:hover{background:#0955a4}
 .wa-input{display:flex;align-items:center;gap:7px}
 .wa-input input{flex:1;min-width:0;border:none;outline:none;background:#fff;border-radius:20px;padding:10px 14px;font-size:13px;font-family:var(--f);color:#111b21;box-shadow:0 1px 1px rgba(0,0,0,.08)}
 .wa-input input::placeholder{color:#8696a0}
@@ -476,18 +482,14 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 </button>
 <div class="wa-chat" id="waChat" role="dialog" aria-label="Chat">
   <div class="wa-head">
-    <div class="av">P</div>
+    <div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="#0a1628" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="8.5" width="15" height="10.5" rx="3.2"/><path d="M12 8.5V5.6"/><circle cx="12" cy="4.4" r="1.15"/><path d="M3 12.5v2.6M21 12.5v2.6"/><circle cx="9.3" cy="13.6" r="1.1" fill="#0a1628" stroke="none"/><circle cx="14.7" cy="13.6" r="1.1" fill="#0a1628" stroke="none"/><path d="M9.6 16.6h4.8"/></svg></div>
     <div><b id="waName">Pablo · Asistente</b><small id="waStatus"></small></div>
     <button class="cl" id="waClose" aria-label="Cerrar">✕</button>
   </div>
   <div class="wa-body" id="waBody"></div>
   <div class="wa-foot">
-    <a class="wa-cta" id="waCta" href="https://wa.me/541130720676" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.05L2 22l5.05-1.32A10 10 0 1 0 12 2Zm5.7 14.13c-.24.67-1.4 1.28-1.94 1.32-.5.05-1.13.07-1.82-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.8-4.17-4.94-4.36-.15-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36l.56.01c.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.38-.42.51-.14.14-.28.29-.12.57.16.29.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.22 1.37.28.14.44.12.6-.07.16-.19.69-.81.87-1.08.18-.27.36-.23.61-.14.25.09 1.6.75 1.87.89.28.14.46.21.53.33.07.12.07.67-.17 1.34Z"/></svg>
-      <span>Seguir en WhatsApp</span>
-    </a>
     <form class="wa-input" id="waForm" autocomplete="off">
-      <input id="waIn" type="text" inputmode="text" placeholder="Escribí el número…" aria-label="Escribí el número de tu consulta" />
+      <input id="waIn" type="text" inputmode="text" placeholder="Escribí tu pregunta…" aria-label="Escribí tu pregunta" />
       <button type="submit" aria-label="Enviar"><svg viewBox="0 0 24 24"><path d="M3.4 20.4 21 12 3.4 3.6 3.39 10.2 15 12l-11.61 1.8z"/></svg></button>
     </form>
   </div>
@@ -595,15 +597,21 @@ applyLang();
 // WIDGET WHATSAPP — respuestas precargadas (sin backend ni IA)
 (function(){
   const PHONE="541130720676";
+  const LIMIT=10;
+  const CONTACTS=[
+    {label:"💬 WhatsApp",href:"https://wa.me/"+PHONE,cls:"wa"},
+    {label:"✉️ Email",href:"mailto:Agencianlmd@gmail.com",cls:"em"},
+    {label:"🔗 LinkedIn",href:"https://www.linkedin.com/in/pablo-montenegr0/",cls:"li"}
+  ];
   const waData={
-    es:{title:"Pablo · Asistente",status:"Suele responder al instante",
-      hi:"¡Hola! 👋 Soy el asistente de Pablo. Preguntame lo que quieras sobre su trabajo y, si querés, seguimos por WhatsApp.",
-      cta:"Seguir en WhatsApp",
-      menuIntro:"Elegí una opción con su número, o escribime tu pregunta 👇",
-      placeholder:"Escribí un número o tu consulta…",
-      again:"Escribí otro número, hacé tu propia pregunta, o *menú* para ver las opciones. 🙂",
-      invalid:"No entendí 🤔 Escribí un número del 1 al %N%, o *menú* para ver las opciones.",
-      aiFail:"Uf, no pude procesar eso ahora mismo 😅 Escribime por WhatsApp y te respondo al toque 👇",
+    es:{title:"Asistente IA · Pablo",status:"Suele responder al instante",
+      hi:"¡Hola! 👋 Soy un asistente de IA que armó Pablo Montenegro para mostrarte lo que hace como developer. Preguntame sobre su experiencia, stack, proyectos o CV — tenés hasta 10 preguntas. Al terminar te dejo cómo contactarlo directo.",
+      sugIntro:"Algunas cosas que podés preguntarme 👇",
+      suggestions:["¿Qué stack manejás?","¿Qué experiencia tenés?","¿Qué proyectos desarrollaste?","¿Trabajás con IA y automatizaciones?","¿Estás disponible para nuevos proyectos?","¿Trabajás en modo remoto?"],
+      placeholder:"Escribí tu pregunta…",
+      aiFail:"Uf, no pude procesar eso ahora mismo 😅 Mejor escribime por WhatsApp 👉 https://wa.me/"+PHONE,
+      contactsIntro:"¡Buenísimo! Con esto llegamos a las 10 preguntas 🙂 Para seguir la charla con Pablo, elegí por dónde contactarlo:",
+      limitAgain:"Ya usaste tus 10 preguntas por hoy 🙂 Seguí la charla con Pablo por acá:",
       qs:[
         {q:"¿Qué hace Pablo?",a:"Es Full Stack Developer. Construye software a medida, bots y agentes de IA que se usan de verdad — del código al deploy."},
         {q:"¿Qué servicios ofrece?",a:"Software a medida, automatizaciones, chatbots de WhatsApp con IA, integración de APIs e infraestructura (deploy en VPS). Cinco cosas que resuelve de punta a punta."},
@@ -619,14 +627,14 @@ applyLang();
         {q:"¿Cuánto cuesta un proyecto?",a:"Cada proyecto es distinto. Contale por WhatsApp qué necesitás y te arma un presupuesto a medida."},
         {q:"¿Cómo lo contacto?",a:"Por WhatsApp (+54 11 3072-0676), email (Agencianlmd@gmail.com) o LinkedIn. Tocá el botón verde de abajo para escribirle directo. 👇"}
       ]},
-    en:{title:"Pablo · Assistant",status:"Usually replies right away",
-      hi:"Hi! 👋 I'm Pablo's assistant. Ask me anything about his work — and if you like, we can continue on WhatsApp.",
-      cta:"Continue on WhatsApp",
-      menuIntro:"Pick an option by its number, or type your own question 👇",
-      placeholder:"Type a number or your question…",
-      again:"Type another number, ask your own question, or *menu* to see the options. 🙂",
-      invalid:"I didn't get that 🤔 Type a number from 1 to %N%, or *menu* to see the options.",
-      aiFail:"Hmm, I couldn't process that right now 😅 Message me on WhatsApp and I'll reply right away 👇",
+    en:{title:"AI Assistant · Pablo",status:"Usually replies right away",
+      hi:"Hi! 👋 I'm an AI assistant Pablo Montenegro built to show what he does as a developer. Ask me about his experience, stack, projects or CV — you've got up to 10 questions. When you're done, I'll share how to reach him directly.",
+      sugIntro:"A few things you can ask me 👇",
+      suggestions:["What's your tech stack?","What experience do you have?","What projects have you built?","Do you work with AI and automation?","Are you available for new projects?","Do you work remotely?"],
+      placeholder:"Type your question…",
+      aiFail:"Hmm, I couldn't process that right now 😅 Better message me on WhatsApp 👉 https://wa.me/"+PHONE,
+      contactsIntro:"Awesome! That's your 10 questions 🙂 To keep the conversation going with Pablo, pick how to reach him:",
+      limitAgain:"You've used your 10 questions for today 🙂 Continue with Pablo here:",
       qs:[
         {q:"What does Pablo do?",a:"He's a Full Stack Developer. He builds custom software, bots and AI agents that people actually use — from code to deploy."},
         {q:"What services does he offer?",a:"Custom software, automations, AI-powered WhatsApp chatbots, API integrations and infrastructure (VPS deploy). Five things he handles end-to-end."},
@@ -646,9 +654,9 @@ applyLang();
   const fab=document.getElementById('waFab'),chat=document.getElementById('waChat'),
     bodyEl=document.getElementById('waBody'),
     nameEl=document.getElementById('waName'),statusEl=document.getElementById('waStatus'),
-    cta=document.getElementById('waCta'),form=document.getElementById('waForm'),
-    inputEl=document.getElementById('waIn'),badge=fab.querySelector('.badge');
-  cta.href="https://wa.me/"+PHONE;
+    form=document.getElementById('waForm'),inputEl=document.getElementById('waIn'),
+    badge=fab.querySelector('.badge');
+  let asked=0;
   function d(){return waData[typeof lang!=='undefined'&&waData[lang]?lang:'es'];}
   function scrollDown(){bodyEl.scrollTop=bodyEl.scrollHeight;}
   function nowT(){const dt=new Date(),p=n=>n<10?'0'+n:''+n;return p(dt.getHours())+':'+p(dt.getMinutes());}
@@ -670,58 +678,48 @@ applyLang();
     if(who==='me'){const k=document.createElement('span');k.className='tk';k.textContent='✓✓';t.appendChild(k);}
     m.appendChild(t);bodyEl.appendChild(m);scrollDown();
   }
-  function botReply(txt,extra){
-    const typing=document.createElement('div');typing.className='wa-typing';
-    typing.innerHTML='<span></span><span></span><span></span>';
-    bodyEl.appendChild(typing);scrollDown();
-    setTimeout(()=>{typing.remove();addMsg(txt,'bot');if(extra)addMsg(extra,'bot');},700);
+  function typingOn(){const el=document.createElement('div');el.className='wa-typing';el.innerHTML='<span></span><span></span><span></span>';bodyEl.appendChild(el);scrollDown();return el;}
+  function renderSuggestions(){
+    const t=d();const wrap=document.createElement('div');wrap.className='wa-sug';
+    t.suggestions.forEach(q=>{const b=document.createElement('button');b.className='wa-chip';b.type='button';b.textContent=q;b.onclick=()=>{wrap.remove();sendQuestion(q);};wrap.appendChild(b);});
+    bodyEl.appendChild(wrap);scrollDown();
   }
-  function menuText(){const t=d();return t.menuIntro+"\n\n"+t.qs.map((it,i)=>(i+1)+". "+it.q).join("\n");}
-  function render(){
-    const t=d();
-    nameEl.textContent=t.title;statusEl.textContent=t.status;
-    cta.querySelector('span').textContent=t.cta;
-    inputEl.placeholder=t.placeholder;
-    bodyEl.innerHTML='';
-    addMsg(t.hi,'bot');
-    addMsg(menuText(),'bot');
+  function showContacts(key){
+    addMsg(d()[key],'bot');
+    const wrap=document.createElement('div');wrap.className='wa-contacts';
+    CONTACTS.forEach(c=>{const a=document.createElement('a');a.className='wa-cbtn '+c.cls;a.href=c.href;a.target='_blank';a.rel='noopener';a.textContent=c.label;wrap.appendChild(a);});
+    bodyEl.appendChild(wrap);scrollDown();
   }
-  async function aiReply(text){
-    const typing=document.createElement('div');typing.className='wa-typing';
-    typing.innerHTML='<span></span><span></span><span></span>';
-    bodyEl.appendChild(typing);scrollDown();
+  async function sendQuestion(text){
+    const sug=bodyEl.querySelector('.wa-sug');if(sug)sug.remove();
+    addMsg(text,'me');
+    if(asked>=LIMIT){showContacts('limitAgain');return;}
+    asked++;
+    const typing=typingOn();
     let reply='';
     try{
-      const res=await fetch('/api/chat',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({message:text,lang:(typeof lang!=='undefined'?lang:'es')})
-      });
+      const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,lang:(typeof lang!=='undefined'?lang:'es')})});
       const data=await res.json().catch(()=>({}));
       reply=(data&&data.reply)?data.reply:'';
     }catch(_){/* red/preview sin backend */}
     typing.remove();
     addMsg(reply||d().aiFail,'bot');
+    if(asked>=LIMIT)showContacts('contactsIntro');
   }
-  form.addEventListener('submit',e=>{
-    e.preventDefault();
-    const raw=inputEl.value.trim();if(!raw)return;
-    inputEl.value='';
-    addMsg(raw,'me');
-    const t=d(),low=raw.toLowerCase();
-    // Número del menú -> respuesta fija (gratis, sin IA)
-    if(/^\d{1,2}$/.test(raw)){
-      const n=parseInt(raw,10);
-      if(n>=1&&n<=t.qs.length){botReply(t.qs[n-1].a,t.again);}
-      else{botReply(t.invalid.replace('%N%',t.qs.length));}
-      return;
-    }
-    if(/^(menu|menú|opciones|options)/.test(low)){botReply(menuText());return;}
-    // Pregunta libre -> IA acotada al portfolio
-    aiReply(raw);
-  });
-  fab.onclick=()=>{const open=chat.classList.toggle('on');if(badge)badge.style.display='none';if(open&&window.innerWidth>900)setTimeout(()=>inputEl.focus(),250);};
-  document.getElementById('waClose').onclick=()=>chat.classList.remove('on');
+  function render(){
+    const t=d();
+    nameEl.textContent=t.title;statusEl.textContent=t.status;
+    inputEl.placeholder=t.placeholder;
+    bodyEl.innerHTML='';asked=0;
+    addMsg(t.hi,'bot');
+    addMsg(t.sugIntro,'bot');
+    renderSuggestions();
+  }
+  form.addEventListener('submit',e=>{e.preventDefault();const raw=inputEl.value.trim();if(!raw)return;inputEl.value='';sendQuestion(raw);});
+  function openChat(){chat.classList.add('on');fab.classList.add('hidden');if(badge)badge.style.display='none';if(window.innerWidth>900)setTimeout(()=>inputEl.focus(),300);}
+  function closeChat(){chat.classList.remove('on');fab.classList.remove('hidden');}
+  fab.onclick=openChat;
+  document.getElementById('waClose').onclick=closeChat;
   render();
   window.__waRender=render;
 })();
