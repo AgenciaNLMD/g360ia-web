@@ -130,8 +130,12 @@ function sendJson(res, status, obj) {
 }
 
 const WA = `https://wa.me/${PHONE}`;
-const FALLBACK_ES = `Uf, no pude procesar eso ahora mismo 😅 Escribime por WhatsApp y te respondo al toque 👉 ${WA}`;
-const FALLBACK_EN = `Hmm, I couldn't process that right now 😅 Message me on WhatsApp and I'll reply right away 👉 ${WA}`;
+// Sin saldo / sin key / tope del día -> mensaje gracioso con CTA
+const NOFUNDS_ES = `Uy 🙈 parece que Pablo se quedó sin saldo para su asistente de IA 🤖💸. ¡Momento ideal para darle laburo así recarga las pilas! 😄 Escribile directo por WhatsApp 👉 ${WA}`;
+const NOFUNDS_EN = `Oops 🙈 looks like Pablo ran out of credit for his AI assistant 🤖💸. Perfect time to hire him so he can top up! 😄 Message him on WhatsApp 👉 ${WA}`;
+// Error transitorio (timeout / red)
+const OOPS_ES = `Uf, se me trabó la conexión un segundo 😅 Probá de nuevo, o escribile a Pablo por WhatsApp 👉 ${WA}`;
+const OOPS_EN = `Ugh, my connection glitched for a sec 😅 Try again, or message Pablo on WhatsApp 👉 ${WA}`;
 const LIMIT_ES = `Veo que tenés varias consultas 🙂 Mejor seguí directo por WhatsApp, así te ayudo mejor 👉 ${WA}`;
 const LIMIT_EN = `I see you have several questions 🙂 Better to continue directly on WhatsApp so I can help you better 👉 ${WA}`;
 
@@ -154,14 +158,19 @@ async function callAnthropic(message, lang) {
         messages: [{ role: 'user', content: message }],
       }),
     });
-    if (!r.ok) return null;
+    if (!r.ok) {
+      let info = '';
+      try { const e = await r.json(); info = ((e && e.error && ((e.error.type || '') + ' ' + (e.error.message || ''))) || '').toLowerCase(); } catch {}
+      if (/credit|balance|billing|quota|insufficient|fund/.test(info)) return { status: 'nofunds' };
+      return { status: 'error' };
+    }
     const data = await r.json();
     const text = Array.isArray(data.content)
       ? data.content.filter((b) => b.type === 'text').map((b) => b.text).join('').trim()
       : '';
-    return text || null;
+    return text ? { status: 'ok', text } : { status: 'error' };
   } catch {
-    return null;
+    return { status: 'error' };
   } finally {
     clearTimeout(timer);
   }
@@ -201,7 +210,7 @@ const server = http.createServer((req, res) => {
     }
 
     if (!API_KEY) {
-      return sendJson(res, 200, { reply: lang === 'en' ? FALLBACK_EN : FALLBACK_ES });
+      return sendJson(res, 200, { reply: lang === 'en' ? NOFUNDS_EN : NOFUNDS_ES });
     }
     // Límite por persona (IP) por día -> deriva a WhatsApp
     if (!ipUnderLimit(ip)) {
@@ -209,13 +218,15 @@ const server = http.createServer((req, res) => {
     }
     // Techo global de gasto del día
     if (!checkDaily()) {
-      return sendJson(res, 200, { reply: lang === 'en' ? FALLBACK_EN : FALLBACK_ES });
+      return sendJson(res, 200, { reply: lang === 'en' ? NOFUNDS_EN : NOFUNDS_ES });
     }
 
     ipBump(ip);
     dayCount++;
-    const reply = await callAnthropic(message, lang);
-    return sendJson(res, 200, { reply: reply || (lang === 'en' ? FALLBACK_EN : FALLBACK_ES) });
+    const out = await callAnthropic(message, lang);
+    if (out.status === 'ok') return sendJson(res, 200, { reply: out.text });
+    if (out.status === 'nofunds') return sendJson(res, 200, { reply: lang === 'en' ? NOFUNDS_EN : NOFUNDS_ES });
+    return sendJson(res, 200, { reply: lang === 'en' ? OOPS_EN : OOPS_ES });
   });
 });
 
