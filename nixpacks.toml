@@ -2,4 +2,6 @@
 cmds = ["npm run build"]
 
 [start]
-cmd = "caddy run --config /app/Caddyfile --adapter caddyfile"
+# Levanta el proxy del chatbot (Node, con la key) en background y Caddy en foreground.
+# Si Node falla, el sitio estático sigue funcionando igual.
+cmd = "sh -c 'node /app/chat-api/server.mjs & exec caddy run --config /app/Caddyfile --adapter caddyfile'"

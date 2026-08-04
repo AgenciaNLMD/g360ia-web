@@ -1,4 +1,12 @@
 :{$PORT} {
+	# --- API del chatbot: proxy al servicio Node que guarda la key ---
+	# (el servicio escucha solo en 127.0.0.1:8787, no está expuesto a internet)
+	handle /api/* {
+		reverse_proxy 127.0.0.1:8787
+	}
+
+	# --- Sitio estático ---
+	handle {
 	root * /app/dist
 	encode zstd gzip
 
@@ -58,4 +66,5 @@
 	try_files {path}.html {path}/index.html {path} {path}/
 
 	file_server
+	}
 }

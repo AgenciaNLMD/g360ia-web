@@ -2,3 +2,5 @@ node_modules/
 dist/
 lh.json
 psi.json
+.env
+.env.*
