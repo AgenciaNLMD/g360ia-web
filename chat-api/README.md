@@ -28,8 +28,12 @@ Navegador → g360ia.com.ar/api/chat → Caddy → Node 127.0.0.1:8787 (tiene la
 | `WA_NOTIFY_KEY` | No | — | `apikey` de Evolution (se manda como header). |
 | `WA_NOTIFY_TO` | No | `CHAT_WHATSAPP` | Número que recibe el aviso (el de Pablo). |
 | `CONTACT_RATE_MAX` | No | `5` | Envíos de formulario por IP por día. |
+| `PANEL_LEADS_URL` | No (recomendado) | — | Endpoint del panel donde se **guarda** el lead. Ej: `https://panel.g360ia.com.ar/api/leads`. Sin esto, el lead no queda persistido (solo log + WhatsApp). |
+| `PANEL_LEADS_SECRET` | Con `PANEL_LEADS_URL` | — | Secreto compartido con el panel (debe coincidir con `LEADS_INGEST_SECRET` allá). Se manda como header `x-ingest-secret`. |
 
-**Formulario → aviso por WhatsApp:** `POST /api/contact` valida el formulario y le manda a Pablo un WhatsApp con los datos del lead vía `WA_NOTIFY_URL` (formato Evolution v2: `{ number, text }` + header `apikey`). El visitante recibe el "gracias" al instante; el aviso se envía en segundo plano.
+**Formulario → panel + aviso por WhatsApp:** `POST /api/contact` valida el formulario y luego, en segundo plano: (1) **guarda el lead en el panel** (`PANEL_LEADS_URL`, header `x-ingest-secret`) para que aparezca en el módulo **Trabajo** de `panel.g360ia.com.ar`; (2) le manda a Pablo un WhatsApp con los datos vía `WA_NOTIFY_URL` (formato Evolution v2: `{ number, text }` + header `apikey`). El visitante recibe el "gracias" al instante.
+
+> **Del lado del panel** (`g360ia-panel`) hay que definir `LEADS_INGEST_SECRET` (mismo valor que `PANEL_LEADS_SECRET`) y correr `prisma db push` para crear la tabla `pnl_leads`.
 
 Por defecto: **10 preguntas por persona por día**; al día siguiente se renueva.
 

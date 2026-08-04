@@ -37,6 +37,11 @@ const NOTIFY_URL = process.env.WA_NOTIFY_URL || ''; // ej: https://tu-evolution/
 const NOTIFY_KEY = process.env.WA_NOTIFY_KEY || ''; // apikey de Evolution (header)
 const NOTIFY_TO  = process.env.WA_NOTIFY_TO || PHONE; // número de Pablo
 
+// Envío del lead al panel (panel.g360ia.com.ar) para que quede guardado en su base (persistente).
+// Sin esto, el formulario solo se registraba en el log del servicio y se perdía al redeployar.
+const PANEL_LEADS_URL    = process.env.PANEL_LEADS_URL || '';    // ej: https://panel.g360ia.com.ar/api/leads
+const PANEL_LEADS_SECRET = process.env.PANEL_LEADS_SECRET || ''; // secreto compartido con el panel (LEADS_INGEST_SECRET)
+
 const ALLOWED_HOSTS = ['g360ia.com.ar', 'www.g360ia.com.ar'];
 
 // --- Base de conocimiento (SOLO esto puede responder la IA) ---
@@ -184,7 +189,52 @@ async function callAnthropic(message, lang) {
   }
 }
 
-// --- Aviso a Pablo por WhatsApp (Evolution API u otro webhook {number,text}) ---
+// Texto para el aviso por WhatsApp (se usa cuando se reactive la notificación).
+function leadText(r) {
+  return [
+    '🔔 Nuevo formulario en g360ia.com.ar', '',
+    `👤 ${r.name}`, `✉️ ${r.email}`,
+    r.company ? `🏢 ${r.company}` : '',
+    r.phone ? `📱 ${r.phone}` : '',
+    r.type ? `🧩 ${r.type}` : '', '',
+    `📝 ${r.message}`,
+  ].filter((l) => l !== '').join('\n');
+}
+
+// Reenvía el lead al panel para que quede guardado (módulo "Trabajo").
+async function forwardToPanel(r) {
+  if (!PANEL_LEADS_URL || !PANEL_LEADS_SECRET) {
+    console.log('[contact] PANEL_LEADS_URL/SECRET sin configurar — lead no persistido en el panel');
+    return false;
+  }
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12000);
+  try {
+    const res = await fetch(PANEL_LEADS_URL, {
+      method: 'POST',
+      signal: controller.signal,
+      headers: { 'content-type': 'application/json', 'x-ingest-secret': PANEL_LEADS_SECRET },
+      body: JSON.stringify({
+        nombre: r.name,
+        email: r.email,
+        empresa: r.company,
+        telefono: r.phone,
+        tipo: r.type,
+        mensaje: r.message,
+        origen: 'portfolio',
+      }),
+    });
+    if (!res.ok) console.log('[contact] el panel no guardó el lead:', res.status);
+    return res.ok;
+  } catch (e) {
+    console.log('[contact] error enviando lead al panel:', e.message || e);
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// --- Aviso a Pablo por WhatsApp (DESACTIVADO por ahora; se reactiva con Evolution propia) ---
 async function notifyPablo(text) {
   if (!NOTIFY_URL) { console.log('[contact] WA_NOTIFY_URL no configurado — aviso omitido'); return false; }
   const controller = new AbortController();
@@ -260,20 +310,11 @@ function handleContact(req, res, ip) {
     if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !message) {
       return sendJson(res, 400, { error: 'bad_form' });
     }
-    const text = [
-      '🔔 Nuevo formulario en g360ia.com.ar',
-      '',
-      `👤 ${name}`,
-      `✉️ ${email}`,
-      company ? `🏢 ${company}` : '',
-      phone ? `📱 ${phone}` : '',
-      type ? `🧩 ${type}` : '',
-      '',
-      `📝 ${message}`,
-    ].filter((l) => l !== '').join('\n');
+    const rec = { name, email, company, phone, type, message };
     console.log('[contact] nuevo lead:', name, '·', email, '·', type || '(sin tipo)');
-    sendJson(res, 200, { ok: true });   // responde al instante
-    notifyPablo(text).catch(() => {});  // aviso en background
+    sendJson(res, 200, { ok: true });            // responde al instante
+    forwardToPanel(rec).catch(() => {});         // guarda en el panel (persistente)
+    notifyPablo(leadText(rec)).catch(() => {});  // aviso por WhatsApp en background
   });
 }
 
