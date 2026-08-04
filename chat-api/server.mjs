@@ -24,7 +24,7 @@ const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
 // --- Límites configurables por env ---
 const MAX_BODY_BYTES   = 2000;                                   // body máximo
 const MAX_MSG_CHARS     = 500;                                    // largo máximo del mensaje
-const RATE_WINDOW_MS    = 5 * 60 * 1000;                          // ventana de rate limit
+const RATE_WINDOW_MS    = Number(process.env.CHAT_RATE_WINDOW_MIN || 5) * 60 * 1000; // ventana (minutos)
 const RATE_MAX          = Number(process.env.CHAT_RATE_MAX || 12);// req por IP por ventana
 const MAX_DAILY         = Number(process.env.CHAT_MAX_DAILY || 600); // techo de llamadas IA por día
 const UPSTREAM_TIMEOUT  = 15000;                                  // timeout hacia Anthropic
@@ -173,7 +173,7 @@ const server = http.createServer((req, res) => {
   const ip = clientIp(req);
   if (!checkRate(ip)) {
     return sendJson(res, 429, {
-      reply: 'Estás yendo muy rápido 🙂 Esperá unos segundos e intentá de nuevo, o escribime por WhatsApp: wa.me/541130720676',
+      reply: 'Llegaste al límite de preguntas por ahora 🙂 Seguimos por WhatsApp y te respondo directo: wa.me/541130720676',
     });
   }
 

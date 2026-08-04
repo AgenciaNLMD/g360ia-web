@@ -21,8 +21,11 @@ Navegador → g360ia.com.ar/api/chat → Caddy → Node 127.0.0.1:8787 (tiene la
 | Variable | Obligatoria | Default | Descripción |
 |---|---|---|---|
 | `ANTHROPIC_API_KEY` | **Sí** | — | La API key de Anthropic. Sin esto, el chat cae al fallback de WhatsApp. |
-| `CHAT_MAX_DAILY` | No | `600` | Techo de llamadas a la IA por día (freno de gasto). Al superarlo, fallback. |
-| `CHAT_RATE_MAX` | No | `12` | Máximo de mensajes por IP cada 5 minutos. |
+| `CHAT_MAX_DAILY` | No | `600` | Techo de llamadas a la IA por día (freno de gasto global). Al superarlo, fallback. |
+| `CHAT_RATE_MAX` | No | `12` | Máximo de mensajes por IP por ventana. |
+| `CHAT_RATE_WINDOW_MIN` | No | `5` | Duración de la ventana del rate limit, en minutos. Ej: `1440` = por día. |
+
+**Para limitar a 12 preguntas por día por persona:** `CHAT_RATE_MAX=12` + `CHAT_RATE_WINDOW_MIN=1440`.
 
 > Después de agregar/cambiar `ANTHROPIC_API_KEY`, **redeployá** el servicio en Easypanel.
 
