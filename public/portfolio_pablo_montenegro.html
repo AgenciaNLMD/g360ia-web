@@ -531,6 +531,25 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
   </div>
 </div>
 
+<!-- CV DOWNLOAD MODAL -->
+<div class="cv-back" id="cvBack" role="dialog" aria-modal="true" aria-label="Descargar CV">
+  <div class="cv-modal" style="position:relative">
+    <button class="cv-x" aria-label="Cerrar">&times;</button>
+    <h3 data-i18n data-en="Download CV">Descargar CV</h3>
+    <p class="cv-sub" data-i18n data-en="Choose your language">Elegí el idioma</p>
+    <a class="cv-opt" href="/CV_Pablo_Montenegro_ES.pdf" download>
+      <span class="flag">🇦🇷</span>
+      <span class="cv-txt"><b data-i18n data-en="Spanish">Español</b><span>CV_Pablo_Montenegro_ES.pdf</span></span>
+      <span class="cv-dl">⬇</span>
+    </a>
+    <a class="cv-opt" href="/CV_Pablo_Montenegro_EN.pdf" download>
+      <span class="flag">🇬🇧</span>
+      <span class="cv-txt"><b>Download CV English</b><span>CV_Pablo_Montenegro_EN.pdf</span></span>
+      <span class="cv-dl">⬇</span>
+    </a>
+  </div>
+</div>
+
 <script>
 const N=6;let idx=0;
 const track=document.getElementById('track'),navBtns=[...document.querySelectorAll('#nav button')];
@@ -804,24 +823,5 @@ applyLang();
 })();
 
 </script>
-
-<!-- CV DOWNLOAD MODAL -->
-<div class="cv-back" id="cvBack" role="dialog" aria-modal="true" aria-label="Descargar CV">
-  <div class="cv-modal" style="position:relative">
-    <button class="cv-x" aria-label="Cerrar">&times;</button>
-    <h3 data-i18n data-en="Download CV">Descargar CV</h3>
-    <p class="cv-sub" data-i18n data-en="Choose your language">Elegí el idioma</p>
-    <a class="cv-opt" href="/CV_Pablo_Montenegro_ES.pdf" download>
-      <span class="flag">🇦🇷</span>
-      <span class="cv-txt"><b data-i18n data-en="Spanish">Español</b><span>CV_Pablo_Montenegro_ES.pdf</span></span>
-      <span class="cv-dl">⬇</span>
-    </a>
-    <a class="cv-opt" href="/CV_Pablo_Montenegro_EN.pdf" download>
-      <span class="flag">🇬🇧</span>
-      <span class="cv-txt"><b>Download CV English</b><span>CV_Pablo_Montenegro_EN.pdf</span></span>
-      <span class="cv-dl">⬇</span>
-    </a>
-  </div>
-</div>
 </body>
 </html>
