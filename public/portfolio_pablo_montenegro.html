@@ -208,8 +208,8 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .proj{border-radius:var(--radius-l);overflow:hidden;background:var(--glass-bg);border:1px solid var(--glass-border);transition:.25s;text-align:left;font-family:var(--f);padding:14px 14px 13px;display:flex;flex-direction:column}
 .proj:hover{border-color:var(--line-strong);box-shadow:var(--shadow-card)}
 .proj .cat{align-self:flex-start;font-size:10px;font-weight:600;color:var(--gold);background:rgba(230,165,50,.07);border:1px solid var(--line-strong);border-radius:7px;padding:3px 8px;margin-bottom:9px}
-.proj h4{font-size:.95rem;font-weight:600}
-.proj .sub{font-size:11px;color:var(--ink-soft);margin-top:3px}
+.proj h4{font-size:.95rem;font-weight:600;color:var(--ink)}
+.proj .sub{font-size:11px;color:var(--gold-soft);margin-top:3px}
 .proj .desc{font-size:11.5px;color:var(--ink-soft);line-height:1.45;margin-top:7px;display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .proj .chips{margin-top:auto;padding-top:10px;display:flex;flex-wrap:wrap;gap:5px}
 .proj .chips .chip{font-size:10px;padding:3px 7px}
@@ -263,6 +263,32 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 @media(max-width:480px){
   .social a:nth-child(3),.social a:nth-child(4){display:none}
 }
+
+/* WHATSAPP WIDGET */
+.wa-fab{position:fixed;right:20px;bottom:20px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25d366;border:none;cursor:pointer;display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(37,211,102,.6);transition:.2s}
+.wa-fab:hover{transform:scale(1.06)}
+.wa-fab svg{width:30px;height:30px;fill:#fff}
+.wa-fab .badge{position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;border-radius:9px;background:#ef4444;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;border:2px solid #050a14;padding:0 4px}
+.wa-chat{position:fixed;right:20px;bottom:88px;z-index:91;width:min(340px,calc(100vw - 32px));max-height:min(72vh,560px);display:none;flex-direction:column;border-radius:18px;overflow:hidden;background:var(--bg-elevated);border:1px solid var(--line-strong);box-shadow:var(--shadow-lift)}
+.wa-chat.on{display:flex;animation:waIn .22s ease}
+@keyframes waIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.wa-head{background:#075e54;padding:13px 15px;display:flex;align-items:center;gap:11px;flex:none}
+.wa-head .av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold-soft),var(--gold-deep));display:grid;place-items:center;font-weight:800;color:#0a1628;font-family:var(--fh);flex:none}
+.wa-head b{font-size:14px;color:#fff;display:block;font-weight:600}
+.wa-head small{font-size:11px;color:rgba(255,255,255,.72)}
+.wa-head .cl{margin-left:auto;background:none;border:none;color:rgba(255,255,255,.85);font-size:17px;cursor:pointer;width:28px;height:28px;border-radius:8px;flex:none}
+.wa-head .cl:hover{background:rgba(255,255,255,.14)}
+.wa-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;background:#0b141a}
+.wa-msg{max-width:84%;padding:8px 11px;border-radius:12px;font-size:12.5px;line-height:1.45}
+.wa-msg.bot{align-self:flex-start;background:#1f2c33;color:#e9edef;border-bottom-left-radius:4px}
+.wa-msg.me{align-self:flex-end;background:#005c4b;color:#e9edef;border-bottom-right-radius:4px}
+.wa-qs{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 10px;background:#0b141a;flex:none}
+.wa-q{font-family:var(--f);cursor:pointer;font-size:11.5px;color:#25d366;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.35);border-radius:14px;padding:6px 11px;transition:.15s}
+.wa-q:hover{background:rgba(37,211,102,.2)}
+.wa-foot{padding:10px 12px;background:var(--bg-elevated);border-top:1px solid var(--line-subtle);flex:none}
+.wa-foot a{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#052e16;font-weight:700;font-size:13px;padding:10px;border-radius:10px;font-family:var(--f)}
+.wa-foot a svg{width:18px;height:18px;fill:#052e16}
+@media(max-width:900px){.langsw{right:auto;left:14px}}
 </style>
 </head>
 <body>
@@ -420,6 +446,27 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
   <div class="counter" id="counter">01 / 05</div>
 </main>
 
+<!-- WIDGET WHATSAPP -->
+<button class="wa-fab" id="waFab" aria-label="Abrir chat de WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.05L2 22l5.05-1.32A10 10 0 1 0 12 2Zm5.7 14.13c-.24.67-1.4 1.28-1.94 1.32-.5.05-1.13.07-1.82-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.8-4.17-4.94-4.36-.15-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36l.56.01c.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.38-.42.51-.14.14-.28.29-.12.57.16.29.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.22 1.37.28.14.44.12.6-.07.16-.19.69-.81.87-1.08.18-.27.36-.23.61-.14.25.09 1.6.75 1.87.89.28.14.46.21.53.33.07.12.07.67-.17 1.34Z"/></svg>
+  <span class="badge">1</span>
+</button>
+<div class="wa-chat" id="waChat" role="dialog" aria-label="Chat">
+  <div class="wa-head">
+    <div class="av">P</div>
+    <div><b id="waName">Pablo · Asistente</b><small id="waStatus"></small></div>
+    <button class="cl" id="waClose" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="wa-body" id="waBody"></div>
+  <div class="wa-qs" id="waQs"></div>
+  <div class="wa-foot">
+    <a id="waCta" href="https://wa.me/541130720676" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.05L2 22l5.05-1.32A10 10 0 1 0 12 2Zm5.7 14.13c-.24.67-1.4 1.28-1.94 1.32-.5.05-1.13.07-1.82-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.8-4.17-4.94-4.36-.15-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36l.56.01c.18.01.42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.38-.42.51-.14.14-.28.29-.12.57.16.29.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.22 1.37.28.14.44.12.6-.07.16-.19.69-.81.87-1.08.18-.27.36-.23.61-.14.25.09 1.6.75 1.87.89.28.14.46.21.53.33.07.12.07.67-.17 1.34Z"/></svg>
+      <span>Seguir en WhatsApp</span>
+    </a>
+  </div>
+</div>
+
 <script>
 const N=6;let idx=0;
 const track=document.getElementById('track'),navBtns=[...document.querySelectorAll('#nav button')];
@@ -514,9 +561,61 @@ function applyLang(){
   });
   langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
   renderGrid();
+  if(window.__waRender) window.__waRender();
 }
 langBtns.forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.lang;applyLang();}));
 applyLang();
+
+// WIDGET WHATSAPP — respuestas precargadas (sin backend ni IA)
+(function(){
+  const PHONE="541130720676";
+  const waData={
+    es:{title:"Pablo · Asistente",status:"Suele responder al instante",
+      hi:"¡Hola! 👋 Soy el asistente de Pablo. Preguntame lo que quieras sobre su trabajo y, si querés, seguimos por WhatsApp.",
+      cta:"Seguir en WhatsApp",
+      qs:[
+        {q:"¿Qué hace Pablo?",a:"Es Full Stack Developer. Construye software a medida, bots y agentes de IA que se usan de verdad — del código al deploy."},
+        {q:"¿Qué stack usa?",a:"Backend con Node.js, Next.js y NestJS; front con React + Vite; datos con MySQL, Prisma y MongoDB; e IA con Claude + MCP. También VPS con Caddy, colas Redis/BullMQ y S3."},
+        {q:"¿Qué servicios ofrece?",a:"Software a medida, automatizaciones, chatbots de WhatsApp con IA, integración de APIs e infraestructura (deploy en VPS). Cinco cosas que resuelve de punta a punta."},
+        {q:"¿Qué proyectos tiene?",a:"Un ERP modular por rubros, un sistema de gestión municipal (GovTech), chatbots con agentes de IA en WhatsApp, un panel interno con IA + analítica, y este mismo sitio."},
+        {q:"¿Trabaja con IA y WhatsApp?",a:"Sí. Arma bots en WhatsApp vía Evolution API con agentes que usan Claude y herramientas propias (MCP): no solo responden, ejecutan acciones sobre el sistema."},
+        {q:"¿Cómo lo contacto?",a:"Por WhatsApp (+54 11 3072-0676), email (Agencianlmd@gmail.com) o LinkedIn. Tocá el botón verde de abajo para escribirle directo. 👇"}
+      ]},
+    en:{title:"Pablo · Assistant",status:"Usually replies right away",
+      hi:"Hi! 👋 I'm Pablo's assistant. Ask me anything about his work — and if you like, we can continue on WhatsApp.",
+      cta:"Continue on WhatsApp",
+      qs:[
+        {q:"What does Pablo do?",a:"He's a Full Stack Developer. He builds custom software, bots and AI agents that people actually use — from code to deploy."},
+        {q:"What's his stack?",a:"Backend with Node.js, Next.js and NestJS; front with React + Vite; data with MySQL, Prisma and MongoDB; and AI with Claude + MCP. Plus VPS with Caddy, Redis/BullMQ queues and S3."},
+        {q:"What services does he offer?",a:"Custom software, automations, AI-powered WhatsApp chatbots, API integrations and infrastructure (VPS deploy). Five things he handles end-to-end."},
+        {q:"What projects has he built?",a:"A modular ERP by industry, a municipal management system (GovTech), WhatsApp chatbots with AI agents, an internal panel with AI + analytics, and this very site."},
+        {q:"Does he work with AI and WhatsApp?",a:"Yes. He builds WhatsApp bots via Evolution API with agents that use Claude and custom tools (MCP): they don't just reply, they take action on the system."},
+        {q:"How do I contact him?",a:"Via WhatsApp (+54 11 3072-0676), email (Agencianlmd@gmail.com) or LinkedIn. Tap the green button below to message him directly. 👇"}
+      ]}
+  };
+  const fab=document.getElementById('waFab'),chat=document.getElementById('waChat'),
+    bodyEl=document.getElementById('waBody'),qsBox=document.getElementById('waQs'),
+    nameEl=document.getElementById('waName'),statusEl=document.getElementById('waStatus'),
+    cta=document.getElementById('waCta'),badge=fab.querySelector('.badge');
+  cta.href="https://wa.me/"+PHONE;
+  function d(){return waData[typeof lang!=='undefined'&&waData[lang]?lang:'es'];}
+  function scrollDown(){bodyEl.scrollTop=bodyEl.scrollHeight;}
+  function addMsg(txt,who){const m=document.createElement('div');m.className='wa-msg '+who;m.textContent=txt;bodyEl.appendChild(m);scrollDown();}
+  function render(){
+    const t=d();
+    nameEl.textContent=t.title;statusEl.textContent=t.status;
+    cta.querySelector('span').textContent=t.cta;
+    bodyEl.innerHTML='';addMsg(t.hi,'bot');
+    qsBox.innerHTML='';
+    t.qs.forEach(item=>{const b=document.createElement('button');b.className='wa-q';b.textContent=item.q;
+      b.onclick=()=>{addMsg(item.q,'me');setTimeout(()=>addMsg(item.a,'bot'),380);};
+      qsBox.appendChild(b);});
+  }
+  fab.onclick=()=>{chat.classList.toggle('on');if(badge)badge.style.display='none';};
+  document.getElementById('waClose').onclick=()=>chat.classList.remove('on');
+  render();
+  window.__waRender=render;
+})();
 
 </script>
 </body>
