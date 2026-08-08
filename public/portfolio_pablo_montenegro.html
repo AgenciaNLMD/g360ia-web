@@ -608,12 +608,13 @@ const projects=[
   win:"Blog con JSON-LD y estructura GEO/SEO, animaciones fluidas y deploy propio.",
   winEn:"Blog with JSON-LD and GEO/SEO structure, smooth animations, and self-managed deploy.",
   stack:["Vite","React","GSAP","Framer Motion","Tailwind"]},
- {cat:"Aprendizaje · ERP",catEn:"Learning · ERP",title:"Adaptar un ERP open source",titleEn:"Adapting an open-source ERP",sub:"NestJS · Vue · Mongo",subEn:"NestJS · Vue · Mongo",
-  desc:"Tomé un ERP en NestJS + Vue 3 + MongoDB y resolví su setup real: replica set, transacciones y bcrypt. Así aprendo stacks nuevos.",
-  descEn:"I took a NestJS + Vue 3 + MongoDB ERP and solved its real setup: replica set, transactions and bcrypt. That's how I learn new stacks.",
-  win:"Diagnostiqué y resolví fallos de infra (replica set, transacciones, bcrypt) en un stack ajeno.",
-  winEn:"Diagnosed and fixed infra issues (replica set, transactions, bcrypt) in an unfamiliar stack.",
-  stack:["NestJS","Vue 3","MongoDB","Mongoose"]}
+ {cat:"Demostración · OAuth",catEn:"Demo · OAuth",title:"demo-oauth",titleEn:"demo-oauth",sub:"Next.js · OAuth 2.0 · JWT",subEn:"Next.js · OAuth 2.0 · JWT",
+  desc:"Demostración interactiva de flujos de autenticación con OAuth 2.0: login seguro, manejo de tokens y sesiones. Integrable en cualquier aplicación.",
+  descEn:"Interactive demonstration of OAuth 2.0 authentication flows: secure login, token management and sessions. Integrable in any application.",
+  win:"Entendé y documenté los flujos reales de OAuth, listos para implementar en producción.",
+  winEn:"Understood and documented real OAuth flows, ready to implement in production.",
+  stack:["Next.js","OAuth 2.0","JWT","TypeScript"],
+  link:"https://www.g360ia.com.ar/demo-oauth"}
 ];
 const grid=document.getElementById('projGrid');
 function renderGrid(){
@@ -621,10 +622,11 @@ function renderGrid(){
   projects.forEach((p)=>{const c=document.createElement('article');c.className='proj';
     const cat=lang==='en'?p.catEn:p.cat, title=lang==='en'?p.titleEn:p.title, sub=lang==='en'?p.subEn:p.sub, desc=lang==='en'?p.descEn:p.desc;
     const moreLbl=lang==='en'?'Read more →':'Leer más →';
+    const cta=p.link?`<a href="${p.link}" target="_blank" rel="noopener noreferrer" class="more">${moreLbl}</a>`:`<button type="button" class="more">${moreLbl}</button>`;
     c.innerHTML=`<span class="cat">${cat}</span>
       <h4>${title}</h4><div class="sub">${sub}</div>
       <p class="desc">${desc}</p>
-      <button type="button" class="more">${moreLbl}</button>
+      ${cta}
       <div class="chips">${p.stack.map(s=>`<span class="chip${p.ai?' ai':''}">${s}</span>`).join('')}</div>`;
     grid.appendChild(c);});
 }
