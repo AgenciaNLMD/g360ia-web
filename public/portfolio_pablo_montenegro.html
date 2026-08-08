@@ -212,6 +212,8 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .proj h4{font-size:.95rem;font-weight:600;color:var(--ink)}
 .proj .sub{font-size:11px;color:var(--gold-soft);margin-top:3px}
 .proj .desc{font-size:11.5px;color:var(--ink-soft);line-height:1.45;margin-top:7px;display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.proj .more{align-self:flex-start;margin-top:6px;font-size:11px;font-weight:600;color:var(--gold);background:none;border:none;padding:0;cursor:pointer;font-family:var(--f)}
+.proj .more:hover{text-decoration:underline}
 .proj .chips{margin-top:auto;padding-top:10px;display:flex;flex-wrap:wrap;gap:5px}
 .proj .chips .chip{font-size:10px;padding:3px 7px}
 
@@ -577,38 +579,38 @@ stage.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouc
 let lang='es';
 const projects=[
  {cat:"ERP · Producto",catEn:"ERP · Product",title:"Software modular por rubros",titleEn:"Modular software by industry",sub:"ERP para PyMEs",subEn:"ERP for SMBs",
-  desc:"Un ERP que se arma por módulos según el rubro del cliente: CRM, ventas, stock, órdenes de trabajo, finanzas, mi-negocio y más. Cada cliente recibe su propia instalación con solo los módulos que necesita.",
-  descEn:"An ERP built from modules based on the client's industry: CRM, sales, stock, work orders, finance, my-business, and more. Each client gets their own install with only the modules they need.",
+  desc:"ERP armado por módulos según el rubro: CRM, ventas, stock, finanzas y más. Cada cliente instala solo lo que necesita.",
+  descEn:"ERP built from modules by industry: CRM, sales, stock, finance and more. Each client installs only what they need.",
   win:"11 módulos independientes sobre una misma base, con catálogo compartido para instalar un cliente nuevo en minutos.",
   winEn:"11 independent modules on the same base, with a shared catalog to onboard a new client in minutes.",
   stack:["Next.js","MySQL","NextAuth","Chart.js","Leaflet","XLSX"]},
  {cat:"GovTech · Producto",catEn:"GovTech · Product",title:"Sistema de gestión municipal",titleEn:"Municipal management system",sub:"Turnos · Reclamos · Mapa",subEn:"Appointments · Complaints · Map",
-  desc:"Producto propio para municipios: turnos, reclamos ubicados en mapa y panel de administración. Procesos pesados resueltos con colas de trabajo y archivos en la nube.",
-  descEn:"An in-house product for municipalities: appointments, complaints located on a map, and an admin panel. Heavy processes handled with job queues and cloud file storage.",
+  desc:"Producto para municipios: turnos, reclamos en mapa y panel de administración, con colas de trabajo para procesos pesados.",
+  descEn:"In-house product for municipalities: appointments, map-based complaints and an admin panel, with job queues for heavy processes.",
   win:"Colas con Redis/BullMQ y almacenamiento en S3 para no bloquear la app con tareas pesadas.",
   winEn:"Redis/BullMQ queues and S3 storage so heavy tasks never block the app.",
   stack:["Next.js","Prisma","Redis · BullMQ","S3","Leaflet","ReactFlow"]},
  {cat:"IA · Automatización",catEn:"AI · Automation",title:"Chatbots y agentes de IA",titleEn:"Chatbots and AI agents",sub:"WhatsApp + Claude",subEn:"WhatsApp + Claude",
-  desc:"Bots conectados a WhatsApp vía Evolution API con agentes que usan Claude y herramientas propias (MCP). No solo responden: ejecutan acciones sobre el sistema — consultan datos, cargan registros, avisan.",
-  descEn:"Bots connected to WhatsApp via Evolution API, with agents that use Claude and custom tools (MCP). They don't just reply — they take action on the system: query data, log records, send alerts.",
+  desc:"Bots en WhatsApp vía Evolution API con agentes que usan Claude y MCP. No solo responden: ejecutan acciones sobre el sistema.",
+  descEn:"WhatsApp bots via Evolution API with agents using Claude and MCP. They don't just reply — they take action on the system.",
   win:"Agentes con MCP que actúan sobre sistemas reales, no chatbots de respuestas fijas.",
   winEn:"MCP-powered agents that act on real systems, not fixed-reply chatbots.",
   stack:["Node.js","Claude","MCP","Evolution API","WhatsApp"],ai:true},
  {cat:"Panel · IA",catEn:"Panel · AI",title:"Panel interno con IA y analítica",titleEn:"Internal panel with AI and analytics",sub:"Gestión + métricas",subEn:"Management + metrics",
-  desc:"Panel de gestión: clientes, presupuestos, prospección, finanzas y analítica. Integra la API de Anthropic para asistencia con IA y la API de Google Analytics para métricas reales.",
-  descEn:"A management panel: clients, quotes, prospecting, finance, and analytics. It integrates the Anthropic API for AI assistance and the Google Analytics API for real metrics.",
+  desc:"Panel de gestión: clientes, presupuestos, finanzas y analítica, con IA de Anthropic y métricas reales de Google Analytics.",
+  descEn:"Management panel: clients, quotes, finance and analytics, with Anthropic AI and real Google Analytics metrics.",
   win:"Métricas reales de Google Analytics + asistencia con Claude dentro del mismo panel.",
   winEn:"Real Google Analytics metrics + Claude assistance inside the same panel.",
   stack:["Next.js","Prisma","Anthropic SDK","Google Analytics API"],ai:true},
  {cat:"Web · Animación",catEn:"Web · Animation",title:"Este sitio — g360ia.com.ar",titleEn:"This site — g360ia.com.ar",sub:"Vite · React · GSAP",subEn:"Vite · React · GSAP",
-  desc:"El sitio de la consultora, hecho a mano: Vite + React, animaciones con GSAP y Framer Motion, páginas de servicios con scroll-snap y un blog optimizado para SEO/GEO. Desplegado en VPS con Caddy.",
-  descEn:"The consultancy's site, hand-built: Vite + React, GSAP and Framer Motion animations, scroll-snap service pages, and a blog optimized for SEO/GEO. Deployed on a VPS with Caddy.",
+  desc:"Sitio de la consultora hecho a mano: Vite + React, animaciones con GSAP, páginas con scroll-snap y blog optimizado para SEO/GEO.",
+  descEn:"Hand-built consultancy site: Vite + React, GSAP animations, scroll-snap pages and a blog optimized for SEO/GEO.",
   win:"Blog con JSON-LD y estructura GEO/SEO, animaciones fluidas y deploy propio.",
   winEn:"Blog with JSON-LD and GEO/SEO structure, smooth animations, and self-managed deploy.",
   stack:["Vite","React","GSAP","Framer Motion","Tailwind"]},
  {cat:"Aprendizaje · ERP",catEn:"Learning · ERP",title:"Adaptar un ERP open source",titleEn:"Adapting an open-source ERP",sub:"NestJS · Vue · Mongo",subEn:"NestJS · Vue · Mongo",
-  desc:"Tomé un ERP en NestJS + Vue 3 + MongoDB, lo levanté local y resolví su setup real: replica set de Mongo, transacciones, bcrypt y envío de emails. Así aprendo stacks nuevos — metiéndome en código de verdad.",
-  descEn:"I took a NestJS + Vue 3 + MongoDB ERP, ran it locally, and solved its real setup: Mongo replica set, transactions, bcrypt, and email sending. That's how I learn new stacks — by digging into real code.",
+  desc:"Tomé un ERP en NestJS + Vue 3 + MongoDB y resolví su setup real: replica set, transacciones y bcrypt. Así aprendo stacks nuevos.",
+  descEn:"I took a NestJS + Vue 3 + MongoDB ERP and solved its real setup: replica set, transactions and bcrypt. That's how I learn new stacks.",
   win:"Diagnostiqué y resolví fallos de infra (replica set, transacciones, bcrypt) en un stack ajeno.",
   winEn:"Diagnosed and fixed infra issues (replica set, transactions, bcrypt) in an unfamiliar stack.",
   stack:["NestJS","Vue 3","MongoDB","Mongoose"]}
@@ -618,9 +620,11 @@ function renderGrid(){
   grid.innerHTML='';
   projects.forEach((p)=>{const c=document.createElement('article');c.className='proj';
     const cat=lang==='en'?p.catEn:p.cat, title=lang==='en'?p.titleEn:p.title, sub=lang==='en'?p.subEn:p.sub, desc=lang==='en'?p.descEn:p.desc;
+    const moreLbl=lang==='en'?'Read more →':'Leer más →';
     c.innerHTML=`<span class="cat">${cat}</span>
       <h4>${title}</h4><div class="sub">${sub}</div>
       <p class="desc">${desc}</p>
+      <button type="button" class="more">${moreLbl}</button>
       <div class="chips">${p.stack.map(s=>`<span class="chip${p.ai?' ai':''}">${s}</span>`).join('')}</div>`;
     grid.appendChild(c);});
 }
