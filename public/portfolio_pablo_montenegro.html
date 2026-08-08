@@ -595,7 +595,7 @@ const projects=[
   descEn:"WhatsApp bots via Evolution API with agents using Claude and MCP. They don't just reply — they take action on the system.",
   win:"Agentes con MCP que actúan sobre sistemas reales, no chatbots de respuestas fijas.",
   winEn:"MCP-powered agents that act on real systems, not fixed-reply chatbots.",
-  stack:["Node.js","Claude","MCP","Evolution API","WhatsApp"],ai:true},
+  stack:["Node.js","Claude","MCP","Evolution API","WhatsApp"],ai:true,action:'openChat',actionLabel:'Testear →',actionLabelEn:'Test it →'},
  {cat:"Panel · IA",catEn:"Panel · AI",title:"Panel interno con IA y analítica",titleEn:"Internal panel with AI and analytics",sub:"Gestión + métricas",subEn:"Management + metrics",
   desc:"Panel de gestión: clientes, presupuestos, finanzas y analítica, con IA de Anthropic y métricas reales de Google Analytics.",
   descEn:"Management panel: clients, quotes, finance and analytics, with Anthropic AI and real Google Analytics metrics.",
@@ -621,14 +621,29 @@ function renderGrid(){
   grid.innerHTML='';
   projects.forEach((p)=>{const c=document.createElement('article');c.className='proj';
     const cat=lang==='en'?p.catEn:p.cat, title=lang==='en'?p.titleEn:p.title, sub=lang==='en'?p.subEn:p.sub, desc=lang==='en'?p.descEn:p.desc;
-    const moreLbl=lang==='en'?'Read more →':'Leer más →';
-    const cta=p.link?`<a href="${p.link}" target="_blank" rel="noopener noreferrer" class="more">${moreLbl}</a>`:`<button type="button" class="more">${moreLbl}</button>`;
+    let cta;
+    if(p.link){
+      const moreLbl=lang==='en'?'Read more →':'Leer más →';
+      cta=`<a href="${p.link}" target="_blank" rel="noopener noreferrer" class="more">${moreLbl}</a>`;
+    }else if(p.action){
+      const lbl=lang==='en'?(p.actionLabelEn||'Action →'):(p.actionLabel||'Acción →');
+      cta=`<button type="button" class="more" data-action="${p.action}">${lbl}</button>`;
+    }else{
+      const moreLbl=lang==='en'?'Read more →':'Leer más →';
+      cta=`<button type="button" class="more">${moreLbl}</button>`;
+    }
     c.innerHTML=`<span class="cat">${cat}</span>
       <h4>${title}</h4><div class="sub">${sub}</div>
       <p class="desc">${desc}</p>
       ${cta}
       <div class="chips">${p.stack.map(s=>`<span class="chip${p.ai?' ai':''}">${s}</span>`).join('')}</div>`;
     grid.appendChild(c);});
+  document.querySelectorAll('[data-action]').forEach(btn=>{
+    const action=btn.dataset.action;
+    btn.addEventListener('click',()=>{
+      if(action==='openChat'&&window.openChat)window.openChat();
+    });
+  });
 }
 renderGrid();
 
@@ -812,6 +827,7 @@ applyLang();
   document.getElementById('waClose').onclick=closeChat;
   render();
   window.__waRender=render;
+  window.openChat=openChat;
 })();
 
 // CV DOWNLOAD MODAL
