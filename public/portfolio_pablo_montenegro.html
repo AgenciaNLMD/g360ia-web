@@ -206,8 +206,17 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .grid2{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 @media(max-width:900px){.grid2{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.grid2{grid-template-columns:1fr}}
-.proj{border-radius:var(--radius-l);overflow:hidden;background:var(--glass-bg);border:1px solid var(--glass-border);transition:.25s;text-align:left;font-family:var(--f);padding:14px 14px 13px;display:flex;flex-direction:column}
+.proj{border-radius:var(--radius-l);overflow:hidden;background:var(--glass-bg);border:1px solid var(--glass-border);transition:.25s;text-align:left;font-family:var(--f);padding:14px 14px 13px;display:flex;flex-direction:column;cursor:pointer}
 .proj:hover{border-color:var(--line-strong);box-shadow:var(--shadow-card)}
+.proj:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* thumbnail (full-bleed top of the card) */
+.proj .thumb{position:relative;margin:-14px -14px 12px;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(135deg,var(--bg-elevated),var(--bg-mid));border-bottom:1px solid var(--glass-border)}
+.proj .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.proj:hover .thumb img{transform:scale(1.05)}
+.proj .thumb .ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--gold);opacity:.35}
+.proj .thumb .ph svg{width:34px;height:34px}
+.proj .thumb .pcount{position:absolute;right:8px;bottom:8px;display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:#0a1628;background:rgba(230,165,50,.92);border-radius:7px;padding:3px 7px;backdrop-filter:blur(4px)}
+.proj .thumb .pcount svg{width:12px;height:12px}
 .proj .cat{align-self:flex-start;font-size:10px;font-weight:600;color:var(--gold);background:rgba(230,165,50,.07);border:1px solid var(--line-strong);border-radius:7px;padding:3px 8px;margin-bottom:9px}
 .proj h4{font-size:.95rem;font-weight:600;color:var(--ink)}
 .proj .sub{font-size:11px;color:var(--gold-soft);margin-top:3px}
@@ -343,6 +352,46 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .cv-opt .cv-txt b{font-size:14px;font-weight:600}
 .cv-opt .cv-txt span{font-size:10.5px;color:var(--gold);letter-spacing:.02em}
 .cv-opt .cv-dl{color:var(--gold);font-size:17px}
+
+/* PROJECT MODAL */
+.pm-back{position:fixed;inset:0;z-index:210;display:none;align-items:center;justify-content:center;padding:clamp(12px,3vh,28px);background:rgba(4,8,16,.78);backdrop-filter:blur(7px);opacity:0;transition:opacity .22s}
+.pm-back.is-open{display:flex;opacity:1}
+.pm-modal{width:100%;max-width:820px;max-height:92dvh;display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(165deg,var(--bg-elevated),var(--bg-mid));border:1px solid var(--glass-border);border-radius:var(--radius-l);box-shadow:var(--shadow-panel);transform:translateY(14px) scale(.985);transition:transform .24s}
+.pm-back.is-open .pm-modal{transform:none}
+.pm-x{position:absolute;top:12px;right:14px;z-index:6;width:34px;height:34px;border-radius:50%;background:rgba(4,8,16,.55);border:1px solid var(--line-subtle);color:var(--ink);font-size:19px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.15s;backdrop-filter:blur(6px)}
+.pm-x:hover{background:rgba(4,8,16,.85);color:var(--gold)}
+/* media / carousel */
+.pm-media{position:relative;flex:none;aspect-ratio:16/9;background:linear-gradient(135deg,var(--bg-deep),var(--bg-mid));overflow:hidden}
+.pm-track{display:flex;height:100%;width:100%;transition:transform .4s cubic-bezier(.7,0,.2,1)}
+.pm-slide{flex:0 0 100%;height:100%;display:grid;place-items:center;background:#04070d}
+.pm-slide img,.pm-slide video{width:100%;height:100%;object-fit:contain;display:block}
+.pm-empty{position:absolute;inset:0;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;color:var(--ink-mute);text-align:center;padding:20px}
+.pm-empty svg{width:44px;height:44px;color:var(--gold);opacity:.5}
+.pm-empty span{font-size:12.5px;max-width:34ch}
+.pm-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:40px;height:40px;border-radius:50%;background:rgba(4,8,16,.55);border:1px solid var(--line-strong);color:var(--gold);display:grid;place-items:center;cursor:pointer;font-size:18px;transition:.18s;backdrop-filter:blur(6px)}
+.pm-nav:hover{background:rgba(230,165,50,.18)}
+.pm-nav.prev{left:12px}.pm-nav.next{right:12px}
+.pm-nav[hidden]{display:none}
+.pm-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:4;display:flex;gap:7px}
+.pm-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.3);cursor:pointer;padding:0;transition:.25s}
+.pm-dots button.active{background:var(--gold);width:22px;border-radius:4px}
+/* body */
+.pm-body{padding:22px 24px 24px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent}
+.pm-body::-webkit-scrollbar{width:6px}
+.pm-body::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:3px}
+.pm-cat{display:inline-block;font-size:10px;font-weight:600;color:var(--gold);background:rgba(230,165,50,.07);border:1px solid var(--line-strong);border-radius:7px;padding:3px 9px;margin-bottom:10px}
+.pm-body h3{font-family:var(--fh);font-size:1.35rem;font-weight:700;color:var(--ink);margin:0}
+.pm-body .pm-sub{font-size:12.5px;color:var(--gold-soft);margin-top:4px}
+.pm-sec{margin-top:18px}
+.pm-sec .pm-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.pm-sec p{font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+.pm-chips{display:flex;flex-wrap:wrap;gap:6px}
+.pm-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.pm-actions .btn{font-size:13px;padding:11px 18px}
+@media(max-width:560px){
+  .pm-body{padding:18px 18px 20px}
+  .pm-body h3{font-size:1.15rem}
+}
 </style>
 </head>
 <body>
@@ -552,6 +601,15 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
   </div>
 </div>
 
+<!-- PROJECT DETAIL MODAL -->
+<div class="pm-back" id="pmBack" role="dialog" aria-modal="true" aria-label="Detalle del proyecto">
+  <div class="pm-modal">
+    <button class="pm-x" id="pmClose" aria-label="Cerrar">&times;</button>
+    <div class="pm-media" id="pmMedia"></div>
+    <div class="pm-body" id="pmBody"></div>
+  </div>
+</div>
+
 <script>
 const N=6;let idx=0;
 const track=document.getElementById('track'),navBtns=[...document.querySelectorAll('#nav button')];
@@ -577,76 +635,183 @@ stage.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouc
 
 // PROJECTS + MODAL
 let lang='es';
+/*
+  MEDIA DE CADA PROYECTO
+  ----------------------
+  · thumb  → imagen de la miniatura de la card (ruta bajo /portfolio/…). Si se omite,
+             se muestra un placeholder con ícono.
+  · media  → array que alimenta el carrusel del modal. Mezclá imágenes y videos:
+               {type:'image', src:'/portfolio/erp-1.webp', alt:'Descripción'}
+               {type:'video', src:'/portfolio/erp-demo.mp4', poster:'/portfolio/erp-1.webp'}
+             Si el primer item es un video y no hay thumb, se usa su poster como miniatura.
+  CÓMO SUBIR: dejá el archivo en  public/portfolio/  y referencialo por  /portfolio/<archivo>.
+  Vite copia public/ al build, así que en producción queda servido desde la raíz.
+  Formatos recomendados: imágenes .webp (livianas), videos .mp4 (H.264) — o .webm.
+*/
 const projects=[
  {cat:"ERP · Producto",catEn:"ERP · Product",title:"Software modular por rubros",titleEn:"Modular software by industry",sub:"ERP para PyMEs",subEn:"ERP for SMBs",
   desc:"ERP armado por módulos según el rubro: CRM, ventas, stock, finanzas y más. Cada cliente instala solo lo que necesita.",
   descEn:"ERP built from modules by industry: CRM, sales, stock, finance and more. Each client installs only what they need.",
   win:"11 módulos independientes sobre una misma base, con catálogo compartido para instalar un cliente nuevo en minutos.",
   winEn:"11 independent modules on the same base, with a shared catalog to onboard a new client in minutes.",
-  stack:["Next.js","MySQL","NextAuth","Chart.js","Leaflet","XLSX"]},
+  stack:["Next.js","MySQL","NextAuth","Chart.js","Leaflet","XLSX"],
+  thumb:"",media:[]},
  {cat:"GovTech · Producto",catEn:"GovTech · Product",title:"Sistema de gestión municipal",titleEn:"Municipal management system",sub:"Turnos · Reclamos · Mapa",subEn:"Appointments · Complaints · Map",
   desc:"Producto para municipios: turnos, reclamos en mapa y panel de administración, con colas de trabajo para procesos pesados.",
   descEn:"In-house product for municipalities: appointments, map-based complaints and an admin panel, with job queues for heavy processes.",
   win:"Colas con Redis/BullMQ y almacenamiento en S3 para no bloquear la app con tareas pesadas.",
   winEn:"Redis/BullMQ queues and S3 storage so heavy tasks never block the app.",
-  stack:["Next.js","Prisma","Redis · BullMQ","S3","Leaflet","ReactFlow"]},
+  stack:["Next.js","Prisma","Redis · BullMQ","S3","Leaflet","ReactFlow"],
+  thumb:"",media:[]},
  {cat:"IA · Automatización",catEn:"AI · Automation",title:"Chatbots y agentes de IA",titleEn:"Chatbots and AI agents",sub:"WhatsApp + Claude",subEn:"WhatsApp + Claude",
   desc:"Bots en WhatsApp vía Evolution API con agentes que usan Claude y MCP. No solo responden: ejecutan acciones sobre el sistema.",
   descEn:"WhatsApp bots via Evolution API with agents using Claude and MCP. They don't just reply — they take action on the system.",
   win:"Agentes con MCP que actúan sobre sistemas reales, no chatbots de respuestas fijas.",
   winEn:"MCP-powered agents that act on real systems, not fixed-reply chatbots.",
-  stack:["Node.js","Claude","MCP","Evolution API","WhatsApp"],ai:true,action:'openChat',actionLabel:'Testear →',actionLabelEn:'Test it →'},
+  stack:["Node.js","Claude","MCP","Evolution API","WhatsApp"],ai:true,action:'openChat',actionLabel:'Testear →',actionLabelEn:'Test it →',
+  thumb:"",media:[]},
  {cat:"Panel · IA",catEn:"Panel · AI",title:"Panel interno con IA y analítica",titleEn:"Internal panel with AI and analytics",sub:"Gestión + métricas",subEn:"Management + metrics",
   desc:"Panel de gestión: clientes, presupuestos, finanzas y analítica, con IA de Anthropic y métricas reales de Google Analytics.",
   descEn:"Management panel: clients, quotes, finance and analytics, with Anthropic AI and real Google Analytics metrics.",
   win:"Métricas reales de Google Analytics + asistencia con Claude dentro del mismo panel.",
   winEn:"Real Google Analytics metrics + Claude assistance inside the same panel.",
-  stack:["Next.js","Prisma","Anthropic SDK","Google Analytics API"],ai:true},
+  stack:["Next.js","Prisma","Anthropic SDK","Google Analytics API"],ai:true,
+  thumb:"",media:[]},
  {cat:"Web · Animación",catEn:"Web · Animation",title:"Este sitio — g360ia.com.ar",titleEn:"This site — g360ia.com.ar",sub:"Vite · React · GSAP",subEn:"Vite · React · GSAP",
   desc:"Sitio de la consultora hecho a mano: Vite + React, animaciones con GSAP, páginas con scroll-snap y blog optimizado para SEO/GEO.",
   descEn:"Hand-built consultancy site: Vite + React, GSAP animations, scroll-snap pages and a blog optimized for SEO/GEO.",
   win:"Blog con JSON-LD y estructura GEO/SEO, animaciones fluidas y deploy propio.",
   winEn:"Blog with JSON-LD and GEO/SEO structure, smooth animations, and self-managed deploy.",
   stack:["Vite","React","GSAP","Framer Motion","Tailwind"],
-  link:"https://www.g360ia.com.ar"},
+  link:"https://www.g360ia.com.ar",
+  thumb:"",media:[]},
  {cat:"Autenticación · Seguridad",catEn:"Authentication · Security",title:"Sistema de Autenticación OAuth",titleEn:"OAuth Authentication System",sub:"Next.js · OAuth 2.0 · JWT",subEn:"Next.js · OAuth 2.0 · JWT",
   desc:"Implementé un sistema de autenticación OAuth 2.0 completo: login seguro, gestión de tokens JWT, refresh flows y soporte multi-proveedor. Listo para usar en tu aplicación.",
   descEn:"Built a complete OAuth 2.0 authentication system: secure login, JWT token management, refresh flows and multi-provider support. Ready to integrate.",
   win:"Sistema robusto de autenticación con OAuth, pronto a producción. Podés usarlo en tu app o como base para expandir.",
   winEn:"Robust OAuth authentication system, production-ready. Use it in your app or as a foundation to expand.",
   stack:["Next.js","OAuth 2.0","JWT","TypeScript"],
-  link:"https://www.g360ia.com.ar/demo-oauth"}
+  link:"https://www.g360ia.com.ar/demo-oauth",
+  thumb:"",media:[]}
 ];
 const grid=document.getElementById('projGrid');
+const ICON_IMG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m21 16-5-5L5 20"/></svg>';
+const ICON_PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+// devuelve la ruta de miniatura de un proyecto (thumb explícita o poster del primer video)
+function projThumb(p){
+  if(p.thumb) return p.thumb;
+  const first=(p.media||[])[0];
+  if(first&&first.type==='image') return first.src;
+  if(first&&first.type==='video'&&first.poster) return first.poster;
+  return '';
+}
 function renderGrid(){
   grid.innerHTML='';
-  projects.forEach((p)=>{const c=document.createElement('article');c.className='proj';
+  projects.forEach((p,i)=>{const c=document.createElement('article');c.className='proj';
+    c.tabIndex=0;c.setAttribute('role','button');
     const cat=lang==='en'?p.catEn:p.cat, title=lang==='en'?p.titleEn:p.title, sub=lang==='en'?p.subEn:p.sub, desc=lang==='en'?p.descEn:p.desc;
-    let cta;
-    if(p.link){
-      const moreLbl=lang==='en'?'Read more →':'Leer más →';
-      cta=`<a href="${p.link}" target="_blank" rel="noopener noreferrer" class="more">${moreLbl}</a>`;
-    }else if(p.action){
-      const lbl=lang==='en'?(p.actionLabelEn||'Action →'):(p.actionLabel||'Acción →');
-      cta=`<button type="button" class="more" data-action="${p.action}">${lbl}</button>`;
-    }else{
-      const moreLbl=lang==='en'?'Read more →':'Leer más →';
-      cta=`<button type="button" class="more">${moreLbl}</button>`;
-    }
-    c.innerHTML=`<span class="cat">${cat}</span>
+    const moreLbl=lang==='en'?'View details →':'Ver detalles →';
+    c.setAttribute('aria-label',(lang==='en'?'View details of ':'Ver detalle de ')+title);
+    const thumb=projThumb(p);
+    const media=p.media||[];
+    const hasVideo=media.some(m=>m.type==='video');
+    const count=media.length;
+    // badge: si hay varios items muestra el número; si el primero es video muestra ▶
+    let badge='';
+    if(count>1) badge=`<span class="pcount">${hasVideo?ICON_PLAY:ICON_IMG}${count}</span>`;
+    else if(hasVideo) badge=`<span class="pcount">${ICON_PLAY}</span>`;
+    const thumbInner=thumb
+      ? `<img src="${thumb}" alt="${title}" loading="lazy" />`
+      : `<div class="ph">${hasVideo?ICON_PLAY:ICON_IMG}</div>`;
+    c.innerHTML=`<div class="thumb">${thumbInner}${badge}</div>
+      <span class="cat">${cat}</span>
       <h4>${title}</h4><div class="sub">${sub}</div>
       <p class="desc">${desc}</p>
-      ${cta}
+      <span class="more">${moreLbl}</span>
       <div class="chips">${p.stack.map(s=>`<span class="chip${p.ai?' ai':''}">${s}</span>`).join('')}</div>`;
+    c.addEventListener('click',()=>openProjectModal(i));
+    c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openProjectModal(i);}});
     grid.appendChild(c);});
-  document.querySelectorAll('[data-action]').forEach(btn=>{
-    const action=btn.dataset.action;
-    btn.addEventListener('click',()=>{
-      if(action==='openChat'&&window.openChat)window.openChat();
-    });
-  });
 }
 renderGrid();
+
+/* ---- MODAL DE PROYECTO (media + detalle) ---- */
+const pmBack=document.getElementById('pmBack'),pmMedia=document.getElementById('pmMedia'),pmBody=document.getElementById('pmBody');
+let pmSlide=0,pmLen=0,pmOpenIdx=null;
+function pmGo(n){
+  const track=pmMedia.querySelector('.pm-track');if(!track||pmLen<=1)return;
+  pmSlide=(n+pmLen)%pmLen;
+  track.style.transform=`translateX(${-pmSlide*100}%)`;
+  pmMedia.querySelectorAll('.pm-dots button').forEach((d,k)=>d.classList.toggle('active',k===pmSlide));
+  // pausar cualquier video que no esté visible
+  track.querySelectorAll('video').forEach((v,k)=>{if(k!==pmSlide)v.pause();});
+}
+function openProjectModal(i){
+  const p=projects[i];if(!p)return;pmOpenIdx=i;pmSlide=0;
+  const cat=lang==='en'?p.catEn:p.cat, title=lang==='en'?p.titleEn:p.title, sub=lang==='en'?p.subEn:p.sub;
+  const desc=lang==='en'?p.descEn:p.desc, win=lang==='en'?p.winEn:p.win;
+  const media=p.media||[];pmLen=media.length;
+  // --- media / carrusel ---
+  if(pmLen){
+    const slides=media.map(m=>{
+      if(m.type==='video'){
+        const poster=m.poster?` poster="${m.poster}"`:'';
+        return `<div class="pm-slide"><video src="${m.src}"${poster} controls preload="metadata" playsinline></video></div>`;
+      }
+      return `<div class="pm-slide"><img src="${m.src}" alt="${m.alt||title}" /></div>`;
+    }).join('');
+    const nav=pmLen>1
+      ? `<button class="pm-nav prev" id="pmPrev" aria-label="Anterior">‹</button><button class="pm-nav next" id="pmNext" aria-label="Siguiente">›</button>
+         <div class="pm-dots">${media.map((_,k)=>`<button aria-label="Ir a ${k+1}"></button>`).join('')}</div>`
+      : '';
+    pmMedia.innerHTML=`<div class="pm-track">${slides}</div>${nav}`;
+    if(pmLen>1){
+      pmMedia.querySelector('#pmPrev').onclick=()=>pmGo(pmSlide-1);
+      pmMedia.querySelector('#pmNext').onclick=()=>pmGo(pmSlide+1);
+      pmMedia.querySelectorAll('.pm-dots button').forEach((d,k)=>d.onclick=()=>pmGo(k));
+      pmGo(0);
+    }
+  }else{
+    const txt=lang==='en'?'No preview media yet for this project.':'Todavía no hay imágenes ni videos cargados para este proyecto.';
+    pmMedia.innerHTML=`<div class="pm-empty">${ICON_IMG}<span>${txt}</span></div>`;
+  }
+  // --- detalle ---
+  const lblFn=lang==='en'?'What it does':'Qué hace';
+  const lblWin=lang==='en'?'Problem it solves':'Problema que resuelve';
+  const lblStack=lang==='en'?'Stack':'Stack';
+  let actions='';
+  if(p.link){
+    const l=lang==='en'?'Visit site →':'Ver sitio →';
+    actions+=`<a href="${p.link}" target="_blank" rel="noopener noreferrer" class="btn primary">${l}</a>`;
+  }
+  if(p.action==='openChat'){
+    const l=lang==='en'?(p.actionLabelEn||'Test it →'):(p.actionLabel||'Testear →');
+    actions+=`<button type="button" class="btn ghost" id="pmChat">${l}</button>`;
+  }
+  pmBody.innerHTML=`<span class="pm-cat">${cat}</span>
+    <h3>${title}</h3><div class="pm-sub">${sub}</div>
+    <div class="pm-sec"><div class="pm-lbl">${lblFn}</div><p>${desc}</p></div>
+    ${win?`<div class="pm-sec"><div class="pm-lbl">${lblWin}</div><p>${win}</p></div>`:''}
+    <div class="pm-sec"><div class="pm-lbl">${lblStack}</div>
+      <div class="pm-chips">${p.stack.map(s=>`<span class="chip${p.ai?' ai':''}">${s}</span>`).join('')}</div></div>
+    ${actions?`<div class="pm-actions">${actions}</div>`:''}`;
+  const chatBtn=pmBody.querySelector('#pmChat');
+  if(chatBtn)chatBtn.onclick=()=>{closeProjectModal();if(window.openChat)window.openChat();};
+  pmBack.classList.add('is-open');
+  pmBody.scrollTop=0;
+}
+function closeProjectModal(){
+  pmBack.classList.remove('is-open');pmOpenIdx=null;
+  pmMedia.querySelectorAll('video').forEach(v=>v.pause());
+}
+document.getElementById('pmClose').onclick=closeProjectModal;
+pmBack.addEventListener('click',e=>{if(e.target===pmBack)closeProjectModal();});
+document.addEventListener('keydown',e=>{
+  if(!pmBack.classList.contains('is-open'))return;
+  if(e.key==='Escape')closeProjectModal();
+  else if(e.key==='ArrowLeft')pmGo(pmSlide-1);
+  else if(e.key==='ArrowRight')pmGo(pmSlide+1);
+});
 
 // LANG SWITCH
 const langBtns=[...document.querySelectorAll('#langsw button')];
@@ -666,6 +831,7 @@ function applyLang(){
   });
   langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
   renderGrid();
+  if(typeof pmOpenIdx!=='undefined'&&pmOpenIdx!==null) openProjectModal(pmOpenIdx);
   if(window.__waRender) window.__waRender();
 }
 langBtns.forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.lang;applyLang();}));
