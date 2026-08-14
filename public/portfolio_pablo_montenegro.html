@@ -211,8 +211,8 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .proj:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 /* thumbnail (full-bleed top of the card) */
 .proj .thumb{position:relative;margin:-14px -14px 12px;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(135deg,var(--bg-elevated),var(--bg-mid));border-bottom:1px solid var(--glass-border)}
-.proj .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
-.proj:hover .thumb img{transform:scale(1.05)}
+.proj .thumb img,.proj .thumb video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.proj:hover .thumb img,.proj:hover .thumb video{transform:scale(1.05)}
 .proj .thumb .ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--gold);opacity:.35}
 .proj .thumb .ph svg{width:34px;height:34px}
 .proj .thumb .pcount{position:absolute;right:8px;bottom:8px;display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:#0a1628;background:rgba(230,165,50,.92);border-radius:7px;padding:3px 7px;backdrop-filter:blur(4px)}
@@ -692,7 +692,9 @@ const projects=[
   winEn:"Robust OAuth authentication system, production-ready. Use it in your app or as a foundation to expand.",
   stack:["Next.js","OAuth 2.0","JWT","TypeScript"],
   link:"https://www.g360ia.com.ar/demo-oauth",
-  thumb:"",media:[]}
+  thumb:"",media:[
+    {type:'video',src:'/portfolio/demologin.webm',loop:true,autoplay:true,alt:'Demo del sistema de login OAuth'}
+  ]}
 ];
 const grid=document.getElementById('projGrid');
 const ICON_IMG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m21 16-5-5L5 20"/></svg>';
@@ -717,12 +719,22 @@ function renderGrid(){
     const hasVideo=media.some(m=>m.type==='video');
     const count=media.length;
     // badge: si hay varios items muestra el número; si el primero es video muestra ▶
+    // el preview animado ya deja claro que es video; el badge solo aporta si hay varios ítems
+    // o si la miniatura es una imagen estática que esconde un video
     let badge='';
     if(count>1) badge=`<span class="pcount">${hasVideo?ICON_PLAY:ICON_IMG}${count}</span>`;
-    else if(hasVideo) badge=`<span class="pcount">${ICON_PLAY}</span>`;
-    const thumbInner=thumb
-      ? `<img src="${thumb}" alt="${title}" loading="lazy" />`
-      : `<div class="ph">${hasVideo?ICON_PLAY:ICON_IMG}</div>`;
+    else if(hasVideo&&p.thumb) badge=`<span class="pcount">${ICON_PLAY}</span>`;
+    const firstVid=media[0]&&media[0].type==='video'?media[0]:null;
+    let thumbInner;
+    if(thumb){
+      thumbInner=`<img src="${thumb}" alt="${title}" loading="lazy" />`;
+    }else if(firstVid){
+      // preview animado: video mudo en bucle como miniatura
+      const poster=firstVid.poster?` poster="${firstVid.poster}"`:'';
+      thumbInner=`<video src="${firstVid.src}"${poster} muted loop autoplay playsinline preload="metadata"></video>`;
+    }else{
+      thumbInner=`<div class="ph">${hasVideo?ICON_PLAY:ICON_IMG}</div>`;
+    }
     c.innerHTML=`<div class="thumb">${thumbInner}${badge}</div>
       <span class="cat">${cat}</span>
       <h4>${title}</h4><div class="sub">${sub}</div>
@@ -743,8 +755,15 @@ function pmGo(n){
   pmSlide=(n+pmLen)%pmLen;
   track.style.transform=`translateX(${-pmSlide*100}%)`;
   pmMedia.querySelectorAll('.pm-dots button').forEach((d,k)=>d.classList.toggle('active',k===pmSlide));
-  // pausar cualquier video que no esté visible
-  track.querySelectorAll('video').forEach((v,k)=>{if(k!==pmSlide)v.pause();});
+  pmSyncVideos();
+}
+// reproduce en bucle el video activo si tiene autoplay; pausa el resto
+function pmSyncVideos(){
+  pmMedia.querySelectorAll('.pm-slide').forEach((s,k)=>{
+    const v=s.querySelector('video');if(!v)return;
+    if(k===pmSlide){ if(v.dataset.auto!==undefined){v.muted=true;v.play().catch(()=>{});} }
+    else{ v.pause(); }
+  });
 }
 function openProjectModal(i){
   const p=projects[i];if(!p)return;pmOpenIdx=i;pmSlide=0;
@@ -756,7 +775,9 @@ function openProjectModal(i){
     const slides=media.map(m=>{
       if(m.type==='video'){
         const poster=m.poster?` poster="${m.poster}"`:'';
-        return `<div class="pm-slide"><video src="${m.src}"${poster} controls preload="metadata" playsinline></video></div>`;
+        const loop=m.loop?' loop':'';
+        const auto=m.autoplay?' data-auto muted':'';
+        return `<div class="pm-slide"><video src="${m.src}"${poster}${loop}${auto} controls preload="metadata" playsinline></video></div>`;
       }
       return `<div class="pm-slide"><img src="${m.src}" alt="${m.alt||title}" /></div>`;
     }).join('');
@@ -799,6 +820,7 @@ function openProjectModal(i){
   if(chatBtn)chatBtn.onclick=()=>{closeProjectModal();if(window.openChat)window.openChat();};
   pmBack.classList.add('is-open');
   pmBody.scrollTop=0;
+  pmSyncVideos();
 }
 function closeProjectModal(){
   pmBack.classList.remove('is-open');pmOpenIdx=null;
