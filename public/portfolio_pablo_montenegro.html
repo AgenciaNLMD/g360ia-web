@@ -663,12 +663,15 @@ const projects=[
   winEn:"11 independent modules on the same base, with a shared catalog to onboard a new client in minutes.",
   stack:["Next.js","MySQL","NextAuth","Chart.js","Leaflet","XLSX"],
   thumb:"",media:[]},
- {cat:"GovTech · Producto",catEn:"GovTech · Product",title:"Sistema de gestión municipal",titleEn:"Municipal management system",sub:"Turnos · Reclamos · Mapa",subEn:"Appointments · Complaints · Map",
-  desc:"Producto para municipios: turnos, reclamos en mapa y panel de administración, con colas de trabajo para procesos pesados.",
-  descEn:"In-house product for municipalities: appointments, map-based complaints and an admin panel, with job queues for heavy processes.",
-  win:"Colas con Redis/BullMQ y almacenamiento en S3 para no bloquear la app con tareas pesadas.",
-  winEn:"Redis/BullMQ queues and S3 storage so heavy tasks never block the app.",
-  stack:["Next.js","Prisma","Redis · BullMQ","S3","Leaflet","ReactFlow"],
+ {cat:"GovTech · Producto",catEn:"GovTech · Product",title:"Sistema de gestión municipal",titleEn:"Municipal management system",sub:"Next.js · Mapa en tiempo real · WhatsApp + Claude",subEn:"Next.js · Real-time map · WhatsApp + Claude",
+  desc:"Plataforma GovTech que centraliza reclamos, turnos y atención ciudadana 24/7 por WhatsApp, con un agente de IA y un mapa de reclamos en tiempo real.",
+  descEn:"GovTech platform that centralizes complaints, appointments and 24/7 citizen support over WhatsApp, with an AI agent and a real-time complaints map.",
+  detail:"La diseñé y desarrollé de punta a punta. El frontend es Next.js con un mapa interactivo (Leaflet) que registra cada reclamo en tiempo real con pines por categoría y estado, clustering por zona y detalle al hacer click; sumé un dashboard con KPIs y un comparador donde el administrador arrastra los indicadores para leer los cuellos de botella de un vistazo. Detrás monté colas con Redis + BullMQ para todo el trabajo pesado sin bloquear la app: el seguimiento automático que le pregunta al vecino cada 15 días si se resolvió su reclamo, los recordatorios de turnos y la búsqueda mensual del cronograma de pagos de ANSES. Los datos van en Prisma y las fotos de evidencia en S3. La IA es un agente sobre la API de Anthropic (Claude) conectado a WhatsApp vía Evolution API: responde dudas de trámites, saca turnos, crea reclamos y procesa las encuestas de seguimiento sin intervención humana. Cada municipio conecta su propia instancia de WhatsApp (QR) y su propia API key. Para cuidar el presupuesto de tokens implementé rate limiting por vecino, moderación de contenido y agrupación de mensajes (debounce).",
+  detailEn:"I designed and built it end to end. The frontend is Next.js with an interactive map (Leaflet) that logs every complaint in real time with pins by category and status, zone clustering and click-through detail; I added a KPI dashboard and a comparator where the admin drags indicators to spot bottlenecks at a glance. Behind it I set up Redis + BullMQ queues for all the heavy work without blocking the app: the automated follow-up that asks each citizen every 15 days whether their issue was solved, appointment reminders and the monthly fetch of the ANSES payment schedule. Data lives in Prisma and evidence photos in S3. The AI is an agent on Anthropic's API (Claude) wired to WhatsApp via Evolution API: it answers procedure questions, books appointments, files complaints and processes follow-up surveys with no human in the loop. Each municipality connects its own WhatsApp instance (QR) and its own API key. To protect the token budget I implemented per-citizen rate limiting, content moderation and message debouncing.",
+  win:"Los municipios manejan los reclamos entre WhatsApp suelto, planillas y llamados: información dispersa, vecinos que nunca saben en qué quedó su reclamo y cero datos para decidir. Centralicé todo en una sola plataforma con trazabilidad completa y un agente que atiende 24/7, y automaticé el seguimiento que antes era trabajo manual repetitivo. El municipio pasa a ver en tiempo real qué se resolvió, cuánto tardó y qué zonas concentran problemas; el vecino deja de hacer colas y sigue su reclamo desde el teléfono.",
+  winEn:"Municipalities juggle complaints across loose WhatsApp chats, spreadsheets and phone calls: scattered information, citizens who never know where their complaint stands, and no data to decide with. I centralized everything into a single platform with full traceability and a 24/7 agent, and automated the follow-up that used to be repetitive manual work. The municipality now sees in real time what got solved, how long it took and which areas concentrate problems; citizens skip the queues and track their complaint from their phone.",
+  stack:["Next.js","Prisma","Redis · BullMQ","Leaflet","Evolution API","Claude","S3","ReactFlow"],
+  doc:"/portfolio/brief-sistema-gestion-municipal.pdf",
   thumb:"/portfolio/govtech.webp",media:[
     {type:'youtube',id:'IGFxeJ90UCc',alt:'Demo del sistema de gestión municipal: mapa de reclamos, turnos y panel'}
   ]},
@@ -835,6 +838,10 @@ function openProjectModal(i){
   if(p.action==='openChat'){
     const l=lang==='en'?(p.actionLabelEn||'Test it →'):(p.actionLabel||'Testear →');
     actions+=`<button type="button" class="btn ghost" id="pmChat">${l}</button>`;
+  }
+  if(p.doc){
+    const l=lang==='en'?(p.docLabelEn||'Download brief (PDF) →'):(p.docLabel||'Descargar brief completo (PDF) →');
+    actions+=`<a href="${p.doc}" target="_blank" rel="noopener" class="btn ghost">${l}</a>`;
   }
   pmBody.innerHTML=`<span class="pm-cat">${cat}</span>
     <h3>${title}</h3><div class="pm-sub">${sub}</div>
