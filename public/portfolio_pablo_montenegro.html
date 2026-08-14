@@ -685,12 +685,14 @@ const projects=[
   stack:["Vite","React","GSAP","Framer Motion","Tailwind"],
   link:"https://www.g360ia.com.ar",
   thumb:"",media:[]},
- {cat:"Autenticación · Seguridad",catEn:"Authentication · Security",title:"Sistema de Autenticación OAuth",titleEn:"OAuth Authentication System",sub:"Next.js · OAuth 2.0 · JWT",subEn:"Next.js · OAuth 2.0 · JWT",
-  desc:"Implementé un sistema de autenticación OAuth 2.0 completo: login seguro, gestión de tokens JWT, refresh flows y soporte multi-proveedor. Listo para usar en tu aplicación.",
-  descEn:"Built a complete OAuth 2.0 authentication system: secure login, JWT token management, refresh flows and multi-provider support. Ready to integrate.",
-  win:"Sistema robusto de autenticación con OAuth, pronto a producción. Podés usarlo en tu app o como base para expandir.",
-  winEn:"Robust OAuth authentication system, production-ready. Use it in your app or as a foundation to expand.",
-  stack:["Next.js","OAuth 2.0","JWT","TypeScript"],
+ {cat:"Autenticación · Seguridad",catEn:"Authentication · Security",title:"Sistema de Autenticación OAuth",titleEn:"OAuth Authentication System",sub:"React + NestJS · OAuth 2.0 · JWT httpOnly",subEn:"React + NestJS · OAuth 2.0 · httpOnly JWT",
+  desc:"Starter de autenticación reutilizable: login con Google (OAuth 2.0) y email/contraseña reales sobre una UI glassmorphism. La sesión vive en un JWT guardado en cookie httpOnly.",
+  descEn:"Reusable auth starter: Google (OAuth 2.0) and real email/password login over a glassmorphism UI. The session lives in a JWT stored in an httpOnly cookie.",
+  detail:"Lo diseñé y desarrollé de punta a punta: frontend en React 18 + Vite y backend en NestJS 10, empaquetados en un único contenedor donde el mismo servidor sirve el build de React y la API bajo el mismo origen (sin CORS de por medio). Dos caminos de login que terminan en la misma sesión: Google OAuth por popup canjeando el code en el backend, y email/contraseña contra base de datos. Puse el foco en seguridad real: bcrypt costo 12, reglas de contraseña validadas en vivo, chequeo de contraseñas filtradas contra Have I Been Pwned (k-anonymity), rate limiting por IP, respuestas anti-enumeración de usuarios y verificación de sesión únicamente en el backend con un guard sobre el JWT.",
+  detailEn:"I designed and built it end to end: a React 18 + Vite frontend and a NestJS 10 backend, packaged in a single container where one server serves the React build and the API under the same origin (no CORS involved). Two login paths that end in the same session: Google OAuth via popup exchanging the code on the backend, and real email/password against a database. I focused on real security: bcrypt cost 12, live-validated password rules, breached-password checks against Have I Been Pwned (k-anonymity), per-IP rate limiting, anti-enumeration responses, and session verification only on the backend through a guard over the JWT.",
+  win:"La autenticación es donde muchas apps se rompen en seguridad. Guardo el JWT en una cookie httpOnly + SameSite (nunca en localStorage), así ni un XSS puede robar la sesión. Quedó como un starter listo para producción: se clona, se cambian colores, logo y textos en minutos, y cualquier proyecto arranca con un login serio.",
+  winEn:"Auth is where many apps break on security. I keep the JWT in an httpOnly + SameSite cookie (never in localStorage), so not even an XSS can steal the session. It ended up as a production-ready starter: clone it, swap colors, logo and copy in minutes, and any project starts with serious auth.",
+  stack:["React 18","Vite","NestJS","JWT httpOnly","Google OAuth","bcrypt · HIBP"],
   link:"https://www.g360ia.com.ar/demo-oauth",
   thumb:"",media:[
     {type:'video',
@@ -773,7 +775,8 @@ function pmSyncVideos(){
 function openProjectModal(i){
   const p=projects[i];if(!p)return;pmOpenIdx=i;pmSlide=0;
   const cat=lang==='en'?p.catEn:p.cat, title=lang==='en'?p.titleEn:p.title, sub=lang==='en'?p.subEn:p.sub;
-  const desc=lang==='en'?p.descEn:p.desc, win=lang==='en'?p.winEn:p.win;
+  // en el modal se prioriza el texto largo (detail); si no hay, cae al resumen de la card (desc)
+  const desc=lang==='en'?(p.detailEn||p.descEn):(p.detail||p.desc), win=lang==='en'?p.winEn:p.win;
   const media=p.media||[];pmLen=media.length;
   // --- media / carrusel ---
   if(pmLen){
@@ -803,7 +806,7 @@ function openProjectModal(i){
     pmMedia.innerHTML=`<div class="pm-empty">${ICON_IMG}<span>${txt}</span></div>`;
   }
   // --- detalle ---
-  const lblFn=lang==='en'?'What it does':'Qué hace';
+  const lblFn=lang==='en'?'What I built':'Qué construí';
   const lblWin=lang==='en'?'Problem it solves':'Problema que resuelve';
   const lblStack=lang==='en'?'Stack':'Stack';
   let actions='';
