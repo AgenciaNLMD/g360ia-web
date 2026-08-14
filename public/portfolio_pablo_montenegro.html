@@ -389,6 +389,12 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .pm-chips{display:flex;flex-wrap:wrap;gap:6px}
 .pm-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .pm-actions .btn{font-size:13px;padding:11px 18px}
+/* DESKTOP: media a la izquierda, texto en columna derecha (en móvil queda apilado) */
+@media(min-width:840px){
+  .pm-modal{flex-direction:row;max-width:1060px;height:min(560px,88dvh)}
+  .pm-media{flex:0 0 60%;aspect-ratio:auto;height:100%;border-right:1px solid var(--glass-border)}
+  .pm-body{flex:1;min-width:0;height:100%}
+}
 @media(max-width:560px){
   .pm-body{padding:18px 18px 20px}
   .pm-body h3{font-size:1.15rem}
