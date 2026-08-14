@@ -412,10 +412,10 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
   <div class="brand"><div class="logo">P</div><div><b>Pablo Montenegro</b><span>FULL STACK DEV</span></div></div>
   <nav id="nav">
     <button data-i="0" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span data-i18n data-en="Home">Inicio</span></button>
+    <button data-i="4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span data-i18n data-en="Projects">Proyectos</span></button>
     <button data-i="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/></svg>Stacks</button>
     <button data-i="2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span data-i18n data-en="Services">Servicios</span></button>
     <button data-i="3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg><span data-i18n data-en="Experience">Trayectoria</span></button>
-    <button data-i="4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span data-i18n data-en="Projects">Proyectos</span></button>
     <button data-i="5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span data-i18n data-en="Contact">Contacto</span></button>
   </nav>
   <div class="avail"><h5 data-i18n data-en="Available for projects">Disponible para proyectos</h5><p data-i18n data-en="Software, bots, or AI agents for your business. Let's build something.">Software, bots o agentes de IA para tu negocio. Armemos algo.</p><button data-i="5" data-i18n data-en="Let's talk →">Hablemos →</button></div>
@@ -656,13 +656,21 @@ let lang='es';
   Formatos recomendados: imágenes .webp (livianas), videos .mp4 (H.264) — o .webm.
 */
 const projects=[
- {cat:"ERP · Producto",catEn:"ERP · Product",title:"Software modular por rubros",titleEn:"Modular software by industry",sub:"ERP para PyMEs",subEn:"ERP for SMBs",
-  desc:"ERP armado por módulos según el rubro: CRM, ventas, stock, finanzas y más. Cada cliente instala solo lo que necesita.",
-  descEn:"ERP built from modules by industry: CRM, sales, stock, finance and more. Each client installs only what they need.",
-  win:"11 módulos independientes sobre una misma base, con catálogo compartido para instalar un cliente nuevo en minutos.",
-  winEn:"11 independent modules on the same base, with a shared catalog to onboard a new client in minutes.",
-  stack:["Next.js","MySQL","NextAuth","Chart.js","Leaflet","XLSX"],
-  thumb:"",media:[]},
+ {cat:"Autenticación · Seguridad",catEn:"Authentication · Security",title:"Sistema de Autenticación OAuth",titleEn:"OAuth Authentication System",sub:"React + NestJS · OAuth 2.0 · JWT httpOnly",subEn:"React + NestJS · OAuth 2.0 · httpOnly JWT",
+  desc:"Starter de autenticación reutilizable: login con Google (OAuth 2.0) y email/contraseña reales sobre una UI glassmorphism. La sesión vive en un JWT guardado en cookie httpOnly.",
+  descEn:"Reusable auth starter: Google (OAuth 2.0) and real email/password login over a glassmorphism UI. The session lives in a JWT stored in an httpOnly cookie.",
+  detail:"Lo diseñé y desarrollé de punta a punta: frontend en React 18 + Vite y backend en NestJS 10, empaquetados en un único contenedor donde el mismo servidor sirve el build de React y la API bajo el mismo origen (sin CORS de por medio). Dos caminos de login que terminan en la misma sesión: Google OAuth por popup canjeando el code en el backend, y email/contraseña contra base de datos. Puse el foco en seguridad real: bcrypt costo 12, reglas de contraseña validadas en vivo, chequeo de contraseñas filtradas contra Have I Been Pwned (k-anonymity), rate limiting por IP, respuestas anti-enumeración de usuarios y verificación de sesión únicamente en el backend con un guard sobre el JWT.",
+  detailEn:"I designed and built it end to end: a React 18 + Vite frontend and a NestJS 10 backend, packaged in a single container where one server serves the React build and the API under the same origin (no CORS involved). Two login paths that end in the same session: Google OAuth via popup exchanging the code on the backend, and real email/password against a database. I focused on real security: bcrypt cost 12, live-validated password rules, breached-password checks against Have I Been Pwned (k-anonymity), per-IP rate limiting, anti-enumeration responses, and session verification only on the backend through a guard over the JWT.",
+  win:"La autenticación es donde muchas apps se rompen en seguridad. Guardo el JWT en una cookie httpOnly + SameSite (nunca en localStorage), así ni un XSS puede robar la sesión. Quedó como un starter listo para producción: se clona, se cambian colores, logo y textos en minutos, y cualquier proyecto arranca con un login serio.",
+  winEn:"Auth is where many apps break on security. I keep the JWT in an httpOnly + SameSite cookie (never in localStorage), so not even an XSS can steal the session. It ended up as a production-ready starter: clone it, swap colors, logo and copy in minutes, and any project starts with serious auth.",
+  stack:["React 18","Vite","NestJS","JWT httpOnly","Google OAuth","bcrypt · HIBP"],
+  link:"https://www.g360ia.com.ar/demo-oauth",
+  thumb:"",media:[
+    {type:'video',
+     sources:[{src:'/portfolio/demologin.webm',type:'video/webm'},{src:'/portfolio/demologin.mp4',type:'video/mp4'}],
+     loop:true,autoplay:true,controls:false,alt:'Demo del login OAuth (loop)'},
+    {type:'youtube',id:'FmHllFoU6jg',alt:'Walkthrough completo del sistema de login OAuth'}
+  ]},
  {cat:"GovTech · Producto",catEn:"GovTech · Product",title:"Sistema de gestión municipal",titleEn:"Municipal management system",sub:"Next.js · Mapa en tiempo real · WhatsApp + Claude",subEn:"Next.js · Real-time map · WhatsApp + Claude",
   desc:"Plataforma GovTech que centraliza reclamos, turnos y atención ciudadana 24/7 por WhatsApp, con un agente de IA y un mapa de reclamos en tiempo real.",
   descEn:"GovTech platform that centralizes complaints, appointments and 24/7 citizen support over WhatsApp, with an AI agent and a real-time complaints map.",
@@ -675,6 +683,13 @@ const projects=[
   thumb:"/portfolio/govtech.webp",media:[
     {type:'youtube',id:'IGFxeJ90UCc',alt:'Demo del sistema de gestión municipal: mapa de reclamos, turnos y panel'}
   ]},
+ {cat:"ERP · Producto",catEn:"ERP · Product",title:"Software modular por rubros",titleEn:"Modular software by industry",sub:"ERP para PyMEs",subEn:"ERP for SMBs",
+  desc:"ERP armado por módulos según el rubro: CRM, ventas, stock, finanzas y más. Cada cliente instala solo lo que necesita.",
+  descEn:"ERP built from modules by industry: CRM, sales, stock, finance and more. Each client installs only what they need.",
+  win:"11 módulos independientes sobre una misma base, con catálogo compartido para instalar un cliente nuevo en minutos.",
+  winEn:"11 independent modules on the same base, with a shared catalog to onboard a new client in minutes.",
+  stack:["Next.js","MySQL","NextAuth","Chart.js","Leaflet","XLSX"],
+  thumb:"",media:[]},
  {cat:"IA · Automatización",catEn:"AI · Automation",title:"Chatbots y agentes de IA",titleEn:"Chatbots and AI agents",sub:"WhatsApp + Claude",subEn:"WhatsApp + Claude",
   desc:"Bots en WhatsApp vía Evolution API con agentes que usan Claude y MCP. No solo responden: ejecutan acciones sobre el sistema.",
   descEn:"WhatsApp bots via Evolution API with agents using Claude and MCP. They don't just reply — they take action on the system.",
@@ -696,22 +711,7 @@ const projects=[
   winEn:"Blog with JSON-LD and GEO/SEO structure, smooth animations, and self-managed deploy.",
   stack:["Vite","React","GSAP","Framer Motion","Tailwind"],
   link:"https://www.g360ia.com.ar",
-  thumb:"",media:[]},
- {cat:"Autenticación · Seguridad",catEn:"Authentication · Security",title:"Sistema de Autenticación OAuth",titleEn:"OAuth Authentication System",sub:"React + NestJS · OAuth 2.0 · JWT httpOnly",subEn:"React + NestJS · OAuth 2.0 · httpOnly JWT",
-  desc:"Starter de autenticación reutilizable: login con Google (OAuth 2.0) y email/contraseña reales sobre una UI glassmorphism. La sesión vive en un JWT guardado en cookie httpOnly.",
-  descEn:"Reusable auth starter: Google (OAuth 2.0) and real email/password login over a glassmorphism UI. The session lives in a JWT stored in an httpOnly cookie.",
-  detail:"Lo diseñé y desarrollé de punta a punta: frontend en React 18 + Vite y backend en NestJS 10, empaquetados en un único contenedor donde el mismo servidor sirve el build de React y la API bajo el mismo origen (sin CORS de por medio). Dos caminos de login que terminan en la misma sesión: Google OAuth por popup canjeando el code en el backend, y email/contraseña contra base de datos. Puse el foco en seguridad real: bcrypt costo 12, reglas de contraseña validadas en vivo, chequeo de contraseñas filtradas contra Have I Been Pwned (k-anonymity), rate limiting por IP, respuestas anti-enumeración de usuarios y verificación de sesión únicamente en el backend con un guard sobre el JWT.",
-  detailEn:"I designed and built it end to end: a React 18 + Vite frontend and a NestJS 10 backend, packaged in a single container where one server serves the React build and the API under the same origin (no CORS involved). Two login paths that end in the same session: Google OAuth via popup exchanging the code on the backend, and real email/password against a database. I focused on real security: bcrypt cost 12, live-validated password rules, breached-password checks against Have I Been Pwned (k-anonymity), per-IP rate limiting, anti-enumeration responses, and session verification only on the backend through a guard over the JWT.",
-  win:"La autenticación es donde muchas apps se rompen en seguridad. Guardo el JWT en una cookie httpOnly + SameSite (nunca en localStorage), así ni un XSS puede robar la sesión. Quedó como un starter listo para producción: se clona, se cambian colores, logo y textos en minutos, y cualquier proyecto arranca con un login serio.",
-  winEn:"Auth is where many apps break on security. I keep the JWT in an httpOnly + SameSite cookie (never in localStorage), so not even an XSS can steal the session. It ended up as a production-ready starter: clone it, swap colors, logo and copy in minutes, and any project starts with serious auth.",
-  stack:["React 18","Vite","NestJS","JWT httpOnly","Google OAuth","bcrypt · HIBP"],
-  link:"https://www.g360ia.com.ar/demo-oauth",
-  thumb:"",media:[
-    {type:'video',
-     sources:[{src:'/portfolio/demologin.webm',type:'video/webm'},{src:'/portfolio/demologin.mp4',type:'video/mp4'}],
-     loop:true,autoplay:true,controls:false,alt:'Demo del login OAuth (loop)'},
-    {type:'youtube',id:'FmHllFoU6jg',alt:'Walkthrough completo del sistema de login OAuth'}
-  ]}
+  thumb:"",media:[]}
 ];
 const grid=document.getElementById('projGrid');
 const ICON_IMG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m21 16-5-5L5 20"/></svg>';
