@@ -365,6 +365,7 @@ main.stage{position:fixed;top:var(--gap);bottom:var(--gap);left:calc(var(--sideb
 .pm-track{display:flex;height:100%;width:100%;transition:transform .4s cubic-bezier(.7,0,.2,1)}
 .pm-slide{flex:0 0 100%;height:100%;display:grid;place-items:center;background:#04070d}
 .pm-slide img,.pm-slide video{width:100%;height:100%;object-fit:contain;display:block}
+.pm-slide iframe{width:100%;height:100%;border:0;display:block}
 .pm-empty{position:absolute;inset:0;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;color:var(--ink-mute);text-align:center;padding:20px}
 .pm-empty svg{width:44px;height:44px;color:var(--gold);opacity:.5}
 .pm-empty span{font-size:12.5px;max-width:34ch}
@@ -712,6 +713,7 @@ function projThumb(p){
   const first=(p.media||[])[0];
   if(first&&first.type==='image') return first.src;
   if(first&&first.type==='video'&&first.poster) return first.poster;
+  if(first&&first.type==='youtube') return `https://i.ytimg.com/vi/${first.id}/maxresdefault.jpg`;
   return '';
 }
 function renderGrid(){
@@ -723,18 +725,21 @@ function renderGrid(){
     c.setAttribute('aria-label',(lang==='en'?'View details of ':'Ver detalle de ')+title);
     const thumb=projThumb(p);
     const media=p.media||[];
-    const hasVideo=media.some(m=>m.type==='video');
+    const hasVideo=media.some(m=>m.type==='video'||m.type==='youtube');
     const count=media.length;
-    // badge: si hay varios items muestra el número; si el primero es video muestra ▶
-    // el preview animado ya deja claro que es video; el badge solo aporta si hay varios ítems
-    // o si la miniatura es una imagen estática que esconde un video
+    // badge: si hay varios items muestra el número; si es una imagen estática que
+    // esconde un video (miniatura de YouTube o poster) muestra ▶. El preview animado
+    // local no lleva badge porque ya se ve que es video.
     let badge='';
     if(count>1) badge=`<span class="pcount">${hasVideo?ICON_PLAY:ICON_IMG}${count}</span>`;
-    else if(hasVideo&&p.thumb) badge=`<span class="pcount">${ICON_PLAY}</span>`;
+    else if(hasVideo&&thumb) badge=`<span class="pcount">${ICON_PLAY}</span>`;
     const firstVid=media[0]&&media[0].type==='video'?media[0]:null;
+    const firstYt=media[0]&&media[0].type==='youtube'?media[0]:null;
     let thumbInner;
     if(thumb){
-      thumbInner=`<img src="${thumb}" alt="${title}" loading="lazy" />`;
+      // miniatura de YouTube: si no existe maxresdefault, caer a hqdefault
+      const fb=firstYt?` onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${firstYt.id}/hqdefault.jpg'"`:'';
+      thumbInner=`<img src="${thumb}" alt="${title}" loading="lazy"${fb} />`;
     }else if(firstVid){
       // preview animado: video mudo en bucle como miniatura (sin controles)
       const poster=firstVid.poster?` poster="${firstVid.poster}"`:'';
@@ -781,6 +786,10 @@ function openProjectModal(i){
   // --- media / carrusel ---
   if(pmLen){
     const slides=media.map(m=>{
+      if(m.type==='youtube'){
+        const src=`https://www.youtube-nocookie.com/embed/${m.id}?rel=0&modestbranding=1`;
+        return `<div class="pm-slide"><iframe src="${src}" title="${m.alt||title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`;
+      }
       if(m.type==='video'){
         const poster=m.poster?` poster="${m.poster}"`:'';
         const loop=m.loop?' loop':'';
@@ -834,6 +843,8 @@ function openProjectModal(i){
 function closeProjectModal(){
   pmBack.classList.remove('is-open');pmOpenIdx=null;
   pmMedia.querySelectorAll('video').forEach(v=>v.pause());
+  // corta la reproducción de cualquier embed de YouTube
+  pmMedia.querySelectorAll('iframe').forEach(f=>f.src='about:blank');
 }
 document.getElementById('pmClose').onclick=closeProjectModal;
 pmBack.addEventListener('click',e=>{if(e.target===pmBack)closeProjectModal();});

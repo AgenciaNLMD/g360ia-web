@@ -24,14 +24,27 @@ Cada proyecto tiene dos campos:
   media: [                          // alimenta el carrusel del modal
     { type:'image', src:'/portfolio/erp-1.webp', alt:'Dashboard del ERP' },
     { type:'image', src:'/portfolio/erp-2.webp', alt:'Módulo de ventas' },
-    { type:'video', src:'/portfolio/erp-demo.mp4', poster:'/portfolio/erp-1.webp' }
+    { type:'video', src:'/portfolio/erp-demo.mp4', poster:'/portfolio/erp-1.webp' },
+    { type:'youtube', id:'dQw4w9WgXcQ', alt:'Walkthrough completo' }
   ]
 }
 ```
 
-- Si omitís `thumb`, se usa la primera imagen de `media` (o el `poster` del primer video).
+- Si omitís `thumb`, se usa la primera imagen de `media` (o el `poster` del primer video,
+  o la miniatura de YouTube si el primer item es `youtube`).
 - Si `media` está vacío, la card muestra un placeholder y el modal avisa "todavía no hay media".
 - El `poster` del video es la imagen que se ve antes de darle play (recomendado).
+
+### Tipos de media
+
+- **`image`** — `{ type:'image', src, alt }`
+- **`video`** (archivo local en `/portfolio/…`) — `{ type:'video', src|sources, poster?, loop?, autoplay?, controls? }`.
+  Para videos **cortos** que quedan bien en loop mudo (ej. el demo de login).
+- **`youtube`** — `{ type:'youtube', id, alt }`. Ideal para **videos largos** (walkthroughs de
+  varios minutos): YouTube hostea el archivo (no pesa en el repo) y sirve calidad adaptativa.
+  El `id` es el código del video (`https://youtu.be/<ID>` o `watch?v=<ID>`). La miniatura de la
+  card la toma de YouTube automáticamente; el modal embebe el reproductor (modo `nocookie`).
+  Podés subir el video como **"no listado"** en YouTube si no querés que aparezca en tu canal.
 
 ## Formatos recomendados
 
