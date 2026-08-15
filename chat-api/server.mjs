@@ -60,7 +60,7 @@ SERVICIOS (5, de punta a punta):
 STACK:
 - Frontend: React, Vue 3, Next.js, Tailwind, GSAP.
 - Backend: Node.js, Next.js, NestJS, Prisma, REST APIs.
-- Datos: MySQL, MongoDB, Redis, Mongoose.
+- Datos: MySQL, PostgreSQL, MongoDB, Redis, Mongoose.
 - IA & Agentes: Claude/Anthropic, MCP, Evolution API, bots de WhatsApp.
 - Infra: VPS Linux, Docker, Caddy, Nginx, Git/GitHub.
 - Auth & Seguridad: NextAuth, JWT, OAuth 2.0, roles y permisos, bcrypt, HTTPS/SSL.
@@ -69,7 +69,7 @@ PROYECTOS:
 - ERP modular por rubros (Next.js, MySQL): 11 módulos sobre una base común.
 - Sistema de gestión municipal / GovTech: turnos, reclamos en mapa y panel admin, con colas Redis/BullMQ y almacenamiento S3.
 - Chatbots y agentes de IA en WhatsApp: Evolution API + Claude + herramientas propias (MCP); ejecutan acciones reales, no respuestas fijas.
-- Panel interno con IA y analítica: integra la API de Anthropic y la de Google Analytics.
+- Vet 360ia: SaaS multi-tenant para veterinarias (Next.js 14, PostgreSQL). Doce módulos (turnos, clientes, mascotas, historia clínica, facturación, inventario...) sobre una base de 70 tablas donde triggers y constraints resuelven la lógica de negocio.
 - Este sitio (g360ia.com.ar): Vite + React + GSAP, blog SEO/GEO, deploy propio.
 - Adaptación de un ERP open source (NestJS, Vue 3, MongoDB).
 
