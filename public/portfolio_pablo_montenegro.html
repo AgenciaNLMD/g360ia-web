@@ -787,7 +787,7 @@ function openProjectModal(i){
   if(pmLen){
     const slides=media.map(m=>{
       if(m.type==='youtube'){
-        const src=`https://www.youtube-nocookie.com/embed/${m.id}?rel=0&modestbranding=1`;
+        const src=`https://www.youtube-nocookie.com/embed/${m.id}?rel=0&modestbranding=1&vq=hd1080&hd=1`;
         return `<div class="pm-slide"><iframe src="${src}" title="${m.alt||title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`;
       }
       if(m.type==='video'){
