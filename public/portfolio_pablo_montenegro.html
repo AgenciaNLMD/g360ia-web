@@ -682,10 +682,7 @@ const projects=[
   stack:["Next.js","Prisma","Redis · BullMQ","Leaflet","Evolution API","Claude","S3","ReactFlow"],
   doc:"/portfolio/brief-sistema-gestion-municipal.pdf",
   thumb:"/portfolio/govtech.webp",media:[
-    {type:'video',
-     sources:[{src:'/portfolio/govtech.webm',type:'video/webm'}],
-     poster:'/portfolio/govtech.webp',
-     loop:true,autoplay:true,alt:'Demo del sistema de gestión municipal: mapa de reclamos, turnos y panel'}
+    {type:'youtube',id:'IGFxeJ90UCc',autoplay:true,loop:true,alt:'Demo del sistema de gestión municipal: mapa de reclamos, turnos y panel'}
   ]},
  {cat:"ERP · Producto",catEn:"ERP · Product",title:"Software modular por rubros",titleEn:"Modular software by industry",sub:"ERP para PyMEs",subEn:"ERP for SMBs",
   desc:"ERP armado por módulos según el rubro: CRM, ventas, stock, finanzas y más. Cada cliente instala solo lo que necesita.",
@@ -805,7 +802,11 @@ function openProjectModal(i){
   if(pmLen){
     const slides=media.map(m=>{
       if(m.type==='youtube'){
-        const src=`https://www.youtube-nocookie.com/embed/${m.id}?rel=0&modestbranding=1&vq=hd1080&hd=1`;
+        const params=['rel=0','modestbranding=1','vq=hd1080','hd=1','playsinline=1'];
+        if(m.autoplay){params.push('autoplay=1','mute=1');}
+        if(m.loop){params.push('loop=1','playlist='+m.id);}
+        if(m.controls===false)params.push('controls=0');
+        const src=`https://www.youtube-nocookie.com/embed/${m.id}?`+params.join('&');
         return `<div class="pm-slide"><iframe src="${src}" title="${m.alt||title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`;
       }
       if(m.type==='video'){
