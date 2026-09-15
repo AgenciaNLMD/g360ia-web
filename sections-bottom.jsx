@@ -272,16 +272,15 @@ function ToolsCarousel() {
 }
 
 /* ===================== FOOTER ===================== */
-function Footer({ onNav }) {
+function Footer() {
   const year = new Date().getFullYear();
-  const go = (e, id) => { e.preventDefault(); onNav(id); };
   return (
     <footer className="footer">
       <ToolsCarousel />
       <div className="container">
         <div className="footer-grid">
           <div>
-            <a href="#hero" className="logo" onClick={(e) => go(e, "hero")}>
+            <a href="/" className="logo">
               <img src="logo.webp" alt="Gestión 360 IA" className="logo-img" width="36" height="36" loading="lazy" />
               <span className="logo-name">
                 Gestion<span className="num">360</span><span className="ia">.iA</span>
@@ -292,7 +291,7 @@ function Footer({ onNav }) {
           <div>
             <h5>Navegación</h5>
             <ul>
-              <li><a href="#servicios" onClick={(e) => go(e, "servicios")}>Servicios</a></li>
+              <li><a href="/servicios">Servicios</a></li>
               <li><a href="/software">Software propio</a></li>
               <li><a href="/software-para-veterinarias">Software para veterinarias</a></li>
               <li><a href="/afiliados">Programa de afiliados</a></li>

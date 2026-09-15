@@ -227,14 +227,24 @@
 }
   </script>
 </head>
-<body>
+<body class="g-light">
 
-  <!-- Fondo fijo global: estático para que pinte apenas llega el CSS,
-       sin esperar al bundle de React (es el elemento LCP en móvil).
-       App.jsx ya no lo renderiza — vive acá. -->
-  <div class="global-fixed-bg" aria-hidden="true">
+  <!-- La imagen del hero. Vive acá y no adentro de React porque es el elemento
+       LCP: escrita en el HTML, el navegador la descubre en el primer parseo,
+       sin esperar a bajar y ejecutar el bundle.
+
+       Hasta el 16-sep-2026 esto era un fondo fijo detrás de TODO el sitio, y
+       ese era el problema: había que taparlo con un velo para poder leer el
+       texto de las secciones —o sea, se pagaba su peso y se la veía apagada— y
+       además ninguna sección se distinguía de la anterior. Ahora ocupa sólo el
+       alto del hero (--g-hero-h) y de ahí para abajo los fondos son sólidos. -->
+  <div class="g-hero-img" aria-hidden="true">
     <img src="/hero-bg.webp" alt="" fetchpriority="high" decoding="async" />
   </div>
+
+  <noscript>
+    <style>.g-rev { opacity: 1 !important; transform: none !important; }</style>
+  </noscript>
 
   <div id="root">
     <div id="seo-fallback" style="display:none">

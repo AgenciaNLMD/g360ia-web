@@ -282,6 +282,17 @@ export default function MaiaContact() {
   }, []);
 
   useEffect(() => {
+    /* Si al montar la sección ya está en pantalla —se entró por #contacto, o
+       el navegador restauró la posición de scroll— hay que encenderla sin
+       esperar a que cruce nada: el observador sólo avisa de los cambios, y si
+       no hay más scroll por delante la sección se queda en opacidad 0 para
+       siempre. Pasaba justo con el enlace de contacto del pie. */
+    const yaSeVe = () => {
+      const r = sectionRef.current?.getBoundingClientRect();
+      return r && r.top < window.innerHeight && r.bottom > 0;
+    };
+    if (yaSeVe()) { setInView(true); return undefined; }
+
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) setInView(true); },
       { threshold: 0.06 }

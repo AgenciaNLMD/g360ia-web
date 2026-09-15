@@ -922,256 +922,7 @@ img { display: block; max-width: 100%; }
 .floatnav-drop-sep { height: 1px; background: var(--line); margin: 4px 6px; }
 @media (max-width: 880px) { .floatnav { display: none; } }
 
-/* ====================================================================
-   PUERTAS — las tres entradas de la home
-   ====================================================================
-   Reemplazan al bento de servicios que ocupaba esta sección. Son enlaces,
-   no tarjetas que se abren: todo lo que decían al expandirse ya está en la
-   página a la que llevan.
-   ==================================================================== */
 
-/* Velo de lectura ────────────────────────────────────────────────────────
-   Las dos secciones flotan sobre la foto fija del hero, que tiene zonas
-   claras —el logo, el skyline— donde el texto blanco desaparecía. El velo
-   es un degradado plano encima de la imagen y debajo del contenido: baja el
-   fondo lo justo para que el título y la bajada lean siempre, sin apagar la
-   foto como lo haría un color sólido.
-   El .container sube a z-index 1 para quedar por encima. */
-.puertas-section::before,
-.svc-cards-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg,
-    rgba(5,11,21,0.74) 0%,
-    rgba(5,11,21,0.60) 50%,
-    rgba(5,11,21,0.78) 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-.puertas-section > .container,
-.svc-cards-section > .container {
-  position: relative;
-  z-index: 1;
-}
-
-.puertas-section {
-  padding-top: 60px;
-  padding-bottom: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-  background: transparent;
-}
-
-.section-head--stack {
-  display: block;
-  max-width: 720px;
-  margin-bottom: 48px;
-}
-.section-head--stack .lead { margin-top: 16px; }
-
-.puertas-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.puerta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 32px 28px 28px;
-  border-radius: var(--radius-l);
-  background: var(--glass-bg);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: var(--shadow-card);
-  text-decoration: none;
-  color: inherit;
-  /* Sin transform en el reposo: la tarjeta que sube al hover se anima con
-     translate, y encadenar los dos en la misma propiedad hace saltar la
-     animación de entrada de .reveal. */
-  transition: box-shadow .28s ease, translate .28s ease, background .28s ease;
-}
-.puerta:hover {
-  translate: 0 -4px;
-  box-shadow: var(--shadow-lift);
-  background: rgba(13,30,53,0.74);
-}
-
-.puerta-ico {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: linear-gradient(140deg, rgba(230,165,50,0.18), rgba(230,165,50,0.05));
-  border: 1px solid var(--line-strong);
-  color: var(--gold);
-  margin-bottom: 22px;
-}
-.puerta-ico svg { width: 24px; height: 24px; }
-
-.puerta-kicker {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 10px;
-}
-
-.puerta-titulo {
-  font-size: clamp(19px, 1.5vw, 23px);
-  line-height: 1.25;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  margin: 0 0 12px;
-}
-
-.puerta-desc {
-  font-size: 14.5px;
-  line-height: 1.6;
-  color: var(--ink-soft);
-  margin: 0 0 24px;
-  flex: 1;
-}
-
-.puerta-accion {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--gold);
-}
-.puerta-accion svg { transition: translate .22s ease; }
-.puerta:hover .puerta-accion svg { translate: 4px 0; }
-
-@media (max-width: 1023px) {
-  .puertas-section { min-height: 0; padding: 72px 0; }
-  .puertas-grid { grid-template-columns: 1fr; gap: 16px; }
-  .puerta { padding: 26px 22px 24px; }
-  .puerta-ico { width: 44px; height: 44px; margin-bottom: 18px; }
-  .puerta-desc { flex: none; }
-}
-
-/* ====================================================================
-   SERVICIOS — grilla de tarjetas que enlazan
-   ====================================================================
-   Ocho celdas: los siete servicios y el cruce al catálogo de software.
-   Cada una es un <a> a su página, sin overlay ni imagen de fondo.
-   ==================================================================== */
-
-.svc-cards-section {
-  padding-top: 60px;
-  padding-bottom: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-  background: transparent;
-}
-
-.svc-cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-top: 40px;
-}
-
-.svc-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 22px 20px 20px;
-  border-radius: var(--radius-m);
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  text-decoration: none;
-  color: inherit;
-  transition: border-color .24s ease, translate .24s ease, background .24s ease;
-}
-.svc-card:hover {
-  translate: 0 -3px;
-  border-color: var(--line-strong);
-  background: rgba(13,30,53,0.76);
-}
-
-/* El cruce al catálogo: mismo tamaño que el resto, distinto acento, para que
-   se lea como otra cosa sin romper la grilla. */
-.svc-card--cruce {
-  background: linear-gradient(150deg, rgba(230,165,50,0.13), rgba(10,22,40,0.66));
-  border-color: var(--line-strong);
-}
-
-.svc-card-ico {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: rgba(230,165,50,0.10);
-  border: 1px solid var(--line);
-  color: var(--gold);
-  margin-bottom: 16px;
-}
-.svc-card-ico svg { width: 19px; height: 19px; }
-
-.svc-card-kick {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 1.3px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 8px;
-}
-
-.svc-card-title {
-  font-size: 15.5px;
-  line-height: 1.3;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  margin: 0 0 8px;
-}
-
-.svc-card-desc {
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--ink-soft);
-  margin: 0 0 18px;
-  flex: 1;
-}
-
-.svc-card-mas {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--gold);
-}
-.svc-card-mas svg { width: 12px; height: 12px; transition: translate .22s ease; }
-.svc-card:hover .svc-card-mas svg { translate: 3px 0; }
-
-@media (max-width: 1100px) {
-  .svc-cards { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 1023px) {
-  .svc-cards-section { min-height: 0; padding: 72px 0; }
-}
-@media (max-width: 560px) {
-  .svc-cards { grid-template-columns: 1fr; }
-  .svc-card-desc { flex: none; }
-}
 /* ====================================================================
    PLACEHOLDER â€” deleted in Bento refactor; kept as tombstone
    ==================================================================== */
@@ -2134,200 +1885,6 @@ img { display: block; max-width: 100%; }
 .density-compact .section { --section-pad: 72px; }
 .density-airy    .section { --section-pad: 152px; }
 
-/* ====================================================================
-   SPATIAL NAVIGATION â€” 2D canvas (desktop â‰¥ 1024px)
-   No ScrollTrigger. Pure GSAP to() + wheel/touch/keyboard snap.
-
-   Viewport: fixed full-screen overlay (#spatial-scroll-outer)
-   Canvas:   absolute layer, GSAP animates transform translate(x,y)
-   Cells:    100vw Ã— 100vh absolute on the 2D grid
-   ==================================================================== */
-
-@media (min-width: 1024px) {
-
-  /* Full-screen fixed viewport â€” body.overflow is locked to "hidden" in JS */
-  #spatial-scroll-outer {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    z-index: 1; /* below header (z-60) and floating overlays */
-  }
-
-  /* Moving canvas */
-  #spatial-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    will-change: transform;
-  }
-
-  /* One viewport per section */
-  .spatial-cell {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* â”€â”€ Hero: already exactly 100vh â”€â”€ */
-  .spatial-cell .hero {
-    flex: none;
-    width: 100%;
-    height: 100%;
-    min-height: unset;
-  }
-
-  /* â”€â”€ Generic section inside a cell â”€â”€ */
-  .spatial-cell .section {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 44px 0 28px !important;
-  }
-
-  .spatial-cell .container {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
-  }
-
-  /* Tighter section headers */
-  .spatial-cell .section-head {
-    margin-bottom: 16px;
-    gap: 20px;
-    flex-shrink: 0;
-  }
-  .spatial-cell .section-head .h2 {
-    font-size: clamp(20px, 2.4vw, 36px);
-    line-height: 1.08;
-  }
-  .spatial-cell .section-head .lead {
-    font-size: clamp(12.5px, 1vw, 14.5px);
-    line-height: 1.5;
-  }
-  .spatial-cell .eyebrow { margin-bottom: 10px; }
-
-  /* ── PUERTAS y SERVICIOS dentro de una celda del canvas ──────────────────
-     La celda mide exactamente 100vw × 100vh y tiene overflow:hidden, así que
-     acá las dos secciones no pueden pedir min-height propio ni su padding
-     normal: la altura la da la celda y el contenido se achica para entrar.
-     El !important es para ganarle a .spatial-cell .section, que ya lo usa.
-  ────────────────────────────────────────────────────────────────────────── */
-
-  .spatial-cell .puertas-section,
-  .spatial-cell .svc-cards-section {
-    min-height: 0;
-    padding: 40px 0 28px !important;
-  }
-  .spatial-cell .puertas-section > .container,
-  .spatial-cell .svc-cards-section > .container {
-    justify-content: center;   /* cabecera + grilla, centradas como un bloque */
-  }
-
-  .spatial-cell .section-head--stack { margin-bottom: 28px; }
-
-  /* Puertas: tres columnas que reparten la altura sobrante de la celda */
-  .spatial-cell .puertas-grid { flex: none; gap: 16px; }
-  .spatial-cell .puerta       { padding: 24px 22px 22px; }
-  .spatial-cell .puerta-ico   { width: 42px; height: 42px; border-radius: 12px; margin-bottom: 16px; }
-  .spatial-cell .puerta-ico svg { width: 20px; height: 20px; }
-  .spatial-cell .puerta-kicker { font-size: 10px; margin-bottom: 8px; }
-  .spatial-cell .puerta-titulo { font-size: clamp(16px, 1.25vw, 20px); margin-bottom: 10px; }
-  .spatial-cell .puerta-desc   { font-size: 13.5px; line-height: 1.55; margin-bottom: 18px; flex: none; }
-
-  /* Servicios: ocho tarjetas en 4×2 dentro de la celda */
-  .spatial-cell .svc-cards { flex: none; margin-top: 24px; gap: 12px; }
-  .spatial-cell .svc-card        { padding: 16px 16px 14px; }
-  .spatial-cell .svc-card-ico    { width: 32px; height: 32px; border-radius: 9px; margin-bottom: 11px; }
-  .spatial-cell .svc-card-ico svg { width: 16px; height: 16px; }
-  .spatial-cell .svc-card-kick   { font-size: 9px; margin-bottom: 6px; }
-  .spatial-cell .svc-card-title  { font-size: 13.5px; margin-bottom: 6px; }
-  .spatial-cell .svc-card-desc   { font-size: 11.5px; line-height: 1.45; margin-bottom: 12px; flex: none; }
-  .spatial-cell .svc-card-mas    { font-size: 11.5px; }
-
-  /* â”€â”€ VALOR PROP â€” fullscreen inside cell â”€â”€ */
-  .spatial-cell .valor-section {
-    padding: 0 !important;
-    flex: none;
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-  }
-  .spatial-cell .valor-inner {
-    display: grid !important;
-    flex-direction: unset !important;
-    flex: none !important;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    height: 100%;
-    align-items: center;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  /* â”€â”€ PROCESS â€” vertically centered, horizontal steps â”€â”€ */
-  .spatial-cell .process {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .spatial-cell .process .container { padding: 0 var(--site-pad); }
-  .spatial-cell .steps { margin-top: 14px; }
-  .spatial-cell .step  { padding: 14px 18px; }
-
-  /* â”€â”€ CASES â€” 3 cards, vertically centered â”€â”€ */
-  .spatial-cell .cases-grid { flex: 1; align-content: center; }
-  .spatial-cell .case-card  { padding: 18px 20px; }
-  .spatial-cell .case-metric { font-size: clamp(26px, 3.2vw, 42px); margin-bottom: 2px; }
-  .spatial-cell .case-quote  {
-    font-size: 12px;
-    line-height: 1.45;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-  }
-
-  /* â”€â”€ CONTACT + FOOTER (final cell) â€” thin scrollbar for overflow â”€â”€ */
-  .spatial-cell--final {
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    scroll-snap-type: y mandatory;
-  }
-  .spatial-cell--final::-webkit-scrollbar { display: none; }
-  .spatial-cell--final .maia-section {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    min-height: 100vh;
-  }
-  .spatial-cell--final .footer {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .spatial-cell--final .section { flex: none; overflow: visible; }
-  .spatial-cell--final .footer  { flex-shrink: 0; }
-
-  /* maia-section fills spatial cell exactly */
-  .spatial-cell .maia-section {
-    flex: none;
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-  }
-
-}
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    MAIA CONTACT â€” Experiencia interactiva MAIA
@@ -4501,4 +4058,794 @@ body.pg-page .bw-cta-final .container { max-width: 820px; }
   .pg-cta-btns { gap: 9px; margin-top: 20px; }
   body.pg-page .bw-cta-final .lead { font-size: 13.5px; }
 }
-
+
+
+/* ############################################################################
+   SISTEMA CLARO — `body.g-light`, prefijo `g-`
+   ############################################################################
+
+   Reemplaza al tema oscuro con foto fija. El problema de aquél no era la foto:
+   era dónde estaba. Al vivir en `position:fixed` detrás de las cuatro secciones
+   había que taparla con un velo para poder leer —o sea, se pagaba su peso y su
+   ruido y encima se la veía apagada— y, como todas las secciones compartían
+   fondo, ninguna se distinguía de la anterior. Un sitio se lee prolijo cuando
+   se nota dónde termina una sección y empieza otra.
+
+   Acá la foto vive **sólo en el hero**, a plena potencia, y de la segunda
+   sección en adelante los fondos son sólidos y alternan: blanco → gris muy
+   claro → blanco → banda navy. Es el mismo mecanismo de vet.g360ia.com.ar.
+
+   ── Por qué está acotado a una clase ───────────────────────────────────────
+   Las ocho páginas de /servicios, las cuatro de producto y las cinco del blog
+   están publicadas e indexadas, y están dibujadas para el tema oscuro. Volcar
+   el `:root` las rompería a todas a la vez. Cada página se pasa a `g-light`
+   cuando le toca, y el día que no quede ninguna en el tema viejo se borra el
+   bloque oscuro entero y este archivo se achica en vez de crecer.
+
+   ── La paleta ──────────────────────────────────────────────────────────────
+   El oro se queda: es la identidad y está en el logo. Lo que cambia es dónde
+   va. `#e6a532` sobre blanco da un contraste de 2:1 —ilegible— así que hay
+   tres oros y cada uno tiene un trabajo:
+
+     --g-gold       gráfico (bordes, íconos, rellenos). Sobre blanco no se lee
+                    como texto, pero como forma se ve perfecto.
+     --g-gold-ink   el oro cuando ES texto sobre claro. Más oscuro a propósito:
+                    pasa AA sobre blanco, que el gráfico no pasa.
+     --g-gold-soft  el `#e6a532` original, para cuando el fondo es navy.
+
+   El navy deja de ser el fondo del sitio y pasa a ser el color del hero y de
+   las bandas de énfasis. Es el rol que cumple el petróleo en el vet.
+   ######################################################################### */
+
+body.g-light {
+  /* ── Navy ── */
+  --g-navy:        #0e2137;
+  --g-navy-2:      #16324f;
+  --g-navy-3:      #081521;
+
+  /* ── Oro, en sus tres trabajos ── */
+  --g-gold:        #c8891a;
+  --g-gold-ink:    #8f5d08;
+  --g-gold-soft:   #e6a532;
+  --g-gold-bg:     #fdf5e7;
+  --g-gold-line:   #f0dfba;
+
+  /* ── Tinta ── */
+  --g-ink:         #16293c;
+  --g-ink-soft:    #56697c;
+  --g-ink-mute:    #8a9aa8;
+
+  /* ── Superficies ── */
+  --g-bg:          #ffffff;
+  --g-bg-soft:     #f5f8fa;
+  --g-bg-warm:     #fdfaf3;
+  --g-line:        #e6ebf0;
+  --g-line-2:      #d6dee6;
+
+  /* ── Forma ── */
+  --g-radio:       16px;
+  --g-radio-s:     12px;
+  --g-sombra:      0 1px 2px rgba(14,33,55,0.04), 0 10px 30px -18px rgba(14,33,55,0.28);
+  --g-sombra-alta: 0 24px 60px -28px rgba(14,33,55,0.45);
+
+  /* Alto del hero. Lo comparten la sección y la imagen de fondo, que vive
+     fuera de #root para que el navegador la descubra sin esperar a React. */
+  --g-hero-h:      min(100svh, 880px);
+
+  background: var(--g-bg);
+  color: var(--g-ink);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  /* El tema oscuro bloqueaba el scroll del body para el canvas espacial. */
+  overflow-y: auto;
+}
+
+:where(body.g-light) :where(h1, h2, h3) {
+  color: var(--g-navy);
+  font-weight: 800;
+  letter-spacing: -0.022em;
+}
+:where(body.g-light) :where(p) { color: var(--g-ink-soft); }
+body.g-light a { text-decoration: none; }
+
+/* ===========================================================================
+   TIPOGRAFÍA DE SECCIÓN
+   Un solo lugar donde se decide cuánto mide un título: ocho secciones que se
+   van separando de a un píxel cada vez que alguien toca una es exactamente lo
+   que hace que un sitio se vea desprolijo.
+   =========================================================================== */
+
+.g-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--g-gold-ink);
+  margin-bottom: 14px;
+}
+.g-eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--g-gold);
+}
+
+.g-h1 {
+  font-size: clamp(34px, 5vw, 60px);
+  line-height: 1.05;
+  margin: 0 0 22px;
+}
+.g-h2 { font-size: clamp(26px, 3.4vw, 40px); line-height: 1.14; margin: 0 0 14px; }
+.g-h3 { font-size: 18px; line-height: 1.32; margin: 0 0 8px; font-weight: 700; }
+
+.g-lead {
+  font-size: clamp(15px, 1.5vw, 17.5px);
+  line-height: 1.65;
+  color: var(--g-ink-soft);
+  margin: 0;
+}
+.g-lead--centro { max-width: 640px; margin-left: auto; margin-right: auto; }
+
+/* Cursiva que no es cursiva: el énfasis en oro de los títulos. */
+.g-h1 em, .g-h2 em { font-style: normal; color: var(--g-gold-ink); }
+
+/* ===========================================================================
+   SECCIONES — el ritmo del sitio
+   Sin snap y sin altura fija: cada sección mide lo que mide su contenido, y se
+   distingue de la anterior por el fondo. Blanco, gris muy claro, blanco, navy.
+   =========================================================================== */
+
+.g-sec { padding: 96px 0; position: relative; }
+.g-sec--soft   { background: var(--g-bg-soft); }
+.g-sec--warm   { background: var(--g-bg-warm); }
+.g-sec--corta  { padding: 64px 0; }
+.g-sec--dark   { background: var(--g-navy); color: rgba(255,255,255,0.78); }
+.g-sec--dark h2, .g-sec--dark h3 { color: #fff; }
+.g-sec--dark p { color: rgba(255,255,255,0.74); }
+.g-sec--dark .g-eyebrow { color: var(--g-gold-soft); }
+.g-sec--dark .g-eyebrow::before { background: var(--g-gold-soft); }
+
+.g-contenedor {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+.g-cab {
+  max-width: 720px;
+  margin: 0 auto 52px;
+  text-align: center;
+}
+.g-cab .g-eyebrow { justify-content: center; }
+.g-cab .g-lead { margin-top: 4px; }
+
+/* Cabecera alineada a la izquierda, para las secciones que llevan algo al lado. */
+.g-cab--izq { margin: 0 0 40px; text-align: left; max-width: 620px; }
+.g-cab--izq .g-eyebrow { justify-content: flex-start; }
+
+/* ===========================================================================
+   BOTONES
+   El primario es oro con texto navy y no oro con texto blanco: blanco sobre
+   `#c8891a` da 3,2:1 y no pasa AA; el navy sobre el mismo oro da 4,9:1 y pasa.
+   Además se lee como una placa de bronce, que es lo que la marca quiere decir.
+   =========================================================================== */
+
+.g-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 24px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease,
+              border-color .18s ease, color .18s ease;
+}
+.g-btn svg { width: 15px; height: 15px; }
+.g-btn--grande { padding: 16px 30px; font-size: 16px; }
+
+.g-btn--primario {
+  background: var(--g-gold);
+  color: var(--g-navy);
+  box-shadow: 0 10px 24px -12px rgba(200,137,26,0.8);
+}
+.g-btn--primario:hover {
+  background: var(--g-gold-soft);
+  color: var(--g-navy);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px -14px rgba(200,137,26,0.9);
+}
+
+.g-btn--linea {
+  background: #fff;
+  border-color: var(--g-line-2);
+  color: var(--g-navy);
+}
+.g-btn--linea:hover {
+  border-color: var(--g-gold-line);
+  color: var(--g-gold-ink);
+  transform: translateY(-2px);
+  box-shadow: var(--g-sombra);
+}
+
+/* Sobre fondo oscuro: hero y bandas navy. */
+.g-btn--fantasma {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.3);
+  color: #fff;
+}
+.g-btn--fantasma:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.55);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Enlace de texto con flecha, para los cierres de sección. */
+.g-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--g-gold-ink);
+}
+.g-link svg { width: 13px; height: 13px; transition: translate .2s ease; }
+.g-link:hover svg { translate: 4px 0; }
+
+/* ===========================================================================
+   BARRA SUPERIOR
+   Transparente sobre el hero y blanca con desenfoque al bajar. Lo decide una
+   clase que pone el JS: hace falta saber el scroll, y eso el CSS no lo sabe.
+   =========================================================================== */
+
+.g-nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 900;
+  border-bottom: 1px solid transparent;
+  transition: background .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
+.g-nav.is-solida {
+  background: rgba(255,255,255,0.93);
+  backdrop-filter: saturate(170%) blur(12px);
+  -webkit-backdrop-filter: saturate(170%) blur(12px);
+  border-bottom-color: var(--g-line);
+  box-shadow: 0 6px 24px -20px rgba(14,33,55,0.6);
+}
+.g-nav-caja {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 70px;
+}
+
+.g-marca { display: flex; align-items: center; gap: 10px; }
+.g-marca img { width: 34px; height: 34px; border-radius: 9px; }
+.g-marca-txt {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  transition: color .28s ease;
+}
+.g-marca-txt .num { color: var(--g-gold-soft); }
+.g-marca-txt .ia  { color: var(--g-gold-soft); }
+.g-nav.is-solida .g-marca-txt { color: var(--g-navy); }
+.g-nav.is-solida .g-marca-txt .num,
+.g-nav.is-solida .g-marca-txt .ia { color: var(--g-gold-ink); }
+
+.g-nav-links { display: flex; align-items: center; gap: 2px; margin-left: 18px; }
+.g-nav-link {
+  padding: 9px 13px;
+  border-radius: 9px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  transition: color .18s ease, background .18s ease;
+}
+.g-nav-link:hover { color: #fff; background: rgba(255,255,255,0.11); }
+.g-nav.is-solida .g-nav-link { color: var(--g-ink-soft); }
+.g-nav.is-solida .g-nav-link:hover { color: var(--g-gold-ink); background: var(--g-gold-bg); }
+
+.g-nav-acciones { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+
+.g-nav-acceso {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 17px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.08);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #fff;
+  transition: border-color .18s ease, color .18s ease, background .18s ease, transform .18s ease;
+}
+.g-nav-acceso:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.55); transform: translateY(-1px); }
+.g-nav.is-solida .g-nav-acceso {
+  background: #fff;
+  border-color: var(--g-line-2);
+  color: var(--g-navy);
+}
+.g-nav.is-solida .g-nav-acceso:hover { border-color: var(--g-gold-line); color: var(--g-gold-ink); }
+
+.g-hamb {
+  display: none;
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  align-items: center; justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #fff;
+  cursor: pointer;
+}
+.g-nav.is-solida .g-hamb { color: var(--g-navy); }
+.g-hamb:hover { background: rgba(255,255,255,0.12); }
+.g-nav.is-solida .g-hamb:hover { background: rgba(0,0,0,0.05); }
+
+/* El menú de celular: una hoja que baja. */
+.g-nav-movil {
+  display: grid;
+  gap: 3px;
+  padding: 10px 0 18px;
+  border-top: 1px solid var(--g-line);
+  background: #fff;
+  animation: g-baja .22s ease both;
+}
+.g-nav-movil a {
+  padding: 13px 8px;
+  border-radius: 9px;
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--g-navy);
+}
+.g-nav-movil a:hover { background: var(--g-gold-bg); color: var(--g-gold-ink); }
+.g-nav-movil .g-btn { margin-top: 8px; }
+
+@keyframes g-baja {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ===========================================================================
+   HERO
+   La foto vive acá y sólo acá. Como no tiene que competir con ocho secciones
+   de texto encima, alcanza con un degradado que oscurece de la mitad para
+   abajo —donde va el título— y la deja verse entera arriba.
+   =========================================================================== */
+
+.g-hero {
+  position: relative;
+  height: var(--g-hero-h);
+  min-height: 560px;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: clamp(80px, 12vh, 132px);
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* La imagen vive fuera de #root, en el HTML, para que el navegador la
+   descubra en el primer parseo y no después de bajar y ejecutar React: es el
+   elemento LCP de la página. Por eso se posiciona desde acá y no desde el
+   componente. */
+.g-hero-img {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: var(--g-hero-h);
+  min-height: 560px;
+  z-index: -2;
+  overflow: hidden;
+  background: var(--g-navy-3);
+}
+.g-hero-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* La entrada: la imagen abre apenas ampliada y se asienta. Es lo que da la
+     sensación de que el sitio arrancó, sin costar un preloader —que retrasaría
+     el LCP a propósito y sólo se vería en la primera visita. */
+  animation: g-hero-entra 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes g-hero-entra {
+  from { opacity: 0; transform: scale(1.06); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* El degradado de lectura. Va como capa propia y no como filtro sobre la
+   imagen: así arriba la foto se ve limpia y abajo el texto tiene su fondo. */
+.g-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg,
+      rgba(8,21,33,0.55) 0%,
+      rgba(8,21,33,0.22) 22%,
+      rgba(8,21,33,0.72) 55%,
+      rgba(8,21,33,0.93) 100%);
+}
+
+.g-hero-inner { position: relative; max-width: 780px; }
+.g-hero h1 { color: #fff; }
+.g-hero h1 em { color: var(--g-gold-soft); }
+.g-hero .g-eyebrow { color: var(--g-gold-soft); }
+.g-hero .g-eyebrow::before { background: var(--g-gold-soft); }
+.g-hero-lead {
+  font-size: clamp(15.5px, 1.7vw, 18.5px);
+  line-height: 1.6;
+  color: rgba(255,255,255,0.82);
+  margin: 0 0 30px;
+  max-width: 620px;
+}
+.g-hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.g-hero-nota {
+  margin: 22px 0 0;
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.64);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+}
+.g-hero-nota span { display: inline-flex; align-items: center; gap: 7px; }
+.g-hero-nota svg { width: 14px; height: 14px; color: var(--g-gold-soft); }
+
+/* La onda que despega el hero de la sección siguiente sin una línea dura. */
+.g-onda {
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  width: 100%;
+  height: 64px;
+  display: block;
+  z-index: 2;
+}
+.g-onda path { fill: var(--g-bg); }
+.g-onda[data-sobre="soft"] path { fill: var(--g-bg-soft); }
+
+/* ===========================================================================
+   CIFRAS — la banda que va justo debajo del hero
+   =========================================================================== */
+
+.g-cifras {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  text-align: center;
+}
+.g-cifra-n {
+  font-size: clamp(30px, 3.4vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--g-gold-ink);
+  margin-bottom: 9px;
+}
+.g-cifra-t {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--g-ink-soft);
+  margin: 0 auto;
+  max-width: 24ch;
+}
+
+/* ===========================================================================
+   TARJETAS
+   =========================================================================== */
+
+.g-grid { display: grid; gap: 18px; }
+.g-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.g-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.g-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+.g-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 28px 26px 26px;
+  border-radius: var(--g-radio);
+  background: #fff;
+  border: 1px solid var(--g-line);
+  color: inherit;
+  transition: border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+}
+a.g-card:hover {
+  border-color: var(--g-gold-line);
+  box-shadow: var(--g-sombra);
+  transform: translateY(-3px);
+}
+/* Sobre fondo gris la tarjeta blanca ya se despega sola; el borde sobra. */
+.g-sec--soft .g-card { border-color: transparent; box-shadow: var(--g-sombra); }
+.g-sec--soft a.g-card:hover { box-shadow: var(--g-sombra-alta); }
+
+.g-card-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px; height: 46px;
+  border-radius: 12px;
+  background: var(--g-gold-bg);
+  color: var(--g-gold-ink);
+  margin-bottom: 18px;
+  flex: none;
+}
+.g-card-ico svg { width: 22px; height: 22px; }
+
+.g-card-kick {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--g-gold-ink);
+  margin-bottom: 8px;
+  display: block;
+}
+.g-card-t { font-size: 17px; line-height: 1.3; font-weight: 700; color: var(--g-navy); margin: 0 0 9px; }
+.g-card-p { font-size: 14.5px; line-height: 1.6; color: var(--g-ink-soft); margin: 0 0 18px; flex: 1; }
+.g-card-mas {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--g-gold-ink);
+}
+.g-card-mas svg { width: 12px; height: 12px; transition: translate .2s ease; }
+a.g-card:hover .g-card-mas svg { translate: 4px 0; }
+
+/* La tarjeta destacada de las tres puertas. */
+.g-card--puerta { padding: 34px 30px 30px; }
+.g-card--puerta .g-card-ico { width: 54px; height: 54px; border-radius: 14px; }
+.g-card--puerta .g-card-ico svg { width: 26px; height: 26px; }
+.g-card--puerta .g-card-t { font-size: 21px; }
+
+/* ===========================================================================
+   DOS COLUMNAS — texto de un lado, imagen del otro
+   =========================================================================== */
+
+.g-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.g-split--ancha { grid-template-columns: 1.05fr 0.95fr; }
+.g-split--invertida > :first-child { order: 2; }
+
+/* El marco de captura de producto: una ventana de navegador simplificada.
+   Es el detalle que hace que una captura se lea como un sistema de verdad y
+   no como una imagen suelta pegada en la página. */
+.g-marco {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--g-line-2);
+  background: #fff;
+  box-shadow: var(--g-sombra-alta);
+}
+.g-marco-barra {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--g-line);
+  background: var(--g-bg-soft);
+}
+.g-marco-punto { width: 9px; height: 9px; border-radius: 50%; background: var(--g-line-2); flex: none; }
+.g-marco-url {
+  margin-left: 8px;
+  font-size: 11.5px;
+  color: var(--g-ink-mute);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.g-marco img { display: block; width: 100%; height: auto; }
+
+/* ===========================================================================
+   LISTA CON TILDE
+   =========================================================================== */
+
+.g-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.g-lista li {
+  position: relative;
+  padding-left: 30px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--g-ink-soft);
+}
+.g-lista li strong { color: var(--g-navy); font-weight: 700; }
+.g-lista li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 3px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background-color: var(--g-gold-bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238f5d08' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E");
+  background-size: 11px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.g-sec--dark .g-lista li { color: rgba(255,255,255,0.76); }
+.g-sec--dark .g-lista li strong { color: #fff; }
+.g-sec--dark .g-lista li::before {
+  background-color: rgba(230,165,50,0.18);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e6a532' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E");
+}
+
+/* ===========================================================================
+   CINTA DE DATO FUERTE
+   =========================================================================== */
+
+.g-cinta {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  padding: 34px 40px;
+  border-radius: var(--g-radio);
+  background: linear-gradient(120deg, rgba(230,165,50,0.14), rgba(230,165,50,0.04));
+  border: 1px solid var(--g-gold-line);
+}
+.g-cinta-n {
+  font-size: clamp(40px, 5vw, 62px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--g-gold-ink);
+  flex: none;
+}
+.g-cinta-t { font-size: 15.5px; line-height: 1.6; margin: 0; }
+.g-cinta-t strong { color: var(--g-navy); font-weight: 700; }
+.g-sec--dark .g-cinta {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(230,165,50,0.28);
+}
+.g-sec--dark .g-cinta-n { color: var(--g-gold-soft); }
+.g-sec--dark .g-cinta-t strong { color: #fff; }
+
+/* ===========================================================================
+   CIERRE DE SECCIÓN — la línea de "ver todo" centrada debajo de una grilla
+   =========================================================================== */
+
+.g-cierre { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 40px; }
+
+/* ===========================================================================
+   ENTRADA AL SCROLL
+   Las secciones aparecen al entrar en pantalla. Arrancan invisibles, así que
+   sin JavaScript nunca se encenderían: el <noscript> del HTML las deja
+   visibles en ese caso.
+   =========================================================================== */
+
+.g-rev {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .7s cubic-bezier(0.16,1,0.3,1), transform .7s cubic-bezier(0.16,1,0.3,1);
+  transition-delay: var(--g-delay, 0ms);
+}
+.g-rev.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .g-rev { opacity: 1; transform: none; transition: none; }
+  .g-hero-img img { animation: none; }
+}
+
+/* ===========================================================================
+   ADAPTACIÓN
+   Sin snap y sin alturas fijas, adaptar es sólo cambiar columnas y aire: el
+   contenido se estira hacia abajo y nada se corta.
+   =========================================================================== */
+
+@media (max-width: 1023px) {
+  .g-sec { padding: 72px 0; }
+  .g-sec--corta { padding: 52px 0; }
+  .g-grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .g-split { grid-template-columns: 1fr; gap: 36px; }
+  .g-split--invertida > :first-child { order: 0; }
+  .g-cab { margin-bottom: 38px; }
+  .g-nav-links { display: none; }
+  .g-hamb { display: inline-flex; }
+}
+
+@media (max-width: 720px) {
+  .g-sec { padding: 60px 0; }
+  .g-grid, .g-grid--2, .g-grid--3, .g-grid--4 { grid-template-columns: 1fr; gap: 12px; }
+  .g-card { padding: 22px 20px 20px; }
+  .g-card--puerta { padding: 24px 22px 22px; }
+  .g-cifras { grid-template-columns: repeat(2, 1fr); gap: 26px 18px; }
+  .g-cinta { flex-direction: column; align-items: flex-start; gap: 14px; padding: 26px 24px; }
+  .g-hero { padding-bottom: 72px; }
+  .g-hero-nota { gap: 10px 16px; font-size: 12.5px; }
+  .g-onda { height: 42px; }
+  /* Sólo el logo y la hamburguesa: las acciones viven en la hoja desplegable. */
+  .g-nav-acciones > .g-nav-acceso,
+  .g-nav-acciones > .g-btn { display: none; }
+
+  /* El hero ocupa casi toda la pantalla y el texto le come dos tercios, así
+     que el degradado de lectura tiene que empezar a bajar mucho antes que en
+     escritorio: la bajada cae justo sobre la parte más clara de la foto. */
+  .g-hero::before {
+    background: linear-gradient(180deg,
+      rgba(8,21,33,0.60) 0%,
+      rgba(8,21,33,0.34) 16%,
+      rgba(8,21,33,0.80) 42%,
+      rgba(8,21,33,0.95) 100%);
+  }
+  .g-hero .g-h1 { font-size: clamp(29px, 8.2vw, 38px); }
+  .g-hero-lead { font-size: 15px; line-height: 1.55; margin-bottom: 26px; }
+  .g-hero-ctas { flex-direction: column; align-items: stretch; }
+  .g-hero-ctas .g-btn { width: 100%; }
+  .g-hero-nota { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
+/* ===========================================================================
+   PIEZAS HEREDADAS DEL TEMA OSCURO QUE SE QUEDAN
+   ===========================================================================
+   Dos bloques del sitio viejo siguen sirviendo tal cual y no vale la pena
+   rehacerlos: el panel de contacto (una maqueta de conversación de WhatsApp,
+   que se lee mejor sobre oscuro) y el pie. Los dos estaban dibujados para
+   flotar sobre la foto fija —texto blanco con `text-shadow` y fondo
+   transparente— y sin la foto quedarían blancos sobre blanco.
+
+   Acá se les da fondo propio. De paso cierran la página: la sección de
+   contacto en navy y el pie un tono más profundo, que es lo que hace que se
+   lea el corte entre los dos sin una línea.
+   =========================================================================== */
+
+body.g-light .maia-section {
+  background: var(--g-navy);
+  min-height: 0;
+  padding: 88px 0;
+}
+/* La trama de puntos y el resplandor del cursor estaban calibrados contra la
+   foto; sobre el navy plano quedaban casi invisibles. */
+body.g-light .maia-world-bg {
+  background-image: radial-gradient(circle, rgba(230,165,50,0.16) 1px, transparent 1px);
+  opacity: 0.7;
+}
+
+body.g-light .footer {
+  background: var(--g-navy-3);
+  border-top: 0;
+  padding: 0 0 40px;
+}
+body.g-light .footer > .container { margin-top: 48px; }
+/* Sin foto detrás no hay nada contra qué contrastar: la sombra sólo ensucia. */
+body.g-light .footer-tag,
+body.g-light .footer h5,
+body.g-light .footer ul a { text-shadow: none; }
+body.g-light .footer h5 { color: var(--g-gold-soft); }
+body.g-light .footer-tag { color: rgba(255,255,255,0.62); }
+body.g-light .footer ul a { color: rgba(255,255,255,0.78); font-weight: 500; }
+body.g-light .footer ul a:hover { color: var(--g-gold-soft); }
+body.g-light .footer-bottom {
+  border-top-color: rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.5);
+}
+body.g-light .footer-bottom a { color: rgba(255,255,255,0.5); }
+body.g-light .footer-bottom a:hover { color: var(--g-gold-soft); }
+
+/* El carrusel de tecnologías: era vidrio esmerilado sobre la foto. Sobre el
+   navy del pie el desenfoque no tiene qué desenfocar, así que va color plano. */
+body.g-light .ft-tools {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-top-color: rgba(255,255,255,0.07);
+  border-bottom-color: rgba(255,255,255,0.07);
+}
+body.g-light .ft-tools-label { color: rgba(255,255,255,0.45); }
+body.g-light .ft-tool-name { color: rgba(255,255,255,0.62); }
