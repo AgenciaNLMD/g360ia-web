@@ -3548,8 +3548,11 @@ body.g-light a { text-decoration: none; }
   body.g-light .g-hero-ctas { grid-area: 3 / 1; margin-top: 4px; }
   body.g-light .g-hero-nota { grid-area: 4 / 1; }
 
-  /* Más chico, porque la columna es angosta. */
-  body.g-light .g-hero .g-h1 { font-size: clamp(26px, 2.5vw, 35px); }
+  /* 44px de techo: es donde el título deja de partirse en «Transformamos tu /
+     negocio» y pasa a «Transformamos / tu negocio», que reparte los cuatro
+     renglones mucho más parejos. Más grande que eso y el primer renglón mide
+     357 de los 374 de la columna: queda al borde de desbordar. */
+  body.g-light .g-hero .g-h1 { font-size: clamp(30px, 3.05vw, 44px); }
 }
 
 /* La onda que despega el hero de la sección siguiente sin una línea dura. */
