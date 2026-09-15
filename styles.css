@@ -3500,6 +3500,58 @@ body.g-light a { text-decoration: none; }
 .g-hero-nota span { display: inline-flex; align-items: center; gap: 7px; }
 .g-hero-nota svg { width: 14px; height: 14px; color: var(--g-gold-soft); }
 
+/* ===========================================================================
+   HERO — reparto del texto, desde 1024px
+   ===========================================================================
+   Dos zonas, no dos columnas parejas:
+
+     · columna derecha, angosta: volanta, título y párrafo, uno debajo del otro
+     · abajo a la izquierda: los botones y los tres avisos, a lo ancho
+
+   El párrafo ocupa las mismas dos filas que los botones y los avisos, así que
+   los dos bloques arrancan y terminan a la misma altura. Las dos celdas de
+   arriba a la izquierda quedan vacías a propósito: es la parte de la foto que
+   se deja ver.
+
+   La foto no se toca acá. Ni el encuadre, ni el tamaño, ni el velo.
+   =========================================================================== */
+@media (min-width: 1024px) {
+  /* Con `body.g-light` adelante porque las reglas base de .g-hero-lead y
+     .g-hero-nota están más arriba con la misma especificidad. */
+  /* El hero deja de alinear abajo: el bloque ocupa el alto entero para que la
+     volanta arranque arriba y el párrafo y los botones queden abajo. */
+  .g-hero { align-items: stretch; padding-top: 112px; }
+  .g-hero > .g-contenedor { display: flex; align-items: stretch; }
+
+  body.g-light .g-hero-inner {
+    width: 100%;
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(300px, 26vw, 380px);
+    /* La fila del título se estira: empuja el párrafo y los botones abajo y
+       deja la volanta pegada arriba. */
+    grid-template-rows: auto 1fr auto auto;
+    column-gap: clamp(32px, 4vw, 64px);
+    align-items: start;
+  }
+
+  body.g-light .g-hero .g-eyebrow { grid-area: 1 / 2; margin-bottom: 14px; }
+  body.g-light .g-hero .g-h1      { grid-area: 2 / 2; }
+
+  /* Arranca con los botones y termina con los avisos. */
+  body.g-light .g-hero-lead {
+    grid-area: 3 / 2 / 5 / 3;
+    max-width: none;
+    margin: 0;
+  }
+
+  body.g-light .g-hero-ctas { grid-area: 3 / 1; margin-top: 4px; }
+  body.g-light .g-hero-nota { grid-area: 4 / 1; }
+
+  /* Más chico, porque la columna es angosta. */
+  body.g-light .g-hero .g-h1 { font-size: clamp(26px, 2.5vw, 35px); }
+}
+
 /* La onda que despega el hero de la sección siguiente sin una línea dura. */
 .g-onda {
   position: absolute;
