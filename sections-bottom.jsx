@@ -293,6 +293,10 @@ function Footer({ onNav }) {
             <h5>Navegación</h5>
             <ul>
               <li><a href="#servicios" onClick={(e) => go(e, "servicios")}>Servicios</a></li>
+              <li><a href="/software">Software propio</a></li>
+              <li><a href="/software-para-veterinarias">Software para veterinarias</a></li>
+              <li><a href="/afiliados">Programa de afiliados</a></li>
+              <li><a href="/blog/">Blog</a></li>
             </ul>
           </div>
           <div>

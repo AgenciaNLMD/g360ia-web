@@ -20,6 +20,13 @@ const blog = Object.fromEntries(
     .map((f) => ['blog/' + f.replace('.html', ''), resolve(root, 'blog', f)])
 )
 
+/* Software: el catálogo y, más adelante, una landing por producto */
+const software = Object.fromEntries(
+  readdirSync(resolve(root, 'software'))
+    .filter((f) => f.endsWith('.html'))
+    .map((f) => ['software/' + f.replace('.html', ''), resolve(root, 'software', f)])
+)
+
 /* Legales: cada .html entra al build y sale en dist/legal/ */
 const legal = Object.fromEntries(
   readdirSync(resolve(root, 'legal'))
@@ -34,7 +41,17 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(root, 'index.html'),
+
+        /* Páginas sueltas de la raíz. La landing del producto veterinario vive
+           acá y no en software/ para quedar en /software-para-veterinarias: la
+           dirección con la frase que la gente busca es la que pelea el
+           posicionamiento, y además es la que ya escriben los mails del
+           turnero (lib/email-textos.js). */
+        'software-para-veterinarias': resolve(root, 'software-para-veterinarias.html'),
+        afiliados: resolve(root, 'afiliados.html'),
+
         ...servicios,
+        ...software,
         ...blog,
         ...legal,
       },

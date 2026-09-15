@@ -4,3 +4,4 @@ lh.json
 psi.json
 .env
 .env.*
+.gstack/

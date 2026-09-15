@@ -1,6 +1,5 @@
 import React, { useState as useStateH, useEffect as useEffectH, useRef as useRefH } from 'react';
-import { flushSync } from 'react-dom';
-import { Icon, SERVICES } from './data.jsx';
+import { Icon, SERVICES, PUERTAS } from './data.jsx';
 
 /* ===================== HEADER ===================== */
 function Header({ active, onNav }) {
@@ -188,332 +187,126 @@ function Hero({ onNav }) {
   );
 }
 
-/* ===================== SERVICES BENTO METRO ===================== */
-
-/* Split a string into word <span class="w"> elements for stagger animation */
-function wrapWords(text) {
-  return text.split(/(\s+)/).map((part, i) =>
-    /^\s+$/.test(part) ? part : React.createElement('span', { key: i, className: 'w' }, part)
-  );
-}
-
-function Services({ onContact }) {
-  const [expandedIdx, setExpandedIdx] = useStateH(null);
-  const [bgReady, setBgReady] = useStateH(false);
-  const bentoRef = useRefH(null);
-  const animRef  = useRefH({ idx: null, geo: null }); /* animation state — kept in ref, not state */
-
-  /* ── Lazy backgrounds: los webp de fondo (~1.3 MB en total) recién se piden
-     cuando el bento está a menos de una pantalla de distancia del viewport ── */
-  useEffectH(() => {
-    const bento = bentoRef.current;
-    if (!bento) return;
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setBgReady(true); obs.disconnect(); }
-    }, { rootMargin: '100% 0px' });
-    obs.observe(bento);
-    return () => obs.disconnect();
-  }, []);
-
-  /* ── Tile entrance animation ──
-     Desktop: revela todas las tiles en cascada cuando el bento entra en vista.
-     Mobile:  cada tile se revela individualmente al entrar al viewport
-              (el CSS alterna la dirección: impares desde la izq, pares desde la der) */
-  useEffectH(() => {
-    const bento = bentoRef.current;
-    if (!bento) return;
-    const tiles = Array.from(bento.querySelectorAll('.svc-tile'));
-
-    if (window.innerWidth <= 1024) {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.target.classList.contains('is-expanded')) return;
-          if (entry.intersectionRatio >= 0.25) {
-            /* Entró lo suficiente — animar */
-            entry.target.classList.add('tile-visible');
-          } else if (!entry.isIntersecting) {
-            /* Salió COMPLETAMENTE de la vista — reset para re-animar al volver.
-               Entre 0% y 25% no se toca: evita que se desvanezca estando aún visible */
-            entry.target.classList.remove('tile-visible');
-          }
-        });
-      }, { threshold: [0, 0.25] });
-      tiles.forEach((tile) => obs.observe(tile));
-      return () => obs.disconnect();
-    }
-
-    let fired = false;
-    const reveal = () => {
-      if (fired) return;
-      fired = true;
-      tiles.forEach((tile, i) => {
-        setTimeout(() => tile.classList.add('tile-visible'), 80 + i * 70);
-      });
-    };
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { reveal(); obs.disconnect(); }
-    }, { threshold: 0.08 });
-    obs.observe(bento);
-    return () => obs.disconnect();
-  }, []);
-
-  /* ── Expand — mismo enfoque del reference HTML ── */
-  const doExpand = (tile, idx) => {
-    const bento = bentoRef.current;
-    if (!bento || !tile) return;
-
-    const b = bento.getBoundingClientRect();
-    const r = tile.getBoundingClientRect();
-    const geo = {
-      left: r.left - b.left, top: r.top - b.top,
-      w: r.width,             h: r.height,
-      bW: b.width,            bH: b.height,
-    };
-    animRef.current = { idx, geo };
-
-    /* Guardar y limpiar grid-column/grid-row inline para que el containing block
-       sea el bento completo y no la grid area del tile */
-    tile.dataset.gridCol = tile.style.gridColumn;
-    tile.dataset.gridRow = tile.style.gridRow;
-    tile.style.gridColumn = '';
-    tile.style.gridRow    = '';
-
-    /* Pin al tamaño/posición actual ANTES de agregar is-expanded */
-    tile.style.left   = geo.left + 'px';
-    tile.style.top    = geo.top  + 'px';
-    tile.style.width  = geo.w   + 'px';
-    tile.style.height = geo.h   + 'px';
-
-    /* Agregar clase → position:absolute toma efecto */
-    flushSync(() => setExpandedIdx(idx));
-
-    /* rAF: animar al overlay expandido */
-    requestAnimationFrame(() => {
-      tile.style.left   = '0';
-      tile.style.top    = '0';
-      tile.style.width  = b.width  + 'px';
-      tile.style.height = b.height + 'px';
-
-      animRef.current.expanding = true;
-      const onExpandDone = (e) => {
-        if (e.propertyName !== 'width') return;
-        tile.removeEventListener('transitionend', onExpandDone);
-        if (animRef.current) animRef.current.expanding = false;
-      };
-      tile.addEventListener('transitionend', onExpandDone);
-    });
-
-    /* Word stagger */
-    tile.querySelectorAll('.svc-tile-title .w').forEach((w, i) => {
-      w.style.animationDelay = (0.10 + i * 0.05) + 's';
-    });
-    tile.querySelectorAll('.svc-tile-desc .w').forEach((w, i) => {
-      w.style.transitionDelay = (0.35 + i * 0.025) + 's';
-    });
-  };
-
-  /* ── Collapse: fade text → animate back → remove overlay ── */
-  const doCollapse = (tile, idx) => {
-    const { idx: aIdx, geo, expanding } = animRef.current;
-    if (!tile || !geo || aIdx !== idx) return;
-    if (expanding) return; /* ignore mouseleave while expand animation is running */
-
-    /* Reset word stagger and hide sharp lens */
-    tile.querySelectorAll('.svc-tile-title .w').forEach(w => { w.style.animationDelay = '0s'; });
-    tile.querySelectorAll('.svc-tile-desc .w').forEach(w => { w.style.transitionDelay = '0s'; });
-    animRef.current = { idx: null, geo: null };
-
-    /* Animar de vuelta a posición original */
-    tile.style.left   = geo.left + 'px';
-    tile.style.top    = geo.top  + 'px';
-    tile.style.width  = geo.w    + 'px';
-    tile.style.height = geo.h    + 'px';
-
-    const done = (e) => {
-      if (e.propertyName !== 'width') return;
-      tile.removeEventListener('transitionend', done);
-      flushSync(() => setExpandedIdx(null));
-      /* Restaurar grid-column/grid-row y limpiar estilos de animación */
-      tile.style.gridColumn = tile.dataset.gridCol || '';
-      tile.style.gridRow    = tile.dataset.gridRow || '';
-      tile.style.left   = '';
-      tile.style.top    = '';
-      tile.style.width  = '';
-      tile.style.height = '';
-      /* React re-renderiza y borra tile-visible — la restauramos */
-      tile.classList.add('tile-visible');
-    };
-    tile.addEventListener('transitionend', done);
-  };
-
-  /* Click handler: expand on click, collapse on second click */
-  const handleClick = (idx) => (e) => {
-    const tile = e.currentTarget;
-    if (window.innerWidth <= 1024) {
-      const isExpanding = !tile.classList.contains('is-expanded');
-      flushSync(() => setExpandedIdx(isExpanding ? idx : null));
-      /* Lock/unlock body scroll for full-screen overlay */
-      document.documentElement.classList.toggle('svc-lock', isExpanding);
-      /* Restaurar tile-visible que React borra al re-renderizar */
-      if (!isExpanding) tile.classList.add('tile-visible');
-      return;
-    }
-    if (tile.classList.contains('is-expanded')) {
-      doCollapse(tile, idx);
-    } else {
-      if (animRef.current.idx !== null) return;
-      doExpand(tile, idx);
-    }
-  };
-
-  /* Close when clicking outside the expanded tile */
-  useEffectH(() => {
-    if (expandedIdx === null) return;
-    const handleOutside = (e) => {
-      const expandedTile = bentoRef.current?.querySelector('.is-expanded');
-      if (expandedTile && !expandedTile.contains(e.target)) {
-        if (window.innerWidth <= 1024) {
-          flushSync(() => setExpandedIdx(null));
-          document.documentElement.classList.remove('svc-lock');
-        } else {
-          doCollapse(expandedTile, expandedIdx);
-        }
-      }
-    };
-    document.addEventListener('click', handleOutside);
-    return () => document.removeEventListener('click', handleOutside);
-  }, [expandedIdx]);
-
-
-  /* Render a single bento tile */
-  const renderTile = (s, idx) => {
-    const IconComp   = Icon[s.icon];
-    const isFeature  = s.id === 'software';
-    const hasBg      = !!s.bgImage;
-    const isExpanded = expandedIdx === idx;
-
-    let cls = 'svc-tile';
-    if (isFeature)  cls += ' svc-tile--feature';
-    if (hasBg)      cls += ' has-bg';
-    if (isExpanded) cls += ' is-expanded';
-
-    const tileStyle = (s.grid && !isExpanded)
-      ? { gridColumn: s.grid.col, gridRow: s.grid.row }
-      : {};
-
-    return (
-      <article
-        key={s.id}
-        className={cls}
-        style={tileStyle}
-        role="listitem"
-        aria-label={s.name}
-        onClick={handleClick(idx)}
-      >
-        {/* per-tile background image layers */}
-        {hasBg && (
-          <div className="svc-bg" aria-hidden="true"
-            style={bgReady ? { backgroundImage: `url('${s.bgImage}')` } : undefined} />
-        )}
-
-        {/* decorative layers */}
-        <div className="svc-tile-glow" aria-hidden="true" />
-        <div className="svc-tile-wash" aria-hidden="true" />
-
-        {/* collapsed card content */}
-        <div className="svc-tile-ico" aria-hidden="true"><IconComp /></div>
-        <div className="svc-tile-text">
-          <div className="svc-tile-kick">{s.tag}</div>
-          <h3 className="svc-tile-title">{wrapWords(s.name)}</h3>
-        </div>
-
-        {/* detail panel — visible only when expanded */}
-        <div className="svc-tile-desc">
-          {s.tagline && <p className="svc-tile-tagline">{wrapWords(s.tagline)}</p>}
-          <p>{wrapWords(s.desc)}</p>
-          {s.includes && s.includes.length > 0 && (
-            <ul className="svc-tile-includes">
-              {s.includes.map((it, i) => (
-                <li key={i}>
-                  <span className="check"><Icon.check /></span>
-                  {it}
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className="svc-tile-actions">
-            <button
-              className="btn btn-primary"
-              onClick={(e) => {
-                e.stopPropagation();
-                const tile = e.currentTarget.closest('.svc-tile');
-                if (tile) {
-                  if (window.innerWidth <= 1024) {
-                    document.documentElement.classList.remove('svc-lock');
-                    flushSync(() => setExpandedIdx(null));
-                    tile.classList.add('tile-visible');
-                  } else {
-                    doCollapse(tile, idx);
-                  }
-                }
-                setTimeout(() => onContact && onContact(s.id), 350);
-              }}
-            >
-              Quiero este servicio <Icon.arrow />
-            </button>
-            {s.page && (
-              <a href={s.page} className="btn btn-ghost" onClick={(e) => e.stopPropagation()}>
-                Saber más <Icon.arrow />
-              </a>
-            )}
-          </div>
-        </div>
-
-        {/* close button — visible only when expanded */}
-        <button
-          className="svc-tile-close"
-          aria-label="Cerrar"
-          onClick={(e) => {
-            e.stopPropagation();
-            if (window.innerWidth <= 1024) {
-              document.documentElement.classList.remove('svc-lock');
-              flushSync(() => setExpandedIdx(null));
-              e.currentTarget.closest('.svc-tile')?.classList.add('tile-visible');
-            } else {
-              doCollapse(e.currentTarget.closest('.svc-tile'), idx);
-            }
-          }}
-        >✕</button>
-
-        {/* click hint (hidden once expanded) */}
-        <div className="svc-tile-cta" aria-hidden="true">Ver detalle →</div>
-
-      </article>
-    );
+/* ===================== PUERTAS =====================
+   Tres tarjetas y nada más. Es lo que reemplaza al catálogo que había acá:
+   la agencia vende servicio, producto y reventa a tres personas distintas, y
+   la home ahora pregunta cuál de las tres sos en vez de mostrarle las tres
+   cosas enteras a todo el mundo. Cada puerta lleva a su lugar y ahí se abre. */
+function Puertas({ onNav }) {
+  const ir = (p) => (e) => {
+    /* Las que apuntan a una sección de esta misma página navegan por el
+       canvas (desktop) o por scroll (mobile); las que apuntan a otra página
+       son un <a> normal y no las tocamos. */
+    if (!p.nav) return;
+    e.preventDefault();
+    onNav(p.nav);
   };
 
   return (
-    <section id="servicios" className="section svc-bento-section">
-      <div className="container container--svc-head">
+    <section id="puertas" className="section puertas-section" aria-label="Por dónde empezar">
+      <div className="container">
+        <div className="section-head section-head--stack">
+          <span className="eyebrow reveal">Por dónde empezar</span>
+          <h2 className="h-display h2 reveal" style={{ '--delay': '60ms' }}>
+            ¿A qué viniste?
+          </h2>
+          <p className="lead reveal" style={{ '--delay': '140ms' }}>
+            Hacemos tres cosas distintas. Elegí la tuya y te llevamos derecho.
+          </p>
+        </div>
+
+        <div className="puertas-grid" role="list">
+          {PUERTAS.map((p, i) => {
+            const IconComp = Icon[p.icon];
+            return (
+              <a
+                key={p.id}
+                href={p.href}
+                role="listitem"
+                className="puerta reveal"
+                style={{ '--delay': 200 + i * 90 + 'ms' }}
+                onClick={ir(p)}
+              >
+                <span className="puerta-ico" aria-hidden="true"><IconComp /></span>
+                <span className="puerta-kicker">{p.kicker}</span>
+                <h3 className="puerta-titulo">{p.titulo}</h3>
+                <p className="puerta-desc">{p.desc}</p>
+                <span className="puerta-accion">
+                  {p.accion} <Icon.arrow />
+                </span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ===================== SERVICIOS =====================
+   Una grilla de tarjetas que enlazan. Antes había acá un bento con overlay
+   animado: cada tarjeta se expandía a pantalla completa midiendo su posición
+   con getBoundingClientRect, sincronizando el re-render con flushSync y
+   esperando el transitionend para devolverla a la grilla. El detalle que
+   mostraba al expandirse es el que ya está —mejor contado— en la página de
+   cada servicio, así que era una escala de más: el usuario leía un resumen y
+   después igual tenía que clickear para llegar a la página real.
+
+   Las siete imágenes de fondo (~1,3 MB) se fueron con él. Cada tarjeta es
+   ahora un <a>: se puede abrir en otra pestaña, el robot la sigue, y el
+   posicionamiento de las páginas de servicio recibe un enlace interno de la
+   home, que antes no tenían. */
+function Servicios() {
+  return (
+    <section id="servicios" className="section svc-cards-section">
+      <div className="container">
         <div className="section-head">
           <div>
             <span className="eyebrow reveal">Servicios</span>
-            <h2 className="h-display h2 reveal" style={{"--delay": "60ms"}}>
-              Todo lo que tu negocio necesita,<br/>
+            <h2 className="h-display h2 reveal" style={{ '--delay': '60ms' }}>
+              Todo lo que tu negocio necesita,<br />
               <em>en un solo lugar.</em>
             </h2>
           </div>
-          <p className="lead reveal" style={{"--delay": "140ms"}}>
+          <p className="lead reveal" style={{ '--delay': '140ms' }}>
             Combinamos estrategia, tecnología e IA para ofrecerte un ecosistema completo
             de servicios digitales. Cada solución se integra con la siguiente.
           </p>
         </div>
-      </div>
 
-      <div className="svc-bento-outer">
-        <div className="svc-bento" ref={bentoRef} role="list" aria-label="Servicios de Gestión 360 IA"
-          onWheel={(e) => { if (expandedIdx !== null) e.stopPropagation(); }}>
-          {SERVICES.map((s, i) => renderTile(s, i))}
+        <div className="svc-cards" role="list">
+          {SERVICES.map((s, i) => {
+            const IconComp = Icon[s.icon];
+            return (
+              <a
+                key={s.id}
+                href={s.page}
+                role="listitem"
+                className="svc-card reveal"
+                style={{ '--delay': 120 + i * 60 + 'ms' }}
+              >
+                <span className="svc-card-ico" aria-hidden="true"><IconComp /></span>
+                <span className="svc-card-kick">{s.tag}</span>
+                <h3 className="svc-card-title">{s.name}</h3>
+                <p className="svc-card-desc">{s.tagline}</p>
+                <span className="svc-card-mas">Ver el servicio <Icon.arrow /></span>
+              </a>
+            );
+          })}
+
+          {/* Octava celda: el puente al catálogo de producto. Quien llegó hasta
+              acá buscando servicio a medida puede no saber que además hay
+              sistemas ya hechos, que suelen ser más baratos para él. */}
+          <a href="/software" role="listitem" className="svc-card svc-card--cruce reveal"
+             style={{ '--delay': 120 + SERVICES.length * 60 + 'ms' }}>
+            <span className="svc-card-ico" aria-hidden="true"><Icon.box /></span>
+            <span className="svc-card-kick">Software propio</span>
+            <h3 className="svc-card-title">¿Y si ya existe hecho?</h3>
+            <p className="svc-card-desc">
+              Sistemas listos para usar, por una cuota mensual. Sale menos que mandarlo a hacer.
+            </p>
+            <span className="svc-card-mas">Ver el catálogo <Icon.arrow /></span>
+          </a>
         </div>
       </div>
     </section>
@@ -630,4 +423,4 @@ function ValorProp({ onNav }) {
   );
 }
 
-export { Header, Hero, Services, FloatNav, ValorProp };
+export { Header, Hero, Puertas, Servicios, FloatNav, ValorProp };

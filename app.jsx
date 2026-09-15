@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
-import { Header, Hero, Services, FloatNav, ValorProp } from './sections-top.jsx';
+import { Header, Hero, Puertas, Servicios } from './sections-top.jsx';
 import { Footer } from './sections-bottom.jsx';
 import MaiaContact from './components/MaiaContact.jsx';
-import { useTweaks } from './tweaks-panel.jsx';
+import { useTweaks } from './use-tweaks.js';
 
 /* Panel de tweaks: solo en dev — en producción el chunk no se descarga */
 const DevTweaks = import.meta.env.DEV
   ? React.lazy(() => import('./dev-tweaks.jsx'))
   : null;
-import { SidebarNav } from './sidebar-nav.jsx';
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "primary": "#e6a532",
@@ -25,7 +24,6 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 ───────────────────────────────────────────────────────────────────────────── */
 function App() {
   const [active, setActive]               = useState("hero");
-  const [presetService, setPresetService] = useState(null);
   const [tweaks, setTweak]               = useTweaks(TWEAK_DEFAULTS);
 
   // Sync-init from matchMedia so first render already knows desktop/mobile (no flash)
@@ -51,7 +49,7 @@ function App() {
   /* ── Scrollspy (mobile only — desktop uses GSAP onUpdate) ── */
   useEffect(() => {
     if (isDesktop) return;
-    const ids = ["hero", "servicios", "contacto"];
+    const ids = ["hero", "puertas", "servicios", "contacto"];
     const obs = new IntersectionObserver((entries) => {
       const visible = entries
         .filter(e => e.isIntersecting)
@@ -95,17 +93,15 @@ function App() {
      No ScrollTrigger — pure GSAP to() with wheel/touch/keyboard handling.
      One scroll event = one committed section transition. No mid-path stops.
 
-     Grid (col × row):
-       col 0, row 0 → Hero          col 1, row 0 → Servicios
-       col 0, row 1 → Casos         col 1, row 1 → Proceso
-       col 0, row 2 → Contacto+Footer
+     Grilla (col × fila) — el recorrido cierra en cuadrado:
+       col 0, fila 0 → Hero        col 1, fila 0 → Puertas
+       col 0, fila 1 → Contacto    col 1, fila 1 → Servicios
 
-     Camera translate per section:
-       Hero       [0,    0    ]   → RIGHT →
-       Servicios  [-vw,  0    ]   → DOWN  ↓
-       Proceso    [-vw,  -vh  ]   → LEFT  ←
-       Casos      [0,    -vh  ]   → DOWN  ↓
-       Contacto   [0,    -2vh ]
+     Traslación de la cámara por sección:
+       Hero       [0,    0   ]   → DERECHA →
+       Puertas    [-vw,  0   ]   → ABAJO   ↓
+       Servicios  [-vw,  -vh ]   → IZQUIERDA ←
+       Contacto   [0,    -vh ]
   ──────────────────────────────────────────────────────────────────────── */
   useEffect(() => {
     if (!isDesktop) return;
@@ -117,17 +113,18 @@ function App() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const SECTION_IDS = ["hero", "servicios", "contacto"];
-    const TOTAL = SECTION_IDS.length; // 3
+    const SECTION_IDS = ["hero", "puertas", "servicios", "contacto"];
+    const TOTAL = SECTION_IDS.length; // 4
 
     // Compute camera position for section idx using live viewport size
     const pos = (idx) => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       return [
-        [0,    0   ],  // Hero      col 0, row 0
-        [-vw,  0   ],  // Servicios col 1, row 0
-        [-vw,  -vh ],  // Contacto  col 1, row 1
+        [0,    0   ],  // Hero      col 0, fila 0
+        [-vw,  0   ],  // Puertas   col 1, fila 0
+        [-vw,  -vh ],  // Servicios col 1, fila 1
+        [0,    -vh ],  // Contacto  col 0, fila 1
       ][idx] || [0, 0];
     };
 
@@ -282,7 +279,7 @@ function App() {
   /* ── Nav helper — works in both modes ── */
   const onNav = useCallback((id) => {
     if (isDesktopRef.current) {
-      const map = { hero: 0, servicios: 1, contacto: 2 };
+      const map = { hero: 0, puertas: 1, servicios: 2, contacto: 3 };
       const idx = map[id];
       if (idx !== undefined && goToRef.current) goToRef.current(idx);
       return;
@@ -294,11 +291,6 @@ function App() {
     window.scrollTo({ top, behavior: "smooth" });
   }, []);
 
-  /* ── Contact-from-modal shortcut ── */
-  const handleContact = (svcId) => {
-    setPresetService(svcId);
-    setTimeout(() => onNav("contacto"), 50);
-  };
 
   /* ── Apply tweaks to CSS vars ── */
   useEffect(() => {
@@ -340,17 +332,20 @@ function App() {
         <div id="spatial-scroll-outer">
           <div id="spatial-canvas" ref={canvasRef}>
 
-            {/* ── Row 0 ── */}
+            {/* ── Fila 0 ── */}
             <div className="spatial-cell" style={{ left: 0, top: 0 }}>
               <Hero onNav={onNav} />
             </div>
             <div className="spatial-cell" style={{ left: "100vw", top: 0 }}>
-              <Services onContact={handleContact} />
+              <Puertas onNav={onNav} />
             </div>
 
-            {/* ── Row 1 ── */}
+            {/* ── Fila 1 ── */}
+            <div className="spatial-cell" style={{ left: "100vw", top: "100vh" }}>
+              <Servicios />
+            </div>
             <div className="spatial-cell spatial-cell--final"
-                 style={{ left: "100vw", top: "100vh" }}>
+                 style={{ left: 0, top: "100vh" }}>
               <MaiaContact />
               <Footer onNav={onNav} />
             </div>
@@ -364,7 +359,8 @@ function App() {
         <React.Fragment>
           <main>
             <Hero onNav={onNav} />
-            <Services onContact={handleContact} />
+            <Puertas onNav={onNav} />
+            <Servicios />
             <MaiaContact />
           </main>
           <Footer onNav={onNav} />

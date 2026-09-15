@@ -76,4 +76,49 @@
       closeModal(modal);
     }
   });
+
+  /* ── Entrada del hero ──────────────────────────────────────────────────
+     `body.svc-page .bw-hero-text` arranca en opacity:0 y sólo se ve cuando
+     el hero tiene la clase `hero-in`. Quien la agregaba era un <script>
+     inline copiado página por página, así que la página que no lo tenía
+     —servicios/seo.html— mostraba el hero en blanco, y cualquier página
+     nueva heredaba el mismo problema. Vive acá porque este archivo ya se
+     carga en todas las svc-page.
+
+     Sólo agrega la clase, nunca la saca: las páginas que todavía tienen su
+     script inline la quitan y la vuelven a poner para repetir la animación
+     al volver a la sección, y este observador no les pisa ese ciclo. */
+  (function () {
+    var hero = document.querySelector(".bw-hero");
+    if (!hero) return;
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) e.target.classList.add("hero-in");
+      });
+    }, { threshold: 0.2 });
+    obs.observe(hero);
+  })();
+
+  /* ── FAQ de las páginas .pg-page: una sola abierta a la vez ──────────
+     El segmento mide 100dvh con overflow:hidden (Regla 2). Seis respuestas
+     abiertas a la vez no entran y la última quedaría cortada sin que se vea
+     que hay más. Abrir una cierra las otras, así el alto del bloque no crece
+     más allá de una respuesta.
+
+     Va acotado a `.pg-faq`: las ocho páginas de /servicios tienen su propio
+     acordeón (`.bw-faq`) con su propia lógica y no se tocan. */
+  (function () {
+    var faqs = document.querySelectorAll(".pg-faq");
+    Array.prototype.forEach.call(faqs, function (faq) {
+      var items = faq.querySelectorAll("details");
+      Array.prototype.forEach.call(items, function (item) {
+        item.addEventListener("toggle", function () {
+          if (!item.open) return;
+          Array.prototype.forEach.call(items, function (otro) {
+            if (otro !== item) otro.open = false;
+          });
+        });
+      });
+    });
+  })();
 })();

@@ -9,14 +9,22 @@
   if (!document.body.classList.contains('svc-page')) return;
 
   const SERVICES = [
-    { label: 'Software a medida',  href: '/servicios/desarrollo-software.html' },
-    { label: 'Sitios web',         href: '/servicios/sitios-web.html' },
-    { label: 'SEO',                href: '/servicios/seo.html' },
-    { label: 'Social Media',       href: '/servicios/social-media.html' },
-    { label: 'Campañas ADS',       href: '/servicios/ads.html' },
-    { label: 'Agentes IA',         href: '/servicios/agentes-ia.html' },
-    { label: 'Bots WhatsApp',      href: '/servicios/bots-whatsapp.html' },
-    { label: 'Branding & UI/UX',   href: '/servicios/branding-uiux.html' },
+    { label: 'Software a medida',  href: '/servicios/desarrollo-software' },
+    { label: 'Sitios web',         href: '/servicios/sitios-web' },
+    { label: 'SEO',                href: '/servicios/seo' },
+    { label: 'Social Media',       href: '/servicios/social-media' },
+    { label: 'Campañas ADS',       href: '/servicios/ads' },
+    { label: 'Agentes IA',         href: '/servicios/agentes-ia' },
+    { label: 'Bots WhatsApp',      href: '/servicios/bots-whatsapp' },
+    { label: 'Branding & UI/UX',   href: '/servicios/branding-uiux' },
+  ];
+
+  /* Las otras dos patas del negocio. Van fuera de SERVICES porque no son
+     servicios a medida: son producto propio y programa de reventa, y en el
+     menú tienen que leerse como otra cosa. */
+  const SECCIONES = [
+    { label: 'Software propio',       href: '/software' },
+    { label: 'Programa de afiliados', href: '/afiliados' },
   ];
 
   /* ─────────── HTML ─────────── */
@@ -25,6 +33,10 @@
   ).join('');
 
   const panelServicesHTML = SERVICES.map(s =>
+    `<li><a href="${s.href}" class="svc-panel-link">${s.label}</a></li>`
+  ).join('');
+
+  const panelSeccionesHTML = SECCIONES.map(s =>
     `<li><a href="${s.href}" class="svc-panel-link">${s.label}</a></li>`
   ).join('');
 
@@ -39,6 +51,9 @@
       <ul class="svc-anchors" id="svc-anchors" role="list"></ul>
 
       <div class="svc-nav-right">
+        <a href="/software" class="svc-nav-seccion">Software</a>
+        <a href="/afiliados" class="svc-nav-seccion">Afiliados</a>
+
         <div class="svc-services-wrap">
           <button class="svc-services-btn" id="svc-services-btn" aria-expanded="false">
             Servicios
@@ -82,6 +97,10 @@
         <div class="svc-panel-group">
           <p class="svc-panel-group-label">Servicios</p>
           <ul role="list">${panelServicesHTML}</ul>
+        </div>
+        <div class="svc-panel-group">
+          <p class="svc-panel-group-label">También</p>
+          <ul role="list">${panelSeccionesHTML}</ul>
         </div>
       </div>
 

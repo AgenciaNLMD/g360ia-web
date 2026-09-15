@@ -62,6 +62,21 @@ const Icon = {
       <path d="M2 14h2M20 14h2"/>
     </svg>
   ),
+  /* Producto propio: una caja — lo que se entrega hecho, no a medida */
+  box: () => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/>
+      <path d="M3 8l9 5 9-5M12 13v8"/>
+    </svg>
+  ),
+  /* Programa de afiliados: dos personas — quien vende y quien compra */
+  handshake: () => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+    </svg>
+  ),
   code: () => (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="7" y="2" width="10" height="20" rx="2"/>
@@ -298,6 +313,90 @@ const CASES = [
   },
 ];
 
+/* ===================== SOFTWARE PROPIO =====================
+   El catálogo de productos que la agencia vende hechos, a diferencia de
+   SERVICES, que es trabajo a medida. Cada uno tiene su propia landing con la
+   URL escrita con la palabra que la gente busca —"software para veterinarias"
+   y no "/software/vet360ia"—, que es la que pelea el posicionamiento.
+
+   `estado` decide qué muestra la tarjeta: "disponible" lleva a la landing,
+   "desarrollo" muestra el rubro sin prometer fecha. Lo que no existe no se
+   lista: un catálogo con productos inventados le miente al que quiere venderlos. */
+const SOFTWARES = [
+  {
+    id: "vet360ia",
+    estado: "disponible",
+    nombre: "Vet 360iA",
+    rubro: "Veterinarias y clínicas de mascotas",
+    tagline: "El sistema de gestión completo para una veterinaria",
+    desc: "Agenda de turnos, ficha de cada paciente, historia clínica, facturación, inventario y un bot de WhatsApp que atiende y agenda solo. Todo en un panel, sin instalar nada.",
+    page: "/software-para-veterinarias",
+    demo: "https://vet.g360ia.com.ar",
+    img: "/portfolio/vet360ia/dashboard.webp",
+    modulos: [
+      "Agenda de turnos con recordatorios automáticos",
+      "Ficha de cliente y de cada mascota",
+      "Historia clínica con vacunas y tratamientos",
+      "Facturación y control de caja",
+      "Inventario con alertas de stock",
+      "Bot de WhatsApp que agenda y responde",
+      "Campañas de marketing a la base de clientes",
+      "Reportes de facturación y ocupación",
+    ],
+  },
+  {
+    id: "proximos",
+    estado: "desarrollo",
+    nombre: "Tu rubro, el que sigue",
+    rubro: "Consultorios, estudios, comercios y talleres",
+    tagline: "El mismo motor, adaptado a otro oficio",
+    desc: "Vet 360iA no es una excepción: es la primera vertical de una base que ya resuelve turnos, fichas, facturación y WhatsApp. Adaptarla a otro rubro es semanas, no meses. Si el tuyo todavía no está, contanos cuál es.",
+    page: null,
+  },
+];
+
+/* ===================== LAS TRES PUERTAS =====================
+   Lo primero que se ve después del hero. La home dejó de ser un catálogo y
+   pasó a preguntar a qué viniste: la agencia vende tres cosas distintas a tres
+   personas distintas, y meterlas todas en el mismo scroll era lo que la tenía
+   cargada. Cada puerta manda a su propia sección o página y ahí sí se despliega. */
+const PUERTAS = [
+  {
+    id: "servicios",
+    icon: "consult",
+    kicker: "Servicios",
+    titulo: "Necesito resolver algo en mi negocio",
+    desc: "Sitios web, SEO, campañas, agentes de IA, bots de WhatsApp, branding y software a medida. Empezamos por entender el problema.",
+    accion: "Ver los servicios",
+    href: "#servicios",
+    nav: "servicios",
+  },
+  {
+    id: "software",
+    icon: "box",
+    kicker: "Software propio",
+    titulo: "Quiero un sistema listo para usar",
+    desc: "Productos que ya funcionan y se contratan por mes. Hoy Vet 360iA para veterinarias, y las verticales que vienen atrás.",
+    accion: "Ver el software",
+    href: "/software",
+  },
+  {
+    id: "afiliados",
+    icon: "handshake",
+    kicker: "Programa de afiliados",
+    titulo: "Quiero vender y ganar una comisión",
+    desc: "Compartís tu link, y cobrás un porcentaje de cada suscripción que traigas — todos los meses, mientras el cliente siga pagando.",
+    accion: "Cómo funciona",
+    href: "/afiliados",
+  },
+];
+
+/* El porcentaje de entrada del programa de afiliados. Es el mismo que el
+   DEFAULT de `afiliado.comision_pct` en el turnero (migración 090) y el que
+   muestra vet.g360ia.com.ar/afiliados. El de cada vendedor en particular se
+   negocia y vive en la base; acá está el de quien se registra solo. */
+const COMISION_PCT = 20;
+
 const CLIENT_LOGOS = ["Norte Capital", "Salud+ Clínica", "Studio Verde", "Lumen Retail", "Astra Ventures", "Pampa Foods"];
 
-export { Icon, SERVICES, PROCESS, CASES, CLIENT_LOGOS };
+export { Icon, SERVICES, SOFTWARES, PUERTAS, COMISION_PCT, PROCESS, CASES, CLIENT_LOGOS };

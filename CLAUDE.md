@@ -41,6 +41,17 @@ copia `public/` al build — si estuviera en la raíz, el `fetch` da 404 y el fo
 No editar el footer en cada página individualmente: para cambiarlo en todas, editar solo
 `public/partials/footer.html`.
 
+**La misma regla vale para cualquier archivo que una página pida por URL absoluta.**
+`navbar-init.js` y `snap-manager.js` estuvieron en la raíz del repo hasta el 15-sep-2026 y
+por eso daban **404 en producción**: las páginas los piden como `/navbar-init.js`, Vite no
+los tocaba (los deja como referencia externa porque no son `type="module"`) y nunca llegaban
+a `dist/`. Resultado: ninguna página de `/servicios` tenía barra de navegación en el sitio
+publicado. Hoy viven en `public/`, junto a `blog-data.js` y `blog-cards.js`.
+
+Regla práctica: si un `<script src="/algo.js">` o un `fetch('/algo')` nombra la ruta con
+barra inicial, el archivo va en `public/`. Verificarlo después de `npm run build` con
+`ls dist/algo.js` antes de dar por hecho que funciona.
+
 ## Regla 5 — SEO/GEO de artículos del blog (`/blog/*.html`)
 
 Ver **`BLOG-TEMPLATE.md`** en la raíz del repo para la guía completa (objetivo del blog,
@@ -74,6 +85,59 @@ replicar su misma base antes de publicarse. Resumen del checklist (detalle compl
 - Artículo agregado a `posts` en `blog-data.js` con `slug`, `url`, `img`, `excerpt`, `services`,
   `cat`, `date` y `base` (visitas iniciales) — así entra solo en "Más leídos" y en los modales
   de servicio relacionado sin tocar código adicional.
+
+## Regla 6 — Las tres patas del sitio y el kit `.pg-page`
+
+El sitio vende tres cosas distintas a tres personas distintas, y la home es un **router de
+intención**, no un catálogo: hero → tres puertas (`PUERTAS` en `data.jsx`) → servicios →
+contacto. Cada puerta lleva a su rama y ahí se despliega el detalle.
+
+| Rama | URL | Qué es | Dónde vive el detalle |
+|---|---|---|---|
+| Servicios | `/servicios` + `/servicios/<slug>` | trabajo a medida | este repo |
+| Software propio | `/software` + `/software-para-<vertical>` | producto por cuota mensual | este repo, y el sitio del producto |
+| Afiliados | `/afiliados` | reventa por comisión | el alta y la liquidación, en el panel del producto |
+
+### Las cuatro páginas nuevas usan `class="svc-page pg-page"`
+
+`svc-page` da el snap y los 100dvh por segmento (Reglas 1 y 2). `pg-page` habilita el **kit
+de páginas** de `styles.css` (busca `KIT DE PÁGINAS — .pg-page`): `.pg-head`, `.pg-grid`,
+`.pg-card`, `.pg-lista`, `.pg-pasos`, `.pg-cinta`, `.pg-shots`, `.pg-faq`, `.pg-geo`,
+`.pg-calc`, `.pg-badge`, `.pg-migas`. Está separado en dos clases a propósito: las ocho
+páginas de `/servicios` que ya están indexadas no lo heredan y su layout no se toca.
+
+**Al agregar un segmento a una página `pg-page`, medir que entre en 100dvh en un teléfono**
+(390×844 es el caso ajustado). La comprobación es una línea en la consola del navegador:
+
+```js
+Array.from(document.querySelectorAll('main > section')).map(s => {
+  const c = s.querySelector('.container');
+  return { id: s.id, corta: c.scrollHeight - c.clientHeight };
+});
+```
+
+Cualquier `corta > 0` es contenido que se pierde sin que el usuario se entere (el segmento
+tiene `overflow:hidden`). Se arregla como dice la Regla 2: dos columnas, tipografía más
+chica, o partir el segmento en dos. Nunca con `overflow-y: auto`.
+
+### Duplicación con el sitio del producto
+
+`vet.g360ia.com.ar` tiene sus propias páginas de funciones y precios y su propio sitemap.
+`/software-para-veterinarias` **no las repite**: cuenta el producto desde el lado de quien
+lo construye y manda allá para el detalle, los precios y el alta. Su JSON-LD de
+`SoftwareApplication` declara `url` apuntando a `vet.g360ia.com.ar` justamente para que la
+entidad consolide en el sitio del producto. Toda vertical nueva sigue el mismo criterio.
+
+Tampoco se declaran precios en esta página: salen de la base del producto por `/api/planes`
+y cambian con un UPDATE. Un número escrito acá a mano se desactualiza solo, y un precio
+incorrecto en datos estructurados es peor que ningún precio.
+
+### Comisión de afiliados
+
+El 20% de `/afiliados` es el porcentaje de entrada y tiene tres copias que deben coincidir:
+`COMISION_PCT` en `data.jsx` (este repo), `COMISION_PCT` en `lib/afiliado-textos.js` del
+turnero, y el DEFAULT de `afiliado.comision_pct` en su migración 090. El que manda es el de
+la base. Si cambia, cambian los tres.
 
 ## Stack
 
