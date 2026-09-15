@@ -154,6 +154,76 @@ El 20% de `/afiliados` es el porcentaje de entrada y tiene tres copias que deben
 turnero, y el DEFAULT de `afiliado.comision_pct` en su migración 090. El que manda es el de
 la base. Si cambia, cambian los tres.
 
+## Regla 7 — El sistema claro y el kit `g-pagina`
+
+Desde el 15-sep-2026 hay **dos sistemas visuales conviviendo** y hay que saber en cuál se
+está trabajando antes de tocar nada:
+
+| | Sistema viejo | Sistema claro |
+|---|---|---|
+| Clase en `<body>` | `svc-page` (+ `pg-page`) | `g-light` (+ `g-pagina` si es estática) |
+| Prefijo CSS | `.bw-`, `.pg-`, `.section` | `.g-` |
+| Scroll | snap, un segmento por pantalla | vertical normal |
+| Alto de sección | `100dvh` obligatorio | el que pida el contenido |
+| Fondo | foto fija a pantalla completa | navy sólo en el hero, después alterna |
+| Dónde vive | `styles.css`, bloque oscuro | `styles.css`, bloque `SISTEMA CLARO` |
+
+**Las Reglas 1 y 2 (snap y 100dvh) valen sólo para el sistema viejo.** Una página `g-pagina`
+no tiene snap, no tiene `100dvh` y no tiene `overflow:hidden` por segmento, así que no hay
+nada que pueda quedar cortado.
+
+### Qué páginas están en cuál
+
+Migradas al sistema claro: la home, `/servicios`, `/servicios/consultoria-ia` y
+`/servicios/automatizaciones`. Todo lo demás sigue en el viejo: las ocho páginas de servicio
+restantes, `/software`, `/software-para-veterinarias`, `/afiliados`, el blog y los legales.
+
+El día que no quede ninguna en el viejo se borra el bloque oscuro entero y `styles.css` se
+achica en vez de crecer.
+
+### El kit de páginas estáticas
+
+Una página nueva del sistema claro lleva `<body class="g-light g-pagina">`, la barra escrita
+a mano en el HTML (copiarla de `servicios/consultoria-ia.html`) y
+`<script src="/g-pagina.js" defer>` al final. Ese script hace tres cosas y ninguna es
+imprescindible: barra sólida al bajar, menú de teléfono, aparición al scrollear y el
+`fetch` del pie. Sin él la página se lee entera igual.
+
+Piezas disponibles (buscar `KIT DE PÁGINAS CLARAS` en `styles.css`): `.g-pag-hero`,
+`.g-migas`, `.g-pasos`, `.g-comp`, `.g-caja`, `.g-faq`, `.g-geo`, `.g-rel`. Más todo lo que
+ya usa la home: `.g-sec`, `.g-card`, `.g-lista`, `.g-split`, `.g-cinta`, `.g-btn`, `.g-vias`.
+
+La FAQ usa `<details>/<summary>` a propósito: el acordeón lo hace el navegador, no hay
+estado que se pueda desincronizar, el buscador del navegador abre el panel que contiene la
+coincidencia y es navegable por teclado de fábrica.
+
+**Cuidado con `hidden`:** el navegador lo aplica con `[hidden] { display: none }`, que es un
+selector de atributo y pierde contra cualquier clase. Todo componente que fije su propio
+`display` necesita repetir la regla (`.g-nav-movil[hidden] { display: none; }`), o el
+elemento se dibuja igual aunque lleve el atributo.
+
+### Los diez servicios y sus seis listas
+
+`SERVICES` en `data.jsx` es la fuente para la home y para el pie de React. Pero hay otras
+cinco copias de la lista que **no** la leen y que hay que tocar a mano al agregar o sacar un
+servicio:
+
+1. `servicios/index.html` — las tarjetas visibles **y** el `ItemList` del JSON-LD
+2. `index.html` — el `OfferCatalog`, el `ItemList` y el bloque `#seo-fallback`
+3. `public/sitemap.xml`
+4. `public/navbar-init.js` — el desplegable de las páginas que siguen en el tema viejo
+5. `public/partials/footer.html` — el pie de todo lo que no es la home
+6. `public/blog-data.js` — el modal de servicio relacionado del blog
+
+Que estaban desincronizadas es exactamente cómo se descubrió: `/servicios/seo` existía desde
+siempre y no figuraba en `SERVICES` ni en el pie, el `ItemList` de `/servicios` declaraba
+siete cuando en pantalla había ocho, y `/servicios/consultoria-ia` y
+`/servicios/automatizaciones` estaban enlazadas desde cinco lugares sin que la página
+existiera. Al tocar la lista, revisar las seis.
+
+Las URLs van **sin `.html`**. Caddy sirve las extensionless y responde 301 a la forma con
+extensión, así que escribirla es un redirect en cada clic.
+
 ## Stack
 
 - Vite 5 + React 18 (index.html es SPA React)

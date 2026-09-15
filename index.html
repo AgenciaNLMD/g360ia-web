@@ -134,13 +134,16 @@
     "@type": "OfferCatalog",
     "name": "Servicios digitales con IA",
     "itemListElement": [
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Consultoría en inteligencia artificial", "url": "https://g360ia.com.ar/servicios/consultoria-ia"}},
       {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Software, apps móviles y dashboards", "url": "https://g360ia.com.ar/servicios/desarrollo-software"}},
       {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "SEO y sitios web profesionales", "url": "https://g360ia.com.ar/servicios/sitios-web"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Social Media y gestión de redes sociales"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Campañas ADS en Google, Meta, TikTok y LinkedIn"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Posicionamiento SEO técnico y local", "url": "https://g360ia.com.ar/servicios/seo"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Social Media y gestión de redes sociales", "url": "https://g360ia.com.ar/servicios/social-media"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Campañas ADS en Google, Meta, TikTok y LinkedIn", "url": "https://g360ia.com.ar/servicios/ads"}},
       {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Agentes IA conversacionales", "url": "https://g360ia.com.ar/servicios/agentes-ia"}},
       {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Bots de WhatsApp con automatización", "url": "https://g360ia.com.ar/servicios/bots-whatsapp"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Branding y diseño UI/UX"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Automatización de procesos e integración de sistemas", "url": "https://g360ia.com.ar/servicios/automatizaciones"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Branding y diseño UI/UX", "url": "https://g360ia.com.ar/servicios/branding-uiux"}},
       {"@type": "Offer", "itemOffered": {"@type": "SoftwareApplication", "name": "Vet 360iA — software de gestión para veterinarias", "applicationCategory": "BusinessApplication", "url": "https://g360ia.com.ar/software-para-veterinarias"}}
     ]
   }
@@ -153,74 +156,148 @@
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Servicios de Gestión 360 IA",
-  "description": "Ecosistema completo de servicios digitales con IA: software, SEO, social media, publicidad, agentes IA, bots de WhatsApp y branding.",
+  "description": "Diez servicios digitales con IA: consultoría, software a medida, sitios web, SEO, social media, publicidad, agentes IA, bots de WhatsApp, automatización de procesos y branding.",
   "url": "https://g360ia.com.ar/#servicios",
+  "numberOfItems": 10,
   "itemListElement": [
     {
-      "@type": "ListItem", "position": 1,
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Service",
+        "name": "Consultoría en inteligencia artificial",
+        "description": "Relevamos cómo funciona hoy tu operación y entregamos una hoja de ruta priorizada: qué automatizar, qué dejar como está, en qué orden y cuánto devuelve cada cosa.",
+        "url": "https://g360ia.com.ar/servicios/consultoria-ia",
+        "provider": {
+          "@type": "Organization",
+          "name": "Gestión 360 IA"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
       "item": {
         "@type": "Service",
         "name": "Software, apps móviles y dashboards",
         "description": "Construimos aplicaciones web, apps móviles, dashboards y sistemas internos pensados específicamente para tu operación. Tecnología moderna, escalable y mantenible.",
         "url": "https://g360ia.com.ar/servicios/desarrollo-software",
-        "provider": {"@type": "Organization", "name": "Gestión 360 IA"}
+        "provider": {
+          "@type": "Organization",
+          "name": "Gestión 360 IA"
+        }
       }
     },
     {
-      "@type": "ListItem", "position": 2,
+      "@type": "ListItem",
+      "position": 3,
       "item": {
         "@type": "Service",
         "name": "SEO + Sitios web",
         "description": "Aparecé primero en Google y convertí ese tráfico con un sitio profesional, rápido y optimizado. Hosting, dominio y SEO técnico incluidos.",
         "url": "https://g360ia.com.ar/servicios/sitios-web",
-        "provider": {"@type": "Organization", "name": "Gestión 360 IA"}
+        "provider": {
+          "@type": "Organization",
+          "name": "Gestión 360 IA"
+        }
       }
     },
     {
-      "@type": "ListItem", "position": 3,
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "Service",
+        "name": "Posicionamiento SEO técnico y local",
+        "description": "Auditoría técnica, investigación de palabras clave, optimización on-page y SEO local. Resultados medibles en Google Search Console.",
+        "url": "https://g360ia.com.ar/servicios/seo",
+        "provider": {
+          "@type": "Organization",
+          "name": "Gestión 360 IA"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
       "item": {
         "@type": "Service",
         "name": "Social Media",
-        "description": "Creamos y gestionamos tu presencia en Meta, Instagram, TikTok, YouTube y LinkedIn. Estrategia, contenido y crecimiento real.",
-        "provider": {"@type": "Organization", "name": "Gestión 360 IA"}
+        "description": "Gestión de presencia en Meta, Instagram, TikTok, YouTube y LinkedIn. Estrategia, contenido y crecimiento real.",
+        "url": "https://g360ia.com.ar/servicios/social-media",
+        "provider": {
+          "@type": "Organization",
+          "name": "Gestión 360 IA"
+        }
       }
     },
     {
-      "@type": "ListItem", "position": 4,
+      "@type": "ListItem",
+      "position": 6,
       "item": {
         "@type": "Service",
-        "name": "ADS — Campañas publicitarias",
-        "description": "Campañas en Google, Meta, TikTok y LinkedIn. Optimizamos cada peso invertido para generar leads, ventas o reconocimiento.",
-        "provider": {"@type": "Organization", "name": "Gestión 360 IA"}
+        "name": "Campañas publicitarias",
+        "description": "Campañas en Google, Meta, TikTok y LinkedIn optimizadas para generar leads, ventas o reconocimiento, con el tracking bien puesto.",
+        "url": "https://g360ia.com.ar/servicios/ads",
+        "provider": {
+          "@type": "Organization",
+          "name": "Gestión 360 IA"
+        }
       }
     },
     {
-      "@type": "ListItem", "position": 5,
+      "@type": "ListItem",
+      "position": 7,
       "item": {
         "@type": "Service",
         "name": "Agentes IA conversacionales",
-        "description": "Agentes que razonan en cada interacción, consultan tu CRM o base de conocimiento y ejecutan acciones reales.",
+        "description": "Agentes que razonan, consultan tu CRM o base de conocimiento y ejecutan acciones reales. No un bot con árboles de decisión.",
         "url": "https://g360ia.com.ar/servicios/agentes-ia",
-        "provider": {"@type": "Organization", "name": "Gestión 360 IA"}
+        "provider": {
+          "@type": "Organization",
+          "name": "Gestión 360 IA"
+        }
       }
     },
     {
-      "@type": "ListItem", "position": 6,
+      "@type": "ListItem",
+      "position": 8,
       "item": {
         "@type": "Service",
         "name": "Bots de WhatsApp",
-        "description": "Automatizamos conversaciones en WhatsApp: respuestas, atención al cliente, ventas y derivaciones. Conectado a tu CRM y herramientas.",
+        "description": "Automatización de conversaciones: atención al cliente, ventas y derivaciones conectadas a tu CRM, 24 horas.",
         "url": "https://g360ia.com.ar/servicios/bots-whatsapp",
-        "provider": {"@type": "Organization", "name": "Gestión 360 IA"}
+        "provider": {
+          "@type": "Organization",
+          "name": "Gestión 360 IA"
+        }
       }
     },
     {
-      "@type": "ListItem", "position": 7,
+      "@type": "ListItem",
+      "position": 9,
       "item": {
         "@type": "Service",
-        "name": "Branding & UI/UX",
+        "name": "Automatización de procesos e integración de sistemas",
+        "description": "Conectamos las herramientas que la empresa ya usa —gestión, planillas, facturación, correo, formularios— para que los datos dejen de pasarse a mano.",
+        "url": "https://g360ia.com.ar/servicios/automatizaciones",
+        "provider": {
+          "@type": "Organization",
+          "name": "Gestión 360 IA"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 10,
+      "item": {
+        "@type": "Service",
+        "name": "Branding y UI/UX",
         "description": "Identidad visual e interfaces que generan confianza y conversión. Diseño con intención, no decoración.",
-        "provider": {"@type": "Organization", "name": "Gestión 360 IA"}
+        "url": "https://g360ia.com.ar/servicios/branding-uiux",
+        "provider": {
+          "@type": "Organization",
+          "name": "Gestión 360 IA"
+        }
       }
     }
   ]
@@ -255,13 +332,16 @@
         <p><a href="/servicios"><strong>Ver todos los servicios</strong></a> · <a href="/software"><strong>Software propio</strong></a> · <a href="/afiliados"><strong>Programa de afiliados</strong></a></p>
         <h2>Servicios digitales con IA</h2>
         <ul>
+          <li><a href="/servicios/consultoria-ia"><strong>Consultoría IA</strong></a> — Qué conviene automatizar, qué no y en qué orden. Relevamiento de procesos y hoja de ruta con costo, plazo y ahorro estimado de cada paso. El diagnóstico inicial no se cobra.</li>
           <li><a href="/servicios/desarrollo-software"><strong>Software, apps móviles y dashboards</strong></a> — Construimos aplicaciones web, apps móviles, dashboards y sistemas internos a medida. Tecnología moderna, escalable y mantenible.</li>
           <li><a href="/servicios/sitios-web"><strong>SEO + Sitios web</strong></a> — Posicionamiento en Google con sitio profesional, hosting y dominio incluidos. SEO técnico, de contenido y local.</li>
-          <li><strong>Social Media</strong> — Gestión de presencia en Meta, Instagram, TikTok, YouTube y LinkedIn. Estrategia, contenido y crecimiento real.</li>
-          <li><strong>ADS — Campañas publicitarias</strong> — Campañas en Google, Meta, TikTok y LinkedIn optimizadas para generar leads, ventas o reconocimiento.</li>
+          <li><a href="/servicios/seo"><strong>Posicionamiento SEO</strong></a> — Auditoría técnica, palabras clave por intención, on-page y SEO local, con reportes de Google Search Console.</li>
+          <li><a href="/servicios/social-media"><strong>Social Media</strong></a> — Gestión de presencia en Meta, Instagram, TikTok, YouTube y LinkedIn. Estrategia, contenido y crecimiento real.</li>
+          <li><a href="/servicios/ads"><strong>ADS — Campañas publicitarias</strong></a> — Campañas en Google, Meta, TikTok y LinkedIn optimizadas para generar leads, ventas o reconocimiento.</li>
           <li><a href="/servicios/agentes-ia"><strong>Agentes IA conversacionales</strong></a> — Agentes que razonan, consultan tu CRM o base de conocimiento y ejecutan acciones reales.</li>
           <li><a href="/servicios/bots-whatsapp"><strong>Bots de WhatsApp</strong></a> — Automatización de conversaciones: atención al cliente, ventas y derivaciones conectadas a tu CRM.</li>
-          <li><strong>Branding & UI/UX</strong> — Identidad visual e interfaces que generan confianza y conversión.</li>
+          <li><a href="/servicios/automatizaciones"><strong>Automatizaciones</strong></a> — Flujos de trabajo sin intervención manual: conectamos tu sistema de gestión, tus planillas, tu facturación y tu correo para que los datos viajen solos.</li>
+          <li><a href="/servicios/branding-uiux"><strong>Branding &amp; UI/UX</strong></a> — Identidad visual e interfaces que generan confianza y conversión.</li>
         </ul>
         <h2>Software de gestión propio</h2>
         <p>Además del trabajo a medida, Gestión 360 IA publica sus propios sistemas de gestión, que se contratan por cuota mensual y se usan desde el navegador.</p>

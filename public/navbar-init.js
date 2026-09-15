@@ -9,6 +9,7 @@
   if (!document.body.classList.contains('svc-page')) return;
 
   const SERVICES = [
+    { label: 'Consultoría IA',     href: '/servicios/consultoria-ia' },
     { label: 'Software a medida',  href: '/servicios/desarrollo-software' },
     { label: 'Sitios web',         href: '/servicios/sitios-web' },
     { label: 'SEO',                href: '/servicios/seo' },
@@ -16,6 +17,7 @@
     { label: 'Campañas ADS',       href: '/servicios/ads' },
     { label: 'Agentes IA',         href: '/servicios/agentes-ia' },
     { label: 'Bots WhatsApp',      href: '/servicios/bots-whatsapp' },
+    { label: 'Automatizaciones',   href: '/servicios/automatizaciones' },
     { label: 'Branding & UI/UX',   href: '/servicios/branding-uiux' },
   ];
 

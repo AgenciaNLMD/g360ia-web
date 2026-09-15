@@ -158,8 +158,34 @@ const Icon = {
 };
 
 /* ===================== DATA ===================== */
-/* 7 tiles — orden = orden de render, posición de grilla definida en cada entrada */
+/* Los servicios, en orden de render: la home y el pie los recorren tal cual.
+   El orden no es alfabético ni histórico, es el del recorrido que hace alguien
+   que llega sin saber qué necesita — primero decidir qué hacer, después
+   construirlo, después traer gente, después atenderla.
+
+   `bgImage` y `grid` quedaron del bento viejo y ya no los lee nadie: la home
+   nueva usa `icon`, `tag`, `name`, `tagline` y `page`. Se borran el día que se
+   borre el tema oscuro.
+
+   `page` va SIN .html: Caddy sirve las extensionless y responde 301 a la forma
+   con extensión, así que escribirla acá era un redirect en cada clic. */
 const SERVICES = [
+  {
+    id: "consultoria",
+    icon: "consult",
+    name: "Qué Conviene Automatizar, y en Qué Orden",
+    tag: "Consultoría IA",
+    tagline: "Estrategia y hoja de ruta antes de implementar",
+    page: "/servicios/consultoria-ia",
+    desc: "Relevamos cómo funciona hoy tu operación y te entregamos una hoja de ruta priorizada: qué automatizar, qué dejar como está, en qué orden y cuánto devuelve cada cosa.",
+    includes: [
+      "Mapa de los procesos que tocan al cliente o al dinero",
+      "Hoja de ruta priorizada por retorno contra esfuerzo",
+      "Costo, plazo y ahorro estimado de cada iniciativa",
+      "Recomendación de herramientas, propias y de terceros",
+      "Capacitación del equipo donde haga falta",
+    ],
+  },
   {
     id: "software",
     icon: "code",
@@ -168,7 +194,7 @@ const SERVICES = [
     name: "Tu Aplicación o Software Propio",
     tag: "Producto",
     tagline: "Software a medida para resolver tu problema real",
-    page: "/servicios/desarrollo-software.html",
+    page: "/servicios/desarrollo-software",
     desc: "Construimos aplicaciones web, apps móviles, dashboards y sistemas internos pensados específicamente para tu operación. Tecnología moderna, escalable y mantenible.",
     includes: [
       "Aplicaciones web y plataformas",
@@ -187,7 +213,7 @@ const SERVICES = [
     name: "Tu Sitio Web Moderno, Para Móvil y Pc",
     tag: "Posicionate en Google",
     tagline: "Aparecé primero en Google y convertí ese tráfico",
-    page: "/servicios/sitios-web.html",
+    page: "/servicios/sitios-web",
     desc: "Aparecé primero en Google y convertí ese tráfico con un sitio profesional, rápido y optimizado. Hosting, dominio y SEO técnico incluidos.",
     includes: [
       "SEO técnico, de contenido y local",
@@ -198,11 +224,27 @@ const SERVICES = [
     ],
   },
   {
+    id: "seo",
+    icon: "seo",
+    name: "Posicionamiento SEO Técnico y Local",
+    tag: "SEO",
+    tagline: "Que te encuentren buscando lo que vendés",
+    page: "/servicios/seo",
+    desc: "Auditoría técnica, investigación de palabras clave, optimización on-page y SEO local. Resultados medibles en Google Search Console, no en capturas de pantalla.",
+    includes: [
+      "Auditoría técnica del sitio",
+      "Investigación de palabras clave por intención",
+      "Optimización on-page y de contenidos",
+      "SEO local y ficha de Google Business Profile",
+      "Reportes mensuales con datos de Search Console",
+    ],
+  },
+  {
     id: "social",
     icon: "meta",
     bgImage: "rrss-bg.webp",
     grid: { col: "3/4", row: "2/3" },
-    page: "/servicios/social-media.html",
+    page: "/servicios/social-media",
     name: "Destaca en las Redes Sociales",
     tag: "Social Media",
     tagline: "Presencia constante, contenido que conecta",
@@ -220,7 +262,7 @@ const SERVICES = [
     icon: "ads",
     bgImage: "ads-bg.webp",
     grid: { col: "4/5", row: "2/4" },
-    page: "/servicios/ads.html",
+    page: "/servicios/ads",
     name: "Anuncios en Google & Redes Sociales",
     tag: "Campañas Publicitarias",
     tagline: "Inversión publicitaria con retorno medible",
@@ -241,7 +283,7 @@ const SERVICES = [
     name: "Inteligencia Artificial Atendiendo Tu Negocio",
     tag: "Agentes iA",
     tagline: "No un bot con reglas: un agente que razona y actúa",
-    page: "/servicios/agentes-ia.html",
+    page: "/servicios/agentes-ia",
     desc: "Agentes que razonan en cada interacción, consultan tu CRM o base de conocimiento y ejecutan acciones reales.",
     includes: [
       "Diseño del system prompt y comportamiento",
@@ -259,7 +301,7 @@ const SERVICES = [
     name: "Bots de WhatsApp",
     tag: "Automatización",
     tagline: "Atención 24/7 sin contratar más personal",
-    page: "/servicios/bots-whatsapp.html",
+    page: "/servicios/bots-whatsapp",
     desc: "Automatizamos conversaciones en WhatsApp: respuestas, atención al cliente, ventas y derivaciones. Conectado a tu CRM y herramientas.",
     includes: [
       "Conexión vía Evolution API (sin costo por mensaje)",
@@ -270,11 +312,27 @@ const SERVICES = [
     ],
   },
   {
+    id: "automatizaciones",
+    icon: "flow",
+    name: "Que los Datos Dejen de Pasarse a Mano",
+    tag: "Automatizaciones",
+    tagline: "Flujos de trabajo sin intervención manual",
+    page: "/servicios/automatizaciones",
+    desc: "Conectamos las herramientas que ya usás —gestión, planillas, facturación, correo, formularios— para que la información viaje sola entre ellas, con reintentos y avisos cuando algo falla.",
+    includes: [
+      "Integración entre sistemas por API o webhooks",
+      "Flujos con disparadores, condiciones y reintentos",
+      "Sincronización de precios, stock y clientes",
+      "Avisos automáticos de vencimientos y faltantes",
+      "Reportes periódicos servidos por mail o tablero",
+    ],
+  },
+  {
     id: "branding",
     icon: "palette",
     bgImage: "brand-bg.webp",
     grid: { col: "3/4", row: "3/4" },
-    page: "/servicios/branding-uiux.html",
+    page: "/servicios/branding-uiux",
     name: "Desarrollamos la identidad de tu Marca, Producto o Servicio",
     tag: "Branding",
     tagline: "Identidad visual que genera confianza y conversión",

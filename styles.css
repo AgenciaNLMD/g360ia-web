@@ -3865,6 +3865,338 @@ a.g-via:hover {
   .g-via-ico { width: 34px; height: 34px; margin-bottom: 6px; }
 }
 
+
+/* ###########################################################################
+   KIT DE PÁGINAS CLARAS — `body.g-light.g-pagina`
+   ###########################################################################
+
+   La home es React y arma sus secciones en `secciones-home.jsx`. Las páginas
+   de contenido son HTML estático y necesitan las mismas piezas más unas
+   cuantas que la home no usa: migas de pan, pasos numerados, acordeón de
+   preguntas, bloque de intención para los buscadores generativos y la fila de
+   servicios relacionados.
+
+   Todo lo que está acá es adicional al sistema claro: una página de contenido
+   lleva `class="g-light g-pagina"` y hereda `.g-sec`, `.g-card`, `.g-lista`,
+   `.g-split`, `.g-btn` y la paleta tal cual.
+
+   Nada de esto usa scroll-snap ni 100dvh. Las Reglas 1 y 2 del CLAUDE.md
+   describen el sistema viejo (`body.svc-page`), que sigue vivo en las ocho
+   páginas de servicio que todavía no se migraron.
+   ######################################################################### */
+
+/* ===========================================================================
+   BARRA — versión estática
+   ===========================================================================
+   La home monta la suya desde React y sólo pone la hoja desplegable en el DOM
+   cuando está abierta. Acá la hoja está escrita siempre en el HTML —para que la
+   barra exista en el primer parseo y no sea un salto de layout— y se esconde
+   con el atributo `hidden`.
+
+   Y ahí está la trampa: el navegador esconde lo que lleva `hidden` con la regla
+   `[hidden] { display: none }` de su hoja de usuario. Es un selector de atributo
+   y pierde contra cualquier clase, así que como `.g-nav-movil` declara
+   `display: grid`, gana la clase y la hoja se dibuja igual: 346px de panel
+   blanco colgando de la barra, que encima nadie puede cerrar porque en
+   escritorio el botón de hamburguesa está oculto.
+
+   Por eso el atributo se repite acá como selector. Es lo que hay que hacer en
+   cualquier componente que fije su propio `display` y además use `hidden`.
+   =========================================================================== */
+.g-nav-movil[hidden] { display: none; }
+
+/* ===========================================================================
+   HERO DE PÁGINA
+   El de la home tiene la foto y ocupa la pantalla. Éste no: es una banda navy
+   de alto propio, porque en una página de contenido lo que importa está abajo
+   y una portada de pantalla completa sólo la aleja.
+   =========================================================================== */
+.g-pag-hero {
+  position: relative;
+  background:
+    radial-gradient(1100px 420px at 78% -8%, rgba(230,165,50,0.13), transparent 62%),
+    linear-gradient(168deg, var(--g-navy-2) 0%, var(--g-navy) 48%, var(--g-navy-3) 100%);
+  padding: 148px 0 96px;
+  overflow: hidden;
+}
+/* Trama de puntos: le da textura al navy plano sin pedir una imagen. */
+.g-pag-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
+}
+.g-pag-hero > .g-contenedor { position: relative; z-index: 1; }
+.g-pag-hero-inner { max-width: 780px; }
+
+.g-pag-hero .g-eyebrow { color: var(--g-gold-soft); }
+.g-pag-hero .g-eyebrow::before { background: var(--g-gold-soft); }
+.g-pag-hero h1 {
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 20px;
+}
+.g-pag-hero h1 em { font-style: normal; color: var(--g-gold-soft); }
+.g-pag-hero .g-lead { color: rgba(255,255,255,0.76); font-size: 18px; max-width: 660px; }
+.g-pag-hero .g-hero-ctas { margin-top: 32px; }
+
+/* La onda que cierra el hero contra el blanco de abajo, igual que en la home. */
+.g-pag-hero .g-onda {
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 100%; height: 48px;
+  display: block;
+  z-index: 2;
+}
+.g-pag-hero .g-onda path { fill: var(--g-bg); }
+
+/* ===========================================================================
+   MIGAS DE PAN
+   Van dentro del hero, encima del título. Son el par visible del JSON-LD de
+   `BreadcrumbList`: si el dato estructurado dice que esta página cuelga de
+   /servicios, la página tiene que decirlo también.
+   =========================================================================== */
+.g-migas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.52);
+}
+.g-migas a { color: rgba(255,255,255,0.72); text-decoration: none; }
+.g-migas a:hover { color: var(--g-gold-soft); }
+.g-migas span { color: rgba(255,255,255,0.30); }
+
+/* ===========================================================================
+   PASOS NUMERADOS
+   =========================================================================== */
+.g-pasos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  counter-reset: paso;
+}
+.g-paso {
+  position: relative;
+  padding: 28px 24px 26px;
+  background: var(--g-bg);
+  border: 1px solid var(--g-line);
+  border-radius: var(--g-radio);
+}
+.g-sec--soft .g-paso { border-color: transparent; box-shadow: var(--g-sombra); }
+.g-paso-n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  background: var(--g-gold-bg);
+  border: 1px solid var(--g-gold-line);
+  color: var(--g-gold-ink);
+  font-size: 14px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.g-paso h3 { font-size: 17px; margin: 0 0 8px; letter-spacing: -0.015em; }
+.g-paso p  { font-size: 14.5px; line-height: 1.6; margin: 0; }
+
+/* ===========================================================================
+   COMPARACIÓN — dos columnas, lo que sí y lo que no
+   =========================================================================== */
+.g-comp { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.g-comp-col {
+  padding: 30px 28px;
+  border-radius: var(--g-radio);
+  border: 1px solid var(--g-line);
+  background: var(--g-bg);
+}
+.g-comp-col--si { border-color: var(--g-gold-line); background: var(--g-gold-bg); }
+.g-comp-t {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--g-navy);
+}
+.g-comp-col--si .g-comp-t { color: var(--g-gold-ink); }
+.g-comp ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.g-comp li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--g-ink-soft);
+}
+.g-comp li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--g-ink-mute);
+}
+.g-comp-col--si li::before { background: var(--g-gold); }
+
+/* ===========================================================================
+   CAJA DE ÉNFASIS
+   =========================================================================== */
+.g-caja {
+  padding: 28px 30px;
+  border-radius: var(--g-radio);
+  border: 1px solid var(--g-gold-line);
+  background: var(--g-gold-bg);
+}
+.g-caja p:last-child { margin-bottom: 0; }
+.g-caja strong { color: var(--g-navy); }
+
+/* ===========================================================================
+   PREGUNTAS FRECUENTES
+   `<details>`: el acordeón lo hace el navegador. Sin JS no hay estado que se
+   pueda desincronizar, funciona con el buscador del navegador abriendo el
+   panel que contiene la coincidencia, y es navegable por teclado de fábrica.
+   =========================================================================== */
+.g-faq { max-width: 840px; margin: 0 auto; display: grid; gap: 10px; }
+.g-faq details {
+  border: 1px solid var(--g-line);
+  border-radius: var(--g-radio-s);
+  background: var(--g-bg);
+  overflow: hidden;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.g-faq details[open] { border-color: var(--g-gold-line); box-shadow: var(--g-sombra); }
+.g-faq summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 19px 22px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  color: var(--g-navy);
+}
+.g-faq summary::-webkit-details-marker { display: none; }
+.g-faq summary::after {
+  content: '';
+  flex: 0 0 auto;
+  width: 11px; height: 11px;
+  margin-top: 6px;
+  border-right: 2.2px solid var(--g-gold);
+  border-bottom: 2.2px solid var(--g-gold);
+  transform: rotate(45deg);
+  transition: transform .2s ease;
+}
+.g-faq details[open] summary::after { transform: rotate(-135deg); }
+.g-faq-r {
+  padding: 0 22px 20px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.68;
+  color: var(--g-ink-soft);
+}
+.g-faq-r a { color: var(--g-gold-ink); font-weight: 600; }
+
+/* ===========================================================================
+   BLOQUE DE INTENCIÓN (GEO)
+   Las preguntas tal como las escribe alguien en un buscador o se las hace a un
+   modelo, cada una anclada a la sección que la contesta. NO se marca como
+   `FAQPage`: la FAQ de arriba ya ocupa ese tipo y declarar dos en la misma
+   página es contenido estructurado duplicado.
+   =========================================================================== */
+.g-geo { max-width: 840px; margin: 0 auto; }
+.g-geo-t {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g-ink-mute);
+  margin: 0 0 18px;
+}
+.g-geo ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.g-geo li { border-bottom: 1px solid var(--g-line); }
+.g-geo li:first-child { border-top: 1px solid var(--g-line); }
+.g-geo a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 4px;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--g-ink);
+  text-decoration: none;
+  transition: color .15s ease, padding-left .15s ease;
+}
+.g-geo a:hover { color: var(--g-gold-ink); padding-left: 10px; }
+.g-geo a svg { flex: 0 0 auto; width: 15px; height: 15px; color: var(--g-gold); }
+
+/* ===========================================================================
+   SERVICIOS RELACIONADOS
+   =========================================================================== */
+.g-rel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.g-rel-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: var(--g-radio-s);
+  border: 1px solid var(--g-line);
+  background: var(--g-bg);
+  text-decoration: none;
+  transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.g-rel-card:hover {
+  border-color: var(--g-gold-line);
+  transform: translateY(-2px);
+  box-shadow: var(--g-sombra);
+}
+.g-rel-ico {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: var(--g-gold-bg);
+  color: var(--g-gold-ink);
+}
+.g-rel-ico svg { width: 18px; height: 18px; }
+.g-rel-txt { min-width: 0; }
+.g-rel-n { display: block; font-size: 15px; font-weight: 700; color: var(--g-navy); letter-spacing: -0.012em; }
+.g-rel-d { display: block; font-size: 13px; line-height: 1.45; color: var(--g-ink-soft); margin-top: 2px; }
+
+/* ===========================================================================
+   RESPONSIVO
+   =========================================================================== */
+@media (max-width: 1024px) {
+  .g-pasos { grid-template-columns: repeat(2, 1fr); }
+  .g-rel   { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .g-pag-hero { padding: 116px 0 68px; }
+  .g-pag-hero .g-lead { font-size: 16px; }
+  .g-pasos, .g-comp, .g-rel { grid-template-columns: 1fr; gap: 12px; }
+  .g-paso { padding: 22px 20px; }
+  .g-comp-col { padding: 24px 22px; }
+  .g-caja { padding: 22px 20px; }
+  .g-faq summary { font-size: 15px; padding: 16px 18px; gap: 14px; }
+  .g-faq-r { padding: 0 18px 17px; font-size: 14.5px; }
+  .g-geo a { font-size: 14.5px; padding: 14px 2px; }
+}
+
 /* ===========================================================================
    EL PIE SOBRE EL TEMA CLARO
    ===========================================================================

@@ -8,14 +8,16 @@ window.BlogData = (function () {
 
   /* Servicios que ofrecemos (con su página) */
   var services = {
-    seo:      { name: 'Posicionamiento SEO / GEO', url: '/servicios/seo.html' },
-    web:      { name: 'Sitios web',                url: '/servicios/sitios-web.html' },
-    bots:     { name: 'Bots de WhatsApp',          url: '/servicios/bots-whatsapp.html' },
-    agentes:  { name: 'Agentes de IA',             url: '/servicios/agentes-ia.html' },
-    social:   { name: 'Social Media',              url: '/servicios/social-media.html' },
-    ads:      { name: 'Campañas / Ads',            url: '/servicios/ads.html' },
-    software: { name: 'Desarrollo de software',    url: '/servicios/desarrollo-software.html' },
-    branding: { name: 'Branding / UI-UX',          url: '/servicios/branding-uiux.html' }
+    seo:      { name: 'Posicionamiento SEO / GEO', url: '/servicios/seo' },
+    web:      { name: 'Sitios web',                url: '/servicios/sitios-web' },
+    bots:     { name: 'Bots de WhatsApp',          url: '/servicios/bots-whatsapp' },
+    agentes:  { name: 'Agentes de IA',             url: '/servicios/agentes-ia' },
+    social:   { name: 'Social Media',              url: '/servicios/social-media' },
+    ads:      { name: 'Campañas / Ads',            url: '/servicios/ads' },
+    software: { name: 'Desarrollo de software',    url: '/servicios/desarrollo-software' },
+    branding: { name: 'Branding / UI-UX',          url: '/servicios/branding-uiux' },
+    consultoria:     { name: 'Consultoría IA',   url: '/servicios/consultoria-ia' },
+    automatizaciones:{ name: 'Automatizaciones', url: '/servicios/automatizaciones' }
   };
 
   /* Artículos del blog. `services` = a qué servicio se relaciona cada nota. */

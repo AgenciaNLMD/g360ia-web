@@ -218,7 +218,7 @@ function Hero() {
    =========================================================================== */
 const CIFRAS = [
   { n: '+24', t: 'empresas acompañadas en Argentina y LATAM' },
-  { n: '7',   t: 'servicios que se integran entre sí' },
+  { n: '10',  t: 'servicios que se integran entre sí' },
   { n: '1',   t: 'software propio publicado, y las verticales que vienen' },
   { n: COMISION_PCT + '%', t: 'de comisión recurrente para quien lo venda' },
 ];
@@ -318,7 +318,7 @@ function Servicios() {
 
         <div className="g-cierre g-rev">
           <a className="g-btn g-btn--linea" href="/servicios">
-            Ver los siete servicios en detalle <Flecha />
+            Ver los diez servicios en detalle <Flecha />
           </a>
         </div>
       </div>
