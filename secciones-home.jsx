@@ -176,9 +176,12 @@ function Hero() {
       <div className="g-contenedor">
         <div className="g-hero-inner">
           <span className="g-eyebrow">Consultora de IA · Buenos Aires · LATAM</span>
+          {/* Sin salto forzado: con `text-wrap: balance` el navegador reparte
+              las líneas parejas según el ancho real. El <br/> que había acá
+              dejaba "negocio" solo en un renglón cuando la columna se achicó
+              para dejarle la mitad derecha a la foto. */}
           <h1 className="g-h1">
-            Transformamos tu negocio<br />
-            con <em>Inteligencia Artificial</em>
+            Transformamos tu negocio con <em>Inteligencia Artificial</em>
           </h1>
           <p className="g-hero-lead">
             Hacemos tres cosas: resolvemos a medida lo que tu negocio necesita, publicamos
