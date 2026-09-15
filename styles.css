@@ -3490,18 +3490,22 @@ body.g-light a { text-decoration: none; }
 .g-hero-inner { position: relative; max-width: 780px; }
 
 /* ===========================================================================
-   HERO — el texto a la derecha, desde 1024px
+   HERO — columna derecha, con el párrafo cruzado, desde 1024px
    ===========================================================================
-   La foto ocupa el hero entero. El bloque de texto va sobre la mitad derecha
-   —el cielo y la ciudad— y deja libre el panel de vidrio de la izquierda, que
-   es donde la foto trae escrito «Gestión 360 IA» y las dos líneas del
-   dashboard.
+   La volanta, el título, los botones y los avisos viven en una columna de
+   560px pegada a la derecha. El párrafo es la excepción: cruza la pantalla
+   entera. Esa asimetría es la que hace que el bloque no se lea como una caja
+   de texto apoyada sobre una foto.
 
-   El velo de lectura va de derecha a izquierda: opaco detrás del texto y
-   transparente sobre el vidrio, que queda a la vista.
+   Lo que queda libre a la izquierda es el panel de vidrio, donde la foto trae
+   escrito «Gestión 360 IA» y las dos líneas del dashboard.
 
-   Abajo de 1024px el texto vuelve a la izquierda y el velo de arriba abajo: en
-   un teléfono la foto se recorta a lo ancho y no queda mitad libre.
+   El velo de lectura tiene dos capas: una de derecha a izquierda para la
+   columna, y una de abajo hacia arriba para la banda del párrafo, que al
+   cruzar entera necesita fondo también sobre el vidrio.
+
+   Abajo de 1024px todo vuelve a la izquierda y a una sola columna: en un
+   teléfono la foto se recorta a lo ancho y no hay mitad que dejar libre.
    =========================================================================== */
 @media (min-width: 1024px) {
   .g-hero {
@@ -3510,32 +3514,51 @@ body.g-light a { text-decoration: none; }
     padding-bottom: clamp(48px, 6vh, 88px);
   }
 
-  .g-hero > .g-contenedor {
+  /* La figura se corre a la derecha para salir de abajo del título. El 100%
+     la dejaba justo detrás; con 132% el encuadre se amplía y la silueta queda
+     al borde de la columna en vez de debajo. El vidrio con la marca sigue
+     entero porque lo que se pierde es el recorte de la derecha. */
+  /* max-width: none es obligatorio: hay un img { max-width: 100% } global que
+     recorta cualquier ancho mayor y deja la foto en 100% sin avisar. */
+  .g-hero-img img { width: 132%; max-width: none; }
+
+  /* Con `body.g-light` adelante a propósito: las reglas base de .g-hero-lead y
+     .g-hero-nota están más abajo en el archivo y con la misma especificidad le
+     ganaban a este bloque. Así pesan más y el orden deja de importar. */
+  body.g-light .g-hero-inner {
+    max-width: none;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  /* Todo en la columna de la derecha… */
+  body.g-light .g-hero-inner > * { width: 560px; max-width: 560px; }
+  /* …menos el párrafo, que cruza la pantalla entera. */
+  body.g-light .g-hero-lead {
+    width: 100%;
+    max-width: none;
+    font-size: clamp(15px, 1.1vw, 16.5px);
+    margin-top: 6px;
   }
 
-  /* 560 y no menos: es el ancho mínimo en el que los dos botones entran en una
-     sola fila y el título cierra en tres renglones parejos. */
-  .g-hero-inner { max-width: 560px; }
-  .g-hero .g-h1 { font-size: clamp(38px, 3.9vw, 54px); }
-  .g-hero-lead  { max-width: 540px; }
-  .g-hero-nota  { gap: 10px 20px; }
+  body.g-light .g-hero .g-h1 { font-size: clamp(32px, 3.1vw, 46px); }
+  body.g-light .g-hero-nota  { gap: 10px 20px; font-size: 13px; }
 
   .g-hero::before {
     background:
       linear-gradient(270deg,
-        rgba(8,21,33,0.93) 0%,
-        rgba(8,21,33,0.88) 26%,
-        rgba(8,21,33,0.62) 44%,
-        rgba(8,21,33,0.24) 60%,
-        rgba(8,21,33,0.04) 74%,
+        rgba(8,21,33,0.90) 0%,
+        rgba(8,21,33,0.84) 26%,
+        rgba(8,21,33,0.56) 44%,
+        rgba(8,21,33,0.20) 60%,
+        rgba(8,21,33,0.02) 74%,
         rgba(8,21,33,0.00) 88%),
       linear-gradient(180deg,
-        rgba(8,21,33,0.38) 0%,
-        rgba(8,21,33,0.00) 26%,
-        rgba(8,21,33,0.00) 74%,
-        rgba(8,21,33,0.34) 100%);
+        rgba(8,21,33,0.34) 0%,
+        rgba(8,21,33,0.00) 22%,
+        rgba(8,21,33,0.10) 48%,
+        rgba(8,21,33,0.58) 70%,
+        rgba(8,21,33,0.78) 100%);
   }
 }
 .g-hero h1 { color: #fff; text-wrap: balance; }
