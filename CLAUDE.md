@@ -41,6 +41,21 @@ copia `public/` al build — si estuviera en la raíz, el `fetch` da 404 y el fo
 No editar el footer en cada página individualmente: para cambiarlo en todas, editar solo
 `public/partials/footer.html`.
 
+**Hay dos copias del pie y las dos tienen que decir lo mismo.** La home es React y arma el
+suyo en `sections-bottom.jsx`; el resto del sitio hace `fetch` del partial. Son el mismo
+diseño escrito dos veces, así que toda columna que se agregue va en los dos archivos o el
+sitio se contradice a sí mismo según por dónde entre el visitante.
+
+Las columnas hoy son seis: marca · Navegación · **Softwares 360iA** · Servicios · Contacto ·
+Seguinos. La de softwares apunta al sitio del producto (`vet.g360ia.com.ar`) y no a
+`/software-para-veterinarias`: el que busca el software quiere entrar al software. La landing
+de este repo sigue existiendo y sigue enlazada desde `/software` y `/afiliados`, que es lo que
+la mantiene indexada sin quedar huérfana.
+
+El pie **no tiene carrusel de tecnologías** desde el 15-sep-2026: eran dos filas de veinte
+logos cada una animadas con `transform` en bucle infinito, siempre corriendo aunque nadie
+las viera, en el único bloque que está en todas las páginas del sitio.
+
 **La misma regla vale para cualquier archivo que una página pida por URL absoluta.**
 `navbar-init.js` y `snap-manager.js` estuvieron en la raíz del repo hasta el 15-sep-2026 y
 por eso daban **404 en producción**: las páginas los piden como `/navbar-init.js`, Vite no

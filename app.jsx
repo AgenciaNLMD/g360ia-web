@@ -1,7 +1,6 @@
 import React from 'react';
-import { Nav, Hero, Cifras, Puertas, Servicios, Software, Afiliados, useRevelar } from './secciones-home.jsx';
+import { Nav, Hero, Cifras, Puertas, Servicios, Software, Afiliados, Contacto, useRevelar } from './secciones-home.jsx';
 import { Footer } from './sections-bottom.jsx';
-import MaiaContact from './components/MaiaContact.jsx';
 import { useTweaks } from './use-tweaks.js';
 
 /* Panel de tweaks: solo en dev — en producción el chunk no se descarga */
@@ -55,7 +54,7 @@ function App() {
         <Servicios />
         <Software />
         <Afiliados />
-        <MaiaContact />
+        <Contacto />
       </main>
 
       <Footer />

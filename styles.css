@@ -1645,16 +1645,21 @@ img { display: block; max-width: 100%; }
   border-top: 1px solid var(--line);
   padding: 72px 0 40px;
 }
+/* Sin margen: los 56px de acá separaban el grid del carrusel de tecnologías,
+   que se borró el 15-sep-2026. Los 72px de padding del pie ya alcanzan. */
 .footer > .container {
-  margin-top: 56px;
+  margin-top: 0;
 }
+/* Seis columnas desde que el pie lista los softwares propios aparte de la
+   navegación. El 1.6fr de la marca y no 2fr: con seis columnas el 2fr dejaba
+   las listas en 120px y "Vet 360iA · Veterinarias" partía en tres renglones. */
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1.6fr repeat(5, 1fr);
+  gap: 32px;
   margin-bottom: 48px;
 }
-@media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr; } }
+@media (max-width: 1180px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr; } }
 @media (max-width: 720px)  { .footer-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 480px)  { .footer-grid { grid-template-columns: 1fr; } }
 @media (max-width: 768px)  {
@@ -1885,1018 +1890,6 @@ img { display: block; max-width: 100%; }
 .density-compact .section { --section-pad: 72px; }
 .density-airy    .section { --section-pad: 152px; }
 
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   MAIA CONTACT â€” Experiencia interactiva MAIA
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* â”€â”€ Section shell â”€â”€ */
-.maia-section {
-  position: relative;
-  width: 100%;
-  min-height: 75vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  background: transparent;
-}
-
-/* â”€â”€ Dot-grid world map â”€â”€ */
-.maia-world-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(circle, rgba(93,127,163,0.18) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image:
-    radial-gradient(ellipse 90% 80% at 65% 50%, black 30%, transparent 75%),
-    linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-  -webkit-mask-image:
-    radial-gradient(ellipse 90% 80% at 65% 50%, black 30%, transparent 75%),
-    linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-  mask-composite: intersect;
-  -webkit-mask-composite: source-in;
-  opacity: 0.55;
-}
-
-/* â”€â”€ Cursor-following ambient glow â”€â”€ */
-.maia-cursor-glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  transition: background 0.08s linear;
-  background: radial-gradient(700px circle at 50% 50%, rgba(93,127,163,0.09) 0%, transparent 65%);
-}
-
-/* â”€â”€ Particle canvas â”€â”€ */
-.maia-particles {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* â”€â”€ Two-column inner layout â”€â”€ */
-.maia-inner {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 100%;
-  padding: 56px var(--site-pad);
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  grid-template-rows: auto auto;
-  column-gap: clamp(40px, 6vw, 100px);
-  row-gap: 28px;
-  align-items: start;
-  /* Entrance animation */
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.maia-inner.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Desktop: ContactHeader col1/row1, Maia col2/row1+2, ContactDetails col1/row2 */
-.maia-info-card           { grid-column: 1; display: flex; flex-direction: column; }
-.maia-info-card:first-child { grid-row: 1; }
-.maia-info-card--details  { grid-row: 2; }
-.mp-wrap                  { grid-column: 2; grid-row: 1 / 3; align-self: start; }
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   LEFT COL â€” Contact info
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.maia-info-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  opacity: 0;
-  transform: translateX(-20px);
-  transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;
-}
-.maia-info-card.is-visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Eyebrow with pulse */
-.maia-info-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 14px;
-}
-
-.maia-pulse-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--gold);
-  border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(230,165,50,0.5);
-  animation: maia-pulse 2.4s ease-in-out infinite;
-}
-@keyframes maia-pulse {
-  0%   { box-shadow: 0 0 0 0   rgba(230,165,50,0.55); }
-  60%  { box-shadow: 0 0 0 7px rgba(230,165,50,0);    }
-  100% { box-shadow: 0 0 0 0   rgba(230,165,50,0);    }
-}
-
-/* Title */
-.maia-info-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(28px, 3vw, 44px);
-  letter-spacing: -0.03em;
-  line-height: 1.06;
-  color: var(--ink);
-  margin: 0 0 18px;
-}
-.maia-info-title em {
-  font-style: normal;
-  background: linear-gradient(130deg, rgba(255,255,255,0.95) 0%, var(--gold-soft) 45%, var(--gold) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Lead text */
-.maia-info-lead {
-  font-size: 14px;
-  color: var(--ink-soft);
-  line-height: 1.7;
-  margin: 0 0 28px;
-}
-
-/* Contact list */
-.maia-contact-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 28px;
-  display: flex;
-  flex-direction: column;
-}
-
-.maia-contact-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  text-decoration: none;
-  color: inherit;
-  cursor: default;
-  transition: padding-left 0.2s ease;
-}
-a.maia-contact-item { cursor: pointer; }
-a.maia-contact-item:hover {
-  padding-left: 4px;
-}
-a.maia-contact-item:hover .maia-contact-icon {
-  background: rgba(230,165,50,0.16);
-  border-color: rgba(230,165,50,0.36);
-  box-shadow: 0 0 12px rgba(230,165,50,0.18);
-}
-.maia-contact-list li:first-child .maia-contact-item {
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
-
-.maia-contact-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: rgba(230,165,50,0.07);
-  border: 1px solid rgba(230,165,50,0.18);
-  border-radius: 10px;
-  color: var(--gold);
-  flex-shrink: 0;
-  transition: background 0.22s, border-color 0.22s, box-shadow 0.22s;
-}
-
-.maia-contact-text {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-.maia-contact-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-}
-.maia-contact-value {
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.92);
-  transition: color 0.2s;
-}
-a.maia-contact-item:hover .maia-contact-value {
-  color: var(--gold-soft);
-}
-
-/* Social links */
-.maia-social-section {
-  margin-bottom: 28px;
-}
-.maia-social-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(230,165,50,0.5);
-  margin: 0 0 10px;
-}
-.maia-social-row {
-  display: flex;
-  flex-direction: column;
-}
-.maia-social-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--ink-soft);
-  text-decoration: none;
-  font-size: 13px;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  transition: color 0.2s, padding-left 0.18s ease;
-}
-.maia-social-btn:last-child { border-bottom: none; }
-.maia-social-btn:hover { color: var(--gold); padding-left: 4px; }
-.maia-social-btn svg { color: var(--gold); flex-shrink: 0; }
-
-/* Geo info */
-.maia-info-geo {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(255,255,255,0.045);
-}
-.maia-geo-coords {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(230,165,50,0.80);
-}
-.maia-geo-reach {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.60);
-}
-
-
-
-/* ══════════════════════════════════════════════════════════════════════
-   MAIA PANEL — iMessage-style widescreen chat
-══════════════════════════════════════════════════════════════════════ */
-
-/* Wrap: full height of column, perspective container */
-.maia-panel-wrap {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 520px;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Ambient backlight */
-.maia-panel-backlight {
-  position: absolute;
-  inset: -40px;
-  background: radial-gradient(ellipse 70% 55% at 50% 48%,
-    rgba(93,127,163,0.18) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Glass panel */
-.maia-panel {
-  position: relative;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: rgba(10,18,35,0.35);
-  backdrop-filter: blur(28px) saturate(1.1);
-  -webkit-backdrop-filter: blur(28px) saturate(1.1);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-top-color: rgba(255,255,255,0.13);
-  border-radius: 20px;
-  box-shadow:
-    0 0 0 1px rgba(0,0,0,0.22),
-    0 24px 70px rgba(0,0,0,0.45),
-    0 0 80px rgba(93,127,163,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.08);
-  overflow: hidden;
-  transform: perspective(1400px) rotateY(0deg) rotateX(0deg);
-  transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
-  z-index: 1;
-}
-
-/* Float animation when in view */
-.maia-panel-wrap.is-visible .maia-panel {
-  animation: holo-float 9s ease-in-out infinite;
-}
-@keyframes holo-float {
-  0%,100% { transform: perspective(1400px) translateY(0px); }
-  50%      { transform: perspective(1400px) translateY(-8px); }
-}
-
-/* Glass FX layers */
-.maia-panel-glare {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  z-index: 2;
-}
-.maia-panel-sheen {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(125deg,
-    rgba(255,255,255,0.045) 0%, transparent 42%,
-    rgba(255,255,255,0.018) 70%, transparent 100%);
-  pointer-events: none;
-  border-radius: inherit;
-  z-index: 2;
-}
-.maia-panel-scan {
-  position: absolute;
-  top: -60%;
-  left: 0; right: 0;
-  height: 60%;
-  background: linear-gradient(180deg,
-    transparent 0%, rgba(93,127,163,0.04) 50%, transparent 100%);
-  animation: panel-scan 7s linear infinite;
-  pointer-events: none;
-  z-index: 2;
-}
-@keyframes panel-scan {
-  0%   { top: -60%; }
-  100% { top: 110%; }
-}
-
-/* Corner brackets */
-.maia-corner {
-  position: absolute;
-  width: 14px; height: 14px;
-  border-color: rgba(230,165,50,0.55);
-  border-style: solid;
-  z-index: 3;
-}
-.maia-corner--tl { top: 10px; left: 10px;  border-width: 1.5px 0 0 1.5px; border-radius: 3px 0 0 0; }
-.maia-corner--tr { top: 10px; right: 10px; border-width: 1.5px 1.5px 0 0; border-radius: 0 3px 0 0; }
-.maia-corner--bl { bottom: 10px; left: 10px;  border-width: 0 0 1.5px 1.5px; border-radius: 0 0 0 3px; }
-.maia-corner--br { bottom: 10px; right: 10px; border-width: 0 1.5px 1.5px 0; border-radius: 0 0 3px 0; }
-
-/* ── iMessage header: avatar centered ── */
-.maia-panel-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 20px 20px 14px;
-  background: rgba(120,120,128,0.18);
-  border-bottom: 1px solid rgba(255,255,255,0.10);
-  position: relative;
-  z-index: 3;
-  flex-shrink: 0;
-}
-
-.maia-avatar-circle {
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: rgba(93,127,163,0.18);
-  border: 1.5px solid rgba(230,165,50,0.40);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 18px rgba(230,165,50,0.18);
-}
-
-.maia-ph-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-}
-.maia-ph-name {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: rgba(255,255,255,0.92);
-}
-.maia-ph-sub {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.68rem;
-  color: rgba(255,255,255,0.42);
-  letter-spacing: 0.04em;
-}
-
-/* Online status dot */
-.maia-status-dot {
-  display: inline-block;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #34d057;
-  box-shadow: 0 0 5px rgba(52,208,87,0.7);
-  animation: status-pulse 2.4s ease-in-out infinite;
-}
-@keyframes status-pulse {
-  0%,100% { opacity: 1; }
-  50%      { opacity: 0.45; }
-}
-
-/* ── Chat body ── */
-.maia-panel-body {
-  flex: 1;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 16px 16px 12px;
-  position: relative;
-  z-index: 3;
-}
-
-/* Date separator */
-.maia-date-sep {
-  text-align: center;
-  font-size: 0.65rem;
-  color: rgba(255,255,255,0.28);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-
-/* Chat rows */
-.maia-chat-row {
-  display: flex;
-  align-items: flex-end;
-  gap: 0;
-}
-.maia-chat-row--in  { justify-content: flex-start; }
-.maia-chat-row--out { justify-content: flex-end; }
-.maia-chat-row--follow { margin-top: -2px; }
-
-/* Bubbles */
-.maia-bubble {
-  position: relative;
-  max-width: 78%;
-  padding: 9px 13px;
-  border-radius: 16px;
-  font-size: 0.82rem;
-  line-height: 1.45;
-  word-break: break-word;
-}
-.maia-bubble--in {
-  background: rgba(40,55,80,0.78);
-  color: rgba(255,255,255,0.88);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-bottom-left-radius: 4px;
-}
-.maia-bubble--in.maia-bubble--darker {
-  background: rgba(28,42,65,0.82);
-}
-.maia-bubble--out {
-  background: rgba(93,127,163,0.55);
-  color: rgba(255,255,255,0.92);
-  border: 1px solid rgba(93,127,163,0.35);
-  border-bottom-right-radius: 4px;
-}
-
-/* Bubble tails */
-.maia-bubble-tail {
-  display: none; /* subtle enough without tails; enable below if desired */
-}
-
-/* Typing indicator */
-.maia-typing-indicator {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 10px 14px;
-  background: rgba(40,55,80,0.70);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 16px;
-  border-bottom-left-radius: 4px;
-  width: fit-content;
-}
-.maia-typing-indicator span {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.45);
-  animation: typing-dot 1.3s ease-in-out infinite;
-}
-.maia-typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-.maia-typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typing-dot {
-  0%,80%,100% { opacity: 0.35; transform: scale(1); }
-  40%          { opacity: 1;    transform: scale(1.2); }
-}
-
-/* ── Input footer ── */
-.maia-panel-footer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px 14px;
-  background: rgba(120,120,128,0.18);
-  border-top: 1px solid rgba(255,255,255,0.10);
-  position: relative;
-  z-index: 3;
-  flex-shrink: 0;
-}
-
-.maia-panel-inputbar {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 22px;
-  padding: 8px 14px;
-  min-height: 36px;
-}
-.maia-cursor-blink {
-  width: 1.5px; height: 14px;
-  background: rgba(230,165,50,0.8);
-  border-radius: 1px;
-  animation: cursor-blink 1.1s step-start infinite;
-  flex-shrink: 0;
-}
-@keyframes cursor-blink {
-  0%,100% { opacity: 1; }
-  50%      { opacity: 0; }
-}
-.maia-inputbar-hint {
-  font-size: 0.76rem;
-  color: rgba(255,255,255,0.28);
-  letter-spacing: 0.02em;
-  user-select: none;
-}
-
-.maia-panel-sendbtn {
-  flex-shrink: 0;
-  padding: 7px 16px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, rgba(230,165,50,0.85) 0%, rgba(200,130,30,0.85) 100%);
-  border: none;
-  color: rgba(255,255,255,0.95);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  cursor: not-allowed;
-  opacity: 0.72;
-  transition: opacity 0.2s;
-  box-shadow: 0 2px 8px rgba(230,165,50,0.25);
-}
-
-/* Reflection strip below panel */
-.maia-panel-reflection {
-  height: 28px;
-  margin-top: 2px;
-  background: linear-gradient(180deg, rgba(93,127,163,0.10) 0%, transparent 100%);
-  border-radius: 0 0 12px 12px;
-  filter: blur(4px);
-  pointer-events: none;
-  flex-shrink: 0;
-}
-
-/* ── Mobile fallback ── */
-@supports not (backdrop-filter: blur(1px)) {
-  .maia-panel {
-    background: linear-gradient(135deg,
-      rgba(40,60,90,0.94) 0%, rgba(8,18,36,0.96) 100%);
-  }
-}
-
-@media (max-width: 900px) {
-  /* Mobile: título → maia → datos contacto */
-  .maia-section { min-height: auto; }
-  .maia-inner {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    padding: 36px var(--site-pad) 48px;
-    gap: 32px;
-  }
-  .maia-info-card:first-child { order: 1; grid-row: auto; }
-  .mp-wrap                    { order: 2; grid-column: 1; grid-row: auto; }
-  .maia-info-card--details    { order: 3; grid-row: auto; }
-
-  .maia-panel-wrap { min-height: 440px; }
-  .maia-panel {
-    animation: none !important;
-    background: linear-gradient(160deg,
-      rgba(40,60,90,0.90) 0%, rgba(8,18,36,0.94) 100%);
-  }
-  .maia-bubble--in  { background: rgba(50,70,105,0.88); }
-  .maia-bubble--out { background: rgba(80,110,155,0.72); }
-  .maia-panel-header,
-  .maia-panel-footer { background: rgba(120,120,128,0.22); }
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   MAIA PANEL — frosted glass chat (mp-* namespace)
-   Font: DM Sans (loaded in index.html)
-══════════════════════════════════════════════════════════════════════ */
-
-/* Wrap: positions panel, handles 3D tilt */
-.mp-wrap {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 480px;
-  display: flex;
-  flex-direction: column;
-  font-family: 'DM Sans', system-ui, sans-serif;
-}
-
-/* Float animation when in view */
-.mp-wrap.is-visible .mp-panel {
-  animation: mp-float 9s ease-in-out infinite;
-}
-@keyframes mp-float {
-  0%,100% { transform: perspective(1200px) translateY(0px); }
-  50%      { transform: perspective(1200px) translateY(-7px); }
-}
-
-/* Main panel card */
-.mp-panel {
-  position: relative;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  background: rgba(190,190,195,0.08);
-  backdrop-filter: blur(14px) saturate(1.05) brightness(1.1);
-  -webkit-backdrop-filter: blur(14px) saturate(1.05) brightness(1.1);
-  border: 0.5px solid rgba(255,255,255,0.16);
-  box-shadow:
-    0 0 0 0.5px rgba(255,255,255,0.06),
-    0 20px 60px rgba(0,0,0,0.25),
-    0 4px 16px rgba(0,0,0,0.15);
-  overflow: hidden;
-  transform: perspective(1200px) rotateY(0deg) rotateX(0deg);
-  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
-  will-change: transform;
-}
-
-/* Gold ambient light — top-left corner */
-.mp-glow {
-  position: absolute;
-  top: -60px;
-  left: -60px;
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle, rgba(212,165,61,0.14) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ── Header ── */
-.mp-header {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  border-bottom: 0.5px solid rgba(255,255,255,0.07);
-  flex-shrink: 0;
-}
-
-/* Square rounded avatar */
-.mp-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: rgba(10,14,22,0.70);
-  border: 1.5px solid rgba(212,165,61,0.40);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 0 12px rgba(212,165,61,0.10);
-}
-
-.mp-header-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.mp-name {
-  font-size: 14px;
-  font-weight: 500;
-  color: #f0e8d0;
-  letter-spacing: 0.06em;
-  line-height: 1;
-}
-
-.mp-sub {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 11px;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-
-.mp-online-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #4ade80;
-  box-shadow: 0 0 5px rgba(74,222,128,0.65);
-  animation: mp-online-pulse 2.5s ease-in-out infinite;
-  flex-shrink: 0;
-}
-@keyframes mp-online-pulse {
-  0%,100% { opacity: 1; }
-  50%      { opacity: 0.40; }
-}
-
-/* ── Chat body ── */
-.mp-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 14px 14px 10px;
-  overflow: hidden;
-  position: relative;
-  z-index: 2;
-}
-
-/* Date separator */
-.mp-date {
-  text-align: center;
-  font-size: 10px;
-  color: rgba(255,255,255,0.22);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-
-/* Chat rows */
-.mp-row {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.mp-row--in  { align-items: flex-start; }
-.mp-row--out { align-items: flex-end; }
-
-/* Frosted bubbles */
-.mp-bubble {
-  position: relative;
-  max-width: 62%;
-  padding: 9px 13px;
-  font-size: 13.5px;
-  line-height: 1.45;
-  color: rgba(255,255,255,0.88);
-  word-break: break-word;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.mp-bubble--in {
-  background: rgba(255,255,255,0.07);
-  border: 0.5px solid rgba(255,255,255,0.10);
-  border-radius: 18px 18px 18px 5px;
-}
-
-.mp-bubble--out {
-  background: rgba(255,255,255,0.12);
-  border: 0.5px solid rgba(255,255,255,0.14);
-  border-radius: 18px 18px 5px 18px;
-  color: rgba(255,255,255,0.90);
-}
-
-/* Timestamps */
-.mp-time {
-  font-size: 10px;
-  color: rgba(255,255,255,0.22);
-  padding: 0 4px;
-  line-height: 1;
-}
-.mp-time--out {
-  text-align: right;
-}
-
-/* Typing indicator — same frosted bubble */
-.mp-typing {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 11px 14px;
-}
-.mp-typing span {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.50);
-  animation: mp-dot 1.3s ease-in-out infinite;
-}
-.mp-typing span:nth-child(2) { animation-delay: 0.2s; }
-.mp-typing span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes mp-dot {
-  0%,80%,100% { opacity: 0.35; transform: scale(1); }
-  40%          { opacity: 1;    transform: scale(1.25); }
-}
-
-/* ── Input footer ── */
-.mp-footer {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px 13px;
-  border-top: 0.5px solid rgba(255,255,255,0.06);
-  flex-shrink: 0;
-}
-
-.mp-input-wrap {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 14px;
-  height: 38px;
-  background: rgba(255,255,255,0.07);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 0.5px solid rgba(255,255,255,0.10);
-  border-radius: 24px;
-}
-
-.mp-placeholder {
-  font-size: 13px;
-  color: rgba(255,255,255,0.22);
-  user-select: none;
-  flex: 1;
-}
-
-.mp-cursor {
-  width: 1.5px;
-  height: 14px;
-  background: rgba(212,165,61,0.75);
-  border-radius: 1px;
-  animation: mp-blink 1.1s step-start infinite;
-  flex-shrink: 0;
-}
-@keyframes mp-blink {
-  0%,100% { opacity: 1; }
-  50%      { opacity: 0; }
-}
-
-.mp-send {
-  flex-shrink: 0;
-  height: 32px;
-  padding: 0 16px;
-  background: #d4a53d;
-  border: none;
-  border-radius: 20px;
-  color: #fff;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: not-allowed;
-  opacity: 0.75;
-  box-shadow: 0 2px 10px rgba(212,165,61,0.25);
-  transition: opacity 0.2s;
-  white-space: nowrap;
-}
-
-/* ── No-backdrop-filter fallback ── */
-@supports not (backdrop-filter: blur(1px)) {
-  .mp-panel       { background: rgba(50,52,58,0.88); }
-  .mp-bubble--in  { background: rgba(55,57,65,0.90); }
-  .mp-bubble--out { background: rgba(70,72,80,0.90); }
-  .mp-input-wrap  { background: rgba(45,47,55,0.90); }
-}
-
-@media (max-width: 900px) {
-  .mp-wrap { min-height: 420px; }
-  .mp-wrap.is-visible .mp-panel { animation: none !important; }
-  .mp-panel {
-    background: rgba(180,180,190,0.10);
-    backdrop-filter: blur(12px) saturate(1.0);
-    -webkit-backdrop-filter: blur(12px) saturate(1.0);
-  }
-}
-
-/* ══════════════════════════════════════════════════════════════════════
-   FOOTER TOOLS CAROUSEL
-══════════════════════════════════════════════════════════════════════ */
-.ft-tools {
-  padding: 28px 0 24px;
-  border-bottom: 0.5px solid rgba(255,255,255,0.06);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  /* frosted glass — igual que maia-panel */
-  background: rgba(120,120,128,0.10);
-  backdrop-filter: blur(24px) saturate(1.1) brightness(1.08);
-  -webkit-backdrop-filter: blur(24px) saturate(1.1) brightness(1.08);
-  border-top: 1px solid rgba(255,255,255,0.10);
-}
-
-.ft-tools-label {
-  text-align: center;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.40);
-  margin-bottom: 0;
-}
-
-.ft-track-wrap {
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
-}
-
-.ft-track {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  width: max-content;
-}
-.ft-track:hover { animation-play-state: paused; }
-
-.ft-track--ltr { animation: ft-scroll-ltr 55s linear infinite; }
-.ft-track--rtl { animation: ft-scroll-rtl 55s linear infinite; }
-
-@keyframes ft-scroll-ltr {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-@keyframes ft-scroll-rtl {
-  0%   { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
-}
-
-.ft-tool-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7px;
-  padding: 0 36px;
-  cursor: default;
-  transition: transform 0.2s ease;
-  flex-shrink: 0;
-}
-.ft-tool-item:hover { transform: translateY(-3px); }
-
-.ft-tool-icon {
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.12));
-  transition: filter 0.2s ease;
-  opacity: 0.55;
-}
-.ft-tool-item:hover .ft-tool-icon {
-  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,255,255,0.35));
-  opacity: 1;
-}
-.ft-tool-icon svg { width: 100%; height: 100%; }
-
-.ft-tool-name {
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  color: rgba(255,255,255,0.40);
-  white-space: nowrap;
-}
 
 /* ====================================================================
    SERVICE PAGES — plantilla compartida (/servicios/*)
@@ -4792,37 +3785,102 @@ a.g-card:hover .g-card-mas svg { translate: 4px 0; }
 }
 
 /* ===========================================================================
-   PIEZAS HEREDADAS DEL TEMA OSCURO QUE SE QUEDAN
+   CONTACTO — las tres vías
    ===========================================================================
-   Dos bloques del sitio viejo siguen sirviendo tal cual y no vale la pena
-   rehacerlos: el panel de contacto (una maqueta de conversación de WhatsApp,
-   que se lee mejor sobre oscuro) y el pie. Los dos estaban dibujados para
-   flotar sobre la foto fija —texto blanco con `text-shadow` y fondo
-   transparente— y sin la foto quedarían blancos sobre blanco.
+   Sustituye a la sección MAIA, borrada el 15-sep-2026. Aquella traía un canvas
+   de cincuenta partículas unidas por líneas con su propio requestAnimationFrame
+   corriendo mientras la página estuviera abierta, un `radial-gradient`
+   recalculado en cada mousemove, y una maqueta de chat con burbujas que
+   entraban una por una. Entre el JSX y el CSS eran 1.300 líneas para mostrar un
+   teléfono, un mail y una ciudad.
 
-   Acá se les da fondo propio. De paso cierran la página: la sección de
-   contacto en navy y el pie un tono más profundo, que es lo que hace que se
-   lea el corte entre los dos sin una línea.
+   Esto son tres tarjetas y ninguna animación permanente.
    =========================================================================== */
 
-body.g-light .maia-section {
-  background: var(--g-navy);
-  min-height: 0;
-  padding: 88px 0;
+.g-vias {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 980px;
+  margin: 0 auto;
 }
-/* La trama de puntos y el resplandor del cursor estaban calibrados contra la
-   foto; sobre el navy plano quedaban casi invisibles. */
-body.g-light .maia-world-bg {
-  background-image: radial-gradient(circle, rgba(230,165,50,0.16) 1px, transparent 1px);
-  opacity: 0.7;
+
+.g-via {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 26px 24px;
+  border-radius: var(--g-radio, 16px);
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.10);
+  text-decoration: none;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
 }
+a.g-via:hover {
+  background: rgba(255,255,255,0.075);
+  border-color: rgba(230,165,50,0.42);
+  transform: translateY(-2px);
+}
+
+.g-via-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+  border-radius: 11px;
+  background: rgba(230,165,50,0.14);
+  color: var(--g-gold-soft);
+}
+.g-via-ico svg { width: 19px; height: 19px; }
+
+.g-via-et {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--g-gold-soft);
+}
+.g-via-val {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.g-via-nota {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.58);
+  margin-top: 2px;
+}
+
+/* El botón de cierre, centrado bajo las tres tarjetas. */
+.g-sec--dark .g-cierre { margin-top: 40px; }
+
+@media (max-width: 860px) {
+  .g-vias { grid-template-columns: 1fr; gap: 12px; }
+  .g-via  { padding: 20px; }
+  .g-via-ico { width: 34px; height: 34px; margin-bottom: 6px; }
+}
+
+/* ===========================================================================
+   EL PIE SOBRE EL TEMA CLARO
+   ===========================================================================
+   El pie es el único bloque del sitio viejo que se queda tal cual: estaba
+   dibujado para flotar sobre la foto fija —texto blanco con `text-shadow` y
+   fondo transparente— y sin la foto quedaría blanco sobre blanco. Acá se le da
+   fondo propio, un navy más profundo que el de contacto, que es lo que hace que
+   se lea el corte entre los dos sin una línea de por medio.
+   =========================================================================== */
 
 body.g-light .footer {
   background: var(--g-navy-3);
   border-top: 0;
   padding: 0 0 40px;
 }
-body.g-light .footer > .container { margin-top: 48px; }
+body.g-light .footer > .container { margin-top: 0; padding-top: 64px; }
 /* Sin foto detrás no hay nada contra qué contrastar: la sombra sólo ensucia. */
 body.g-light .footer-tag,
 body.g-light .footer h5,
@@ -4837,15 +3895,3 @@ body.g-light .footer-bottom {
 }
 body.g-light .footer-bottom a { color: rgba(255,255,255,0.5); }
 body.g-light .footer-bottom a:hover { color: var(--g-gold-soft); }
-
-/* El carrusel de tecnologías: era vidrio esmerilado sobre la foto. Sobre el
-   navy del pie el desenfoque no tiene qué desenfocar, así que va color plano. */
-body.g-light .ft-tools {
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border-top-color: rgba(255,255,255,0.07);
-  border-bottom-color: rgba(255,255,255,0.07);
-}
-body.g-light .ft-tools-label { color: rgba(255,255,255,0.45); }
-body.g-light .ft-tool-name { color: rgba(255,255,255,0.62); }

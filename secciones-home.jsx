@@ -350,8 +350,9 @@ function Software() {
               <li><strong>Sin permanencia:</strong> cuota mensual o anual, y el anual sale diez meses</li>
             </ul>
             <div className="g-hero-ctas" style={{ marginTop: 28 }}>
-              <a className="g-btn g-btn--primario" href="/software-para-veterinarias">
-                Ver Vet 360iA <Flecha />
+              <a className="g-btn g-btn--primario" href="https://vet.g360ia.com.ar"
+                 target="_blank" rel="noopener">
+                Ir a Vet 360iA <Flecha />
               </a>
               <a className="g-btn g-btn--linea" href="/software">Ver el catálogo</a>
             </div>
@@ -418,4 +419,84 @@ function Afiliados() {
   );
 }
 
-export { Nav, Hero, Cifras, Puertas, Servicios, Software, Afiliados, useRevelar, Flecha };
+/* ===========================================================================
+   CONTACTO
+   ===========================================================================
+   Reemplaza a la sección MAIA, que se fue el 15-sep-2026. Aquella tenía un
+   canvas de partículas con su propio requestAnimationFrame corriendo siempre,
+   un degradado que seguía al cursor recalculado en cada mousemove, y una
+   maqueta animada de conversación. Tres animaciones permanentes para mostrar
+   un teléfono y un mail.
+
+   Lo que queda es la información y nada más. La sección conserva el id
+   `contacto` porque hay enlaces /#contacto vivos en las dos páginas legales
+   y en /servicios/seo.
+   =========================================================================== */
+const VIAS = [
+  {
+    icono: 'whatsapp',
+    etiqueta: 'WhatsApp',
+    valor: '+54 9 11 2552-6561',
+    href: 'https://wa.me/5491125526561',
+    nota: 'Lo más rápido — respondemos el mismo día',
+  },
+  {
+    icono: 'mail',
+    etiqueta: 'Email',
+    valor: 'consultora@g360ia.com.ar',
+    href: 'mailto:consultora@g360ia.com.ar',
+    nota: 'Para propuestas y documentación',
+  },
+  {
+    icono: 'map',
+    etiqueta: 'Dónde estamos',
+    valor: 'Buenos Aires, Argentina',
+    href: null,
+    nota: 'Trabajamos con toda LATAM, en remoto',
+  },
+];
+
+function Contacto() {
+  return (
+    <section className="g-sec g-sec--dark" id="contacto">
+      <div className="g-contenedor">
+        <div className="g-cab g-rev">
+          <span className="g-eyebrow">Contacto</span>
+          <h2 className="g-h2">Contanos qué necesita <em>tu negocio</em></h2>
+          <p className="g-lead">
+            El primer diagnóstico no se cobra: escribinos qué estás tratando de resolver
+            y te decimos si lo nuestro sirve para eso o no.
+          </p>
+        </div>
+
+        <div className="g-vias g-rev" style={{ '--g-delay': '90ms' }}>
+          {VIAS.map((v, i) => {
+            const Ico = Icon[v.icono];
+            const dentro = (
+              <React.Fragment>
+                <span className="g-via-ico" aria-hidden="true"><Ico /></span>
+                <span className="g-via-et">{v.etiqueta}</span>
+                <span className="g-via-val">{v.valor}</span>
+                <span className="g-via-nota">{v.nota}</span>
+              </React.Fragment>
+            );
+            return v.href
+              ? <a key={i} className="g-via" href={v.href}
+                   target={v.href.startsWith('http') ? '_blank' : undefined}
+                   rel={v.href.startsWith('http') ? 'noopener' : undefined}>{dentro}</a>
+              : <div key={i} className="g-via">{dentro}</div>;
+          })}
+        </div>
+
+        <div className="g-cierre g-rev" style={{ '--g-delay': '160ms' }}>
+          <a className="g-btn g-btn--primario g-btn--grande" href="https://wa.me/5491125526561"
+             target="_blank" rel="noopener">
+            Escribinos por WhatsApp <Flecha />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export { Nav, Hero, Cifras, Puertas, Servicios, Software, Afiliados, Contacto, useRevelar, Flecha };
