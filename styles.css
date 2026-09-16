@@ -3538,6 +3538,12 @@ body.g-light a { text-decoration: none; }
   body.g-light .g-hero .g-eyebrow { grid-area: 1 / 2; margin-bottom: 14px; }
   body.g-light .g-hero .g-h1      { grid-area: 2 / 2; }
 
+  /* Las migas, cuando el hero es de una página interna y no de la home. Van a
+     la celda vacía de arriba a la izquierda: es donde se leen las migas y es
+     parte de la foto que igual se dejaba ver. Sin esto quedan como un ítem sin
+     ubicar y el auto-placement las mete donde caiga. */
+  body.g-light .g-hero .g-migas { grid-area: 1 / 1; align-self: start; margin: 0; }
+
   /* Arranca con los botones y termina con los avisos. */
   body.g-light .g-hero-lead {
     grid-area: 3 / 2 / 5 / 3;

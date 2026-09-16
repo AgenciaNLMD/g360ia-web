@@ -40,6 +40,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
+  <link rel="preload" as="image" href="/hero-bg.webp" fetchpriority="high" />
   <link rel="stylesheet" href="/styles.css" />
 
   <!-- JSON-LD: WebPage
@@ -217,6 +218,13 @@
 </head>
 <body class="g-light g-pagina">
 
+  <!-- La foto del hero, igual que en la home: vive acá y sólo acá, ocupando el
+       alto del hero y nada más. Va fuera de <main> y arriba de todo para que el
+       navegador la descubra en el primer parseo: es el elemento LCP. -->
+  <div class="g-hero-img" aria-hidden="true">
+    <img src="/hero-bg.webp" alt="" fetchpriority="high" decoding="async" />
+  </div>
+
   <!-- ===================== BARRA ===================== -->
   <nav class="g-nav" aria-label="Navegación principal">
     <div class="g-contenedor">
@@ -259,19 +267,21 @@
   <main>
 
     <!-- ===================== 1 · HERO ===================== -->
-    <section class="g-pag-hero">
+    <section class="g-hero" id="inicio">
       <div class="g-contenedor">
-        <div class="g-pag-hero-inner">
+        <div class="g-hero-inner">
           <nav class="g-migas" aria-label="Migas de pan">
             <a href="/">Inicio</a><span>/</span>Programa de afiliados
           </nav>
           <span class="g-eyebrow">Programa de afiliados · Comisión recurrente</span>
-          <h1>Vendé nuestro software<br />y <em>cobrá todos los meses</em></h1>
-          <p class="g-lead">
-            Si ya tratás con negocios de un rubro —porque les vendés insumos, les llevás la
-            contabilidad o simplemente los conocés— podés presentarles nuestro software de
-            gestión con tu link y cobrar el <strong style="color:#fff">20% de cada cuota que
-            paguen</strong>, mes a mes, mientras sigan siendo clientes.
+          <h1 class="g-h1">
+            Vendé nuestro software<br />
+            y <em>cobrá todos los meses</em>
+          </h1>
+          <p class="g-hero-lead">
+            Si ya tratás con negocios de un rubro, podés presentarles nuestro software de
+            gestión con tu link y cobrar el 20% de cada cuota que paguen, mes a mes,
+            mientras sigan siendo clientes.
           </p>
           <div class="g-hero-ctas">
             <a class="g-btn g-btn--primario g-btn--grande" href="https://vet.g360ia.com.ar/afiliados" target="_blank" rel="noopener">
@@ -280,7 +290,7 @@
             </a>
             <a class="g-btn g-btn--fantasma g-btn--grande" href="#cuanto-se-gana">Ver cuánto se gana</a>
           </div>
-          <div class="g-hero-nota">
+          <p class="g-hero-nota">
             <span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
               Sin inversión inicial
@@ -293,7 +303,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
               Sin saber programar
             </span>
-          </div>
+          </p>
         </div>
       </div>
       <svg class="g-onda" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
