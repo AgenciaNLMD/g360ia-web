@@ -126,7 +126,6 @@ function Nav() {
           </div>
 
           <div className="g-nav-acciones">
-            <a className="g-nav-acceso" href="https://panel.g360ia.com.ar">Acceso clientes</a>
             <a className="g-btn g-btn--primario" href="https://wa.me/5491125526561"
                target="_blank" rel="noopener">
               Hablemos <Flecha />
@@ -152,7 +151,6 @@ function Nav() {
             {ENLACES.map((e) => (
               <a key={e.href} href={e.href} onClick={() => setAbierto(false)}>{e.texto}</a>
             ))}
-            <a href="https://panel.g360ia.com.ar">Acceso clientes</a>
             <a className="g-btn g-btn--primario" href="https://wa.me/5491125526561"
                target="_blank" rel="noopener">
               Hablemos por WhatsApp <Flecha />
