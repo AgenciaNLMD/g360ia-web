@@ -111,6 +111,12 @@ contacto. Cada puerta lleva a su rama y ahí se despliega el detalle.
 | Servicios | `/servicios` + `/servicios/<slug>` | trabajo a medida | este repo |
 | Software propio | `/software` | producto por cuota mensual | el sitio del producto (`vet.g360ia.com.ar`) |
 | Afiliados | `/afiliados` | reventa por comisión | el alta y la liquidación, en el panel del producto |
+| Developers | `/developers` | publicar tu software en el catálogo | se conversa caso por caso, no hay alta automática |
+
+`/afiliados` y `/developers` son **la misma máquina vista desde los dos lados**: una le habla
+al que sale a vender, la otra al que construyó el producto. Comparten vocabulario a propósito
+—catálogo, código de referido, comisión recurrente— y se enlazan entre sí en el cuerpo y en el
+cierre. Si cambia el mecanismo, cambian las dos o el sitio se contradice.
 
 ### El kit `.pg-page`, que ya casi no se usa
 
@@ -263,6 +269,24 @@ coincidencia y es navegable por teclado de fábrica.
 selector de atributo y pierde contra cualquier clase. Todo componente que fije su propio
 `display` necesita repetir la regla (`.g-nav-movil[hidden] { display: none; }`), o el
 elemento se dibuja igual aunque lleve el atributo.
+
+### La barra tiene tres copias y el pie dos
+
+Agregar o sacar una entrada de la navegación es tocar **cinco archivos**, y ninguno lee al
+otro. Se descubrió agregando `/developers`:
+
+| | Dónde | Qué cubre |
+|---|---|---|
+| Barra 1 | `ENLACES` en `secciones-home.jsx` | sólo la home (React) |
+| Barra 2 | el `<nav class="g-nav">` escrito a mano en cada HTML del sistema claro | `afiliados`, `developers`, `software/index`, `servicios/index`, `servicios/consultoria-ia`, `servicios/automatizaciones` |
+| Barra 3 | `SECCIONES` **y** el bloque `svc-nav-right` de `public/navbar-init.js` | las ocho páginas viejas de `/servicios`, el blog y los legales |
+| Pie 1 | `sections-bottom.jsx` | sólo la home |
+| Pie 2 | `public/partials/footer.html` | todo el resto (Regla 4) |
+
+La barra del sistema claro está escrita a mano en cada página y no se carga por `fetch` a
+propósito: así existe en el primer parseo y no hay salto de layout. El precio es esta
+duplicación, y hay que pagarlo a conciencia — al agregar una página nueva, copiar la barra de
+`afiliados.html`, que es la que está al día.
 
 ### Los diez servicios y sus seis listas
 

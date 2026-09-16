@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary meta -->
+  <title>Publicá tu software y que lo venda una red de afiliados | Developers · Gestión 360 IA</title>
+  <meta name="description" content="¿Desarrollaste un SaaS y no tenés quién lo venda? Publicalo en el catálogo de Gestión 360 IA y dejá que una red de afiliados lo presente a comisión. Sin costo fijo, sin exclusividad y sin ceder tu producto: vos cobrás la suscripción y pagás sólo cuando hay venta." />
+  <link rel="canonical" href="https://g360ia.com.ar/developers" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="author" content="Gestión 360 IA" />
+  <meta name="theme-color" content="#0e2137" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Gestión 360 IA" />
+  <meta property="og:title" content="Publicá tu software y que lo venda una red de afiliados" />
+  <meta property="og:description" content="Vos construís el software, la red sale a venderlo. Sin costo fijo, sin exclusividad y pagando sólo cuando hay una suscripción cobrada." />
+  <meta property="og:url" content="https://g360ia.com.ar/developers" />
+  <meta property="og:image" content="https://g360ia.com.ar/og-image.jpg" />
+  <meta property="og:locale" content="es_AR" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Publicá tu software y que lo venda una red de afiliados · Gestión 360 IA" />
+  <meta name="twitter:description" content="Vos construís el software, la red sale a venderlo. Pagás sólo cuando hay una suscripción cobrada." />
+  <meta name="twitter:image" content="https://g360ia.com.ar/og-image.jpg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="preload" as="image" href="/hero-bg.webp" fetchpriority="high" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- JSON-LD: WebPage
+       ─────────────────────────────────────────────────────────────────────
+       Esta es la otra cara de /afiliados. Aquella le habla al que vende; ésta,
+       al que construye. Son el mismo mecanismo visto desde los dos lados, y por
+       eso se enlazan entre sí y comparten el vocabulario: catálogo, código de
+       referido, comisión recurrente.
+
+       No se declara ninguna `Offer` ni ningún precio: acá no se vende nada. Lo
+       que se ofrece es un acuerdo que se conversa caso por caso, y la comisión
+       la fija cada producto. Un número inventado en datos estructurados sería
+       peor que ninguno. -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://g360ia.com.ar/developers#page",
+  "url": "https://g360ia.com.ar/developers",
+  "name": "Publicá tu software en el catálogo de Gestión 360 IA",
+  "description": "Programa para empresas y personas que desarrollan software de gestión por suscripción y necesitan un canal de venta: el producto entra al catálogo de Gestión 360 IA y lo presenta una red de afiliados que cobra comisión sólo cuando hay una suscripción cobrada.",
+  "inLanguage": "es-AR",
+  "isPartOf": { "@id": "https://g360ia.com.ar/#business" },
+  "about": [
+    {"@type": "Thing", "name": "Canal de venta de software"},
+    {"@type": "Thing", "name": "Software como servicio (SaaS)"},
+    {"@type": "Thing", "name": "Comisión recurrente"},
+    {"@type": "Thing", "name": "Distribución de software"},
+    {"@type": "Thing", "name": "Red de revendedores"}
+  ],
+  "mentions": [
+    {"@type": "Thing", "name": "Programa de afiliados"},
+    {"@type": "Thing", "name": "Código de referido"},
+    {"@type": "Thing", "name": "Ingresos recurrentes"}
+  ],
+  "significantLink": [
+    "https://g360ia.com.ar/afiliados",
+    "https://g360ia.com.ar/software"
+  ],
+  "audience": {
+    "@type": "Audience",
+    "name": "Empresas y profesionales que desarrollan software de gestión por suscripción"
+  }
+}
+  </script>
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://g360ia.com.ar/"},
+    {"@type": "ListItem", "position": 2, "name": "Developers"}
+  ]
+}
+  </script>
+
+  <!-- JSON-LD: HowTo
+       Los cuatro pasos, que son exactamente los cuatro del segmento «Cómo
+       funciona». -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Cómo publicar tu software en el catálogo de Gestión 360 IA",
+  "description": "Los cuatro pasos para que un software de gestión por suscripción entre al catálogo de Gestión 360 IA y lo venda su red de afiliados a comisión.",
+  "inLanguage": "es-AR",
+  "estimatedCost": {"@type": "MonetaryAmount", "currency": "ARS", "value": "0"},
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Contar qué hace tu producto y a quién",
+      "text": "Una conversación para entender qué resuelve el software, a qué rubro le sirve y cómo se cobra. Si el producto no encaja con la red, se dice ahí y no se avanza.",
+      "url": "https://g360ia.com.ar/developers#como-funciona"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Acordar la comisión y cómo se mide la venta",
+      "text": "Se define qué porcentaje de cada cuota cobra el afiliado, durante cuánto tiempo, y cómo el producto registra que un alta vino de un código de referido. Queda por escrito antes de publicar nada.",
+      "url": "https://g360ia.com.ar/developers#como-funciona"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Publicar el producto en el catálogo",
+      "text": "El producto entra al catálogo con su ficha: qué hace, a quién le sirve, qué comisión paga y con qué material puede presentarlo un afiliado. Desde ese momento cualquier afiliado de la red puede venderlo con su código.",
+      "url": "https://g360ia.com.ar/developers#como-funciona"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Cobrar la suscripción y liquidar la comisión",
+      "text": "El cliente contrata y le paga al desarrollador, que factura y da soporte como siempre. La comisión sale de ese cobro, una vez por mes y sólo sobre lo efectivamente cobrado.",
+      "url": "https://g360ia.com.ar/developers#reparto"
+    }
+  ]
+}
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuesta publicar mi software en el catálogo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nada por adelantado. No se cobra por publicar, ni por estar listado, ni una cuota por mantener la ficha. El único costo es la comisión del afiliado, y sale sólo cuando hay una suscripción efectivamente cobrada. Si nadie vende tu producto, no pagás nada."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Pierdo el control de mi producto o de mis clientes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. El producto sigue siendo tuyo, el cliente contrata con tu marca, le facturás vos y la relación es tuya. Esto no es una adquisición, ni una sociedad, ni un marketplace que se queda con el cliente: es un canal de venta que te presenta negocios."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Hay exclusividad?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Podés seguir vendiendo por tu cuenta, tener otros canales, otros revendedores y tu propio equipo comercial. La red es una fuente más de clientes, no un reemplazo de las que ya tengas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué comisión tengo que pagar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La que definas, dentro de lo que haga que a un afiliado le valga la pena salir a vender. En los productos propios de Gestión 360 IA el porcentaje de entrada es el 20% de cada cuota mientras el cliente siga activo, y sirve como referencia. Se acuerda antes de publicar y queda escrito en la ficha del producto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo se registra que un cliente vino de un afiliado?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lo ideal es que el registro de tu producto acepte un código de referido y lo guarde junto al alta; suele ser un campo y una consulta. Si eso no es posible a corto plazo, se arranca con una conciliación manual: el afiliado avisa la venta y se cruza contra las altas del mes. Es más trabajoso, y por eso conviene resolverlo del lado del producto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué tan grande es la red de afiliados hoy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Está arrancando. El programa está abierto, la liquidación funciona y hay un producto propio publicado, que es Vet 360iA. No hay una red de cientos de vendedores y decirlo sería mentir: el que entra hoy entra temprano, con la ventaja y el riesgo que eso significa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Ustedes me construyen el software?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Eso es otra cosa y tiene su propia página: desarrollo a medida. Este programa es para software que ya existe y funciona. Si lo que tenés es una idea sin construir, el camino es el de desarrollo y no el del catálogo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puede entrar un software que compite con los suyos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Se conversa. Si resuelve el mismo rubro que un producto propio, lo honesto es decirlo de frente antes de publicar nada, porque los dos estarían peleando por el mismo afiliado y el mismo cliente. Si resuelve otro rubro, no hay conflicto y es justamente lo que le falta al catálogo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Quién da soporte al cliente que trae un afiliado?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Vos, que sos quien hizo el producto. El afiliado presenta y acompaña, pero la demostración, la puesta en marcha, el soporte y la facturación son de quien publica el software. Por eso el producto tiene que estar terminado antes de entrar al catálogo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa si quiero salir del catálogo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Se baja la ficha y deja de venderse. Lo que no se corta de un día para el otro son las comisiones de los clientes que ya trajo un afiliado: esos siguen liquidándose mientras sigan suscriptos, porque ese vendedor ya hizo su trabajo. El plazo se acuerda al principio, no cuando alguien se quiere ir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Y si mi software no es de gestión?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Preguntá igual. El catálogo arranca por software de gestión para pymes porque es lo que sabemos vender y el rubro donde los afiliados ya tienen contactos, pero lo que define si algo encaja es que se cobre por suscripción y que haya un tipo de negocio claro al que ofrecérselo."
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body class="g-light g-pagina">
+
+  <!-- La foto de marca. Es la misma de la home y de /afiliados a propósito: las
+       páginas de programa comparten portada y las de producto usan la captura
+       del producto. Vive acá, fuera de <main>, para que el navegador la
+       descubra en el primer parseo: es el elemento LCP. -->
+  <div class="g-hero-img" aria-hidden="true">
+    <img src="/hero-bg.webp" alt="" fetchpriority="high" decoding="async" />
+  </div>
+
+  <!-- ===================== BARRA ===================== -->
+  <nav class="g-nav" aria-label="Navegación principal">
+    <div class="g-contenedor">
+      <div class="g-nav-caja">
+        <a href="/" class="g-marca">
+          <img src="/logo.webp" alt="" width="34" height="34" />
+          <span class="g-marca-txt">Gestion<span class="num">360</span><span class="ia">.iA</span></span>
+        </a>
+
+        <div class="g-nav-links">
+          <a class="g-nav-link" href="/servicios">Servicios</a>
+          <a class="g-nav-link" href="/software">Software</a>
+          <a class="g-nav-link" href="/afiliados">Afiliados</a>
+          <a class="g-nav-link" href="/developers">Developers</a>
+          <a class="g-nav-link" href="/blog/">Blog</a>
+        </div>
+
+        <div class="g-nav-acciones">
+          <a class="g-btn g-btn--primario" href="https://wa.me/5491125526561" target="_blank" rel="noopener">
+            Proponer mi producto
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <button class="g-hamb" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="g-nav-movil" id="menu-movil" hidden>
+        <a href="/servicios">Servicios</a>
+        <a href="/software">Software</a>
+        <a href="/afiliados">Afiliados</a>
+        <a href="/developers">Developers</a>
+        <a href="/blog/">Blog</a>
+        <a class="g-btn g-btn--primario" href="https://wa.me/5491125526561" target="_blank" rel="noopener">Proponer mi producto</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ===================== 1 · HERO ===================== -->
+    <section class="g-hero" id="inicio">
+      <div class="g-contenedor">
+        <div class="g-hero-inner">
+          <nav class="g-migas" aria-label="Migas de pan">
+            <a href="/">Inicio</a><span>/</span>Developers
+          </nav>
+          <span class="g-eyebrow">Para quien desarrolla software · Canal de venta</span>
+          <h1 class="g-h1">
+            Vos lo construís.<br />
+            <em>Nosotros salimos a venderlo.</em>
+          </h1>
+          <p class="g-hero-lead">
+            Si hiciste un software de gestión que se cobra por suscripción y el problema no es
+            el producto sino que nadie lo conoce, publicalo en nuestro catálogo: una red de
+            afiliados lo presenta con su código y cobra sólo cuando hay una venta.
+          </p>
+          <div class="g-hero-ctas">
+            <a class="g-btn g-btn--primario g-btn--grande" href="https://wa.me/5491125526561" target="_blank" rel="noopener">
+              Proponer mi producto
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="g-btn g-btn--fantasma g-btn--grande" href="#requisitos">¿Mi producto encaja?</a>
+          </div>
+          <p class="g-hero-nota">
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              Sin costo fijo
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              Sin exclusividad
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              El producto y el cliente siguen siendo tuyos
+            </span>
+          </p>
+        </div>
+      </div>
+      <svg class="g-onda" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,40 C240,8 480,8 720,28 C960,48 1200,58 1440,34 L1440,64 L0,64 Z" />
+      </svg>
+    </section>
+
+    <!-- ===================== 2 · EL PROBLEMA ===================== -->
+    <section class="g-sec" id="el-problema">
+      <div class="g-contenedor">
+        <div class="g-split">
+          <div class="g-rev">
+            <span class="g-eyebrow">El problema de siempre</span>
+            <h2 class="g-h2">Construir y vender<br />son <em>dos oficios distintos</em></h2>
+            <p class="g-lead" style="margin-bottom: 22px">
+              Casi todo el software chico que se muere no se muere por malo. Se muere porque
+              lo usaron cuatro clientes conocidos, nunca salió de ese círculo y en algún
+              momento dejó de tener sentido sostenerlo. El código estaba bien; lo que faltaba
+              era quién lo pusiera adelante de la gente que lo necesita.
+            </p>
+            <p class="g-lead" style="margin-bottom: 22px">
+              Y la salida obvia —armar un equipo comercial— es la más cara de todas: sueldo
+              fijo antes de la primera venta, meses de rampa para que alguien entienda el
+              producto, y rotación que te devuelve al principio. Todo eso se paga exista o no
+              exista la venta.
+            </p>
+            <ul class="g-lista">
+              <li>Una red a comisión <strong>cuesta cero mientras no vende</strong></li>
+              <li>El que vende <strong>ya conoce el rubro</strong>: no hay que enseñarle a quién llamar</li>
+              <li>Si el producto no engancha, <strong>te enterás rápido y gratis</strong></li>
+            </ul>
+          </div>
+
+          <div class="g-caja g-rev" style="--g-delay: 120ms">
+            <span class="g-eyebrow">Las dos formas de conseguir clientes</span>
+            <p style="margin-top: 14px">
+              <strong>Equipo propio.</strong> Costo fijo desde el día uno, rampa larga y
+              riesgo tuyo. Rinde cuando ya tenés volumen y podés sostener el sueldo mientras
+              la persona aprende.
+            </p>
+            <p>
+              <strong>Red a comisión.</strong> Costo variable y atado al resultado: el
+              vendedor cobra cuando cobrás vos. Rinde cuando todavía no podés bancar un
+              equipo, que es justo el momento en el que más falta hace vender.
+            </p>
+            <p style="margin-bottom:0">
+              <strong>La contracara, dicha de frente.</strong> Nadie sale a vender algo que no
+              se vende solo un poco. Si el producto todavía no convenció a ningún cliente que
+              pague, una red no lo va a arreglar — lo va a confirmar más rápido.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 3 · CÓMO FUNCIONA ===================== -->
+    <section class="g-sec g-sec--soft" id="como-funciona">
+      <div class="g-contenedor">
+        <div class="g-cab g-rev">
+          <span class="g-eyebrow">Cómo funciona</span>
+          <h2 class="g-h2">Cuatro pasos, <em>y el primero es una charla</em></h2>
+          <p class="g-lead">
+            No hay formulario de alta ni proceso de aprobación automático. Un producto entra
+            al catálogo cuando las dos partes entendieron el acuerdo, y no antes.
+          </p>
+        </div>
+
+        <div class="g-pasos g-rev">
+          <article class="g-paso">
+            <span class="g-paso-n">01</span>
+            <h3>Nos contás qué hacés</h3>
+            <p>
+              Qué resuelve el software, a qué rubro le sirve y cómo lo cobrás. Si vemos que no
+              encaja con la red, te lo decimos en esa misma charla en vez de hacerte perder
+              dos meses.
+            </p>
+          </article>
+          <article class="g-paso">
+            <span class="g-paso-n">02</span>
+            <h3>Acordamos la comisión</h3>
+            <p>
+              Qué porcentaje de cada cuota cobra el afiliado, por cuánto tiempo, y cómo tu
+              producto registra que un alta vino de un código. Queda por escrito antes de
+              publicar nada.
+            </p>
+          </article>
+          <article class="g-paso">
+            <span class="g-paso-n">03</span>
+            <h3>Entrás al catálogo</h3>
+            <p>
+              Tu producto se publica con su ficha: qué hace, a quién le sirve, qué comisión
+              paga y con qué material se presenta. Desde ahí, cualquier afiliado de la red
+              puede venderlo con su código.
+            </p>
+          </article>
+          <article class="g-paso">
+            <span class="g-paso-n">04</span>
+            <h3>Cobrás y liquidás</h3>
+            <p>
+              El cliente contrata con vos, te paga a vos y vos le facturás. La comisión sale
+              de ese cobro, una vez por mes y sólo sobre lo que entró de verdad.
+            </p>
+          </article>
+        </div>
+
+        <div class="g-cinta g-rev" style="margin-top: 26px">
+          <div class="g-cinta-n">$0</div>
+          <p class="g-cinta-t">
+            <strong>por publicar y por estar en el catálogo.</strong>
+            No hay canon de entrada, ni cuota mensual por mantener la ficha, ni mínimo de
+            ventas que cumplir. El único costo es la comisión, y existe solamente cuando
+            existe una suscripción cobrada.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 4 · QUIÉN PONE QUÉ ===================== -->
+    <section class="g-sec" id="reparto">
+      <div class="g-contenedor">
+        <div class="g-cab g-rev">
+          <span class="g-eyebrow">El reparto</span>
+          <h2 class="g-h2">Quién pone qué, <em>sin zonas grises</em></h2>
+          <p class="g-lead">
+            La mayoría de los acuerdos de canal se rompen por lo que nadie aclaró al
+            principio. Esto es lo que hace cada uno, escrito antes de empezar.
+          </p>
+        </div>
+
+        <div class="g-comp g-rev">
+          <div class="g-comp-col g-comp-col--si">
+            <h3 class="g-comp-t">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              Lo que ponés vos
+            </h3>
+            <ul>
+              <li>El producto funcionando, con clientes reales que ya lo pagan</li>
+              <li>La demostración, la puesta en marcha y el soporte del día a día</li>
+              <li>La facturación y el cobro de la suscripción</li>
+              <li>La comisión acordada, sobre cada cuota efectivamente cobrada</li>
+              <li>Una forma de saber que un alta entró con un código de referido</li>
+            </ul>
+          </div>
+
+          <div class="g-comp-col">
+            <h3 class="g-comp-t">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              Lo que ponemos nosotros
+            </h3>
+            <ul>
+              <li>La red de afiliados y el alta de cada vendedor</li>
+              <li>La ficha de tu producto en el catálogo, con su comisión visible</li>
+              <li>El seguimiento del código de referido y la liquidación mensual</li>
+              <li>El material con el que un afiliado presenta el producto</li>
+              <li>La experiencia de haber hecho esto con un producto propio primero</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 5 · REQUISITOS ===================== -->
+    <section class="g-sec g-sec--soft" id="requisitos">
+      <div class="g-contenedor">
+        <div class="g-cab g-rev">
+          <span class="g-eyebrow">¿Tu producto encaja?</span>
+          <h2 class="g-h2">Qué tiene que cumplir <em>para entrar al catálogo</em></h2>
+          <p class="g-lead">
+            No es una lista de burocracia: cada punto está porque sin él la red no puede
+            vender tu producto o el afiliado no puede cobrar.
+          </p>
+        </div>
+
+        <div class="g-grid g-grid--3 g-rev">
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+            </span>
+            <span class="g-card-kick">Requisito 01</span>
+            <h3 class="g-card-t">Se cobra por suscripción</h3>
+            <p class="g-card-p">
+              Una cuota que se repite todos los meses o todos los años. Es lo que hace que la
+              comisión también se repita: un software que se vende una sola vez paga una sola
+              comisión, y con eso ningún afiliado construye nada.
+            </p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+            </span>
+            <span class="g-card-kick">Requisito 02</span>
+            <h3 class="g-card-t">Está terminado y en uso</h3>
+            <p class="g-card-p">
+              Con clientes reales que ya pagan. No hace falta que sean muchos, pero tiene que
+              existir la prueba de que alguien que no es amigo tuyo lo eligió. Un producto a
+              medio hacer quema al afiliado que lo presentó.
+            </p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 01-9 8.4 9 9 0 01-3.9-.9L3 20.5l1.6-4.6A8.4 8.4 0 0112 3.1a8.4 8.4 0 019 8.4z"/></svg>
+            </span>
+            <span class="g-card-kick">Requisito 03</span>
+            <h3 class="g-card-t">Tenés soporte y facturación</h3>
+            <p class="g-card-p">
+              El cliente que trae un afiliado te va a escribir a vos cuando algo no ande, y
+              vos le vas a facturar. El afiliado presenta y acompaña; no es tu mesa de ayuda
+              ni tu área de administración.
+            </p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg>
+            </span>
+            <span class="g-card-kick">Requisito 04</span>
+            <h3 class="g-card-t">Podés registrar de dónde vino el alta</h3>
+            <p class="g-card-p">
+              Que tu registro acepte un código de referido y lo guarde con el alta — suele ser
+              un campo y una consulta. Si hoy no se puede, se arranca conciliando a mano, pero
+              conviene resolverlo: es lo que evita las discusiones de después.
+            </p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </span>
+            <span class="g-card-kick">Requisito 05</span>
+            <h3 class="g-card-t">Le sirve a un rubro identificable</h3>
+            <p class="g-card-p">
+              «Para cualquier empresa» no se puede vender. Un afiliado necesita saber a qué
+              puerta golpear: veterinarias, estudios contables, talleres, consultorios. Cuanto
+              más definido el rubro, más fácil encontrar quién ya lo conoce.
+            </p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
+            </span>
+            <span class="g-card-kick">Requisito 06</span>
+            <h3 class="g-card-t">La comisión cierra los números</h3>
+            <p class="g-card-p">
+              Tiene que ser suficiente para que a alguien le valga la pena salir a vender, y
+              soportable para tu margen. En nuestros productos el porcentaje de entrada es el
+              20% de cada cuota; sirve de referencia, no de regla.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 6 · DÓNDE ESTÁ ESTO HOY =====================
+         El segmento incómodo, y va arriba de la FAQ a propósito. Un
+         desarrollador que evalúa ceder margen lo primero que quiere saber es
+         cuánta red hay del otro lado. Inflar el número acá se descubre en la
+         primera reunión y cuesta el acuerdo entero. -->
+    <section class="g-sec" id="donde-estamos">
+      <div class="g-contenedor">
+        <div class="g-split">
+          <div class="g-rev">
+            <span class="g-eyebrow">Dónde está esto hoy</span>
+            <h2 class="g-h2">La red está arrancando,<br />y <em>no te lo vamos a esconder</em></h2>
+            <p class="g-lead" style="margin-bottom: 22px">
+              No hay una red de cientos de vendedores esperando tu producto. Lo que hay es un
+              programa de afiliados abierto, la liquidación funcionando y un producto propio
+              publicado —Vet 360iA, para veterinarias— que es con el que probamos el mecanismo
+              antes de invitar a nadie.
+            </p>
+            <p class="g-lead" style="margin-bottom: 22px">
+              Te lo decimos así porque es lo que vas a verificar en la primera reunión de
+              todos modos, y porque preferimos el que entra sabiendo dónde se mete. Entrar
+              temprano tiene una ventaja concreta: sos el único de tu rubro en el catálogo, y
+              los afiliados que se suman ahora te encuentran a vos.
+            </p>
+            <ul class="g-lista">
+              <li>El mecanismo <strong>ya está probado</strong> con un producto propio, no es una idea</li>
+              <li>No arriesgás plata: <strong>si no vende, no pagás</strong></li>
+              <li>Si querés hablar con alguien que ya lo usa, <strong>te lo presentamos</strong></li>
+            </ul>
+          </div>
+
+          <div class="g-caja g-rev" style="--g-delay: 120ms">
+            <span class="g-eyebrow">Lo que este programa no es</span>
+            <p style="margin-top: 14px">
+              <strong>No es una adquisición ni una sociedad.</strong> No compramos tu empresa,
+              no pedimos participación y no entramos en tus decisiones de producto.
+            </p>
+            <p>
+              <strong>No es un marketplace con checkout.</strong> El cliente contrata con vos
+              y te paga a vos. Nosotros no cobramos la suscripción ni nos quedamos en el medio
+              de esa relación.
+            </p>
+            <p>
+              <strong>No es desarrollo a medida.</strong> Si lo que tenés es una idea sin
+              construir, el camino es
+              <a class="g-link" href="/servicios/desarrollo-software">desarrollo de software</a>,
+              que es otra cosa y se cotiza aparte.
+            </p>
+            <p style="margin-bottom:0">
+              <strong>No es exclusividad.</strong> Seguís vendiendo por tu cuenta y por los
+              canales que ya tengas. Esto se suma, no reemplaza.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 7 · PREGUNTAS FRECUENTES ===================== -->
+    <section class="g-sec g-sec--soft" id="preguntas">
+      <div class="g-contenedor">
+        <div class="g-cab g-rev">
+          <span class="g-eyebrow">Preguntas frecuentes</span>
+          <h2 class="g-h2">Las que haría cualquiera <em>antes de ceder margen</em></h2>
+        </div>
+
+        <div class="g-faq g-rev">
+          <details>
+            <summary>¿Cuánto cuesta publicar mi software en el catálogo?</summary>
+            <p class="g-faq-r">
+              Nada por adelantado. No se cobra por publicar, ni por estar listado, ni una cuota
+              por mantener la ficha. El único costo es la comisión del afiliado, y sale sólo
+              cuando hay una suscripción efectivamente cobrada. Si nadie vende tu producto, no
+              pagás nada.
+            </p>
+          </details>
+          <details>
+            <summary>¿Pierdo el control de mi producto o de mis clientes?</summary>
+            <p class="g-faq-r">
+              No. El producto sigue siendo tuyo, el cliente contrata con tu marca, le facturás
+              vos y la relación es tuya. Esto no es una adquisición, ni una sociedad, ni un
+              marketplace que se queda con el cliente: es un canal de venta que te presenta
+              negocios.
+            </p>
+          </details>
+          <details>
+            <summary>¿Hay exclusividad?</summary>
+            <p class="g-faq-r">
+              No. Podés seguir vendiendo por tu cuenta, tener otros canales, otros revendedores
+              y tu propio equipo comercial. La red es una fuente más de clientes, no un
+              reemplazo de las que ya tengas.
+            </p>
+          </details>
+          <details>
+            <summary>¿Qué comisión tengo que pagar?</summary>
+            <p class="g-faq-r">
+              La que definas, dentro de lo que haga que a un afiliado le valga la pena salir a
+              vender. En los productos propios de Gestión 360 IA el porcentaje de entrada es el
+              20% de cada cuota mientras el cliente siga activo, y sirve como referencia. Se
+              acuerda antes de publicar y queda escrito en la ficha del producto.
+            </p>
+          </details>
+          <details>
+            <summary>¿Cómo se registra que un cliente vino de un afiliado?</summary>
+            <p class="g-faq-r">
+              Lo ideal es que el registro de tu producto acepte un código de referido y lo
+              guarde junto al alta; suele ser un campo y una consulta. Si eso no es posible a
+              corto plazo, se arranca con una conciliación manual: el afiliado avisa la venta y
+              se cruza contra las altas del mes. Es más trabajoso, y por eso conviene
+              resolverlo del lado del producto.
+            </p>
+          </details>
+          <details>
+            <summary>¿Qué tan grande es la red de afiliados hoy?</summary>
+            <p class="g-faq-r">
+              Está arrancando. El programa está abierto, la liquidación funciona y hay un
+              producto propio publicado, que es Vet 360iA. No hay una red de cientos de
+              vendedores y decirlo sería mentir: el que entra hoy entra temprano, con la
+              ventaja y el riesgo que eso significa.
+            </p>
+          </details>
+          <details>
+            <summary>¿Ustedes me construyen el software?</summary>
+            <p class="g-faq-r">
+              Eso es otra cosa y tiene su propia página:
+              <a class="g-link" href="/servicios/desarrollo-software">desarrollo a medida</a>.
+              Este programa es para software que ya existe y funciona. Si lo que tenés es una
+              idea sin construir, el camino es el de desarrollo y no el del catálogo.
+            </p>
+          </details>
+          <details>
+            <summary>¿Puede entrar un software que compite con los suyos?</summary>
+            <p class="g-faq-r">
+              Se conversa. Si resuelve el mismo rubro que un producto propio, lo honesto es
+              decirlo de frente antes de publicar nada, porque los dos estarían peleando por el
+              mismo afiliado y el mismo cliente. Si resuelve otro rubro, no hay conflicto y es
+              justamente lo que le falta al catálogo.
+            </p>
+          </details>
+          <details>
+            <summary>¿Quién da soporte al cliente que trae un afiliado?</summary>
+            <p class="g-faq-r">
+              Vos, que sos quien hizo el producto. El afiliado presenta y acompaña, pero la
+              demostración, la puesta en marcha, el soporte y la facturación son de quien
+              publica el software. Por eso el producto tiene que estar terminado antes de
+              entrar al catálogo.
+            </p>
+          </details>
+          <details>
+            <summary>¿Qué pasa si quiero salir del catálogo?</summary>
+            <p class="g-faq-r">
+              Se baja la ficha y deja de venderse. Lo que no se corta de un día para el otro son
+              las comisiones de los clientes que ya trajo un afiliado: esos siguen liquidándose
+              mientras sigan suscriptos, porque ese vendedor ya hizo su trabajo. El plazo se
+              acuerda al principio, no cuando alguien se quiere ir.
+            </p>
+          </details>
+          <details>
+            <summary>¿Y si mi software no es de gestión?</summary>
+            <p class="g-faq-r">
+              Preguntá igual. El catálogo arranca por software de gestión para pymes porque es
+              lo que sabemos vender y el rubro donde los afiliados ya tienen contactos, pero lo
+              que define si algo encaja es que se cobre por suscripción y que haya un tipo de
+              negocio claro al que ofrecérselo.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 8 · BLOQUE DE INTENCIÓN (GEO) ===================== -->
+    <section class="g-sec g-sec--corta" id="intencion">
+      <div class="g-contenedor">
+        <div class="g-geo g-rev">
+          <p class="g-geo-t">También respondemos en esta página</p>
+          <ul>
+            <li>
+              <a href="#el-problema">
+                <span>Hice un SaaS y no lo compra nadie, ¿cómo consigo clientes?</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#como-funciona">
+                <span>¿Cómo armo una red de revendedores para mi software?</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#requisitos">
+                <span>¿Qué comisión se le paga a un afiliado que vende software?</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#el-problema">
+                <span>¿Me conviene contratar un vendedor o pagar comisión por venta?</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#requisitos">
+                <span>¿Cómo se rastrea que una venta vino de un código de referido?</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#donde-estamos">
+                <span>¿Dónde publico mi software para que otros lo revendan en Argentina?</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 9 · SEGUÍ LEYENDO ===================== -->
+    <section class="g-sec g-sec--corta g-sec--soft" id="relacionados">
+      <div class="g-contenedor">
+        <div class="g-cab g-cab--izq g-rev" style="margin-bottom: 24px">
+          <span class="g-eyebrow">La otra cara del mismo mecanismo</span>
+        </div>
+        <div class="g-rel g-rev">
+          <a class="g-rel-card" href="/afiliados">
+            <span class="g-rel-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0112 0"/><path d="M16 5.5a3.2 3.2 0 010 6M18 20a6 6 0 00-3-5.2"/></svg>
+            </span>
+            <span class="g-rel-txt">
+              <span class="g-rel-n">Programa de afiliados</span>
+              <span class="g-rel-d">Lo mismo, visto por el que sale a vender</span>
+            </span>
+          </a>
+          <a class="g-rel-card" href="/software">
+            <span class="g-rel-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 14h6"/></svg>
+            </span>
+            <span class="g-rel-txt">
+              <span class="g-rel-n">El catálogo</span>
+              <span class="g-rel-d">Qué hay publicado hoy y cómo se cuenta un producto</span>
+            </span>
+          </a>
+          <a class="g-rel-card" href="/blog/software-gestion-por-suscripcion-pymes">
+            <span class="g-rel-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </span>
+            <span class="g-rel-txt">
+              <span class="g-rel-n">Suscripción</span>
+              <span class="g-rel-d">Por qué el modelo por cuota cambia quién te puede vender</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 10 · CIERRE ===================== -->
+    <section class="g-sec g-sec--dark" id="empezar">
+      <div class="g-contenedor">
+        <div class="g-cab g-rev">
+          <span class="g-eyebrow">Empezar</span>
+          <h2 class="g-h2">Contanos qué construiste<br /><em>y vemos si esto te sirve</em></h2>
+          <p class="g-lead">
+            No hay formulario ni proceso de admisión: es una charla. Con que nos digas qué hace
+            tu software, a qué rubro le sirve y cómo lo cobrás, alcanza para saber en diez
+            minutos si tiene sentido seguir.
+          </p>
+        </div>
+        <div class="g-cierre g-rev">
+          <a class="g-btn g-btn--primario g-btn--grande" href="https://wa.me/5491125526561" target="_blank" rel="noopener">
+            Proponer mi producto
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="g-btn g-btn--fantasma g-btn--grande" href="/afiliados">Ver el programa desde el lado del que vende</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="/g-pagina.js" defer></script>
+</body>
+</html>

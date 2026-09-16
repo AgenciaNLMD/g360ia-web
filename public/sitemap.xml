@@ -106,10 +106,17 @@
        sitemap: el sitemap declara destinos finales, y listar un 301 es pedirle
        al buscador que rastree algo que ya sabe que no es la página. -->
 
-  <!-- Programa de afiliados -->
+  <!-- Programa de afiliados — las dos caras del mismo mecanismo -->
   <url>
     <loc>https://g360ia.com.ar/afiliados</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://g360ia.com.ar/developers</loc>
+    <lastmod>2026-09-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

@@ -51,6 +51,7 @@ export default defineConfig({
            mails del turnero (lib/email-textos.js)— y el contenido del producto
            lo cuenta ahora `/software`. */
         afiliados: resolve(root, 'afiliados.html'),
+        developers: resolve(root, 'developers.html'),
 
         ...servicios,
         ...software,

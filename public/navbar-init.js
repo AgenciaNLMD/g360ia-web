@@ -21,12 +21,14 @@
     { label: 'Branding & UI/UX',   href: '/servicios/branding-uiux' },
   ];
 
-  /* Las otras dos patas del negocio. Van fuera de SERVICES porque no son
-     servicios a medida: son producto propio y programa de reventa, y en el
-     menú tienen que leerse como otra cosa. */
+  /* Las otras patas del negocio. Van fuera de SERVICES porque no son
+     servicios a medida: son producto propio, programa de reventa y la puerta
+     para quien desarrolla software, y en el menú tienen que leerse como otra
+     cosa. */
   const SECCIONES = [
     { label: 'Software propio',       href: '/software' },
     { label: 'Programa de afiliados', href: '/afiliados' },
+    { label: 'Developers',            href: '/developers' },
   ];
 
   /* ─────────── HTML ─────────── */
@@ -55,6 +57,7 @@
       <div class="svc-nav-right">
         <a href="/software" class="svc-nav-seccion">Software</a>
         <a href="/afiliados" class="svc-nav-seccion">Afiliados</a>
+        <a href="/developers" class="svc-nav-seccion">Developers</a>
 
         <div class="svc-services-wrap">
           <button class="svc-services-btn" id="svc-services-btn" aria-expanded="false">

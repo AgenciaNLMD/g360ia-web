@@ -77,6 +77,7 @@ const ENLACES = [
   { texto: 'Servicios',  href: '/servicios' },
   { texto: 'Software',   href: '/software' },
   { texto: 'Afiliados',  href: '/afiliados' },
+  { texto: 'Developers', href: '/developers' },
   { texto: 'Blog',       href: '/blog/' },
 ];
 
