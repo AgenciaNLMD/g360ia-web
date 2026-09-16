@@ -1,0 +1,24 @@
+{
+  "name": "g360ia-panel-afiliados",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Panel de afiliados de G360iA (afiliados.g360ia.com.ar). Vive dentro de g360ia-web pero se despliega como servicio propio.",
+  "scripts": {
+    "dev": "next dev -p 3100",
+    "build": "next build",
+    "start": "next start",
+    "migrar": "node scripts/migrar.mjs"
+  },
+  "dependencies": {
+    "next": "14.2.35",
+    "pg": "^8.13.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.6.1"
+  }
+}
