@@ -4,6 +4,4 @@ lh.json
 psi.json
 .env
 .env.*
-# …pero el ejemplo de la app de afiliados SÍ va: documenta qué variables pide.
-!panel-afiliados/.env.example
 .gstack/

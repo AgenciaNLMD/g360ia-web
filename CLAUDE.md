@@ -332,55 +332,47 @@ existiera. Al tocar la lista, revisar las seis.
 Las URLs van **sin `.html`**. Caddy sirve las extensionless y responde 301 a la forma con
 extensión, así que escribirla es un redirect en cada clic.
 
-## Regla 8 — El repo aloja dos cosas, y se despliegan por separado
+## Regla 8 — Este repo es sólo la vidriera. El login y los paneles viven aparte
 
-Desde el **16-sep-2026** `g360ia-web` no es sólo el sitio. En la raíz vive la vidriera
-(Vite + React + HTML estático, todo lo que describen las Reglas 1 a 7) y en
-**`plataforma/`** vive una aplicación Next 14 con su propia base de datos: es
-`app.g360ia.com.ar`, la puerta de acceso y los paneles de afiliado y developer.
+Hasta el 16-sep-2026 este repo alojó por un tiempo una app Next en `plataforma/` (el login
+único de `app.g360ia.com.ar`). Se sacó de acá: hoy vive en el repo **`g360ia-PRM`**
+(renombrado desde `g360ia-panel`), carpeta `app/`, junto al panel de la agencia en `admin/`.
+`g360ia-web` es **sólo** Vite + React + HTML estático — sin base de datos, sin login, sin
+lógica de negocio. La única excepción es `chat-api/`, un proxy sin estado hacia la API de
+Anthropic para el widget de WhatsApp del sitio; no maneja usuarios ni guarda nada.
 
-**Una sola puerta para los dos lados.** El email de Google es la identidad y el rol de la
-cuenta decide el panel: `/afiliado` o `/developer`. Sólo se pregunta «¿a qué venís?» **al
-registrarse**, porque ahí todavía no existe la cuenta — entrar nunca lo pregunta. Se eligió
-`app.` y no `login.` a propósito: si el login viviera en un subdominio y el panel en otro, la
-cookie de sesión tendría que emitirse para `.g360ia.com.ar` entero y viajaría también a
-`vet.g360ia.com.ar`, que es un producto aparte con su propia sesión.
+**Por qué se movió:** el criterio que se fijó fue *repo = carpeta local = nombre*, para dejar
+de arrastrar la confusión de nombres que ya había en otro repo (uno que se llamaba
+`g360ia-login` por dentro, servía `panel.g360ia.com.ar` por fuera, y corría como
+`web_panel360` en Easypanel — tres nombres para la misma cosa). Con `plataforma/` viviendo
+dentro de `g360ia-web`, ese mismo problema se hubiera repetido acá.
 
-| | Raíz | `plataforma/` |
-|---|---|---|
-| Qué es | la vidriera pública | la plataforma privada (login + paneles) |
-| Build | Vite → `dist/` | Next → `.next/` |
-| Sirve | `g360ia.com.ar` | `app.g360ia.com.ar` |
-| Datos | ninguno, es estático | Postgres propio |
+**Lo que sigue siendo cierto de esa app** (documentado en `g360ia-PRM`, no acá): login único
+con Google que deriva por rol a `/afiliados` o `/developer`, con `app.` y no `login.` para
+que la cookie de sesión no tenga que emitirse para `.g360ia.com.ar` entero — cosa que la
+haría viajar también a `vet.g360ia.com.ar`, un producto aparte con su propia sesión.
 
-**Son dos servicios de Easypanel apuntando al mismo repo.** El del panel tiene que declarar
-`plataforma` como directorio de trabajo; sin eso nixpacks construye el sitio y el
-servicio termina sirviendo la vidriera. Está en `plataforma/DESPLIEGUE.md`.
-
-### Lo que hay que saber para no romperlo
-
-- **`afiliados.html` (la vidriera) y `plataforma/` (la app) son cosas distintas.** La
-  primera explica el programa y se indexa; la segunda es la puerta de entrada de quien ya
-  decidió y lleva `noindex`. Si compitieran por las mismas búsquedas se partirían la señal.
-- **PostCSS busca su configuración hacia arriba.** `plataforma/postcss.config.js` existe
-  sólo para cortar esa búsqueda: sin él, la app hereda el config de Tailwind de la raíz —que
-  no tiene instalado— y el build muere con «must export a plugins key». Toda app que se sume
-  al lado necesita el suyo.
-- **Vite no ve la carpeta.** `vite.config.js` escanea `servicios/`, `blog/`, `software/` y
-  `legal/` por nombre, así que `plataforma/` no entra al build del sitio. Si algún día se
-  cambia ese escaneo por uno genérico, hay que excluirla a mano.
-- **Tailwind tampoco.** Su `content` apunta a `./*.jsx` y `./components/**/*.jsx`, relativos a
-  la raíz. La app tiene su propio `components/` y no se cruzan.
-- **`.env.example` de la app está exceptuado** en el `.gitignore` de la raíz, que ignora
-  `.env.*`. Es documentación de qué variables pide el servicio y tiene que viajar con el repo.
+`/afiliados` y `/developers` (las páginas de este repo, la Regla 6) siguen siendo la
+vidriera pública que informa y se indexa. `g360ia-PRM/app` es la puerta de entrada de quien
+ya decidió, y lleva `noindex` — son cosas distintas a propósito, si compitieran por las
+mismas búsquedas se partirían la señal.
 
 ### Los números del programa están en tres lugares
 
-`PCT_AFILIADO` y compañía viven en `plataforma/lib/programa.js`, en `data.jsx` de la
-vidriera y en la base del turnero. La fuente de verdad es el brief
-(`plataforma/README.md`). Si cambia el reparto, cambian los tres — y sube
-`CONDICIONES_VERSION`, porque lo que cada afiliado aceptó al registrarse queda guardado en su
-fila y es lo que respalda una liquidación discutida.
+`PCT_AFILIADO` y compañía viven en `g360ia-PRM/app/lib/programa.js`, en `data.jsx` de este
+repo, y en la base del turnero. La fuente de verdad es el brief
+(`g360ia-PRM/app/README.md`). Si cambia el reparto, cambian los tres — y sube
+`CONDICIONES_VERSION` en `g360ia-PRM`, porque lo que cada afiliado aceptó al registrarse
+queda guardado en su fila y es lo que respalda una liquidación discutida.
+
+### El lead que manda este sitio depende de una variable en el otro repo
+
+`chat-api/server.mjs` reenvía cada lead del formulario de contacto al panel de la agencia por
+`PANEL_LEADS_URL` + `PANEL_LEADS_SECRET` (env vars del servicio `web-g360ia` en Easypanel).
+El panel se mudó de `panel.g360ia.com.ar` a `admin.g360ia.com.ar` (ver `g360ia-PRM/admin`):
+si `PANEL_LEADS_URL` sigue apuntando al dominio viejo, los leads del sitio dejan de guardarse
+**sin ningún error visible** — `forwardToPanel()` sólo loguea el fallo, no reintenta ni
+avisa. Verificar esa variable después de mudar el admin.
 
 ## Stack
 

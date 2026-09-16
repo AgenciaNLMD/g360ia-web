@@ -1,6 +1,0 @@
-# Easypanel usa nixpacks. Mismo patrón que g360ia-web.
-[phases.build]
-cmds = ["npm run build"]
-
-[start]
-cmd = "npm run start"
