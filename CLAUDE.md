@@ -110,8 +110,8 @@ contacto. Cada puerta lleva a su rama y ahí se despliega el detalle.
 |---|---|---|---|
 | Servicios | `/servicios` + `/servicios/<slug>` | trabajo a medida | este repo |
 | Software propio | `/software` | producto por cuota mensual | el sitio del producto (`vet.g360ia.com.ar`) |
-| Afiliados | `/afiliados` | reventa por comisión | el alta y el panel, en `panel-afiliados/` de este repo (Regla 8) |
-| Developers | `/developers` | publicar tu software en el catálogo | alta self-service; el panel todavía no existe |
+| Afiliados | `/afiliados` | reventa por comisión | informa acá; se entra en `app.g360ia.com.ar` (Regla 8) |
+| Developers | `/developers` | publicar tu software en el catálogo | informa acá; se entra en `app.g360ia.com.ar` (Regla 8) |
 
 `/afiliados` y `/developers` son **la misma máquina vista desde los dos lados**: una le habla
 al que sale a vender, la otra al que construyó el producto. Comparten vocabulario a propósito
@@ -336,31 +336,38 @@ extensión, así que escribirla es un redirect en cada clic.
 
 Desde el **16-sep-2026** `g360ia-web` no es sólo el sitio. En la raíz vive la vidriera
 (Vite + React + HTML estático, todo lo que describen las Reglas 1 a 7) y en
-**`panel-afiliados/`** vive una aplicación Next 14 con su propia base de datos, que es el
-panel de `afiliados.g360ia.com.ar`.
+**`plataforma/`** vive una aplicación Next 14 con su propia base de datos: es
+`app.g360ia.com.ar`, la puerta de acceso y los paneles de afiliado y developer.
 
-| | Raíz | `panel-afiliados/` |
+**Una sola puerta para los dos lados.** El email de Google es la identidad y el rol de la
+cuenta decide el panel: `/afiliado` o `/developer`. Sólo se pregunta «¿a qué venís?» **al
+registrarse**, porque ahí todavía no existe la cuenta — entrar nunca lo pregunta. Se eligió
+`app.` y no `login.` a propósito: si el login viviera en un subdominio y el panel en otro, la
+cookie de sesión tendría que emitirse para `.g360ia.com.ar` entero y viajaría también a
+`vet.g360ia.com.ar`, que es un producto aparte con su propia sesión.
+
+| | Raíz | `plataforma/` |
 |---|---|---|
-| Qué es | la vidriera pública | el panel privado del afiliado |
+| Qué es | la vidriera pública | la plataforma privada (login + paneles) |
 | Build | Vite → `dist/` | Next → `.next/` |
-| Sirve | `g360ia.com.ar` | `afiliados.g360ia.com.ar` |
+| Sirve | `g360ia.com.ar` | `app.g360ia.com.ar` |
 | Datos | ninguno, es estático | Postgres propio |
 
 **Son dos servicios de Easypanel apuntando al mismo repo.** El del panel tiene que declarar
-`panel-afiliados` como directorio de trabajo; sin eso nixpacks construye el sitio y el
-servicio termina sirviendo la vidriera. Está en `panel-afiliados/DESPLIEGUE.md`.
+`plataforma` como directorio de trabajo; sin eso nixpacks construye el sitio y el
+servicio termina sirviendo la vidriera. Está en `plataforma/DESPLIEGUE.md`.
 
 ### Lo que hay que saber para no romperlo
 
-- **`afiliados.html` (la vidriera) y `panel-afiliados/` (la app) son cosas distintas.** La
+- **`afiliados.html` (la vidriera) y `plataforma/` (la app) son cosas distintas.** La
   primera explica el programa y se indexa; la segunda es la puerta de entrada de quien ya
   decidió y lleva `noindex`. Si compitieran por las mismas búsquedas se partirían la señal.
-- **PostCSS busca su configuración hacia arriba.** `panel-afiliados/postcss.config.js` existe
+- **PostCSS busca su configuración hacia arriba.** `plataforma/postcss.config.js` existe
   sólo para cortar esa búsqueda: sin él, la app hereda el config de Tailwind de la raíz —que
   no tiene instalado— y el build muere con «must export a plugins key». Toda app que se sume
   al lado necesita el suyo.
 - **Vite no ve la carpeta.** `vite.config.js` escanea `servicios/`, `blog/`, `software/` y
-  `legal/` por nombre, así que `panel-afiliados/` no entra al build del sitio. Si algún día se
+  `legal/` por nombre, así que `plataforma/` no entra al build del sitio. Si algún día se
   cambia ese escaneo por uno genérico, hay que excluirla a mano.
 - **Tailwind tampoco.** Su `content` apunta a `./*.jsx` y `./components/**/*.jsx`, relativos a
   la raíz. La app tiene su propio `components/` y no se cruzan.
@@ -369,9 +376,9 @@ servicio termina sirviendo la vidriera. Está en `panel-afiliados/DESPLIEGUE.md`
 
 ### Los números del programa están en tres lugares
 
-`PCT_AFILIADO` y compañía viven en `panel-afiliados/lib/programa.js`, en `data.jsx` de la
+`PCT_AFILIADO` y compañía viven en `plataforma/lib/programa.js`, en `data.jsx` de la
 vidriera y en la base del turnero. La fuente de verdad es el brief
-(`panel-afiliados/README.md`). Si cambia el reparto, cambian los tres — y sube
+(`plataforma/README.md`). Si cambia el reparto, cambian los tres — y sube
 `CONDICIONES_VERSION`, porque lo que cada afiliado aceptó al registrarse queda guardado en su
 fila y es lo que respalda una liquidación discutida.
 

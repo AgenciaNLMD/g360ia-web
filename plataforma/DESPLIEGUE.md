@@ -1,4 +1,4 @@
-# Poner `afiliados.g360ia.com.ar` en el aire
+# Poner `app.g360ia.com.ar` en el aire
 
 Cinco pasos. Los tres primeros son cosas que hay que crear en consolas ajenas
 (Google, Easypanel, DNS) y no se pueden automatizar desde el repo.
@@ -17,7 +17,7 @@ Vet y de acá es un overlap de negocio, no una razón para compartir una base
 Con la base arriba, aplicar las migraciones:
 
 ```bash
-DATABASE_URL="postgres://usuario:clave@host:5432/g360ia_catalogo" npm run migrar
+DATABASE_URL="postgres://usuario:clave@host:5432/g360ia_plataforma" npm run migrar
 ```
 
 El script anota lo que ya corrió en una tabla `migracion`, así que se puede
@@ -32,8 +32,8 @@ En [Google Cloud Console](https://console.cloud.google.com/apis/credentials) →
 
 | Campo | Valor |
 |---|---|
-| Orígenes autorizados de JavaScript | `https://afiliados.g360ia.com.ar` |
-| **URI de redireccionamiento autorizado** | `https://afiliados.g360ia.com.ar/api/auth/google` |
+| Orígenes autorizados de JavaScript | `https://app.g360ia.com.ar` |
+| **URI de redireccionamiento autorizado** | `https://app.g360ia.com.ar/api/auth/google` |
 
 La URI de redireccionamiento tiene que coincidir **carácter por carácter** con
 la que manda la app, o Google devuelve `redirect_uri_mismatch`. La app la arma
@@ -48,7 +48,7 @@ Para probar en local, agregar además `http://localhost:3100` y
 
 En el mismo Project de Easypanel: **New → Service → App**, apuntando al repo
 `g360ia-web` y, **en la configuración del servicio, con el directorio de trabajo
-en `panel-afiliados`**. Ese paso es el que no se puede olvidar: el repo aloja
+en `plataforma`**. Ese paso es el que no se puede olvidar: el repo aloja
 dos cosas distintas —el sitio de Vite en la raíz y esta app de Next acá— y sin
 indicar el subdirectorio, nixpacks construye el sitio y el servicio queda
 sirviendo la vidriera en vez del panel.
@@ -59,7 +59,7 @@ Variables de entorno del servicio:
 
 ```
 DATABASE_URL=postgres://…        (la del paso 1, por el host interno del Project)
-APP_URL=https://afiliados.g360ia.com.ar
+APP_URL=https://app.g360ia.com.ar
 GOOGLE_CLIENT_ID=…               (paso 2)
 GOOGLE_CLIENT_SECRET=…           (paso 2)
 SESION_SECRETO=…                 (generar: openssl rand -hex 32)
@@ -75,7 +75,7 @@ filtra.
 
 ## 4 · El dominio
 
-En el servicio → **Domains** → agregar `afiliados.g360ia.com.ar` con HTTPS.
+En el servicio → **Domains** → agregar `app.g360ia.com.ar` con HTTPS.
 Del lado del DNS, un registro que apunte ese subdominio al servidor.
 
 ---
@@ -83,7 +83,7 @@ Del lado del DNS, un registro que apunte ese subdominio al servidor.
 ## 5 · Comprobarlo
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}\n" https://afiliados.g360ia.com.ar/
+curl -s -o /dev/null -w "%{http_code}\n" https://app.g360ia.com.ar/
 ```
 
 Tiene que dar **200**. Después, a mano:

@@ -1,0 +1,404 @@
+/* ============================================================================
+   Estilos del panel de afiliados
+   ============================================================================
+   Los tokens son los mismos de `g360ia-web/styles.css` (bloque SISTEMA CLARO):
+   el visitante llega desde g360ia.com.ar/afiliados y tiene que sentir que no se
+   fue del sitio. Se copian los valores y no se importa aquel archivo — son 4000
+   líneas de un sistema que esta app no usa, y arrastrarlas para tomar ocho
+   colores es pagar el peso de todo para usar nada.
+
+   Si la marca cambia de paleta, cambian los dos archivos. Es la misma
+   duplicación consciente que ya tiene el pie del sitio.
+   ========================================================================== */
+
+:root {
+  --navy: #0e2137;
+  --navy-2: #16324f;
+  --navy-3: #081521;
+  --gold: #c8891a;
+  --gold-ink: #8f5d08;
+  --gold-soft: #e6a532;
+  --gold-bg: #fdf5e7;
+  --gold-line: #f0dfba;
+  --ink: #16293c;
+  --ink-soft: #56697c;
+  --ink-mute: #8a9aa8;
+  --bg: #ffffff;
+  --bg-soft: #f5f8fa;
+  --line: #e6ebf0;
+  --line-2: #d6dee6;
+  --radio: 16px;
+  --radio-s: 12px;
+  --sombra: 0 1px 2px rgba(14, 33, 55, 0.04), 0 10px 30px -18px rgba(14, 33, 55, 0.28);
+  --sombra-alta: 0 24px 60px -28px rgba(14, 33, 55, 0.45);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--navy);
+  color: var(--ink);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+/* ===========================================================================
+   LA PUERTA
+   ===========================================================================
+   Una tarjeta centrada sobre el navy. Es el doble slider del login de Vet: dos
+   caras apiladas sobre la mitad izquierda y un panel que se desliza tapando una
+   de las dos. `data-activo` en el contenedor es lo único que dispara la
+   animación — el JS sólo cambia ese atributo y el CSS hace el resto.
+   ========================================================================= */
+
+.puerta {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  padding: 32px 20px;
+  background:
+    radial-gradient(900px 420px at 78% -10%, rgba(230, 165, 50, 0.15), transparent 62%),
+    linear-gradient(168deg, var(--navy-2) 0%, var(--navy) 52%, var(--navy-3) 100%);
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: -0.02em;
+}
+.marca .num,
+.marca .ia { color: var(--gold-soft); }
+
+.auth { width: 100%; max-width: 860px; }
+
+.auth__error {
+  margin: 0 0 14px;
+  padding: 11px 14px;
+  border-radius: var(--radio-s);
+  background: #fdeceb;
+  border: 1px solid #f5c6c2;
+  color: #8c2a20;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.auth__shell {
+  position: relative;
+  background: var(--bg);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-alta);
+  overflow: hidden;
+  min-height: 540px;
+}
+
+/* Las dos caras ocupan la mitad izquierda y se apilan. La que no está activa se
+   desvanece y queda debajo, así que no recibe clics. */
+.auth__cara {
+  position: absolute;
+  inset: 0 50% 0 0;
+  padding: clamp(28px, 3.4vw, 44px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+  transition: opacity 0.4s ease;
+}
+.auth__cara--entrar { opacity: 1; z-index: 2; }
+.auth__cara--crear { opacity: 0; z-index: 1; }
+.auth[data-activo="si"] .auth__cara--entrar { opacity: 0; z-index: 1; }
+.auth[data-activo="si"] .auth__cara--crear { opacity: 1; z-index: 2; }
+
+.auth__titulo {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--navy);
+  margin: 0 0 8px;
+}
+.auth__sub {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0 0 22px;
+}
+.auth__condiciones {
+  margin: 14px 0 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ink-mute);
+}
+.auth__condiciones strong { color: var(--ink-soft); }
+
+/* ── Elegir a qué venís ───────────────────────────────────────────────── */
+
+.roles { display: grid; gap: 10px; margin-bottom: 20px; }
+.rol {
+  text-align: left;
+  font: inherit;
+  padding: 13px 15px;
+  border-radius: var(--radio-s);
+  border: 1px solid var(--line-2);
+  background: var(--bg);
+  cursor: pointer;
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+.rol:hover { border-color: var(--gold-line); }
+.rol--elegido { border-color: var(--gold); background: var(--gold-bg); }
+.rol:focus-visible { outline: 3px solid rgba(200, 137, 26, 0.4); outline-offset: 2px; }
+.rol__t {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 3px;
+}
+.rol__d { display: block; font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); }
+
+/* ── El código y su vista previa ──────────────────────────────────────── */
+
+.campo { display: block; margin-bottom: 12px; }
+.campo__et {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.campo__ay {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-mute);
+  margin-top: 5px;
+  line-height: 1.5;
+}
+.campo input {
+  width: 100%;
+  padding: 11px 13px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radio-s);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+.campo input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(200, 137, 26, 0.16);
+}
+
+.previa {
+  margin: 0 0 18px;
+  padding: 10px 12px;
+  border-radius: var(--radio-s);
+  background: var(--bg-soft);
+  border: 1px dashed var(--line-2);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  word-break: break-all;
+}
+.previa strong { color: var(--gold-ink); }
+.previa--vacia { font-family: inherit; font-style: italic; color: var(--ink-mute); }
+
+/* ── El botón de Google ───────────────────────────────────────────────── */
+
+.boton-google {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  padding: 13px 18px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  background: #fff;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radio-s);
+  cursor: pointer;
+  box-shadow: var(--sombra);
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+.boton-google:hover:not(:disabled) {
+  border-color: var(--gold-line);
+  transform: translateY(-1px);
+}
+.boton-google:focus-visible { outline: 3px solid rgba(200, 137, 26, 0.4); outline-offset: 2px; }
+.boton-google:disabled { opacity: 0.5; cursor: not-allowed; }
+.boton-google svg { width: 19px; height: 19px; flex: none; }
+
+/* ── El panel que se desliza ──────────────────────────────────────────── */
+
+.auth__overlay {
+  position: absolute;
+  inset: 0 0 0 50%;
+  z-index: 3;
+  overflow: hidden;
+  background:
+    radial-gradient(600px 300px at 70% 0%, rgba(230, 165, 50, 0.2), transparent 60%),
+    linear-gradient(150deg, var(--navy-2), var(--navy-3));
+  transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.auth[data-activo="si"] .auth__overlay { transform: translateX(-100%); }
+
+.auth__overlay-cara {
+  position: absolute;
+  inset: 0;
+  padding: 40px 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  transition: opacity 0.4s ease;
+}
+/* La cara «izq» invita a entrar, y sólo se ve cuando el panel ya se corrió. */
+.auth__overlay-cara--izq { opacity: 0; }
+.auth__overlay-cara--der { opacity: 1; }
+.auth[data-activo="si"] .auth__overlay-cara--izq { opacity: 1; }
+.auth[data-activo="si"] .auth__overlay-cara--der { opacity: 0; }
+
+.auth__overlay-t {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+.auth__overlay-d {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 24px;
+  color: rgba(255, 255, 255, 0.76);
+  max-width: 30ch;
+}
+.auth__fantasma {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 11px 26px;
+  border-radius: var(--radio-s);
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+.auth__fantasma:hover { background: rgba(255, 255, 255, 0.12); border-color: #fff; }
+
+/* El cambio de cara accesible, y el único que queda en teléfono. El overlay
+   lleva `aria-hidden`, así que sus botones no son alcanzables por teclado: éste
+   está siempre en el DOM y es el que usa quien navega sin mouse. */
+.auth__cambiar {
+  margin: 18px 0 0;
+  text-align: center;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.72);
+}
+.auth__cambiar button {
+  font: inherit;
+  font-weight: 700;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--gold-soft);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.legal { display: flex; gap: 10px; font-size: 12.5px; color: rgba(255, 255, 255, 0.5); }
+.legal a { color: rgba(255, 255, 255, 0.62); text-decoration: none; }
+.legal a:hover { color: var(--gold-soft); }
+
+/* ── Teléfono: el panel deslizante no entra ───────────────────────────── */
+@media (max-width: 760px) {
+  .auth__shell { min-height: 0; }
+  .auth__overlay { display: none; }
+  .auth__cara {
+    position: static;
+    inset: auto;
+    padding: 28px 22px;
+  }
+  /* Sin posicionamiento absoluto la cara oculta ocuparía lugar, así que se saca
+     del flujo con `display` — que además la quita del orden de tabulación. */
+  .auth__cara--crear { display: none; }
+  .auth[data-activo="si"] .auth__cara--entrar { display: none; }
+  .auth[data-activo="si"] .auth__cara--crear { display: flex; opacity: 1; }
+}
+
+/* ===========================================================================
+   LOS PANELES, por ahora una confirmación honesta
+   ========================================================================= */
+
+.panel { min-height: 100dvh; background: var(--bg-soft); }
+
+.panel__barra {
+  background: var(--navy);
+  padding: 14px clamp(20px, 4vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.panel__salir {
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.78);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 9px;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+.panel__salir:hover { color: #fff; border-color: rgba(255, 255, 255, 0.45); }
+
+.panel__cuerpo {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 48px) clamp(20px, 4vw, 40px) 64px;
+}
+
+.tarjeta {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radio);
+  padding: clamp(22px, 3vw, 28px);
+  margin-bottom: 16px;
+  box-shadow: var(--sombra);
+}
+.tarjeta h2 { font-size: 18px; margin: 0 0 6px; color: var(--navy); letter-spacing: -0.01em; }
+.tarjeta p { font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 12px; }
+.tarjeta p:last-child { margin-bottom: 0; }
+
+.codigo-caja {
+  padding: 13px 15px;
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-line);
+  border-radius: var(--radio-s);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  color: var(--gold-ink);
+  word-break: break-all;
+}
+
+.aviso {
+  padding: 15px 17px;
+  border-radius: var(--radio-s);
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-line);
+  color: var(--ink);
+}
+.aviso strong { color: var(--gold-ink); }
