@@ -607,6 +607,11 @@
       .bx-kw-modal-body { max-height: none; }
     }
     @keyframes bx-kw-modal-slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    /* La portada de esta nota es una infografía: se muestra entera, en su
+       proporción, en vez de recortada al 21/8 que usan las notas con foto. */
+    .bx-art-cover { aspect-ratio: 11 / 6; }
+    @media (max-width: 700px) { .bx-art-cover { aspect-ratio: 11 / 6; } }
+
   </style>
 </head>
 <body data-cat="negocios" data-blog-slug="programa-afiliados-software-comision-recurrente">
@@ -720,7 +725,7 @@
 
         <!-- imagen destacada -->
         <div class="bx-art-cover">
-          <img src="/multimedia/programa-afiliados-software-comision-recurrente.webp" alt="Dos personas cerrando un acuerdo con un apretón de manos, la imagen del programa de afiliados con comisión recurrente" width="1200" height="630" />
+          <img src="/multimedia/programa-afiliados-software-comision-recurrente.webp" alt="Comparación entre una comisión única, que vuelve a cero cada mes, y una comisión recurrente que se acumula hasta superarla en el mes catorce" width="1408" height="768" />
         </div>
 
         <!-- etiquetas del artículo -->

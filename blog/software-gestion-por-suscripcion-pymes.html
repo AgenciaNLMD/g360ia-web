@@ -606,6 +606,11 @@
       .bx-kw-modal-body { max-height: none; }
     }
     @keyframes bx-kw-modal-slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    /* La portada de esta nota es una infografía: se muestra entera, en su
+       proporción, en vez de recortada al 21/8 que usan las notas con foto. */
+    .bx-art-cover { aspect-ratio: 11 / 6; }
+    @media (max-width: 700px) { .bx-art-cover { aspect-ratio: 11 / 6; } }
+
   </style>
 </head>
 <body data-cat="software" data-blog-slug="software-gestion-por-suscripcion-pymes">
@@ -719,7 +724,7 @@
 
         <!-- imagen destacada -->
         <div class="bx-art-cover">
-          <img src="/multimedia/software-gestion-por-suscripcion-pymes.webp" alt="Atención en el mostrador de un local con el sistema de gestión funcionando en una tablet" width="1200" height="630" />
+          <img src="/multimedia/software-gestion-por-suscripcion-pymes.webp" alt="Comparación entre el software de gestión en caja con licencia única de hace quince años y el sistema por suscripción en la nube" width="1376" height="768" />
         </div>
 
         <!-- etiquetas del artículo -->

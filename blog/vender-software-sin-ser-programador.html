@@ -606,6 +606,11 @@
       .bx-kw-modal-body { max-height: none; }
     }
     @keyframes bx-kw-modal-slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    /* La portada de esta nota es una infografía: se muestra entera, en su
+       proporción, en vez de recortada al 21/8 que usan las notas con foto. */
+    .bx-art-cover { aspect-ratio: 11 / 6; }
+    @media (max-width: 700px) { .bx-art-cover { aspect-ratio: 11 / 6; } }
+
   </style>
 </head>
 <body data-cat="ventas" data-blog-slug="vender-software-sin-ser-programador">
@@ -719,7 +724,7 @@
 
         <!-- imagen destacada -->
         <div class="bx-art-cover">
-          <img src="/multimedia/vender-software-sin-ser-programador.webp" alt="Dos personas mirando juntas una notebook mientras una le explica a la otra cómo funciona un sistema de gestión" width="1200" height="630" />
+          <img src="/multimedia/vender-software-sin-ser-programador.webp" alt="Un proveedor de alimento para mascotas le muestra en una tablet el sistema de gestión a la veterinaria que ya es su clienta" width="1408" height="768" />
         </div>
 
         <!-- etiquetas del artículo -->
