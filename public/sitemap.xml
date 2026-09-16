@@ -96,17 +96,15 @@
   <!-- Software propio -->
   <url>
     <loc>https://g360ia.com.ar/software</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-09-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <url>
-    <loc>https://g360ia.com.ar/software-para-veterinarias</loc>
-    <lastmod>2026-09-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <!-- /software-para-veterinarias se borró el 16-sep-2026 y hoy es un 301 a
+       vet.g360ia.com.ar (ver Caddyfile). Una URL que redirige no va en el
+       sitemap: el sitemap declara destinos finales, y listar un 301 es pedirle
+       al buscador que rastree algo que ya sabe que no es la página. -->
 
   <!-- Programa de afiliados -->
   <url>

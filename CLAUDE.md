@@ -47,10 +47,9 @@ diseño escrito dos veces, así que toda columna que se agregue va en los dos ar
 sitio se contradice a sí mismo según por dónde entre el visitante.
 
 Las columnas hoy son seis: marca · Navegación · **Softwares 360iA** · Servicios · Contacto ·
-Seguinos. La de softwares apunta al sitio del producto (`vet.g360ia.com.ar`) y no a
-`/software-para-veterinarias`: el que busca el software quiere entrar al software. La landing
-de este repo sigue existiendo y sigue enlazada desde `/software` y `/afiliados`, que es lo que
-la mantiene indexada sin quedar huérfana.
+Seguinos. La de softwares apunta al sitio del producto (`vet.g360ia.com.ar`): el que busca el
+software quiere entrar al software. Desde el 16-sep-2026 ése es el criterio en **todo** el
+sitio, no sólo en el pie — ver la Regla 6.
 
 El pie **no tiene carrusel de tecnologías** desde el 15-sep-2026: eran dos filas de veinte
 logos cada una animadas con `transform` en bucle infinito, siempre corriendo aunque nadie
@@ -110,16 +109,20 @@ contacto. Cada puerta lleva a su rama y ahí se despliega el detalle.
 | Rama | URL | Qué es | Dónde vive el detalle |
 |---|---|---|---|
 | Servicios | `/servicios` + `/servicios/<slug>` | trabajo a medida | este repo |
-| Software propio | `/software` + `/software-para-<vertical>` | producto por cuota mensual | este repo, y el sitio del producto |
+| Software propio | `/software` | producto por cuota mensual | el sitio del producto (`vet.g360ia.com.ar`) |
 | Afiliados | `/afiliados` | reventa por comisión | el alta y la liquidación, en el panel del producto |
 
-### Las cuatro páginas nuevas usan `class="svc-page pg-page"`
+### El kit `.pg-page`, que ya casi no se usa
 
 `svc-page` da el snap y los 100dvh por segmento (Reglas 1 y 2). `pg-page` habilita el **kit
 de páginas** de `styles.css` (busca `KIT DE PÁGINAS — .pg-page`): `.pg-head`, `.pg-grid`,
 `.pg-card`, `.pg-lista`, `.pg-pasos`, `.pg-cinta`, `.pg-shots`, `.pg-faq`, `.pg-geo`,
 `.pg-calc`, `.pg-badge`, `.pg-migas`. Está separado en dos clases a propósito: las ocho
 páginas de `/servicios` que ya están indexadas no lo heredan y su layout no se toca.
+
+**Es un kit en retirada.** Las tres páginas que lo usaban ya pasaron al sistema claro
+(Regla 7) y hoy no queda ninguna con `pg-page`. Se borra junto con el bloque oscuro cuando
+se migren las ocho páginas de `/servicios`. Página nueva: sistema claro, no este kit.
 
 **Al agregar un segmento a una página `pg-page`, medir que entre en 100dvh en un teléfono**
 (390×844 es el caso ajustado). La comprobación es una línea en la consola del navegador:
@@ -135,17 +138,36 @@ Cualquier `corta > 0` es contenido que se pierde sin que el usuario se entere (e
 tiene `overflow:hidden`). Se arregla como dice la Regla 2: dos columnas, tipografía más
 chica, o partir el segmento en dos. Nunca con `overflow-y: auto`.
 
+### No hay landing por producto: el producto se enlaza directo
+
+Hubo una landing por vertical, `/software-para-veterinarias`, hasta el **16-sep-2026**. Se
+borró: era una página intermedia que contaba lo mismo que `vet.g360ia.com.ar` cuenta mejor, y
+el que busca el software para veterinarias quiere entrar al software, no leer una reseña de
+él. Todo lo que la enlazaba —la home, `/software`, `/afiliados`, `SOFTWARES` en `data.jsx`—
+apunta ahora a `https://vet.g360ia.com.ar`.
+
+La URL **no se dejó morir en un 404**: está indexada y la escriben los mails del turnero
+(`lib/email-textos.js`), así que el Caddyfile la redirige con **301 a `vet.g360ia.com.ar`**.
+Esa regla va antes de la genérica de `.html` para que la forma con extensión llegue en un
+solo salto. Y salió del `sitemap.xml`: el sitemap declara destinos finales, y listar un 301
+es pedirle al buscador que rastree algo que ya sabe que no es la página.
+
+**Vertical nueva: no se le hace landing acá.** Se suma al catálogo de `/software` y se enlaza
+a su propio sitio. La única página de este repo que habla de los productos es `/software`.
+
 ### Duplicación con el sitio del producto
 
 `vet.g360ia.com.ar` tiene sus propias páginas de funciones y precios y su propio sitemap.
-`/software-para-veterinarias` **no las repite**: cuenta el producto desde el lado de quien
-lo construye y manda allá para el detalle, los precios y el alta. Su JSON-LD de
-`SoftwareApplication` declara `url` apuntando a `vet.g360ia.com.ar` justamente para que la
-entidad consolide en el sitio del producto. Toda vertical nueva sigue el mismo criterio.
+`/software` **no las repite**: cuenta el producto desde el lado de quien lo construye —qué
+hace, cómo se ve, qué es igual en todos— y manda allá para el detalle, los precios y el alta.
+Su JSON-LD de `SoftwareApplication` declara `@id` y `url` en `vet.g360ia.com.ar` justamente
+para que la entidad consolide en el sitio del producto y no se parta en dos dominios. El
+mismo `@id` se usa en `afiliados.html` y en el `OfferCatalog` de la home: es el identificador
+de la entidad, así que si cambia, cambia en los tres.
 
-Tampoco se declaran precios en esta página: salen de la base del producto por `/api/planes`
-y cambian con un UPDATE. Un número escrito acá a mano se desactualiza solo, y un precio
-incorrecto en datos estructurados es peor que ningún precio.
+Tampoco se declaran precios acá: salen de la base del producto por `/api/planes` y cambian
+con un UPDATE. Un número escrito a mano se desactualiza solo, y un precio incorrecto en datos
+estructurados es peor que ningún precio.
 
 ### Comisión de afiliados
 
@@ -175,13 +197,13 @@ nada que pueda quedar cortado.
 ### Qué páginas están en cuál
 
 Migradas al sistema claro: la home, `/servicios`, `/servicios/consultoria-ia`,
-`/servicios/automatizaciones`, `/afiliados` y `/software-para-veterinarias`. Todo lo demás
-sigue en el viejo: las ocho páginas de servicio restantes, `/software`, el blog y los legales.
+`/servicios/automatizaciones`, `/afiliados` y `/software`. Sigue en el viejo sólo lo que
+queda: las ocho páginas de servicio restantes, el blog y los legales.
 
-Las dos páginas de rama —`/afiliados` y `/software-para-veterinarias`— usan el hero de la
-home (`.g-hero` con foto de fondo y el texto repartido en el ancho) y no `.g-pag-hero`: son
-la portada de su rama y no una página de contenido interna. Las de `/servicios/*` sí usan
-`.g-pag-hero`, que es la banda navy sin foto.
+Las dos páginas de rama —`/afiliados` y `/software`— usan el hero de la home (`.g-hero` con
+foto de fondo y el texto repartido en el ancho) y no `.g-pag-hero`: son la portada de su rama
+y no una página de contenido interna. Las de `/servicios/*` sí usan `.g-pag-hero`, que es la
+banda navy sin foto.
 
 El día que no quede ninguna en el viejo se borra el bloque oscuro entero y `styles.css` se
 achica en vez de crecer.

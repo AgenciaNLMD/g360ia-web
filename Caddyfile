@@ -42,7 +42,18 @@
 	redir /index / permanent
 	redir /index.html / permanent
 
-	# 3) /loquesea.html -> /loquesea
+	# 3) /software-para-veterinarias -> el sitio del producto
+	# La landing se borró el 16-sep-2026: el que busca el software para
+	# veterinarias quiere entrar al software, no leer una página intermedia que
+	# repite lo que vet.g360ia.com.ar ya cuenta mejor. La URL no se puede dejar
+	# morir en un 404 —está indexada y la escriben los mails del turnero
+	# (lib/email-textos.js)—, así que hace 301 y le pasa la señal al producto.
+	# Va ANTES de la regla genérica de .html para que la forma con extensión
+	# llegue en un solo salto y no encadene dos redirecciones.
+	@vet path /software-para-veterinarias /software-para-veterinarias.html
+	redir @vet https://vet.g360ia.com.ar permanent
+
+	# 4) /loquesea.html -> /loquesea
 	# /partials/* queda excluido: no son páginas, son fragmentos que se piden por fetch
 	# (ver Regla 4 / footer compartido). Redirigirlos sólo agrega un salto a cada carga.
 	@htmlext {

@@ -42,12 +42,14 @@ export default defineConfig({
       input: {
         main: resolve(root, 'index.html'),
 
-        /* Páginas sueltas de la raíz. La landing del producto veterinario vive
-           acá y no en software/ para quedar en /software-para-veterinarias: la
-           dirección con la frase que la gente busca es la que pelea el
-           posicionamiento, y además es la que ya escriben los mails del
-           turnero (lib/email-textos.js). */
-        'software-para-veterinarias': resolve(root, 'software-para-veterinarias.html'),
+        /* Páginas sueltas de la raíz.
+
+           `/software-para-veterinarias` vivía acá y se borró el 16-sep-2026: el
+           que busca el software para veterinarias quiere entrar al software, no
+           leer una landing intermedia. La URL sigue existiendo como 301 a
+           vet.g360ia.com.ar en el Caddyfile —está indexada y la escriben los
+           mails del turnero (lib/email-textos.js)— y el contenido del producto
+           lo cuenta ahora `/software`. */
         afiliados: resolve(root, 'afiliados.html'),
 
         ...servicios,

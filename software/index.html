@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Primary meta -->
-  <title>Software de gestión para PyMEs | Sistemas listos para usar · Gestión 360 IA</title>
-  <meta name="description" content="Sistemas de gestión propios de Gestión 360 IA, listos para usar y por cuota mensual. Hoy Vet 360iA para veterinarias: agenda, historia clínica, facturación y bot de WhatsApp." />
+  <title>Software de gestión para PyMEs y veterinarias | Gestión 360 IA</title>
+  <meta name="description" content="Sistemas de gestión propios de Gestión 360 IA, listos para usar y por cuota mensual. Hoy Vet 360iA, el software para veterinarias: agenda de turnos, historia clínica, facturación, inventario y bot de WhatsApp. 30 días gratis." />
   <link rel="canonical" href="https://g360ia.com.ar/software" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="author" content="Gestión 360 IA" />
-  <meta name="theme-color" content="#5d7fa3" />
+  <meta name="theme-color" content="#0e2137" />
 
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -21,7 +21,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Gestión 360 IA" />
-  <meta property="og:title" content="Software de gestión para PyMEs · Gestión 360 IA" />
+  <meta property="og:title" content="Software de gestión para PyMEs y veterinarias · Gestión 360 IA" />
   <meta property="og:description" content="Sistemas propios listos para usar, por cuota mensual. Hoy Vet 360iA para veterinarias, y las verticales que vienen atrás." />
   <meta property="og:url" content="https://g360ia.com.ar/software" />
   <meta property="og:image" content="https://g360ia.com.ar/portfolio/vet360ia/dashboard.webp" />
@@ -29,23 +29,36 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Software de gestión para PyMEs · Gestión 360 IA" />
-  <meta name="twitter:description" content="Sistemas propios listos para usar, por cuota mensual." />
+  <meta name="twitter:title" content="Software de gestión para PyMEs y veterinarias · Gestión 360 IA" />
+  <meta name="twitter:description" content="Sistemas propios listos para usar, por cuota mensual. Hoy Vet 360iA para veterinarias." />
   <meta name="twitter:image" content="https://g360ia.com.ar/portfolio/vet360ia/dashboard.webp" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="preload" as="image" href="/software-bg.jpg.webp" fetchpriority="high" />
   <link rel="stylesheet" href="/styles.css" />
 
   <!-- JSON-LD: CollectionPage + ItemList de productos
+       ─────────────────────────────────────────────────────────────────────
        Sólo se lista lo que existe. La vertical que todavía se está construyendo
        es una invitación a pedirla, no un producto, y por eso no entra al ItemList:
        un catálogo con productos que no se pueden contratar es exactamente lo que
-       los buscadores tratan como contenido engañoso. -->
+       los buscadores tratan como contenido engañoso.
+
+       El `@id` y la `url` de Vet 360iA apuntan a vet.g360ia.com.ar y no a una
+       página de este dominio: el producto tiene su propio sitio, con sus páginas
+       de funciones y de precios, y ahí es donde se contrata. Esta página cuenta
+       el producto desde el lado de quien lo construye y manda allá para el
+       detalle — declarar la entidad en dos dominios parte la señal en dos y no
+       gana ninguno de los dos.
+
+       `offers` no se declara: el precio sale de la base del producto por
+       `/api/planes` y cambia con un UPDATE. Un número escrito acá a mano se
+       desactualiza solo, y un precio incorrecto en datos estructurados es peor
+       que ningún precio. -->
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -53,13 +66,17 @@
   "@id": "https://g360ia.com.ar/software#page",
   "url": "https://g360ia.com.ar/software",
   "name": "Software de gestión de Gestión 360 IA",
-  "description": "Catálogo de sistemas de gestión propios de Gestión 360 IA, listos para usar y contratados por cuota mensual.",
+  "description": "Catálogo de sistemas de gestión propios de Gestión 360 IA, listos para usar y contratados por cuota mensual. Hoy Vet 360iA, el sistema para veterinarias y clínicas de mascotas.",
   "inLanguage": "es-AR",
   "isPartOf": { "@id": "https://g360ia.com.ar/#business" },
   "about": [
     {"@type": "Thing", "name": "Software como servicio"},
     {"@type": "Thing", "name": "Software de gestión para PyMEs"},
     {"@type": "Thing", "name": "Software veterinario"}
+  ],
+  "significantLink": [
+    "https://vet.g360ia.com.ar",
+    "https://g360ia.com.ar/afiliados"
   ],
   "mainEntity": {
     "@type": "ItemList",
@@ -70,15 +87,36 @@
         "position": 1,
         "item": {
           "@type": "SoftwareApplication",
-          "@id": "https://g360ia.com.ar/software-para-veterinarias#app",
+          "@id": "https://vet.g360ia.com.ar/#app",
           "name": "Vet 360iA",
+          "alternateName": "Vet 360 IA",
           "applicationCategory": "BusinessApplication",
           "applicationSubCategory": "Software de gestión veterinaria",
-          "operatingSystem": "Navegador web",
-          "url": "https://g360ia.com.ar/software-para-veterinarias",
-          "description": "Sistema de gestión para veterinarias: agenda de turnos, ficha de clientes y mascotas, historia clínica, facturación, inventario y bot de WhatsApp.",
+          "operatingSystem": "Navegador web (Chrome, Firefox, Safari, Edge)",
+          "url": "https://vet.g360ia.com.ar",
+          "sameAs": ["https://vet.g360ia.com.ar", "https://vet.g360ia.com.ar/funciones"],
+          "description": "Sistema de gestión para veterinarias y clínicas de mascotas: agenda de turnos con recordatorios, ficha de clientes y mascotas, historia clínica, facturación, control de inventario, campañas de marketing y un bot de WhatsApp que responde y agenda turnos.",
           "inLanguage": "es-AR",
+          "featureList": [
+            "Agenda de turnos con recordatorios automáticos",
+            "Ficha de cliente y de cada mascota",
+            "Historia clínica con vacunas y tratamientos",
+            "Facturación y control de caja",
+            "Inventario con alertas de stock",
+            "Bot de WhatsApp que agenda y responde",
+            "Campañas de marketing a la base de clientes",
+            "Reportes de facturación y ocupación"
+          ],
+          "audience": {
+            "@type": "BusinessAudience",
+            "name": "Veterinarias y clínicas de mascotas"
+          },
+          "areaServed": [
+            {"@type": "Country", "name": "Argentina"},
+            {"@type": "Place", "name": "LATAM"}
+          ],
           "author": { "@id": "https://g360ia.com.ar/#business" },
+          "publisher": { "@id": "https://g360ia.com.ar/#business" },
           "provider": { "@id": "https://g360ia.com.ar/#business" }
         }
       }
@@ -99,176 +137,656 @@
 }
   </script>
 
-  <script src="/snap-manager.js" defer></script>
+  <!-- JSON-LD: FAQPage — sólo las preguntas de la sección FAQ.
+       El bloque de preguntas de intención del final NO se marca acá: dos
+       marcados de preguntas en la misma URL es lo que Google trata como
+       duplicación de datos estructurados. -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Hay que instalar algo en las computadoras del negocio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Los sistemas funcionan en el navegador: se entra con usuario y contraseña desde cualquier computadora, tablet o celular con internet. No hay servidor que comprar, ni programa que instalar en cada máquina, ni versión que actualizar a mano. Las mejoras entran solas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Se puede probar antes de pagar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí: Vet 360iA tiene 30 días gratis con el sistema completo, sin tarjeta y sin costo de instalación. La idea es que el negocio cargue sus servicios, sus clientes reales y su agenda durante ese mes, y decida con datos propios y no con una demo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa con los datos que ya tengo en planillas o en otro sistema?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Se importan. Clientes, fichas y servicios se cargan desde una planilla al principio, para que el primer día de uso la agenda ya tenga a los clientes de siempre. Si el sistema anterior permite exportar el historial, también se migra."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿El bot de WhatsApp de Vet 360iA tiene costo por mensaje?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. El bot se conecta al número de WhatsApp del negocio y responde consultas frecuentes, informa precios de los servicios cargados y agenda turnos contra la misma agenda del sistema. Está incluido en la cuota: no se paga por conversación ni por mensaje enviado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Hay permanencia mínima o costo de instalación?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ninguno de los dos. Se paga por mes o por año desde el panel con Mercado Pago, y se da de baja desde el mismo lugar. El plan anual equivale a pagar diez meses en vez de doce. Si un cliente deja el sistema, puede exportar su información antes de irse."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Los datos de un negocio los ve otro?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Cada cliente tiene su propio espacio aislado dentro del sistema: sus clientes, sus fichas, su historial y su facturación son suyos y no son visibles para ningún otro. La separación está en la base de datos, no en la pantalla."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Y si mi rubro todavía no tiene un sistema hecho?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Vet 360iA es la primera vertical de una base que ya resuelve turnos, fichas, facturación y WhatsApp. Adaptarla a un consultorio, un estudio, un comercio o un taller es cuestión de semanas y no de meses. Si el rubro no está, conviene contarlo: es la información con la que se decide cuál se construye."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuál es la diferencia con mandar a hacer un sistema a medida?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un sistema a medida se cotiza en meses de desarrollo y varios miles de dólares, y hay que mantenerlo después. Un producto que ya existe se contrata por cuota mensual y se configura en una tarde. El desarrollo a medida sigue teniendo sentido cuando el proceso del negocio no se parece a ningún producto del mercado."
+      }
+    }
+  ]
+}
+  </script>
 </head>
-<body class="svc-page pg-page">
+<body class="g-light g-pagina">
 
-  <div class="global-fixed-bg" aria-hidden="true">
+  <!-- La foto del hero, igual que en la home: vive acá y sólo acá, ocupando el
+       alto del hero y nada más. Va fuera de <main> y arriba de todo para que el
+       navegador la descubra en el primer parseo: es el elemento LCP. -->
+  <div class="g-hero-img" aria-hidden="true">
     <img src="/software-bg.jpg.webp" alt="" fetchpriority="high" decoding="async" />
   </div>
 
+  <!-- ===================== BARRA ===================== -->
+  <nav class="g-nav" aria-label="Navegación principal">
+    <div class="g-contenedor">
+      <div class="g-nav-caja">
+        <a href="/" class="g-marca">
+          <img src="/logo.webp" alt="" width="34" height="34" />
+          <span class="g-marca-txt">Gestion<span class="num">360</span><span class="ia">.iA</span></span>
+        </a>
+
+        <div class="g-nav-links">
+          <a class="g-nav-link" href="/servicios">Servicios</a>
+          <a class="g-nav-link" href="/software">Software</a>
+          <a class="g-nav-link" href="/afiliados">Afiliados</a>
+          <a class="g-nav-link" href="/blog/">Blog</a>
+        </div>
+
+        <div class="g-nav-acciones">
+          <a class="g-btn g-btn--primario" href="https://vet.g360ia.com.ar" target="_blank" rel="noopener">
+            Ir a Vet 360iA
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <button class="g-hamb" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="g-nav-movil" id="menu-movil" hidden>
+        <a href="/servicios">Servicios</a>
+        <a href="/software">Software</a>
+        <a href="/afiliados">Afiliados</a>
+        <a href="/blog/">Blog</a>
+        <a class="g-btn g-btn--primario" href="https://vet.g360ia.com.ar" target="_blank" rel="noopener">Ir a Vet 360iA</a>
+      </div>
+    </div>
+  </nav>
+
   <main>
 
-    <!-- ===== 1 · HERO ===== -->
-    <section class="bw-hero" data-nav-label="Software">
-      <div class="container bw-hero-inner">
-        <div class="bw-hero-text">
-          <nav class="pg-migas" aria-label="Migas de pan">
+    <!-- ===================== 1 · HERO ===================== -->
+    <section class="g-hero" id="inicio">
+      <div class="g-contenedor">
+        <div class="g-hero-inner">
+          <nav class="g-migas" aria-label="Migas de pan">
             <a href="/">Inicio</a><span>/</span>Software
           </nav>
-          <span class="eyebrow">Producto propio · No es a medida</span>
-          <h1 class="h-display h1">
-            Sistemas que <em>ya existen</em> y podés usar mañana
+          <span class="g-eyebrow">Software propio · No es a medida</span>
+          <h1 class="g-h1">
+            Sistemas que <em>ya existen</em><br />
+            y podés usar mañana
           </h1>
-          <p class="lead" style="margin-top:24px">
-            Mandar a hacer un sistema a medida cuesta meses y varios miles de dólares.
-            Si tu rubro ya tiene uno construido, contratarlo es una cuota mensual y
-            una tarde de configuración. Estos son los nuestros.
+          <p class="g-hero-lead">
+            Mandar a hacer un sistema a medida cuesta meses y varios miles de dólares. Si tu
+            rubro ya tiene uno construido, contratarlo es una cuota mensual y una tarde de
+            configuración. Estos son los nuestros.
           </p>
-          <div class="bw-hero-ctas">
-            <a href="/software-para-veterinarias" class="btn btn-primary">
+          <div class="g-hero-ctas">
+            <a class="g-btn g-btn--primario g-btn--grande" href="#vet360ia">
               Ver Vet 360iA
-              <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
-            <a href="/afiliados" class="btn btn-ghost">
-              Quiero venderlo y ganar comisión
-              <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-            </a>
+            <a class="g-btn g-btn--fantasma g-btn--grande" href="/afiliados">Quiero venderlo y ganar comisión</a>
+          </div>
+          <p class="g-hero-nota">
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              Sin instalar nada
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              Sin permanencia
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              Soporte y actualizaciones incluidos
+            </span>
+          </p>
+        </div>
+      </div>
+      <svg class="g-onda" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,40 C240,8 480,8 720,28 C960,48 1200,58 1440,34 L1440,64 L0,64 Z" />
+      </svg>
+    </section>
+
+    <!-- ===================== 2 · A MEDIDA VS PRODUCTO ===================== -->
+    <section class="g-sec" id="por-que">
+      <div class="g-contenedor">
+        <div class="g-split">
+          <div class="g-rev">
+            <span class="g-eyebrow">Por qué un producto y no un desarrollo</span>
+            <h2 class="g-h2">El sistema más caro<br />es <em>el que hay que inventar de nuevo</em></h2>
+            <p class="g-lead" style="margin-bottom: 22px">
+              Casi todos los negocios de un mismo rubro trabajan parecido: toman turnos,
+              llevan una ficha por cliente, cobran y controlan stock. Pagar para que alguien
+              descubra otra vez cómo funciona una veterinaria es pagar por el descubrimiento,
+              no por el software.
+            </p>
+            <p class="g-lead" style="margin-bottom: 22px">
+              Un producto que ya existe llega con esas decisiones tomadas y probadas por
+              todos los que lo usan. Cuesta una cuota, se configura en una tarde y mejora
+              solo, porque las mejoras que pide un cliente las reciben todos.
+            </p>
+            <ul class="g-lista">
+              <li>Se contrata <strong>por mes</strong>, no por un proyecto de seis cifras</li>
+              <li>Está andando <strong>hoy</strong>: no hay etapa de desarrollo que esperar</li>
+              <li>El mantenimiento <strong>no es tuyo</strong>: las mejoras y los arreglos entran solos</li>
+            </ul>
+            <div class="g-hero-ctas" style="margin-top: 28px">
+              <a class="g-btn g-btn--linea" href="/servicios/desarrollo-software">Cuándo sí conviene a medida</a>
+            </div>
+          </div>
+
+          <div class="g-caja g-rev" style="--g-delay: 120ms">
+            <span class="g-eyebrow">Las dos cuentas, de frente</span>
+            <p style="margin-top: 14px">
+              <strong>A medida.</strong> Meses de desarrollo, varios miles de dólares y un
+              sistema que después hay que mantener. Tiene sentido cuando el proceso del
+              negocio no se parece a nada que exista en el mercado.
+            </p>
+            <p>
+              <strong>Producto.</strong> Una cuota mensual, una tarde de configuración y un
+              sistema que ya tiene kilómetros encima. Tiene sentido cuando el rubro ya está
+              resuelto y lo que falta es empezar a usarlo.
+            </p>
+            <p style="margin-bottom:0">
+              <strong>La contracara, dicha de frente.</strong> Un producto no se amolda a
+              cualquier capricho: si tu negocio necesita algo que el sistema no hace, la
+              respuesta honesta es un desarrollo a medida y no forzar la herramienta.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== 2 · VET 360iA ===== -->
-    <section class="section" id="vet360ia" data-nav-label="Vet 360iA">
-      <div class="container">
-        <div class="pg-split pg-split--ancha">
-
-          <div>
-            <span class="pg-badge">Disponible</span>
-            <h2 class="h-display h2" style="margin-top:16px">Vet 360iA</h2>
-            <p class="lead" style="margin-top:14px">
-              El sistema de gestión completo para una veterinaria: agenda de turnos,
-              ficha de cada cliente y cada mascota, historia clínica, facturación,
-              inventario y un bot de WhatsApp que atiende y agenda solo.
+    <!-- ===================== 3 · VET 360iA ===================== -->
+    <section class="g-sec g-sec--soft" id="vet360ia">
+      <div class="g-contenedor">
+        <div class="g-split g-split--ancha">
+          <div class="g-rev">
+            <span class="g-etiqueta">Disponible</span>
+            <span class="g-eyebrow">Software para veterinarias</span>
+            <h2 class="g-h2">Vet 360iA: la veterinaria entera<br /><em>en un solo sistema</em></h2>
+            <p class="g-lead" style="margin-bottom: 22px">
+              Agenda de turnos, ficha de cada cliente y cada mascota, historia clínica,
+              facturación, inventario y un bot de WhatsApp que atiende y agenda solo. Se usa
+              desde el navegador y se prueba treinta días gratis.
             </p>
-            <ul class="pg-lista pg-lista--densa" style="margin-top:22px">
-              <li>Se usa desde el navegador — no hay que instalar nada</li>
-              <li>Cada veterinaria tiene sus datos separados del resto</li>
-              <li>Soporte, actualizaciones y respaldos incluidos en la cuota</li>
+            <ul class="g-lista">
+              <li><strong>30 días gratis</strong> con el sistema completo, sin tarjeta y sin costo de puesta en marcha</li>
+              <li><strong>Cada veterinaria tiene sus datos separados</strong> del resto, en la base y no en la pantalla</li>
+              <li><strong>Soporte, actualizaciones y respaldos</strong> incluidos en la cuota</li>
             </ul>
-            <div class="bw-hero-ctas" style="margin-top:28px">
-              <a href="/software-para-veterinarias" class="btn btn-primary">
-                Ver todo lo que hace
-                <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <div class="g-hero-ctas" style="margin-top: 28px">
+              <a class="g-btn g-btn--primario" href="https://vet.g360ia.com.ar/login?registro=1" target="_blank" rel="noopener">
+                Probar 30 días gratis
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </a>
-              <a href="https://vet.g360ia.com.ar" target="_blank" rel="noopener" class="btn btn-ghost">Entrar al sistema</a>
+              <a class="g-btn g-btn--linea" href="https://vet.g360ia.com.ar" target="_blank" rel="noopener">Ir al sitio del producto</a>
             </div>
           </div>
 
-          <figure class="pg-shot" style="margin:0">
-            <img src="/portfolio/vet360ia/dashboard.webp" width="1280" height="720" loading="lazy" decoding="async"
-                 alt="Panel principal de Vet 360iA con los turnos del día, la facturación de la jornada y los avisos pendientes de la veterinaria" />
-            <figcaption>Vet 360iA · Panel principal</figcaption>
+          <div class="g-rev" style="--g-delay: 140ms">
+            <figure class="g-captura">
+              <div class="g-marco">
+                <div class="g-marco-barra" aria-hidden="true">
+                  <span class="g-marco-punto"></span><span class="g-marco-punto"></span><span class="g-marco-punto"></span>
+                  <span class="g-marco-url">vet.g360ia.com.ar/panel</span>
+                </div>
+                <img src="/portfolio/vet360ia/dashboard.webp" width="1280" height="720" loading="lazy" decoding="async"
+                     alt="Panel principal de Vet 360iA con los turnos del día, la facturación de la jornada y los avisos pendientes de la veterinaria" />
+              </div>
+              <figcaption>El panel del día: turnos, facturación de la jornada y avisos pendientes.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 4 · MÓDULOS DE VET 360iA ===================== -->
+    <section class="g-sec" id="modulos">
+      <div class="g-contenedor">
+        <div class="g-cab g-rev">
+          <span class="g-eyebrow">Qué hace Vet 360iA</span>
+          <h2 class="g-h2">Ocho módulos, <em>un solo panel</em></h2>
+          <p class="g-lead">
+            No son ocho productos que se compran por separado: es un sistema donde el turno,
+            la historia clínica y la factura son el mismo dato mirado desde tres lugares.
+          </p>
+        </div>
+
+        <div class="g-grid g-grid--4 g-rev">
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+            <h3 class="g-card-t">Agenda de turnos</h3>
+            <p class="g-card-p">El día completo por profesional y consultorio, con recordatorio automático al cliente antes de la hora.</p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            <h3 class="g-card-t">Clientes y mascotas</h3>
+            <p class="g-card-p">Una ficha por dueño y una por animal, con su historial de visitas, su peso y sus contactos.</p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M12 12v5M9.5 14.5h5"/></svg></span>
+            <h3 class="g-card-t">Historia clínica</h3>
+            <p class="g-card-p">Consultas, diagnósticos, tratamientos, vacunas y desparasitaciones con su fecha y su próximo vencimiento.</p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></span>
+            <h3 class="g-card-t">Facturación y caja</h3>
+            <p class="g-card-p">Se cobra desde el turno, con los servicios y productos ya cargados. El cierre de caja sale solo.</p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></span>
+            <h3 class="g-card-t">Inventario</h3>
+            <p class="g-card-p">Alimento, medicamentos y accesorios, con aviso cuando el stock baja del mínimo que fijaste.</p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.5C8.3 21.5 10.1 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.4 1 1-3.3-.2-.3C3.5 14.4 3 13.2 3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9z"/></svg></span>
+            <h3 class="g-card-t">Bot de WhatsApp</h3>
+            <p class="g-card-p">Responde precios y horarios, y agenda turnos contra la misma agenda. Incluido en la cuota, sin costo por mensaje.</p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 001 1h2l4 4V6L6 10H4a1 1 0 00-1 1z"/><path d="M16 8a5 5 0 010 8"/></svg></span>
+            <h3 class="g-card-t">Marketing</h3>
+            <p class="g-card-p">Campañas a la base de clientes: recordar una vacuna que vence o avisar una promoción de temporada.</p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-card-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg></span>
+            <h3 class="g-card-t">Reportes</h3>
+            <p class="g-card-p">Facturación por período, ocupación de la agenda y qué servicios son los que realmente sostienen el mes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 5 · CÓMO SE VE ===================== -->
+    <section class="g-sec g-sec--soft" id="capturas">
+      <div class="g-contenedor">
+        <div class="g-cab g-rev">
+          <span class="g-eyebrow">Cómo se ve</span>
+          <h2 class="g-h2">El sistema real, <em>no una maqueta</em></h2>
+          <p class="g-lead">
+            Son pantallas del producto funcionando, tal como las ve una veterinaria que lo
+            usa todos los días.
+          </p>
+        </div>
+
+        <div class="g-grid g-grid--3 g-rev">
+          <figure class="g-captura">
+            <div class="g-marco">
+              <div class="g-marco-barra" aria-hidden="true">
+                <span class="g-marco-punto"></span><span class="g-marco-punto"></span><span class="g-marco-punto"></span>
+                <span class="g-marco-url">vet.g360ia.com.ar/agenda</span>
+              </div>
+              <img src="/portfolio/vet360ia/agenda.webp" width="1280" height="720" loading="lazy" decoding="async"
+                   alt="Agenda de turnos de Vet 360iA mostrando el día dividido por profesional, con cada turno y su estado" />
+            </div>
+            <figcaption>La agenda del día, dividida por profesional y con el estado de cada turno.</figcaption>
           </figure>
 
+          <figure class="g-captura">
+            <div class="g-marco">
+              <div class="g-marco-barra" aria-hidden="true">
+                <span class="g-marco-punto"></span><span class="g-marco-punto"></span><span class="g-marco-punto"></span>
+                <span class="g-marco-url">vet.g360ia.com.ar/historia</span>
+              </div>
+              <img src="/portfolio/vet360ia/historia-clinica.webp" width="1280" height="720" loading="lazy" decoding="async"
+                   alt="Historia clínica de una mascota en Vet 360iA con el detalle de consultas, vacunas y tratamientos aplicados" />
+            </div>
+            <figcaption>La historia clínica de cada mascota, con vacunas, tratamientos y vencimientos.</figcaption>
+          </figure>
+
+          <figure class="g-captura">
+            <div class="g-marco">
+              <div class="g-marco-barra" aria-hidden="true">
+                <span class="g-marco-punto"></span><span class="g-marco-punto"></span><span class="g-marco-punto"></span>
+                <span class="g-marco-url">vet.g360ia.com.ar/facturacion</span>
+              </div>
+              <img src="/portfolio/vet360ia/facturacion.webp" width="1280" height="720" loading="lazy" decoding="async"
+                   alt="Pantalla de facturación de Vet 360iA con los comprobantes emitidos y el estado de la caja del día" />
+            </div>
+            <figcaption>La facturación y el cierre de caja, armados con lo que ya se cargó en el turno.</figcaption>
+          </figure>
+        </div>
+
+        <div class="g-cierre g-rev" style="margin-top: 36px">
+          <a class="g-btn g-btn--primario g-btn--grande" href="https://vet.g360ia.com.ar/funciones" target="_blank" rel="noopener">
+            Ver todas las funciones en vet.g360ia.com.ar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- ===== 3 · CÓMO SE CONTRATA + LO QUE VIENE ===== -->
-    <section class="section" id="como-funciona" data-nav-label="Cómo se contrata">
-      <div class="container">
-        <div class="pg-head">
-          <span class="eyebrow">Lo que es igual en todos</span>
-          <h2 class="h-display h2">Se contrata por mes y se deja cuando quieras</h2>
+    <!-- ===================== 6 · LO QUE ES IGUAL EN TODOS ===================== -->
+    <section class="g-sec" id="como-se-contrata">
+      <div class="g-contenedor">
+        <div class="g-cab g-rev">
+          <span class="g-eyebrow">Lo que es igual en todos</span>
+          <h2 class="g-h2">Se contrata por mes <em>y se deja cuando quieras</em></h2>
         </div>
 
-        <div class="pg-grid pg-grid--4" role="list">
-          <article class="pg-card" role="listitem">
-            <span class="pg-kicker">Sin instalación</span>
-            <h3 class="pg-card-title">Funciona en el navegador</h3>
-            <p class="pg-card-desc">No hay servidor que comprar ni programa que instalar en cada máquina. Se entra con usuario y contraseña desde cualquier computadora o celular.</p>
+        <div class="g-grid g-grid--4 g-rev">
+          <article class="g-card">
+            <span class="g-card-kick">Sin instalación</span>
+            <h3 class="g-card-t">Funciona en el navegador</h3>
+            <p class="g-card-p">No hay servidor que comprar ni programa que instalar en cada máquina. Se entra con usuario y contraseña desde cualquier computadora o celular.</p>
           </article>
-          <article class="pg-card" role="listitem">
-            <span class="pg-kicker">Sin permanencia</span>
-            <h3 class="pg-card-title">Cuota mensual o anual</h3>
-            <p class="pg-card-desc">Se paga mientras se usa. El plan anual sale diez meses en lugar de doce. Si dejás de pagar, te llevás tus datos exportados.</p>
+          <article class="g-card">
+            <span class="g-card-kick">Sin permanencia</span>
+            <h3 class="g-card-t">Cuota mensual o anual</h3>
+            <p class="g-card-p">Se paga mientras se usa. El plan anual sale diez meses en lugar de doce. Si dejás de pagar, te llevás tus datos exportados.</p>
           </article>
-          <article class="pg-card" role="listitem">
-            <span class="pg-kicker">Incluido</span>
-            <h3 class="pg-card-title">Soporte y actualizaciones</h3>
-            <p class="pg-card-desc">Las mejoras y los arreglos entran solos, sin versión nueva que comprar. El soporte lo damos nosotros, no un proveedor tercero.</p>
+          <article class="g-card">
+            <span class="g-card-kick">Incluido</span>
+            <h3 class="g-card-t">Soporte y actualizaciones</h3>
+            <p class="g-card-p">Las mejoras y los arreglos entran solos, sin versión nueva que comprar. El soporte lo damos nosotros, no un proveedor tercero.</p>
           </article>
-          <article class="pg-card" role="listitem">
-            <span class="pg-kicker">Tus datos</span>
-            <h3 class="pg-card-title">Separados y exportables</h3>
-            <p class="pg-card-desc">Cada cliente tiene su propio espacio aislado del resto, y puede bajarse su información cuando la necesite.</p>
+          <article class="g-card">
+            <span class="g-card-kick">Tus datos</span>
+            <h3 class="g-card-t">Separados y exportables</h3>
+            <p class="g-card-p">Cada cliente tiene su propio espacio aislado del resto, y puede bajarse su información cuando la necesite.</p>
           </article>
         </div>
 
-        <div class="pg-cinta" style="margin-top:26px">
-          <div class="pg-cinta-num">1</div>
-          <p class="pg-cinta-txt">
+        <div class="g-cinta g-rev" style="margin-top: 26px">
+          <div class="g-cinta-n">1</div>
+          <p class="g-cinta-t">
             <strong>Hoy hay un producto publicado, y no lo escondemos.</strong>
             Vet 360iA es la primera vertical de una base que ya resuelve turnos, fichas,
-            facturación y WhatsApp — adaptarla a un consultorio, un estudio o un taller
-            es cuestión de semanas, no de meses. Si tu rubro todavía no está,
-            <a href="https://wa.me/5491125526561" target="_blank" rel="noopener" style="color:var(--gold)">contanos cuál es</a>.
+            facturación y WhatsApp — adaptarla a un consultorio, un estudio o un taller es
+            cuestión de semanas, no de meses. Si tu rubro todavía no está,
+            <a class="g-link" href="https://wa.me/5491125526561" target="_blank" rel="noopener">contanos cuál es</a>.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ===== 4 · AFILIADOS ===== -->
-    <section class="section" id="afiliados" data-nav-label="Venderlo">
-      <div class="container">
-        <div class="pg-split">
-          <div>
-            <span class="eyebrow">Programa de afiliados</span>
-            <h2 class="h-display h2">¿Y si en vez de comprarlo lo vendés?</h2>
-            <p class="lead" style="margin-top:16px">
-              Si tratás con negocios de un rubro todos los días — porque les vendés
-              insumos, les llevás la contabilidad o simplemente los conocés —
-              podés presentarles el sistema y cobrar una comisión de cada cuota que
-              paguen, todos los meses, mientras sigan siendo clientes.
+    <!-- ===================== 7 · AFILIADOS ===================== -->
+    <section class="g-sec g-sec--warm" id="afiliados">
+      <div class="g-contenedor">
+        <div class="g-split">
+          <div class="g-rev">
+            <span class="g-eyebrow">Programa de afiliados</span>
+            <h2 class="g-h2">¿Y si en vez de comprarlo <em>lo vendés</em>?</h2>
+            <p class="g-lead" style="margin-bottom: 24px">
+              Si tratás con negocios de un rubro todos los días —porque les vendés insumos,
+              les llevás la contabilidad o simplemente los conocés— podés presentarles el
+              sistema y cobrar una comisión de cada cuota que paguen, todos los meses,
+              mientras sigan siendo clientes.
             </p>
-            <div class="bw-hero-ctas" style="margin-top:26px">
-              <a href="/afiliados" class="btn btn-primary">
+            <div class="g-hero-ctas">
+              <a class="g-btn g-btn--primario" href="/afiliados">
                 Cómo funciona el programa
-                <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </a>
             </div>
           </div>
 
-          <div class="pg-cinta" style="flex-direction:column;align-items:flex-start;gap:12px">
-            <div class="pg-cinta-num">20%</div>
-            <p class="pg-cinta-txt">
+          <div class="g-cinta g-rev" style="--g-delay: 120ms">
+            <div class="g-cinta-n">20%</div>
+            <p class="g-cinta-t">
               <strong>de cada pago, todos los meses.</strong>
-              No es una comisión por la primera venta: se repite mientras el cliente
-              que trajiste siga usando el sistema. Sin techo y sin plazo.
+              No es una comisión por la primera venta: se repite mientras el cliente que
+              trajiste siga usando el sistema. Sin techo, sin plazo y sin cupo mínimo.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== 5 · CIERRE ===== -->
-    <section class="bw-cta-final" data-nav-label="Contacto">
-      <div class="container">
-        <h2 class="h-display h2">¿Tu rubro necesita algo que todavía no está?</h2>
-        <p class="lead" style="margin-top:16px">
-          Contanos qué hace tu negocio todos los días y en qué planilla lo anota hoy.
-          Si ya tenemos la base para resolverlo te lo decimos, y si no, te decimos eso
-          también — junto con cuánto costaría construirlo a medida.
-        </p>
-        <div class="pg-cta-btns">
-          <a href="https://wa.me/5491125526561" target="_blank" rel="noopener" class="btn btn-primary">
-            Contarnos mi caso
-            <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    <!-- ===================== 8 · PREGUNTAS FRECUENTES ===================== -->
+    <section class="g-sec g-sec--soft" id="faq">
+      <div class="g-contenedor">
+        <div class="g-cab g-rev">
+          <span class="g-eyebrow">Preguntas frecuentes</span>
+          <h2 class="g-h2">Lo que siempre nos preguntan</h2>
+        </div>
+
+        <div class="g-faq g-rev">
+          <details>
+            <summary>¿Hay que instalar algo en las computadoras del negocio?</summary>
+            <p class="g-faq-r">
+              No. Los sistemas funcionan en el navegador: se entra con usuario y contraseña
+              desde cualquier computadora, tablet o celular con internet. No hay servidor que
+              comprar, ni programa que instalar en cada máquina, ni versión que actualizar a
+              mano. Las mejoras entran solas.
+            </p>
+          </details>
+          <details>
+            <summary>¿Se puede probar antes de pagar?</summary>
+            <p class="g-faq-r">
+              Sí: Vet 360iA tiene 30 días gratis con el sistema completo, sin tarjeta y sin
+              costo de instalación. La idea es que cargues tus servicios, tus clientes reales
+              y tu agenda durante ese mes, y decidas con datos propios y no con una demo.
+            </p>
+          </details>
+          <details>
+            <summary>¿Qué pasa con los datos que ya tengo en planillas o en otro sistema?</summary>
+            <p class="g-faq-r">
+              Se importan. Clientes, fichas y servicios se cargan desde una planilla al
+              principio, para que el primer día de uso la agenda ya tenga a los clientes de
+              siempre. Si el sistema anterior permite exportar el historial, también se
+              migra.
+            </p>
+          </details>
+          <details>
+            <summary>¿El bot de WhatsApp de Vet 360iA tiene costo por mensaje?</summary>
+            <p class="g-faq-r">
+              No. El bot se conecta al número de WhatsApp del negocio y responde consultas
+              frecuentes, informa precios de los servicios cargados y agenda turnos contra la
+              misma agenda del sistema. Está incluido en la cuota: no se paga por
+              conversación ni por mensaje enviado.
+            </p>
+          </details>
+          <details>
+            <summary>¿Hay permanencia mínima o costo de instalación?</summary>
+            <p class="g-faq-r">
+              Ninguno de los dos. Se paga por mes o por año desde el panel con Mercado Pago,
+              y se da de baja desde el mismo lugar. El plan anual equivale a pagar diez meses
+              en vez de doce. Si dejás el sistema, podés exportar tu información antes de
+              irte.
+            </p>
+          </details>
+          <details>
+            <summary>¿Los datos de mi negocio los ve otro?</summary>
+            <p class="g-faq-r">
+              No. Cada cliente tiene su propio espacio aislado dentro del sistema: sus
+              clientes, sus fichas, su historial y su facturación son suyos y no son visibles
+              para ningún otro. La separación está en la base de datos, no en la pantalla.
+            </p>
+          </details>
+          <details>
+            <summary>¿Y si mi rubro todavía no tiene un sistema hecho?</summary>
+            <p class="g-faq-r">
+              Vet 360iA es la primera vertical de una base que ya resuelve turnos, fichas,
+              facturación y WhatsApp. Adaptarla a un consultorio, un estudio, un comercio o
+              un taller es cuestión de semanas y no de meses. Si tu rubro no está, contanos
+              cuál es: es la información con la que decidimos cuál construir.
+            </p>
+          </details>
+          <details>
+            <summary>¿Cuál es la diferencia con mandar a hacer un sistema a medida?</summary>
+            <p class="g-faq-r">
+              Un sistema a medida se cotiza en meses de desarrollo y varios miles de dólares,
+              y hay que mantenerlo después. Un producto que ya existe se contrata por cuota
+              mensual y se configura en una tarde. El desarrollo a medida sigue teniendo
+              sentido cuando el proceso del negocio no se parece a ningún producto del
+              mercado — y en ese caso lo decimos y lo cotizamos como
+              <a class="g-link" href="/servicios/desarrollo-software">desarrollo a medida</a>.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 9 · BLOQUE DE INTENCIÓN (GEO) =====================
+         Las que alguien le escribe a una IA o al buscador cuando todavía no sabe
+         que este producto existe. Cada una enlaza a la sección que la contesta.
+         No van marcadas como FAQPage: ver la nota del JSON-LD de arriba. -->
+    <section class="g-sec g-sec--corta" id="intencion">
+      <div class="g-contenedor">
+        <div class="g-geo g-rev">
+          <p class="g-geo-t">También respondemos en esta página</p>
+          <ul>
+            <li>
+              <a href="#modulos">
+                <span>¿Qué software uso para llevar la historia clínica de una veterinaria?</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#por-que">
+                <span>¿Me conviene un software de gestión ya hecho o mandar a hacer uno a medida?</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#modulos">
+                <span>¿Hay algún programa que agende turnos por WhatsApp automáticamente?</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#como-se-contrata">
+                <span>¿Cuánto sale un software de gestión por suscripción en Argentina?</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#afiliados">
+                <span>¿Se puede revender software de gestión y cobrar comisión?</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 10 · SEGUÍ LEYENDO ===================== -->
+    <section class="g-sec g-sec--corta g-sec--soft" id="relacionados">
+      <div class="g-contenedor">
+        <div class="g-cab g-cab--izq g-rev" style="margin-bottom: 24px">
+          <span class="g-eyebrow">Antes de decidir, leé esto</span>
+        </div>
+        <div class="g-rel g-rev">
+          <a class="g-rel-card" href="/blog/software-gestion-por-suscripcion-pymes">
+            <span class="g-rel-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
+            </span>
+            <span class="g-rel-txt">
+              <span class="g-rel-n">Cuota mensual</span>
+              <span class="g-rel-d">Por qué un software por suscripción sale menos que uno a medida</span>
+            </span>
           </a>
-          <a href="/servicios/desarrollo-software" class="btn btn-ghost">Ver desarrollo a medida</a>
-          <a href="/afiliados" class="btn btn-ghost">Vender nuestro software</a>
+          <a class="g-rel-card" href="/blog/bots-whatsapp-cuando-automatizar">
+            <span class="g-rel-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 01-9 8.4 9 9 0 01-3.9-.9L3 20.5l1.6-4.6A8.4 8.4 0 0112 3.1a8.4 8.4 0 019 8.4z"/></svg>
+            </span>
+            <span class="g-rel-txt">
+              <span class="g-rel-n">Bots de WhatsApp</span>
+              <span class="g-rel-d">Cuándo conviene automatizar la atención y cuándo no</span>
+            </span>
+          </a>
+          <a class="g-rel-card" href="/servicios/desarrollo-software">
+            <span class="g-rel-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/></svg>
+            </span>
+            <span class="g-rel-txt">
+              <span class="g-rel-n">Desarrollo a medida</span>
+              <span class="g-rel-d">Cuando ningún producto del mercado sirve para tu proceso</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 11 · CIERRE ===================== -->
+    <section class="g-sec g-sec--dark" id="contacto">
+      <div class="g-contenedor">
+        <div class="g-cab g-rev">
+          <span class="g-eyebrow">Tu rubro</span>
+          <h2 class="g-h2">¿Necesitás algo <em>que todavía no está</em>?</h2>
+          <p class="g-lead">
+            Contanos qué hace tu negocio todos los días y en qué planilla lo anota hoy. Si ya
+            tenemos la base para resolverlo te lo decimos, y si no, te decimos eso también —
+            junto con cuánto costaría construirlo a medida.
+          </p>
+        </div>
+        <div class="g-cierre g-rev">
+          <a class="g-btn g-btn--primario g-btn--grande" href="https://wa.me/5491125526561" target="_blank" rel="noopener">
+            Contarnos mi caso
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="g-btn g-btn--fantasma g-btn--grande" href="/servicios/desarrollo-software">Ver desarrollo a medida</a>
+          <a class="g-btn g-btn--fantasma g-btn--grande" href="/afiliados">Vender nuestro software</a>
         </div>
       </div>
     </section>
@@ -276,16 +794,7 @@
   </main>
 
   <div id="site-footer"></div>
-  <script>
-    fetch('/partials/footer.html')
-      .then(function (r) { return r.text(); })
-      .then(function (h) {
-        document.getElementById('site-footer').outerHTML = h;
-        var y = document.getElementById('footer-year-text');
-        if (y) y.textContent = '© ' + new Date().getFullYear() + ' Gestion360ia · Todos los derechos reservados';
-      });
-  </script>
 
-  <script src="/navbar-init.js" defer></script>
+  <script src="/g-pagina.js" defer></script>
 </body>
 </html>
