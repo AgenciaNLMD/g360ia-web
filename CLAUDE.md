@@ -174,9 +174,14 @@ nada que pueda quedar cortado.
 
 ### Qué páginas están en cuál
 
-Migradas al sistema claro: la home, `/servicios`, `/servicios/consultoria-ia` y
-`/servicios/automatizaciones`. Todo lo demás sigue en el viejo: las ocho páginas de servicio
-restantes, `/software`, `/software-para-veterinarias`, `/afiliados`, el blog y los legales.
+Migradas al sistema claro: la home, `/servicios`, `/servicios/consultoria-ia`,
+`/servicios/automatizaciones`, `/afiliados` y `/software-para-veterinarias`. Todo lo demás
+sigue en el viejo: las ocho páginas de servicio restantes, `/software`, el blog y los legales.
+
+Las dos páginas de rama —`/afiliados` y `/software-para-veterinarias`— usan el hero de la
+home (`.g-hero` con foto de fondo y el texto repartido en el ancho) y no `.g-pag-hero`: son
+la portada de su rama y no una página de contenido interna. Las de `/servicios/*` sí usan
+`.g-pag-hero`, que es la banda navy sin foto.
 
 El día que no quede ninguna en el viejo se borra el bloque oscuro entero y `styles.css` se
 achica en vez de crecer.
@@ -190,8 +195,13 @@ imprescindible: barra sólida al bajar, menú de teléfono, aparición al scroll
 `fetch` del pie. Sin él la página se lee entera igual.
 
 Piezas disponibles (buscar `KIT DE PÁGINAS CLARAS` en `styles.css`): `.g-pag-hero`,
-`.g-migas`, `.g-pasos`, `.g-comp`, `.g-caja`, `.g-faq`, `.g-geo`, `.g-rel`. Más todo lo que
-ya usa la home: `.g-sec`, `.g-card`, `.g-lista`, `.g-split`, `.g-cinta`, `.g-btn`, `.g-vias`.
+`.g-migas`, `.g-pasos`, `.g-comp`, `.g-caja`, `.g-faq`, `.g-geo`, `.g-rel`, `.g-calc`. Más
+todo lo que ya usa la home: `.g-sec`, `.g-card`, `.g-lista`, `.g-split`, `.g-cinta`,
+`.g-btn`, `.g-vias`, `.g-cifras`, `.g-marco`.
+
+Una captura de producto va siempre dentro de `.g-marco` —la ventana de navegador— y, si
+lleva leyenda, envuelta en `<figure class="g-captura">` con la leyenda en `<figcaption>`.
+La leyenda va debajo del marco: adentro rompe la ilusión de que eso es el sistema.
 
 La FAQ usa `<details>/<summary>` a propósito: el acordeón lo hace el navegador, no hay
 estado que se pueda desincronizar, el buscador del navegador abre el panel que contiene la

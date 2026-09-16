@@ -3688,6 +3688,18 @@ a.g-card:hover .g-card-mas svg { translate: 4px 0; }
 }
 .g-marco img { display: block; width: 100%; height: auto; }
 
+/* La captura con leyenda: el marco más una línea que dice qué se está mirando.
+   La leyenda va debajo del marco y no adentro —adentro rompe la ilusión de que
+   eso es una ventana del sistema— y en `<figcaption>` y no en un `<p>` suelto,
+   que es lo que ata el texto a la imagen para un lector de pantalla. */
+.g-captura { margin: 0; }
+.g-captura figcaption {
+  margin-top: 11px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--g-ink-mute);
+}
+
 /* ===========================================================================
    LISTA CON TILDE
    =========================================================================== */
