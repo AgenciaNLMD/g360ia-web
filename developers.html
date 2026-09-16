@@ -6,7 +6,7 @@
 
   <!-- Primary meta -->
   <title>Publicá tu software y que lo venda una red de afiliados | Developers · Gestión 360 IA</title>
-  <meta name="description" content="¿Desarrollaste un SaaS y no tenés quién lo venda? Publicalo en el catálogo de Gestión 360 IA y dejá que una red de afiliados lo presente a comisión. Sin costo fijo, sin exclusividad y sin ceder tu producto: vos cobrás la suscripción y pagás sólo cuando hay venta." />
+  <meta name="description" content="¿Desarrollaste un SaaS y no tenés quién lo venda? Publicalo en el catálogo de Gestión 360 IA y dejá que una red de afiliados lo presente a comisión. Sin costo fijo y sin exclusividad: el software sigue siendo tuyo y corriendo en tu infraestructura, y sólo pagás comisión cuando hay una suscripción cobrada." />
   <link rel="canonical" href="https://g360ia.com.ar/developers" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="author" content="Gestión 360 IA" />
@@ -22,7 +22,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Gestión 360 IA" />
   <meta property="og:title" content="Publicá tu software y que lo venda una red de afiliados" />
-  <meta property="og:description" content="Vos construís el software, la red sale a venderlo. Sin costo fijo, sin exclusividad y pagando sólo cuando hay una suscripción cobrada." />
+  <meta property="og:description" content="Vos construís el software y lo seguís teniendo. La red sale a venderlo y sólo cobra comisión cuando hay una suscripción cobrada." />
   <meta property="og:url" content="https://g360ia.com.ar/developers" />
   <meta property="og:image" content="https://g360ia.com.ar/og-image.jpg" />
   <meta property="og:locale" content="es_AR" />
@@ -30,7 +30,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Publicá tu software y que lo venda una red de afiliados · Gestión 360 IA" />
-  <meta name="twitter:description" content="Vos construís el software, la red sale a venderlo. Pagás sólo cuando hay una suscripción cobrada." />
+  <meta name="twitter:description" content="Vos construís el software y lo seguís teniendo. La red sale a venderlo, a comisión." />
   <meta name="twitter:image" content="https://g360ia.com.ar/og-image.jpg" />
 
   <!-- Fonts -->
@@ -120,7 +120,7 @@
       "@type": "HowToStep",
       "position": 2,
       "name": "Acordar la comisión y cómo se mide la venta",
-      "text": "Se define qué porcentaje de cada cuota cobra el afiliado, durante cuánto tiempo, y cómo el producto registra que un alta vino de un código de referido. Queda por escrito antes de publicar nada.",
+      "text": "Se define qué porcentaje de cada cuota cobra el afiliado y durante cuánto tiempo, y se acuerda el contrato técnico de activación: el endpoint que el producto expone para activar un plan cuando el catálogo avisa que el pago se confirmó. Queda por escrito antes de publicar nada.",
       "url": "https://g360ia.com.ar/developers#como-funciona"
     },
     {
@@ -133,8 +133,8 @@
     {
       "@type": "HowToStep",
       "position": 4,
-      "name": "Cobrar la suscripción y liquidar la comisión",
-      "text": "El cliente contrata y le paga al desarrollador, que factura y da soporte como siempre. La comisión sale de ese cobro, una vez por mes y sólo sobre lo efectivamente cobrado.",
+      "name": "Cobrar, repartir y activar el plan",
+      "text": "La suscripción se cobra desde el catálogo, que calcula el reparto entre el desarrollador, el afiliado y Gestión 360 IA, y liquida cada parte. Al confirmarse el pago, el catálogo llama al endpoint del desarrollador y el plan queda activo en el momento.",
       "url": "https://g360ia.com.ar/developers#reparto"
     }
   ]
@@ -160,7 +160,7 @@
       "name": "¿Pierdo el control de mi producto o de mis clientes?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. El producto sigue siendo tuyo, el cliente contrata con tu marca, le facturás vos y la relación es tuya. Esto no es una adquisición, ni una sociedad, ni un marketplace que se queda con el cliente: es un canal de venta que te presenta negocios."
+        "text": "El producto es tuyo y corre en tu infraestructura: no lo alojamos, no lo tocamos y no entramos en tus decisiones. El cliente usa tu software con tu marca y te escribe a vos cuando algo no anda. Lo que sí pasa por el catálogo es el cobro, porque es la única forma de repartir una cuota entre tres partes sin que nadie dependa de la buena fe del otro. No es una adquisición ni una sociedad."
       }
     },
     {
@@ -184,7 +184,23 @@
       "name": "¿Cómo se registra que un cliente vino de un afiliado?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Lo ideal es que el registro de tu producto acepte un código de referido y lo guarde junto al alta; suele ser un campo y una consulta. Si eso no es posible a corto plazo, se arranca con una conciliación manual: el afiliado avisa la venta y se cruza contra las altas del mes. Es más trabajoso, y por eso conviene resolverlo del lado del producto."
+        "text": "De nuestro lado, y a propósito. El link del afiliado pasa primero por un redirect nuestro, que registra el click y recién ahí manda a la persona a tu sitio. No tenés que implementar ningún ?ref=, ni guardar códigos, ni discutir después de quién era la venta: cuando el pago se confirma, ya sabemos qué afiliado la trajo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa si mi servidor está caído justo cuando alguien paga?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El cobro no depende de vos, así que la venta no se pierde. El aviso para activar el plan se encola y se reintenta hasta que tu sistema conteste. Va con una clave de idempotencia, así que si el aviso llega dos veces —porque reintentamos y la primera en realidad había entrado— el plan se activa una sola vez y no queda ningún duplicado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto trabajo de integración es esto para mí?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un endpoint que reciba una llamada firmada y active el plan de un usuario. Nada más: el cobro, el reparto y el seguimiento del referido son nuestros. El contrato exacto —firma, formato y reintentos— te lo pasamos por escrito antes de que escribas una línea, y con los primeros productos lo integramos a mano y acompañados, no tirándote una documentación y suerte."
       }
     },
     {
@@ -425,10 +441,11 @@
           </article>
           <article class="g-paso">
             <span class="g-paso-n">04</span>
-            <h3>Cobrás y liquidás</h3>
+            <h3>Se cobra y se reparte</h3>
             <p>
-              El cliente contrata con vos, te paga a vos y vos le facturás. La comisión sale
-              de ese cobro, una vez por mes y sólo sobre lo que entró de verdad.
+              La suscripción se cobra desde el catálogo y el reparto se calcula ahí mismo: tu
+              parte, la del afiliado y la nuestra. En el momento en que el pago se confirma,
+              tu sistema recibe el aviso y activa el plan.
             </p>
           </article>
         </div>
@@ -466,9 +483,9 @@
             <ul>
               <li>El producto funcionando, con clientes reales que ya lo pagan</li>
               <li>La demostración, la puesta en marcha y el soporte del día a día</li>
-              <li>La facturación y el cobro de la suscripción</li>
+              <li>Un endpoint que active el plan cuando le avisamos que se cobró</li>
               <li>La comisión acordada, sobre cada cuota efectivamente cobrada</li>
-              <li>Una forma de saber que un alta entró con un código de referido</li>
+              <li>Tu propia infraestructura: el software sigue corriendo donde vos lo tenés</li>
             </ul>
           </div>
 
@@ -480,9 +497,9 @@
             <ul>
               <li>La red de afiliados y el alta de cada vendedor</li>
               <li>La ficha de tu producto en el catálogo, con su comisión visible</li>
-              <li>El seguimiento del código de referido y la liquidación mensual</li>
-              <li>El material con el que un afiliado presenta el producto</li>
-              <li>La experiencia de haber hecho esto con un producto propio primero</li>
+              <li>El seguimiento del referido, de punta a punta: el link pasa por nuestro redirect, así no tenés que implementar nada</li>
+              <li>El cobro de la suscripción, el reparto entre las tres partes y la liquidación</li>
+              <li>El aviso a tu sistema cuando el pago está confirmado, con reintentos si estás caído</li>
             </ul>
           </div>
         </div>
@@ -546,11 +563,12 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg>
             </span>
             <span class="g-card-kick">Requisito 04</span>
-            <h3 class="g-card-t">Podés registrar de dónde vino el alta</h3>
+            <h3 class="g-card-t">Podés activar un plan por API</h3>
             <p class="g-card-p">
-              Que tu registro acepte un código de referido y lo guarde con el alta — suele ser
-              un campo y una consulta. Si hoy no se puede, se arranca conciliando a mano, pero
-              conviene resolverlo: es lo que evita las discusiones de después.
+              Un endpoint en tu sistema que reciba «a este usuario activale este plan» y lo
+              haga. Nosotros te avisamos con una llamada firmada en cuanto el pago está
+              confirmado, y reintentamos si tu servidor no contesta. El tracking del referido
+              no es problema tuyo: el link pasa por nuestro redirect antes de llegarte.
             </p>
           </article>
 
@@ -620,9 +638,10 @@
               no pedimos participación y no entramos en tus decisiones de producto.
             </p>
             <p>
-              <strong>No es un marketplace con checkout.</strong> El cliente contrata con vos
-              y te paga a vos. Nosotros no cobramos la suscripción ni nos quedamos en el medio
-              de esa relación.
+              <strong>No nos quedamos con tu cliente.</strong> El cobro sí pasa por el
+              catálogo —es la única forma de repartir entre tres partes sin que nadie tenga
+              que confiar en la palabra del otro—, pero el cliente es tuyo: usa tu producto,
+              te escribe a vos y se va con vos si un día nos vamos nosotros.
             </p>
             <p>
               <strong>No es desarrollo a medida.</strong> Si lo que tenés es una idea sin
@@ -660,10 +679,11 @@
           <details>
             <summary>¿Pierdo el control de mi producto o de mis clientes?</summary>
             <p class="g-faq-r">
-              No. El producto sigue siendo tuyo, el cliente contrata con tu marca, le facturás
-              vos y la relación es tuya. Esto no es una adquisición, ni una sociedad, ni un
-              marketplace que se queda con el cliente: es un canal de venta que te presenta
-              negocios.
+              El producto es tuyo y corre en tu infraestructura: no lo alojamos, no lo tocamos
+              y no entramos en tus decisiones. El cliente usa tu software con tu marca y te
+              escribe a vos cuando algo no anda. Lo que sí pasa por el catálogo es el cobro,
+              porque es la única forma de repartir una cuota entre tres partes sin que nadie
+              dependa de la buena fe del otro. No es una adquisición ni una sociedad.
             </p>
           </details>
           <details>
@@ -686,13 +706,32 @@
           <details>
             <summary>¿Cómo se registra que un cliente vino de un afiliado?</summary>
             <p class="g-faq-r">
-              Lo ideal es que el registro de tu producto acepte un código de referido y lo
-              guarde junto al alta; suele ser un campo y una consulta. Si eso no es posible a
-              corto plazo, se arranca con una conciliación manual: el afiliado avisa la venta y
-              se cruza contra las altas del mes. Es más trabajoso, y por eso conviene
-              resolverlo del lado del producto.
+              De nuestro lado, y a propósito. El link del afiliado pasa primero por un redirect
+              nuestro, que registra el click y recién ahí manda a la persona a tu sitio. No
+              tenés que implementar ningún <code>?ref=</code>, ni guardar códigos, ni discutir
+              después de quién era la venta: cuando el pago se confirma, ya sabemos qué afiliado
+              la trajo.
             </p>
           </details>
+          <details>
+            <summary>¿Qué pasa si mi servidor está caído justo cuando alguien paga?</summary>
+            <p class="g-faq-r">
+              El cobro no depende de vos, así que la venta no se pierde. El aviso para activar
+              el plan se encola y se reintenta hasta que tu sistema conteste. Va con una clave
+              de idempotencia, así que si el aviso llega dos veces —porque reintentamos y la
+              primera en realidad había entrado— el plan se activa una sola vez y no queda
+              ningún duplicado.
+            </p>
+          </details>
+          <details>
+            <summary>¿Cuánto trabajo de integración es esto para mí?</summary>
+            <p class="g-faq-r">
+              Un endpoint que reciba una llamada firmada y active el plan de un usuario. Nada
+              más: el cobro, el reparto y el seguimiento del referido son nuestros. El contrato
+              exacto —firma, formato y reintentos— te lo pasamos por escrito antes de que
+              escribas una línea, y con los primeros productos lo integramos a mano y
+              acompañados, no tirándote una documentación y suerte.
+            </p>
           <details>
             <summary>¿Qué tan grande es la red de afiliados hoy?</summary>
             <p class="g-faq-r">
