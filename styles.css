@@ -4234,6 +4234,84 @@ a.g-via:hover {
 .g-rel-d { display: block; font-size: 13px; line-height: 1.45; color: var(--g-ink-soft); margin-top: 2px; }
 
 /* ===========================================================================
+   CALCULADORA
+   ===========================================================================
+   Nace en /afiliados y es reutilizable: dos controles y un resultado que se
+   recalcula al mover cualquiera de los dos. Los números no se escriben en el
+   HTML porque son un ejemplo, no un precio: los precios reales viven en la
+   base del producto y se desactualizarían solos acá.
+   =========================================================================== */
+.g-calc {
+  border: 1px solid var(--g-line);
+  border-radius: var(--g-radio);
+  background: var(--g-bg);
+  box-shadow: var(--g-sombra);
+  padding: 28px 26px;
+}
+.g-calc-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--g-ink-mute);
+  margin-bottom: 10px;
+}
+.g-calc-label b { color: var(--g-navy); font-size: 15px; letter-spacing: -0.01em; text-transform: none; }
+.g-calc input[type="range"] { width: 100%; accent-color: var(--g-gold); }
+.g-calc-fila {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--g-line);
+  font-size: 14px;
+  color: var(--g-ink-soft);
+}
+.g-calc-fila:last-child { border-bottom: 0; }
+.g-calc-fila b { font-size: 19px; font-weight: 800; color: var(--g-navy); letter-spacing: -0.02em; }
+.g-calc-total b { font-size: 28px; color: var(--g-gold-ink); }
+.g-calc-nota { font-size: 12px; line-height: 1.55; color: var(--g-ink-mute); margin: 16px 0 0; }
+
+/* ===========================================================================
+   ETIQUETA DE ESTADO
+   Un rótulo corto sobre una tarjeta: «Disponible», «En construcción».
+   =========================================================================== */
+.g-etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--g-gold-bg);
+  color: var(--g-gold-ink);
+  border: 1px solid var(--g-gold-line);
+  margin-bottom: 14px;
+}
+.g-etiqueta--gris {
+  background: var(--g-bg-soft);
+  color: var(--g-ink-mute);
+  border-color: var(--g-line-2);
+}
+
+/* ===========================================================================
+   TABLA
+   =========================================================================== */
+.g-tabla-caja { border: 1px solid var(--g-line); border-radius: var(--g-radio-s); overflow: hidden; background: var(--g-bg); }
+.g-tabla { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.g-tabla th, .g-tabla td { padding: 13px 16px; text-align: left; border-bottom: 1px solid var(--g-line); }
+.g-tabla thead th { background: var(--g-bg-soft); color: var(--g-navy); font-weight: 700; font-size: 13px; }
+.g-tabla tbody td { color: var(--g-ink-soft); }
+.g-tabla tbody td:first-child { color: var(--g-navy); font-weight: 600; }
+.g-tabla tbody tr:last-child td { border-bottom: 0; }
+
+/* ===========================================================================
    RESPONSIVO
    =========================================================================== */
 @media (max-width: 1024px) {
@@ -4250,6 +4328,10 @@ a.g-via:hover {
   .g-faq summary { font-size: 15px; padding: 16px 18px; gap: 14px; }
   .g-faq-r { padding: 0 18px 17px; font-size: 14.5px; }
   .g-geo a { font-size: 14.5px; padding: 14px 2px; }
+  .g-calc { padding: 22px 20px; }
+  .g-calc-total b { font-size: 24px; }
+  .g-tabla { font-size: 13.5px; }
+  .g-tabla th, .g-tabla td { padding: 11px 12px; }
 }
 
 /* ===========================================================================

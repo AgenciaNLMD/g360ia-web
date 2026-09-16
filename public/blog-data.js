@@ -17,11 +17,18 @@ window.BlogData = (function () {
     software: { name: 'Desarrollo de software',    url: '/servicios/desarrollo-software' },
     branding: { name: 'Branding / UI-UX',          url: '/servicios/branding-uiux' },
     consultoria:     { name: 'Consultoría IA',   url: '/servicios/consultoria-ia' },
-    automatizaciones:{ name: 'Automatizaciones', url: '/servicios/automatizaciones' }
+    automatizaciones:{ name: 'Automatizaciones', url: '/servicios/automatizaciones' },
+    /* No es un servicio que se contrata: es la puerta de reventa. Vive acá
+       porque el modal de palabra clave del blog se arma con esta misma lista
+       y las notas de afiliados necesitan poder apuntar a algún lado. */
+    afiliados:       { name: 'Programa de afiliados', url: '/afiliados' }
   };
 
   /* Artículos del blog. `services` = a qué servicio se relaciona cada nota. */
   var posts = [
+    { slug: 'programa-afiliados-software-comision-recurrente', title: 'Programa de afiliados de software: cómo se gana con comisión recurrente', url: '/blog/programa-afiliados-software-comision-recurrente', img: '/multimedia/programa-afiliados-software-comision-recurrente.webp', excerpt: 'Comisión única o recurrente: la cuenta completa y la letra chica que define si un programa sirve.', services: ['afiliados', 'software'], cat: 'Negocios', date: '15 septiembre, 2026', base: 40 },
+    { slug: 'vender-software-sin-ser-programador', title: 'Cómo vender software sin ser programador', url: '/blog/vender-software-sin-ser-programador', img: '/multimedia/vender-software-sin-ser-programador.webp', excerpt: 'Los tres modelos, qué necesitás saber de verdad y las seis objeciones que vas a escuchar siempre.', services: ['afiliados', 'software'], cat: 'Ventas', date: '15 septiembre, 2026', base: 30 },
+    { slug: 'software-gestion-por-suscripcion-pymes', title: 'Software de gestión por suscripción: por qué las pymes dejaron de comprar sistemas', url: '/blog/software-gestion-por-suscripcion-pymes', img: '/multimedia/software-gestion-por-suscripcion-pymes.webp', excerpt: 'Licencia única contra cuota mensual, qué mirar antes de contratar y qué pasa con tus datos.', services: ['software', 'afiliados'], cat: 'Software', date: '15 septiembre, 2026', base: 25 },
     { slug: 'geo-vs-seo-posicionar-pyme-ia', title: 'GEO vs SEO: cómo posicionar tu pyme en Google y en las IA', url: '/blog/geo-vs-seo-posicionar-pyme-ia', img: '/multimedia/geo-vs-seo.webp', excerpt: 'Qué es el GEO y cómo aparecer en las respuestas de ChatGPT, Gemini y Perplexity.', services: ['seo'], cat: 'Tendencias', date: '17 junio, 2026', base: 2380 },
     { slug: 'google-business-profile', title: 'Google Business Profile: optimizá tu ficha paso a paso', url: '/blog/google-business-profile', img: '/multimedia/google-business.webp', excerpt: 'Aparecé en Maps y en las búsquedas "cerca mío" de tu zona.', services: ['seo'], cat: 'Tutoriales', date: '14 junio, 2026', base: 960 },
     { slug: 'prompts-para-tu-negocio', title: 'Prompts para tu negocio: 10 plantillas que sí funcionan', url: '/blog/prompts-para-tu-negocio', img: '/multimedia/ia-prompts.webp', excerpt: 'Plantillas listas para redactar, vender y atender mejor con IA.', services: ['agentes'], cat: 'IA generativa', date: '13 junio, 2026', base: 870 },
