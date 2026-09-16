@@ -453,10 +453,12 @@ const PUERTAS = [
   },
 ];
 
-/* El porcentaje de entrada del programa de afiliados. Es el mismo que el
-   DEFAULT de `afiliado.comision_pct` en el turnero (migración 090) y el que
-   muestra vet.g360ia.com.ar/afiliados. El de cada vendedor en particular se
-   negocia y vive en la base; acá está el de quien se registra solo. */
+/* La comisión del afiliado. Desde el 16-sep-2026 es fija y vale para todo el
+   catálogo —propio y de partners— dentro del reparto 50/20/30: 50% para quien
+   construyó el software, 20% para el vendedor y 30% para la agencia.
+   Es el mismo número que el DEFAULT de `afiliado.comision_pct` en el turnero
+   (migración 090) y que el que muestra afiliados.g360ia.com.ar. Ya no se
+   negocia por producto: ver «Comisión de afiliados» en CLAUDE.md. */
 const COMISION_PCT = 20;
 
 const CLIENT_LOGOS = ["Norte Capital", "Salud+ Clínica", "Studio Verde", "Lumen Retail", "Astra Ventures", "Pampa Foods"];

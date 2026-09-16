@@ -193,10 +193,27 @@ La página dice «código de referido», no «link». La home (`PUERTAS` en `dat
 de afiliados de `secciones-home.jsx`) usa las mismas palabras: si el sitio dice «link» en un
 lado y «código» en otro, parecen dos cosas distintas.
 
-El alta sigue en `vet.g360ia.com.ar/afiliados`. Hay un panel propio del programa previsto en
-**`afiliados.g360ia.com.ar`** que todavía no existe: cuando esté, cambia el destino de los
-tres CTA de `/afiliados` (barra, hero y cierre) y la frase del segmento de cierre que hoy
-nombra a vet.g360ia.com.ar.
+### Los paneles, y una deuda abierta
+
+Desde el **16-sep-2026** los CTA apuntan a los paneles propios del programa:
+
+| Página | CTA va a | Qué es |
+|---|---|---|
+| `/afiliados` | `afiliados.g360ia.com.ar` | panel del vendedor: catálogo, código, CVU, comisiones |
+| `/developers` | `developers.g360ia.com.ar` | panel del que publica: ficha, CVU, webhook, liquidaciones |
+
+Antes `/afiliados` mandaba a `vet.g360ia.com.ar/afiliados`. Ese panel era del producto
+veterinario y no del programa, y el afiliado vende **todo el catálogo**, no un producto.
+
+**Los dos subdominios todavía no sirven nada** (resuelven en DNS, pero no hay servidor:
+`curl` devuelve 000). Se decidió apuntar igual, a sabiendas, porque los paneles se levantan
+enseguida — pero hasta entonces **los CTA de las dos páginas están muertos**. Es lo primero a
+verificar si alguien reporta que «el botón no hace nada». Los paneles se construyen en el repo
+`g360ia-catalogo`.
+
+El alta es **self-service en las dos puntas**: no hay entrevista, ni aprobación de cuenta, ni
+comisión que negociar. Al registrarse se aceptan las condiciones. Lo único que se revisa es el
+producto del developer: que el webhook responda y que cumpla los seis requisitos.
 
 ### Comisión de afiliados
 
