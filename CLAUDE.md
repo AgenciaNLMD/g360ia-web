@@ -169,12 +169,42 @@ Tampoco se declaran precios acá: salen de la base del producto por `/api/planes
 con un UPDATE. Un número escrito a mano se desactualiza solo, y un precio incorrecto en datos
 estructurados es peor que ningún precio.
 
+### El programa de afiliados es una red, no un canal de un producto
+
+Desde el **16-sep-2026** `/afiliados` no vende «nuestro software»: vende **el negocio de
+vender software**. El orden de la página es el del flujo real —catálogo → cuenta → código de
+referido → cobro— y el catálogo subió al tercer segmento porque es lo primero que quiere ver
+alguien que evalúa entrar a una red de venta.
+
+El catálogo tiene tres fichas y **sólo la primera nombra un producto**: Vet 360iA, que es lo
+único contratable hoy. Las otras dos son la pata de partners (software de otras empresas, que
+entra con su nombre, su comisión y sus condiciones) y las verticales propias en construcción.
+**Ningún producto de partner se nombra hasta que esté publicado** — un catálogo con productos
+que no se pueden vender es una promesa que el afiliado descubre rota el día que se registra, y
+es lo que los buscadores tratan como contenido engañoso.
+
+La página dice «código de referido», no «link». La home (`PUERTAS` en `data.jsx` y la sección
+de afiliados de `secciones-home.jsx`) usa las mismas palabras: si el sitio dice «link» en un
+lado y «código» en otro, parecen dos cosas distintas.
+
+El alta sigue en `vet.g360ia.com.ar/afiliados`. Hay un panel propio del programa previsto en
+**`afiliados.g360ia.com.ar`** que todavía no existe: cuando esté, cambia el destino de los
+tres CTA de `/afiliados` (barra, hero y cierre) y la frase del segmento de cierre que hoy
+nombra a vet.g360ia.com.ar.
+
 ### Comisión de afiliados
 
-El 20% de `/afiliados` es el porcentaje de entrada y tiene tres copias que deben coincidir:
-`COMISION_PCT` en `data.jsx` (este repo), `COMISION_PCT` en `lib/afiliado-textos.js` del
-turnero, y el DEFAULT de `afiliado.comision_pct` en su migración 090. El que manda es el de
-la base. Si cambia, cambian los tres.
+El 20% es el porcentaje de entrada **de los productos propios** y tiene tres copias que deben
+coincidir: `COMISION_PCT` en `data.jsx` (este repo), `COMISION_PCT` en `lib/afiliado-textos.js`
+del turnero, y el DEFAULT de `afiliado.comision_pct` en su migración 090. El que manda es el
+de la base. Si cambia, cambian los tres — más la cinta y la FAQ de `/afiliados`, y el
+`COMISION` de su calculadora.
+
+Los productos de partners publican **su propia** comisión en su ficha del catálogo. Por eso la
+página dice «cada producto publica su comisión» y no un número único: el día que entre el
+primero con un porcentaje distinto, el 20% escrito como verdad general pasa a ser falso. La
+calculadora sigue usando el 20% y lo aclara en su nota; cuando haya comisiones distintas, el
+porcentaje pasa a ser un tercer control en vez de una constante.
 
 ## Regla 7 — El sistema claro y el kit `g-pagina`
 

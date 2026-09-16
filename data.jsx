@@ -447,7 +447,7 @@ const PUERTAS = [
     icon: "handshake",
     kicker: "Programa de afiliados",
     titulo: "Quiero vender y ganar una comisión",
-    desc: "Compartís tu link, y cobrás un porcentaje de cada suscripción que traigas — todos los meses, mientras el cliente siga pagando.",
+    desc: "Elegís del catálogo, compartís tu código, y cobrás un porcentaje de cada suscripción que traigas — todos los meses, mientras el cliente siga pagando.",
     accion: "Cómo funciona",
     href: "/afiliados",
   },

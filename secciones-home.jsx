@@ -393,8 +393,8 @@ function Afiliados() {
             <h2 className="g-h2">¿Y si en vez de comprarlo <em>lo vendés</em>?</h2>
             <p className="g-lead" style={{ marginBottom: 24 }}>
               Si ya tratás con negocios de un rubro —porque les vendés insumos, les llevás
-              la contabilidad o simplemente los conocés— podés presentarles nuestro sistema
-              con tu link y cobrar una comisión de cada cuota que paguen.
+              la contabilidad o simplemente los conocés— podés presentarles los sistemas del
+              catálogo con tu código y cobrar una comisión de cada cuota que paguen.
             </p>
             <div className="g-hero-ctas">
               <a className="g-btn g-btn--primario" href="/afiliados">
