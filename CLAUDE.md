@@ -206,11 +206,16 @@ del turnero, y el DEFAULT de `afiliado.comision_pct` en su migración 090. El qu
 de la base. Si cambia, cambian los tres — más la cinta y la FAQ de `/afiliados`, y el
 `COMISION` de su calculadora.
 
-Los productos de partners publican **su propia** comisión en su ficha del catálogo. Por eso la
-página dice «cada producto publica su comisión» y no un número único: el día que entre el
-primero con un porcentaje distinto, el 20% escrito como verdad general pasa a ser falso. La
-calculadora sigue usando el 20% y lo aclara en su nota; cuando haya comisiones distintas, el
-porcentaje pasa a ser un tercer control en vez de una constante.
+Desde el **16-sep-2026 el reparto es fijo para todo el catálogo**, propio y de partners:
+**50% developer · 20% afiliado · 30% G360iA** sobre cada cuota cobrada. No se negocia por
+producto, y la razón está escrita en las dos páginas: si cada producto paga distinto, el
+afiliado elige el que más le paga a él en vez del que le sirve al cliente, y el catálogo se
+vuelve un ranking de comisiones. El 20% del afiliado no cambió justamente para que fusionar
+los dos programas no obligue a renegociar nada.
+
+La fuente de verdad del split es el brief de `g360ia-catalogo` (su `README.md`, bloque
+«Reparto y monetización»). Si cambia ahí, cambian `/afiliados` (cinta, paso 04, FAQ y el
+`COMISION` de la calculadora) y `/developers` (cinta, requisito 06, FAQ y el `HowTo`).
 
 ## Regla 7 — El sistema claro y el kit `g-pagina`
 
