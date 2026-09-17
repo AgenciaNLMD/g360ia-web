@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Política de Privacidad | Gestión 360 IA</title>
-  <meta name="description" content="Política de privacidad de Gestión 360 IA. Conocé cómo recolectamos y usamos tus datos en g360ia.com.ar." />
+  <meta name="description" content="Política de privacidad de Gestión 360 IA: qué datos recolectamos en el sitio, en el chat, en el formulario de contacto y en el programa de afiliados y developers, y con quién se comparten." />
   <link rel="canonical" href="https://g360ia.com.ar/legal/privacidad" />
   <meta name="robots" content="noindex, follow" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -97,10 +97,15 @@
     .last-updated {
       font-size: 13px;
       color: var(--ink-soft);
-      margin-bottom: 52px;
+      margin-bottom: 28px;
+    }
+    .intro {
+      border-left: 2px solid var(--gold);
+      padding-left: 16px;
+      margin-bottom: 44px;
     }
 
-    /* ── SECTIONS ── */
+    /* ── SECCIONES ── */
     .legal-section {
       border-top: 1px solid var(--border);
       padding: 36px 0;
@@ -113,28 +118,38 @@
       color: var(--ink);
       margin-bottom: 14px;
     }
-    p { color: var(--ink-soft); margin-bottom: 12px; }
-    p:last-child { margin-bottom: 0; }
-    a { color: var(--gold); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    ul {
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 22px 0 10px;
+    }
+
+    /* Ojo: acotado a main. Sin el prefijo, la viñeta dorada y el reset de lista
+       se cuelan en el pie compartido, que se inyecta fuera de main. */
+    main p { color: var(--ink-soft); margin-bottom: 12px; }
+    main p:last-child { margin-bottom: 0; }
+    main a { color: var(--gold); text-decoration: none; }
+    main a:hover { text-decoration: underline; }
+    main ul {
       list-style: none;
       padding: 0;
       margin: 0 0 12px;
     }
-    ul li {
+    main ul li {
       color: var(--ink-soft);
       padding: 4px 0 4px 18px;
       position: relative;
     }
-    ul li::before {
+    main ul li::before {
       content: "–";
       position: absolute;
       left: 0;
       color: var(--gold);
     }
+    main strong { color: rgba(240,242,247,.85); }
 
-    /* ── DATA TABLE ── */
+    /* ── TABLA ── */
     .data-table {
       width: 100%;
       border-collapse: collapse;
@@ -157,38 +172,6 @@
       vertical-align: top;
     }
     .data-table tr:last-child td { border-bottom: none; }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 24px;
-      text-align: center;
-    }
-    .footer-inner {
-      max-width: 820px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-    .footer-copy { font-size: 13px; color: var(--ink-soft); }
-    .footer-links { display: flex; gap: 20px; }
-    .footer-links a { font-size: 13px; color: var(--ink-soft); text-decoration: none; }
-    .footer-links a:hover { color: var(--gold); }
-    .footer-links a.active { color: var(--gold); }
-
-    /* footer grid responsive */
-    @media (max-width: 1024px) {
-      .footer-grid-inner { grid-template-columns: 1fr 1fr 1fr !important; }
-    }
-    @media (max-width: 720px) {
-      .footer-grid-inner { grid-template-columns: 1fr 1fr !important; }
-    }
-    @media (max-width: 480px) {
-      .footer-grid-inner { grid-template-columns: 1fr !important; }
-    }
   </style>
 </head>
 <body>
@@ -205,14 +188,23 @@
   <main>
     <p class="page-eyebrow">Legal</p>
     <h1>Política de Privacidad</h1>
-    <p class="last-updated">Última actualización: junio 2025</p>
+    <p class="last-updated">Última actualización: septiembre de 2026</p>
+
+    <p class="intro">
+      Esta política explica qué datos personales tratamos cuando alguien navega g360ia.com.ar,
+      escribe por el formulario o el chat, o entra al programa de afiliados o de developers.
+      <strong>No cubre lo que pasa adentro de cada software del catálogo</strong>: esos sistemas
+      corren en la infraestructura de quien los publica y tienen su propia política, publicada en el
+      sitio del producto.
+    </p>
 
     <div class="legal-section">
       <h2>1. Responsable del tratamiento</h2>
       <p>
-        <strong>Gestión 360 IA</strong>, con domicilio en Buenos Aires, Argentina, es responsable
-        del tratamiento de los datos personales que se recolectan a través del sitio web
-        <strong>g360ia.com.ar</strong>.
+        <strong>Gestión 360 IA</strong>, con domicilio en Buenos Aires, Argentina, es responsable del
+        tratamiento de los datos personales que se recolectan a través del sitio web
+        <strong>g360ia.com.ar</strong> y del panel del programa
+        (<strong>app.g360ia.com.ar</strong>).
       </p>
       <p>
         Contacto: <a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a>
@@ -220,11 +212,48 @@
     </div>
 
     <div class="legal-section">
-      <h2>2. Datos que recolectamos</h2>
+      <h2>2. Alcance: qué cubre y qué no</h2>
       <p>
-        Recolectamos datos personales únicamente cuando el usuario interactúa activamente con el sitio
-        o cuando se utilizan herramientas de análisis. A continuación se detalla qué datos, con qué
-        finalidad y con qué base legal:
+        Hacemos tres cosas distintas y los datos no viajan igual en las tres. Esta política cubre las
+        dos primeras columnas:
+      </p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Ámbito</th>
+            <th>Qué datos</th>
+            <th>Quién es responsable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sitio y contacto<br />(g360ia.com.ar)</td>
+            <td>Consultas, mensajes del chat, navegación</td>
+            <td>Gestión 360 IA — esta política</td>
+          </tr>
+          <tr>
+            <td>Programa de afiliados y developers<br />(app.g360ia.com.ar)</td>
+            <td>Cuenta, datos de cobro, comisiones, liquidaciones</td>
+            <td>Gestión 360 IA — esta política, punto 5</td>
+          </tr>
+          <tr>
+            <td>Software del catálogo<br />(sitio de cada producto)</td>
+            <td>Los datos que cada empresa carga en el sistema que contrató</td>
+            <td>Quien publica el producto — su propia política</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Las condiciones comerciales de cada una de esas relaciones están en los
+        <a href="/legal/terminos">Términos y Condiciones</a>.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>3. Datos que recolectamos en el sitio</h2>
+      <p>
+        Recolectamos datos personales cuando el usuario interactúa activamente con el sitio, y datos
+        de navegación a través de herramientas de análisis:
       </p>
       <table class="data-table">
         <thead>
@@ -251,7 +280,7 @@
             <td>Consentimiento del usuario</td>
           </tr>
           <tr>
-            <td>Nombre de empresa</td>
+            <td>Nombre de empresa y rubro</td>
             <td>Contextualizar la propuesta comercial</td>
             <td>Consentimiento del usuario</td>
           </tr>
@@ -261,54 +290,211 @@
             <td>Consentimiento del usuario</td>
           </tr>
           <tr>
+            <td>Mensajes enviados al chat del sitio</td>
+            <td>Generar la respuesta del asistente</td>
+            <td>Consentimiento del usuario</td>
+          </tr>
+          <tr>
+            <td>Dirección IP y fecha del envío</td>
+            <td>Límites de uso y prevención de abuso del formulario y del chat</td>
+            <td>Interés legítimo</td>
+          </tr>
+          <tr>
             <td>Datos de navegación (cookies de analytics)</td>
             <td>Medir el tráfico y mejorar la experiencia del sitio</td>
             <td>Interés legítimo / consentimiento</td>
           </tr>
         </tbody>
       </table>
+      <h3>3.1 Formulario de contacto</h3>
+      <p>
+        El lead que se envía desde el formulario se guarda en el panel interno de la agencia
+        (admin.g360ia.com.ar) para poder darle seguimiento, y dispara un aviso por WhatsApp al
+        responsable comercial a través de un proveedor de mensajería. No se usa para enviar
+        publicidad no solicitada.
+      </p>
+      <h3>3.2 Chat del sitio</h3>
+      <p>
+        El asistente del sitio funciona con un modelo de lenguaje de <strong>Anthropic</strong>: el
+        mensaje que escribís se envía a su API para generar la respuesta, junto con la información
+        pública del sitio que el asistente puede usar. No creamos un perfil con esas conversaciones ni
+        las vinculamos a tu identidad, y el servicio conserva en memoria sólo un contador de uso por
+        dirección IP para aplicar el límite diario.
+      </p>
+      <p>
+        <strong>No cargues datos sensibles ni datos de terceros en el chat.</strong> Para una consulta
+        que requiera datos concretos está el formulario de contacto, que sí queda registrado y con
+        seguimiento.
+      </p>
     </div>
 
     <div class="legal-section">
-      <h2>3. Cookies y herramientas de análisis</h2>
+      <h2>4. Cookies, almacenamiento local y código de referido</h2>
       <p>
-        Este sitio utiliza herramientas de análisis de tráfico web (como Google Analytics) que pueden
-        establecer cookies en el navegador del usuario con el fin de medir visitas, páginas consultadas
-        y comportamiento de navegación de forma agregada y anónima.
+        Este sitio usa herramientas de análisis de tráfico web que pueden establecer cookies en el
+        navegador para medir visitas, páginas consultadas y comportamiento de navegación de forma
+        agregada. El usuario puede deshabilitarlas desde la configuración de su navegador sin que eso
+        afecte el acceso a los contenidos.
       </p>
       <p>
-        El usuario puede deshabilitar las cookies desde la configuración de su navegador sin que ello
-        afecte el acceso a los contenidos del sitio.
+        Además, en el circuito del catálogo se usa almacenamiento en el navegador con una finalidad
+        concreta: cuando alguien entra a un producto desde el enlace o el código de un afiliado,
+        <strong>ese código queda guardado en su navegador</strong> para poder atribuir el alta al
+        afiliado que la originó, aunque el registro ocurra meses después. Es lo que hace posible la
+        comisión recurrente descrita en <a href="/afiliados">/afiliados</a>. Borrar los datos del
+        navegador elimina esa atribución.
+      </p>
+      <p>
+        El panel del programa (app.g360ia.com.ar) usa además una cookie de sesión, imprescindible para
+        mantener la sesión iniciada.
       </p>
     </div>
 
     <div class="legal-section">
-      <h2>4. Uso de los datos</h2>
-      <p>Los datos recolectados se utilizan exclusivamente para:</p>
+      <h2>5. Datos del programa de afiliados y developers</h2>
+      <p>
+        Quien crea una cuenta en <strong>app.g360ia.com.ar</strong> —como afiliado que vende software
+        del catálogo, o como developer que publica el suyo— entrega estos datos, todos necesarios
+        para que el programa funcione:
+      </p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Dato</th>
+            <th>Finalidad</th>
+            <th>Base legal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nombre, email y foto de la cuenta de Google</td>
+            <td>Crear la cuenta e iniciar sesión</td>
+            <td>Ejecución de la relación contractual</td>
+          </tr>
+          <tr>
+            <td>Código de referido elegido</td>
+            <td>Atribuir las altas que origina el afiliado</td>
+            <td>Ejecución de la relación contractual</td>
+          </tr>
+          <tr>
+            <td>CBU, alias o cuenta de Mercado Pago</td>
+            <td>Pagar las liquidaciones por transferencia</td>
+            <td>Ejecución de la relación contractual</td>
+          </tr>
+          <tr>
+            <td>Datos fiscales y comprobantes</td>
+            <td>Facturación, retenciones y obligaciones impositivas</td>
+            <td>Obligación legal</td>
+          </tr>
+          <tr>
+            <td>Registro de cobros, comisiones y liquidaciones</td>
+            <td>Mostrar cobro por cobro lo devengado y respaldar cada pago</td>
+            <td>Ejecución de la relación contractual / obligación legal</td>
+          </tr>
+          <tr>
+            <td>Versión de las condiciones aceptadas, con fecha</td>
+            <td>Acreditar qué condiciones aceptó cada uno al registrarse</td>
+            <td>Ejecución de la relación contractual</td>
+          </tr>
+          <tr>
+            <td>Ficha del producto y URL del webhook (developers)</td>
+            <td>Publicar el producto en el catálogo y activar los planes vendidos</td>
+            <td>Ejecución de la relación contractual</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>5.1 Qué ve cada parte</h3>
       <ul>
-        <li>Responder consultas comerciales enviadas a través del formulario de contacto.</li>
-        <li>Evaluar el interés en nuestros servicios y elaborar propuestas personalizadas.</li>
-        <li>Mejorar el sitio web mediante el análisis de estadísticas de uso.</li>
+        <li>
+          <strong>El afiliado</strong> ve en su panel las suscripciones atribuidas a su código con los
+          datos mínimos para identificarlas y el importe que le corresponde de cada cobro. No accede a
+          los datos que ese cliente carga dentro del software.
+        </li>
+        <li>
+          <strong>El developer</strong> recibe, por el webhook, los datos necesarios para dar de alta
+          al cliente y activarle el plan pagado. A partir de ahí, ese cliente es suyo y el tratamiento
+          de sus datos se rige por la política del producto.
+        </li>
+        <li>
+          <strong>G360iA</strong> ve el cobro y el reparto entre las tres partes, que es lo que
+          permite liquidar sin que nadie dependa de la palabra del otro.
+        </li>
       </ul>
       <p>
-        No vendemos, cedemos ni comercializamos datos personales a terceros. No los utilizamos
-        para envío de publicidad no solicitada.
+        Los datos de la cuenta se pueden corregir desde el panel en cualquier momento. La baja de la
+        cuenta no borra los registros de cobros y liquidaciones ya emitidos: son respaldo contable y
+        se conservan por los plazos legales (punto 8).
       </p>
     </div>
 
     <div class="legal-section">
-      <h2>5. Conservación de los datos</h2>
+      <h2>6. Con quién se comparten los datos</h2>
       <p>
-        Los datos del formulario de contacto se conservan durante el tiempo necesario para gestionar
-        la consulta y, en caso de relación comercial, durante la vigencia de la misma. Los datos de
-        analytics son anónimos y no tienen plazo de retención determinado.
+        <strong>No vendemos, cedemos ni comercializamos datos personales.</strong> Los compartimos
+        únicamente con los proveedores necesarios para prestar el servicio, y sólo con los datos que
+        cada uno necesita:
+      </p>
+      <ul>
+        <li><strong>Anthropic</strong> — procesa los mensajes del chat del sitio para generar la respuesta.</li>
+        <li><strong>Google</strong> — inicio de sesión con cuenta de Google en el panel, y herramientas de análisis de tráfico.</li>
+        <li><strong>Proveedor de mensajería de WhatsApp</strong> — envía el aviso interno cuando llega un lead del formulario.</li>
+        <li><strong>Pasarela de pago</strong> — procesa el cobro de las suscripciones del catálogo y las transferencias de liquidación.</li>
+        <li><strong>Proveedor de infraestructura</strong> — servidores donde corren el sitio, la API del chat y el panel.</li>
+        <li><strong>Developers del catálogo</strong> — reciben los datos necesarios para activar el plan del cliente que compró su producto.</li>
+        <li><strong>Autoridades competentes</strong> — cuando una norma o un requerimiento judicial lo exige.</li>
+      </ul>
+      <p>
+        Algunos de estos proveedores están fuera de la Argentina, por lo que el tratamiento puede
+        implicar una <strong>transferencia internacional de datos</strong> en los términos del
+        artículo 12 de la Ley 25.326. En esos casos se contratan proveedores que ofrecen niveles
+        adecuados de protección y se transfiere sólo lo necesario para prestar el servicio.
       </p>
     </div>
 
     <div class="legal-section">
-      <h2>6. Derechos del usuario</h2>
+      <h2>7. Uso de los datos</h2>
+      <p>Los datos recolectados se utilizan exclusivamente para:</p>
+      <ul>
+        <li>Responder consultas comerciales enviadas por el formulario de contacto o el chat.</li>
+        <li>Evaluar el interés en nuestros servicios y elaborar propuestas personalizadas.</li>
+        <li>Crear y operar las cuentas del programa de afiliados y de developers.</li>
+        <li>Calcular, liquidar y respaldar las comisiones y los repartos del catálogo.</li>
+        <li>Cumplir obligaciones fiscales y contables.</li>
+        <li>Prevenir el fraude y el abuso del formulario, del chat y del sistema de referidos.</li>
+        <li>Mejorar el sitio mediante el análisis de estadísticas de uso.</li>
+      </ul>
       <p>
-        De conformidad con la Ley 25.326 de Protección de Datos Personales (Argentina), el usuario
+        No usamos los datos para publicidad no solicitada ni los cedemos a terceros con fines
+        comerciales propios de esos terceros.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>8. Conservación de los datos</h2>
+      <ul>
+        <li>
+          <strong>Consultas del formulario:</strong> mientras se gestiona la consulta y, si hay
+          relación comercial, durante su vigencia y los plazos de prescripción posteriores.
+        </li>
+        <li>
+          <strong>Mensajes del chat:</strong> no se conserva un historial vinculado a la persona; los
+          contadores de uso por IP se reinician diariamente y con cada redespliegue del servicio.
+        </li>
+        <li>
+          <strong>Cuentas del programa:</strong> mientras la cuenta esté activa. Dada de baja, los
+          registros de cobros, comisiones y liquidaciones se conservan por los plazos exigidos por la
+          normativa contable e impositiva.
+        </li>
+        <li>
+          <strong>Analytics:</strong> datos agregados, según los plazos de retención de la herramienta.
+        </li>
+      </ul>
+    </div>
+
+    <div class="legal-section">
+      <h2>9. Derechos del usuario</h2>
+      <p>
+        De conformidad con la Ley 25.326 de Protección de Datos Personales, el titular de los datos
         tiene derecho a:
       </p>
       <ul>
@@ -318,84 +504,67 @@
         <li>Oponerse al tratamiento de sus datos en cualquier momento.</li>
       </ul>
       <p>
-        Para ejercer estos derechos, escribí a
-        <a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a> indicando tu nombre
-        y la solicitud concreta. Respondemos en un plazo máximo de 10 días hábiles.
+        Para ejercerlos, escribí a
+        <a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a> indicando tu nombre y
+        la solicitud concreta. Respondemos en un plazo máximo de 10 días corridos para el acceso y de
+        5 días hábiles para la rectificación o supresión.
+      </p>
+      <p>
+        El titular puede además presentar un reclamo ante la <strong>Agencia de Acceso a la
+        Información Pública</strong>, órgano de control de la Ley 25.326.
+      </p>
+      <p>
+        Si el pedido se refiere a datos cargados dentro de un software del catálogo, hay que dirigirlo
+        a quien publica ese producto, que es el responsable de esa base. Si nos llega a nosotros, lo
+        derivamos y avisamos al titular.
       </p>
     </div>
 
     <div class="legal-section">
-      <h2>7. Seguridad</h2>
+      <h2>10. Seguridad</h2>
       <p>
         Adoptamos medidas técnicas y organizativas razonables para proteger los datos personales
-        frente a accesos no autorizados, pérdidas o alteraciones. Sin embargo, ninguna transmisión
-        de datos por internet puede garantizarse como absolutamente segura.
+        frente a accesos no autorizados, pérdidas o alteraciones: conexiones cifradas, claves de API
+        que viven sólo en el servidor, servicios internos que no se exponen a internet, acceso al
+        panel restringido por rol y secretos compartidos para la comunicación entre sistemas. Aun así,
+        ninguna transmisión de datos por internet puede garantizarse como absolutamente segura.
       </p>
     </div>
 
     <div class="legal-section">
-      <h2>8. Modificaciones</h2>
+      <h2>11. Menores de edad</h2>
       <p>
-        Gestión 360 IA se reserva el derecho de actualizar esta política en cualquier momento.
-        Los cambios se publicarán en esta página con la fecha de última actualización.
+        El sitio y el programa están dirigidos a personas mayores de 18 años. No recolectamos datos de
+        menores de forma consciente. Si detectamos que una cuenta pertenece a un menor, se da de baja
+        y se eliminan sus datos, salvo los que haya que conservar por obligación legal.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>12. Modificaciones</h2>
+      <p>
+        Gestión 360 IA se reserva el derecho de actualizar esta política en cualquier momento. Los
+        cambios se publican en esta página con la fecha de última actualización. Cuando el cambio
+        afecte de manera sustancial a quienes tienen cuenta en el programa, se informa además por el
+        panel y por correo.
       </p>
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <a href="/" class="logo">
-            <img src="/logo.png" alt="Gestión 360 IA" class="logo-img" />
-            <span class="logo-name">Gestion<span class="num">360</span><span class="ia">.iA</span></span>
-          </a>
-          <p class="footer-tag">Consultora de IA. Ayudamos a empresas a crecer con automatización, datos y producto.</p>
-        </div>
-        <div>
-          <h5>Navegación</h5>
-          <ul>
-            <li><a href="/#servicios">Servicios</a></li>
-            <li><a href="/#proceso">Proceso</a></li>
-            <li><a href="/#casos">Casos</a></li>
-            <li><a href="/#contacto">Contacto</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Servicios</h5>
-          <ul>
-            <li><a href="/servicios/desarrollo-software">Software & Apps</a></li>
-            <li><a href="/servicios/sitios-web">SEO + Sitios web</a></li>
-            <li><a href="/servicios/agentes-ia">IA conversacionales</a></li>
-            <li><a href="/servicios/bots-whatsapp">Bots WhatsApp</a></li>
-            <li><a href="/servicios/social-media">Social Media</a></li>
-            <li><a href="/servicios/ads">ADS</a></li>
-            <li><a href="/servicios/branding-uiux">Branding & UI/UX</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Contacto</h5>
-          <ul>
-            <li><a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a></li>
-            <li><a href="https://wa.me/5491125526561">+54 9 11 2552-6561</a></li>
-            <li><a href="#">Buenos Aires, AR</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Seguinos</h5>
-          <ul>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">LinkedIn</a></li>
-            <li><a href="#">X / Twitter</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2025 Gestion360ia · Todos los derechos reservados</span>
-        <span><a href="/legal/aviso-legal" style="margin-right:16px">Aviso legal</a><a href="/legal/privacidad">Política de privacidad</a></span>
-      </div>
-    </div>
-  </footer>
+  <!-- Pie compartido: se trae de /partials/footer.html para que haya una sola
+       copia en todo el sitio (Regla 4). Antes estaba escrito a mano acá y se
+       quedó viejo: listaba siete servicios y no conocía el catálogo ni el
+       programa de afiliados. -->
+  <div id="site-footer"></div>
+  <script>
+    fetch('/partials/footer.html')
+      .then(function (r) { return r.text(); })
+      .then(function (h) {
+        document.getElementById('site-footer').outerHTML = h;
+        var y = document.getElementById('footer-year-text');
+        if (y) y.textContent = '© ' + new Date().getFullYear() + ' Gestion360ia · Todos los derechos reservados';
+      });
+  </script>
 
 </body>
 </html>

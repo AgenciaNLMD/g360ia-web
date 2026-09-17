@@ -34,8 +34,8 @@ se cancela ese tick. El siguiente scroll navega al segmento siguiente/anterior.
 
 ## Regla 4 — Footer compartido
 
-El footer de todas las páginas de servicios y del blog se carga dinámicamente vía `fetch`
-desde la URL `/partials/footer.html`. El archivo fuente vive en **`public/partials/footer.html`**
+El footer de todas las páginas de servicios, del blog y de los legales se carga dinámicamente
+vía `fetch` desde la URL `/partials/footer.html`. El archivo fuente vive en **`public/partials/footer.html`**
 (tiene que estar en `public/` porque en producción Caddy sólo sirve `dist/`, y Vite únicamente
 copia `public/` al build — si estuviera en la raíz, el `fetch` da 404 y el footer desaparece).
 No editar el footer en cada página individualmente: para cambiarlo en todas, editar solo
@@ -233,7 +233,23 @@ los dos programas no obligue a renegociar nada.
 
 La fuente de verdad del split es el brief de `g360ia-catalogo` (su `README.md`, bloque
 «Reparto y monetización»). Si cambia ahí, cambian `/afiliados` (cinta, paso 04, FAQ y el
-`COMISION` de la calculadora) y `/developers` (cinta, requisito 06, FAQ y el `HowTo`).
+`COMISION` de la calculadora), `/developers` (cinta, requisito 06, FAQ y el `HowTo`) y
+`/legal/terminos` (puntos 7.2 y 8.1), que es donde el reparto queda escrito como condición
+y no como argumento de venta.
+
+### Los legales son tres y viven en `/legal`
+
+`aviso-legal` (titularidad y uso del sitio), `privacidad` (datos) y `terminos` (las
+condiciones de las tres patas: servicios, software por suscripción y el programa de
+afiliados/developers). Los tres son `noindex, follow` a propósito y por eso no están en el
+`sitemap.xml`. Usan su propio `<style>` inline —no el sistema claro ni el viejo— y traen el
+pie compartido por `fetch` como el resto del sitio (Regla 4).
+
+`/legal/terminos` es **el resumen público** de las reglas del programa. Lo vinculante es lo
+que cada afiliado o developer aceptó al registrarse, que queda guardado en su fila con
+`CONDICIONES_VERSION` en `g360ia-PRM`. Si cambian esas condiciones, cambia también esta
+página: si el sitio público dice una cosa y el panel otra, gana el que el usuario leyó
+primero en cualquier discusión.
 
 ## Regla 7 — El sistema claro y el kit `g-pagina`
 

@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Términos y Condiciones | Gestión 360 IA</title>
+  <meta name="description" content="Términos y condiciones de Gestión 360 IA: uso del sitio, servicios a medida, software por suscripción, programa de afiliados y publicación de productos en el catálogo." />
+  <link rel="canonical" href="https://g360ia.com.ar/legal/terminos" />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #070b14;
+      --surface:  #0d1220;
+      --border:   rgba(255,255,255,.07);
+      --gold:     #e6a532;
+      --ink:      #f0f2f7;
+      --ink-soft: rgba(240,242,247,.60);
+      --radius:   12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+    }
+    .top-nav .inner {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-mark {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -.3px;
+    }
+    .logo-mark span { color: var(--gold); }
+    .back-link {
+      margin-left: auto;
+      font-size: 13px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color .2s;
+    }
+    .back-link:hover { color: var(--gold); }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 64px 24px 80px;
+      width: 100%;
+    }
+
+    .page-eyebrow {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .last-updated {
+      font-size: 13px;
+      color: var(--ink-soft);
+      margin-bottom: 28px;
+    }
+    .intro {
+      border-left: 2px solid var(--gold);
+      padding-left: 16px;
+      margin-bottom: 44px;
+    }
+
+    /* ── SECCIONES ── */
+    .legal-section {
+      border-top: 1px solid var(--border);
+      padding: 36px 0;
+      scroll-margin-top: 24px;
+    }
+    .legal-section:last-of-type { border-bottom: 1px solid var(--border); }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 22px 0 10px;
+    }
+
+    /* Ojo: acotado a main. Sin el prefijo, la viñeta dorada y el reset de lista
+       se cuelan en el pie compartido, que se inyecta fuera de main. */
+    main p { color: var(--ink-soft); margin-bottom: 12px; }
+    main p:last-child { margin-bottom: 0; }
+    main a { color: var(--gold); text-decoration: none; }
+    main a:hover { text-decoration: underline; }
+    main ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+    main ul li {
+      color: var(--ink-soft);
+      padding: 4px 0 4px 18px;
+      position: relative;
+    }
+    main ul li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+    main strong { color: rgba(240,242,247,.85); }
+
+    /* ── TABLA ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .data-table th {
+      text-align: left;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 12px 10px 0;
+    }
+    .data-table td {
+      color: var(--ink-soft);
+      padding: 10px 12px 10px 0;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* ── ÍNDICE ── */
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 44px;
+    }
+    .toc h2 {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 24px;
+      padding: 0;
+      margin: 0;
+    }
+    .toc li { counter-increment: toc; font-size: 14px; }
+    .toc li::before {
+      content: counter(toc) ". ";
+      color: var(--gold);
+      font-variant-numeric: tabular-nums;
+    }
+    @media (max-width: 620px) { .toc ol { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="inner">
+      <a href="https://g360ia.com.ar" class="logo-mark">Gestion<span>360</span>.iA</a>
+      <a href="https://g360ia.com.ar" class="back-link">
+        ← Volver al sitio
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <p class="page-eyebrow">Legal</p>
+    <h1>Términos y Condiciones</h1>
+    <p class="last-updated">Versión 1.0 · Última actualización: septiembre de 2026</p>
+
+    <p class="intro">
+      Gestión 360 IA hace tres cosas distintas: trabajo a medida para empresas, software propio que
+      se paga por mes, y un catálogo donde otros publican su software y una red de afiliados lo
+      vende. Estos términos cubren las tres, y cada apartado dice a quién le aplica. Si sólo entrás
+      a leer el sitio, te alcanza con los puntos 1 a 4.
+    </p>
+
+    <nav class="toc" aria-label="Índice">
+      <h2>Índice</h2>
+      <ol>
+        <li><a href="#alcance">Qué cubre este documento</a></li>
+        <li><a href="#titular">Quién opera el sitio</a></li>
+        <li><a href="#relaciones">Las cuatro relaciones posibles</a></li>
+        <li><a href="#uso-sitio">Uso del sitio</a></li>
+        <li><a href="#servicios">Servicios a medida</a></li>
+        <li><a href="#software">Software por suscripción</a></li>
+        <li><a href="#afiliados">Programa de afiliados</a></li>
+        <li><a href="#developers">Publicar software en el catálogo</a></li>
+        <li><a href="#liquidaciones">Cobros, liquidaciones e impuestos</a></li>
+        <li><a href="#conducta">Conducta prohibida</a></li>
+        <li><a href="#baja">Suspensión y baja de cuentas</a></li>
+        <li><a href="#propiedad">Propiedad intelectual</a></li>
+        <li><a href="#datos">Datos personales</a></li>
+        <li><a href="#responsabilidad">Responsabilidad</a></li>
+        <li><a href="#cambios">Cambios en estos términos</a></li>
+        <li><a href="#ley">Ley aplicable y jurisdicción</a></li>
+      </ol>
+    </nav>
+
+    <div class="legal-section" id="alcance">
+      <h2>1. Qué cubre este documento</h2>
+      <p>
+        Estos términos regulan el acceso y el uso del sitio <strong>g360ia.com.ar</strong> y de los
+        programas que se informan en él: el programa de afiliados
+        (<a href="/afiliados">/afiliados</a>) y la publicación de software en el catálogo
+        (<a href="/developers">/developers</a>).
+      </p>
+      <p>
+        <strong>No reemplazan a los acuerdos particulares.</strong> Cuando existe uno —una propuesta
+        de servicios aceptada, los términos de uso de un producto, o las condiciones del programa
+        que se aceptan al crear la cuenta en
+        <a href="https://app.g360ia.com.ar" target="_blank" rel="noopener">app.g360ia.com.ar</a>—
+        ese documento prevalece sobre esta página en lo que se contradigan. Esta página es el
+        resumen público y permanente de las reglas; el detalle vinculante de cada relación está en
+        su instrumento propio.
+      </p>
+      <p>
+        Cada software del catálogo tiene <strong>sus propios términos de uso y su propia política de
+        privacidad</strong>, publicados en el sitio del producto. Contratar un producto implica
+        aceptar los suyos, no sólo éstos.
+      </p>
+    </div>
+
+    <div class="legal-section" id="titular">
+      <h2>2. Quién opera el sitio</h2>
+      <p>
+        El sitio es operado por <strong>Gestión 360 IA</strong> (en adelante «G360iA» o «nosotros»),
+        con domicilio en Buenos Aires, República Argentina.
+      </p>
+      <p>
+        Contacto para cualquier cuestión relacionada con estos términos:
+        <a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a>.
+      </p>
+      <p>
+        Los datos de inscripción fiscal se informan en la facturación de cada operación y a pedido
+        por ese mismo correo.
+      </p>
+    </div>
+
+    <div class="legal-section" id="relaciones">
+      <h2>3. Las cuatro relaciones posibles</h2>
+      <p>
+        Quién sos frente a nosotros define qué apartados te aplican y dónde está documentado el
+        acuerdo concreto:
+      </p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Sos</th>
+            <th>La relación es</th>
+            <th>Se documenta en</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Visitante</td>
+            <td>Navegás el sitio, leés el blog, escribís por el formulario o el chat</td>
+            <td>Estos términos (puntos 1 a 4) y la política de privacidad</td>
+          </tr>
+          <tr>
+            <td>Cliente de servicios</td>
+            <td>Nos contratás un trabajo a medida</td>
+            <td>La propuesta escrita que aceptaste, más el punto 5</td>
+          </tr>
+          <tr>
+            <td>Usuario de un software</td>
+            <td>Pagás la suscripción de un producto del catálogo</td>
+            <td>Los términos del producto, más el punto 6</td>
+          </tr>
+          <tr>
+            <td>Afiliado o developer</td>
+            <td>Vendés software del catálogo, o publicás el tuyo en él</td>
+            <td>Las condiciones aceptadas al registrarte, más los puntos 7 a 11</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="legal-section" id="uso-sitio">
+      <h2>4. Uso del sitio</h2>
+      <p>
+        El acceso al sitio es libre y gratuito, y navegarlo implica aceptar estos términos. El
+        contenido publicado —páginas de servicio, notas del blog, calculadoras y ejemplos— tiene
+        carácter informativo y comercial: <strong>no constituye asesoramiento legal, contable,
+        financiero ni técnico vinculante</strong>, y no configura una oferta en los términos del
+        artículo 972 del Código Civil y Comercial de la Nación.
+      </p>
+      <p>Al usar el sitio te comprometés a no:</p>
+      <ul>
+        <li>Enviar datos falsos o de terceros a través del formulario de contacto o del chat.</li>
+        <li>Intentar acceder a sistemas, endpoints o datos que no estén publicados.</li>
+        <li>Automatizar consultas al chat o al formulario más allá del uso razonable de una persona.</li>
+        <li>Reproducir o distribuir contenido del sitio sin autorización escrita.</li>
+      </ul>
+      <h3>4.1 Calculadoras y simulaciones</h3>
+      <p>
+        Las calculadoras de <a href="/afiliados">/afiliados</a> y de otras páginas son
+        <strong>estimaciones para dimensionar, no proyecciones de ingresos</strong>. Los valores que
+        se cargan son supuestos del usuario: no prometemos ningún resultado económico ni
+        garantizamos ventas, clientes ni permanencia de suscriptores.
+      </p>
+      <h3>4.2 Chat del sitio</h3>
+      <p>
+        El asistente del sitio responde con un modelo de lenguaje sobre una base de información
+        acotada, y puede equivocarse. Nada de lo que diga constituye una cotización, un compromiso
+        contractual ni una condición aceptada por G360iA: para eso está el formulario de contacto y
+        la propuesta escrita que sale de ahí.
+      </p>
+      <h3>4.3 Precios</h3>
+      <p>
+        En este sitio no se publican precios. Los servicios a medida se cotizan caso por caso, y los
+        de cada software están en el sitio del producto, que es donde se contratan y donde pueden
+        cambiar. Un precio visto en otra parte no nos obliga.
+      </p>
+    </div>
+
+    <div class="legal-section" id="servicios">
+      <h2>5. Servicios a medida</h2>
+      <p>
+        Los servicios de <a href="/servicios">/servicios</a> —consultoría, desarrollo,
+        automatizaciones, agentes, sitios, SEO, contenidos, campañas y diseño— se contratan siempre
+        por una <strong>propuesta escrita</strong> que detalla alcance, entregables, plazos, precio y
+        forma de pago. Esa propuesta, una vez aceptada, es el contrato.
+      </p>
+      <ul>
+        <li>
+          <strong>Alcance.</strong> Lo que no está en la propuesta no está incluido. Los pedidos que
+          aparecen durante el trabajo se cotizan aparte o se cambian por algo equivalente, de común
+          acuerdo y por escrito.
+        </li>
+        <li>
+          <strong>Colaboración del cliente.</strong> Los plazos suponen accesos, contenidos,
+          aprobaciones y respuestas en tiempo razonable. Las demoras que dependen del cliente corren
+          los plazos.
+        </li>
+        <li>
+          <strong>Servicios de terceros.</strong> Licencias, hosting, dominios, APIs, pauta
+          publicitaria y modelos de IA se contratan a nombre del cliente o se trasladan a costo,
+          según se acuerde. No respondemos por cambios de precio, de política o de disponibilidad de
+          esos proveedores.
+        </li>
+        <li>
+          <strong>Propiedad del entregable.</strong> Salvo pacto distinto por escrito, el código y
+          los materiales desarrollados específicamente para el cliente son del cliente una vez
+          cancelado el precio. Conservamos la titularidad de nuestras librerías, componentes,
+          plantillas y know-how previos o de uso general, sobre los que el cliente recibe una
+          licencia de uso perpetua dentro del entregable.
+        </li>
+        <li>
+          <strong>Portfolio.</strong> Podemos mencionar el trabajo realizado y mostrar capturas con
+          fines de portfolio, salvo que el cliente pida lo contrario por escrito.
+        </li>
+        <li>
+          <strong>Resultados.</strong> En posicionamiento, campañas y contenidos trabajamos con
+          metodología y métricas, pero los resultados dependen de plataformas de terceros: no se
+          garantizan posiciones, alcances ni volúmenes de venta.
+        </li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="software">
+      <h2>6. Software por suscripción</h2>
+      <p>
+        Los productos de <a href="/software">/software</a> se pagan por cuota mensual o anual y
+        <strong>se contratan en el sitio de cada producto</strong>, no acá. Este sitio los presenta y
+        enlaza; la relación de uso nace con el alta en el producto.
+      </p>
+      <ul>
+        <li>
+          <strong>Términos propios.</strong> Cada producto publica sus términos, su política de
+          privacidad y sus planes. Son los que rigen el uso del sistema, la disponibilidad, los
+          respaldos y el soporte.
+        </li>
+        <li>
+          <strong>Precios.</strong> Son los que muestre el producto al momento de contratar. Ningún
+          precio publicado en g360ia.com.ar, en una nota del blog o en una simulación tiene valor
+          contractual.
+        </li>
+        <li>
+          <strong>Alta y baja.</strong> La suscripción se renueva por períodos y se da de baja según
+          lo previsto en los términos del producto. La baja corta el servicio al final del período
+          pagado, salvo que el producto disponga otra cosa.
+        </li>
+        <li>
+          <strong>Productos de terceros.</strong> El catálogo puede incluir software publicado por
+          otras empresas. En ese caso el producto, su funcionamiento, su soporte y su
+          responsabilidad son de quien lo publica; G360iA interviene en el cobro y el reparto, en los
+          términos del punto 8.
+        </li>
+        <li>
+          <strong>Datos del cliente.</strong> Los datos que una empresa carga dentro de un software
+          del catálogo son suyos, y su tratamiento lo describe la política de privacidad de ese
+          producto.
+        </li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="afiliados">
+      <h2>7. Programa de afiliados</h2>
+      <p>
+        El programa permite recomendar software del catálogo con un código de referido y cobrar un
+        porcentaje de cada cuota que pague el cliente traído. Las condiciones se aceptan al crear la
+        cuenta en <a href="https://app.g360ia.com.ar" target="_blank" rel="noopener">app.g360ia.com.ar</a>
+        y quedan registradas con la versión vigente en ese momento.
+      </p>
+      <h3>7.1 Alta</h3>
+      <ul>
+        <li>El alta es self-service, gratuita y sin entrevista ni aprobación previa.</li>
+        <li>Se requiere ser mayor de 18 años y tener capacidad para contratar.</li>
+        <li>Una persona o empresa tiene <strong>una sola cuenta de afiliado</strong>. Las cuentas duplicadas se unifican o se dan de baja.</li>
+        <li>Los datos de la cuenta —identidad, situación fiscal y cuenta de cobro— deben ser propios, reales y estar actualizados.</li>
+      </ul>
+      <h3>7.2 Comisión</h3>
+      <ul>
+        <li>
+          La comisión de entrada es del <strong>20% de cada cuota efectivamente cobrada</strong>,
+          mientras el cliente referido siga suscripto. Es el mismo porcentaje para todo el catálogo,
+          propio y de partners.
+        </li>
+        <li>
+          Se calcula sobre el importe neto cobrado, sin impuestos ni comisiones de la pasarela de
+          pago. No se devenga sobre cuotas bonificadas, períodos de prueba ni pagos que no
+          ingresaron.
+        </li>
+        <li>
+          Una cuota reembolsada, rechazada o revertida por contracargo no genera comisión; si ya se
+          liquidó, se descuenta de la liquidación siguiente.
+        </li>
+        <li>
+          Si el cliente da de baja, deja de generar comisión. Si vuelve a suscribirse con la misma
+          cuenta, vuelve a generarla.
+        </li>
+        <li>
+          No hay tope de comisiones, plazo de vencimiento, cupo mínimo de ventas ni exclusividad.
+        </li>
+      </ul>
+      <h3>7.3 Atribución</h3>
+      <ul>
+        <li>
+          El cliente se atribuye al afiliado cuyo código quedó registrado al momento del alta. El
+          código no vence: queda guardado en el navegador de esa persona hasta que se registre.
+        </li>
+        <li>
+          Si hay más de un código involucrado, vale <strong>el último registrado antes del alta</strong>.
+        </li>
+        <li>
+          No se atribuyen clientes que ya eran clientes del producto, ni las altas de la propia
+          cuenta del afiliado, de su empresa o de personas bajo su control (auto-referencia).
+        </li>
+        <li>
+          La atribución se resuelve con el registro del panel. Ante una discrepancia, ese registro es
+          la fuente y se revisa a pedido del afiliado.
+        </li>
+      </ul>
+      <h3>7.4 Rol del afiliado</h3>
+      <p>
+        El afiliado <strong>presenta y acompaña</strong>. La demostración, la puesta en marcha, el
+        soporte, la facturación y el cobro son de quien publica el producto. El afiliado no
+        representa a G360iA ni al developer, no es empleado, agente ni socio, no puede asumir
+        obligaciones en nombre de ninguno de los dos, y actúa por cuenta propia a su exclusivo riesgo
+        comercial e impositivo.
+      </p>
+      <p>
+        El precio que paga el cliente es el mismo con código de referido o sin él: la comisión sale
+        del margen de quien publica el producto, no de un recargo.
+      </p>
+    </div>
+
+    <div class="legal-section" id="developers">
+      <h2>8. Publicar software en el catálogo</h2>
+      <p>
+        Un desarrollador o una empresa puede publicar su software en el catálogo para que la red de
+        afiliados lo venda. Las condiciones se aceptan al crear la cuenta en
+        <a href="https://app.g360ia.com.ar" target="_blank" rel="noopener">app.g360ia.com.ar</a>.
+      </p>
+      <h3>8.1 Reparto</h3>
+      <p>
+        Sobre cada cuota efectivamente cobrada, el reparto es fijo para todo el catálogo:
+        <strong>50% para quien publica el producto, 20% para el afiliado que trajo al cliente y 30%
+        para G360iA</strong>. No se negocia por producto. Publicar no tiene costo de alta ni cuota de
+        permanencia: si no se vende, no se paga nada.
+      </p>
+      <h3>8.2 Requisitos de admisión</h3>
+      <ul>
+        <li>El producto se cobra por suscripción, mensual o anual.</li>
+        <li>Da de alta un cliente sin intervención manual (multitenant o aprovisionamiento automático).</li>
+        <li>Está terminado, en uso por clientes reales que pagan, y con soporte a cargo del developer.</li>
+        <li>Tiene cargado un webhook de activación, que verificamos contra el servidor del developer antes de publicar.</li>
+        <li>Le sirve a un rubro identificable.</li>
+        <li>El reparto del punto 8.1 le cierra.</li>
+      </ul>
+      <p>
+        La verificación del webhook es el único requisito que no admite excepción: sin él, la venta
+        se cobra y el cliente queda esperando. Si el webhook deja de responder, el producto puede
+        despublicarse hasta que vuelva a pasar la verificación.
+      </p>
+      <h3>8.3 Qué pone cada parte</h3>
+      <ul>
+        <li>
+          <strong>El developer:</strong> el producto y su infraestructura, la demo, la puesta en
+          marcha, el soporte, la ficha del catálogo, el webhook y los datos de cobro. Responde por la
+          veracidad de la ficha, por la legalidad del producto y por el tratamiento de los datos de
+          sus clientes.
+        </li>
+        <li>
+          <strong>G360iA:</strong> la red de afiliados y su alta, el panel, el seguimiento del
+          referido, el cobro de la suscripción, el reparto entre las tres partes, la liquidación por
+          transferencia y el aviso al sistema del developer cuando el pago se confirma, con
+          reintentos.
+        </li>
+      </ul>
+      <h3>8.4 Qué no es</h3>
+      <p>
+        Publicar en el catálogo <strong>no es una adquisición, una sociedad, una exclusividad ni una
+        cesión de clientes</strong>. El producto sigue siendo del developer y corre en su
+        infraestructura; el cliente usa su marca y le escribe a él. El developer puede seguir
+        vendiendo por sus propios canales. Tampoco es desarrollo a medida: una idea sin construir se
+        cotiza como servicio, no se publica.
+      </p>
+      <h3>8.5 Baja del catálogo</h3>
+      <p>
+        Cualquiera de las partes puede retirar el producto del catálogo avisando por escrito. El
+        retiro no afecta a los clientes ya suscriptos: sus cuotas se siguen cobrando y repartiendo en
+        las mismas condiciones mientras la suscripción siga activa, salvo que el developer migre esos
+        clientes a su propio cobro —en cuyo caso el reparto deja de devengarse desde la migración y
+        se informa a los afiliados involucrados—.
+      </p>
+    </div>
+
+    <div class="legal-section" id="liquidaciones">
+      <h2>9. Cobros, liquidaciones e impuestos</h2>
+      <ul>
+        <li>
+          <strong>Quién cobra.</strong> La suscripción se cobra desde el catálogo: G360iA recibe el
+          pago del cliente y reparte entre las partes según los puntos 7.2 y 8.1.
+        </li>
+        <li>
+          <strong>Cuándo se liquida.</strong> Una vez por mes, por transferencia a la cuenta que cada
+          uno cargó en su panel (CBU, alias o cuenta de Mercado Pago). Sólo se liquida lo
+          efectivamente cobrado y acreditado.
+        </li>
+        <li>
+          <strong>Trazabilidad.</strong> El panel muestra cobro por cobro qué corresponde a cada
+          parte y qué está liquidado o pendiente. Ese registro es la base de la liquidación y puede
+          observarse dentro de los 30 días de emitida.
+        </li>
+        <li>
+          <strong>Datos de cobro.</strong> Cargar mal el CBU o el alias es responsabilidad de quien
+          lo carga. Las transferencias rechazadas se reintentan en la liquidación siguiente, una vez
+          corregidos los datos.
+        </li>
+        <li>
+          <strong>Mínimo de liquidación.</strong> Los saldos menores al mínimo que informe el panel
+          se acumulan para el mes siguiente. No se pierden.
+        </li>
+        <li>
+          <strong>Impuestos.</strong> Cada parte es responsable de su situación fiscal, de emitir los
+          comprobantes que correspondan por los importes que percibe y de las retenciones que
+          resulten aplicables. Los porcentajes de estos términos se entienden sobre importes netos.
+        </li>
+        <li>
+          <strong>Moneda.</strong> Las operaciones se realizan en pesos argentinos, salvo que el
+          producto informe otra cosa.
+        </li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="conducta">
+      <h2>10. Conducta prohibida</h2>
+      <p>
+        Estas reglas aplican a afiliados y developers, y existen porque la confianza es lo que hace
+        funcionar una red de venta. Está prohibido:
+      </p>
+      <ul>
+        <li>Prometer funciones, precios, plazos o resultados que el producto no tiene.</li>
+        <li>Presentarse como empleado, representante legal o socio de G360iA o de un developer.</li>
+        <li>Enviar spam por cualquier canal —correo, WhatsApp, SMS, redes— o comprar bases de contactos para difundir el código.</li>
+        <li>Registrar dominios, perfiles, cuentas o aplicaciones que usen la marca de G360iA o la de un producto del catálogo sin autorización escrita.</li>
+        <li>Pujar por las marcas de G360iA o de los productos del catálogo en campañas de búsqueda pagas, ni usarlas como dominio visible del anuncio.</li>
+        <li>Generar altas artificiales, auto-referencias, cuentas duplicadas o cualquier maniobra para devengar comisiones sin una venta real.</li>
+        <li>Ofrecer el producto como marca blanca propia, o cobrarlo por fuera del circuito del catálogo cuando la venta se originó en él.</li>
+        <li>Publicar software que infrinja derechos de terceros, que no cumpla la normativa aplicable o cuyo funcionamiento no se corresponda con su ficha.</li>
+      </ul>
+      <p>
+        Las comisiones devengadas por operaciones que incumplan este punto no se liquidan, y si ya se
+        liquidaron se descuentan de la liquidación siguiente.
+      </p>
+    </div>
+
+    <div class="legal-section" id="baja">
+      <h2>11. Suspensión y baja de cuentas</h2>
+      <ul>
+        <li>
+          <strong>Baja voluntaria.</strong> Cualquiera puede dar de baja su cuenta cuando quiera,
+          desde el panel o escribiendo a
+          <a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a>. Los saldos
+          devengados y cobrados hasta ese momento se liquidan normalmente.
+        </li>
+        <li>
+          <strong>Suspensión.</strong> Podemos suspender una cuenta ante un incumplimiento del punto
+          10, una sospecha razonable de fraude o un pedido de autoridad competente, mientras dure la
+          revisión. Se informa por escrito y con el motivo.
+        </li>
+        <li>
+          <strong>Baja por incumplimiento.</strong> Confirmado el incumplimiento, la cuenta se da de
+          baja y se pierden las comisiones asociadas a las operaciones afectadas. Las comisiones por
+          ventas legítimas anteriores se liquidan.
+        </li>
+        <li>
+          <strong>Efecto sobre el cliente.</strong> La baja de un afiliado no afecta al cliente que
+          trajo: su suscripción sigue igual y las comisiones dejan de devengarse.
+        </li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="propiedad">
+      <h2>12. Propiedad intelectual</h2>
+      <p>
+        Los contenidos del sitio —textos, imágenes, logotipos, diseño gráfico y código fuente— son
+        propiedad de G360iA o de terceros que autorizaron su uso, y están protegidos por la
+        legislación argentina e internacional. Su reproducción, distribución, transformación o
+        comunicación pública requiere autorización previa y por escrito.
+      </p>
+      <p>
+        El material de venta que se entrega a los afiliados —presentaciones, capturas, textos y
+        piezas— se licencia para promocionar los productos del catálogo mientras la cuenta esté
+        activa, sin derecho a modificarlo de forma que altere lo que el producto hace.
+      </p>
+      <p>
+        Cada developer conserva todos los derechos sobre su software y su marca, y nos autoriza a
+        mostrar su nombre, su logo, sus capturas y su ficha en el catálogo y en el material de la red
+        mientras el producto esté publicado.
+      </p>
+    </div>
+
+    <div class="legal-section" id="datos">
+      <h2>13. Datos personales</h2>
+      <p>
+        El tratamiento de datos personales se describe en la
+        <a href="/legal/privacidad">Política de Privacidad</a>, que forma parte de estos términos.
+        Ahí está qué datos se recolectan en el sitio, en el formulario de contacto, en el chat y en
+        el programa de afiliados y developers, con qué finalidad, con quién se comparten y cómo
+        ejercer los derechos de la Ley 25.326.
+      </p>
+      <p>
+        Los datos que los clientes cargan dentro de un software del catálogo se rigen por la política
+        de privacidad de ese producto. Respecto de esos datos, el responsable del tratamiento es
+        quien publica el producto.
+      </p>
+    </div>
+
+    <div class="legal-section" id="responsabilidad">
+      <h2>14. Responsabilidad</h2>
+      <p>
+        No garantizamos la disponibilidad continua ni la ausencia de errores del sitio ni del panel, y
+        no respondemos por interrupciones, fallas técnicas o indisponibilidad de servicios de terceros
+        —pasarelas de pago, proveedores de nube, plataformas de anuncios o proveedores de modelos de
+        IA— de los que depende el funcionamiento.
+      </p>
+      <p>
+        En ningún caso respondemos por lucro cesante, pérdida de oportunidades comerciales,
+        expectativas de comisión no concretadas o daños indirectos. Nuestra responsabilidad total
+        frente a un afiliado o un developer se limita a los importes efectivamente devengados a su
+        favor y no liquidados; frente a un cliente de servicios, a lo que establezca la propuesta
+        aceptada.
+      </p>
+      <p>
+        Nada de lo anterior limita la responsabilidad que no pueda excluirse según la Ley 24.240 de
+        Defensa del Consumidor ni las demás normas de orden público aplicables.
+      </p>
+    </div>
+
+    <div class="legal-section" id="cambios">
+      <h2>15. Cambios en estos términos</h2>
+      <p>
+        Podemos actualizar estos términos. Los cambios se publican en esta página con su fecha y su
+        número de versión, y rigen para el uso posterior del sitio.
+      </p>
+      <p>
+        Para afiliados y developers, <strong>la versión que rige es la que cada uno aceptó al
+        registrarse</strong>, que queda guardada en su cuenta. Cuando un cambio afecta el reparto, la
+        forma de liquidación o los requisitos de admisión, se informa por el panel y por correo, y la
+        nueva versión rige a partir de su aceptación. Si no se acepta, la cuenta puede darse de baja
+        sin penalidad y las comisiones devengadas se liquidan igual.
+      </p>
+    </div>
+
+    <div class="legal-section" id="ley">
+      <h2>16. Ley aplicable y jurisdicción</h2>
+      <p>
+        Estos términos se rigen por la legislación de la República Argentina. Para cualquier
+        controversia, las partes se someten a los tribunales ordinarios de la Ciudad Autónoma de
+        Buenos Aires, salvo que una norma de orden público disponga otra competencia —como ocurre en
+        las relaciones de consumo—.
+      </p>
+      <p>
+        Si alguna cláusula resultara inválida, las demás siguen vigentes. La tolerancia de un
+        incumplimiento no implica renuncia a exigirlo en el futuro.
+      </p>
+      <p>
+        Consultas sobre este documento:
+        <a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a>.
+      </p>
+    </div>
+  </main>
+
+  <!-- Pie compartido: se trae de /partials/footer.html para que haya una sola
+       copia en todo el sitio (Regla 4). -->
+  <div id="site-footer"></div>
+  <script>
+    fetch('/partials/footer.html')
+      .then(function (r) { return r.text(); })
+      .then(function (h) {
+        document.getElementById('site-footer').outerHTML = h;
+        var y = document.getElementById('footer-year-text');
+        if (y) y.textContent = '© ' + new Date().getFullYear() + ' Gestion360ia · Todos los derechos reservados';
+      });
+  </script>
+
+</body>
+</html>

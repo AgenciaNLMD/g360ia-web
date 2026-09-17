@@ -113,21 +113,23 @@
       color: var(--ink);
       margin-bottom: 14px;
     }
-    p { color: var(--ink-soft); margin-bottom: 12px; }
-    p:last-child { margin-bottom: 0; }
-    a { color: var(--gold); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    ul {
+    /* Ojo: acotado a main. Sin el prefijo, la viñeta dorada y el reset de lista
+       se cuelan en el pie compartido, que se inyecta fuera de main. */
+    main p { color: var(--ink-soft); margin-bottom: 12px; }
+    main p:last-child { margin-bottom: 0; }
+    main a { color: var(--gold); text-decoration: none; }
+    main a:hover { text-decoration: underline; }
+    main ul {
       list-style: none;
       padding: 0;
       margin: 0 0 12px;
     }
-    ul li {
+    main ul li {
       color: var(--ink-soft);
       padding: 4px 0 4px 18px;
       position: relative;
     }
-    ul li::before {
+    main ul li::before {
       content: "–";
       position: absolute;
       left: 0;
@@ -211,6 +213,10 @@
         o contrarias a la buena fe.
       </p>
       <p>
+        Las condiciones de los servicios, del software por suscripción y del programa de afiliados y
+        developers están en los <a href="/legal/terminos">Términos y Condiciones</a>.
+      </p>
+      <p>
         Queda prohibido:
       </p>
       <ul>
@@ -264,60 +270,18 @@
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <a href="/" class="logo">
-            <img src="/logo.png" alt="Gestión 360 IA" class="logo-img" />
-            <span class="logo-name">Gestion<span class="num">360</span><span class="ia">.iA</span></span>
-          </a>
-          <p class="footer-tag">Consultora de IA. Ayudamos a empresas a crecer con automatización, datos y producto.</p>
-        </div>
-        <div>
-          <h5>Navegación</h5>
-          <ul>
-            <li><a href="/#servicios">Servicios</a></li>
-            <li><a href="/#proceso">Proceso</a></li>
-            <li><a href="/#casos">Casos</a></li>
-            <li><a href="/#contacto">Contacto</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Servicios</h5>
-          <ul>
-            <li><a href="/servicios/desarrollo-software">Software & Apps</a></li>
-            <li><a href="/servicios/sitios-web">SEO + Sitios web</a></li>
-            <li><a href="/servicios/agentes-ia">IA conversacionales</a></li>
-            <li><a href="/servicios/bots-whatsapp">Bots WhatsApp</a></li>
-            <li><a href="/servicios/social-media">Social Media</a></li>
-            <li><a href="/servicios/ads">ADS</a></li>
-            <li><a href="/servicios/branding-uiux">Branding & UI/UX</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Contacto</h5>
-          <ul>
-            <li><a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a></li>
-            <li><a href="https://wa.me/5491125526561">+54 9 11 2552-6561</a></li>
-            <li><a href="#">Buenos Aires, AR</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Seguinos</h5>
-          <ul>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">LinkedIn</a></li>
-            <li><a href="#">X / Twitter</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2025 Gestion360ia · Todos los derechos reservados</span>
-        <span><a href="/legal/aviso-legal" style="margin-right:16px">Aviso legal</a><a href="/legal/privacidad">Política de privacidad</a></span>
-      </div>
-    </div>
-  </footer>
+  <!-- Pie compartido: se trae de /partials/footer.html para que haya una sola
+       copia en todo el sitio (Regla 4). -->
+  <div id="site-footer"></div>
+  <script>
+    fetch('/partials/footer.html')
+      .then(function (r) { return r.text(); })
+      .then(function (h) {
+        document.getElementById('site-footer').outerHTML = h;
+        var y = document.getElementById('footer-year-text');
+        if (y) y.textContent = '© ' + new Date().getFullYear() + ' Gestion360ia · Todos los derechos reservados';
+      });
+  </script>
 
 </body>
 </html>
