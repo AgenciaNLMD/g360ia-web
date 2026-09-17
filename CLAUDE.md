@@ -193,23 +193,24 @@ La página dice «código de referido», no «link». La home (`PUERTAS` en `dat
 de afiliados de `secciones-home.jsx`) usa las mismas palabras: si el sitio dice «link» en un
 lado y «código» en otro, parecen dos cosas distintas.
 
-### Los paneles, y una deuda abierta
+### Los paneles: una sola puerta
 
-Desde el **16-sep-2026** los CTA apuntan a los paneles propios del programa:
+Desde el **17-sep-2026** los CTA de las dos páginas apuntan al mismo lugar:
 
 | Página | CTA va a | Qué es |
 |---|---|---|
-| `/afiliados` | `afiliados.g360ia.com.ar` | panel del vendedor: catálogo, código, CVU, comisiones |
-| `/developers` | `developers.g360ia.com.ar` | panel del que publica: ficha, CVU, webhook, liquidaciones |
+| `/afiliados` | `app.g360ia.com.ar` | puerta única: se entra con Google y el servidor manda al panel del rol |
+| `/developers` | `app.g360ia.com.ar` | la misma puerta; el developer cae en el suyo |
 
-Antes `/afiliados` mandaba a `vet.g360ia.com.ar/afiliados`. Ese panel era del producto
-veterinario y no del programa, y el afiliado vende **todo el catálogo**, no un producto.
+No son dos paneles en dos subdominios sino uno solo con tres caras —afiliado, developer y el
+admin de la agencia—, y el rol lo resuelve el servidor después del login. Por eso los CTA no
+llevan a `/afiliados` ni a `/developer`: quien todavía no entró no tiene rol que mostrar.
 
-**Los dos subdominios todavía no sirven nada** (resuelven en DNS, pero no hay servidor:
-`curl` devuelve 000). Se decidió apuntar igual, a sabiendas, porque los paneles se levantan
-enseguida — pero hasta entonces **los CTA de las dos páginas están muertos**. Es lo primero a
-verificar si alguien reporta que «el botón no hace nada». Los paneles se construyen en el repo
-`g360ia-catalogo`.
+Antes apuntaban a `afiliados.g360ia.com.ar` y `developers.g360ia.com.ar` (16-sep-2026), dos
+subdominios que resolvían en DNS pero no servían nada: los CTA estuvieron muertos hasta que el
+panel se levantó. Y antes de eso `/afiliados` mandaba a `vet.g360ia.com.ar/afiliados`, que era
+el panel del producto veterinario y no del programa —el afiliado vende **todo el catálogo**, no
+un producto—. El panel vive en el repo `g360ia-PRM`.
 
 El alta es **self-service en las dos puntas**: no hay entrevista, ni aprobación de cuenta, ni
 comisión que negociar. Al registrarse se aceptan las condiciones. Lo único que se revisa es el

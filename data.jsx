@@ -457,7 +457,7 @@ const PUERTAS = [
    catálogo —propio y de partners— dentro del reparto 50/20/30: 50% para quien
    construyó el software, 20% para el vendedor y 30% para la agencia.
    Es el mismo número que el DEFAULT de `afiliado.comision_pct` en el turnero
-   (migración 090) y que el que muestra afiliados.g360ia.com.ar. Ya no se
+   (migración 090) y que el que muestra app.g360ia.com.ar. Ya no se
    negocia por producto: ver «Comisión de afiliados» en CLAUDE.md. */
 const COMISION_PCT = 20;
 
