@@ -216,26 +216,46 @@ El alta es **self-service en las dos puntas**: no hay entrevista, ni aprobación
 comisión que negociar. Al registrarse se aceptan las condiciones. Lo único que se revisa es el
 producto del developer: que el webhook responda y que cumpla los seis requisitos.
 
-### Comisión de afiliados
+### Comisión de afiliados y reparto del catálogo
 
-El 20% es el porcentaje de entrada **de los productos propios** y tiene tres copias que deben
-coincidir: `COMISION_PCT` en `data.jsx` (este repo), `COMISION_PCT` en `lib/afiliado-textos.js`
-del turnero, y el DEFAULT de `afiliado.comision_pct` en su migración 090. El que manda es el
-de la base. Si cambia, cambian los tres — más la cinta y la FAQ de `/afiliados`, y el
-`COMISION` de su calculadora.
+**En esta guía no se escribe ningún número comercial** — ni porcentajes, ni montos, ni cuotas,
+ni precios. Vale para el reparto igual que para los precios de los productos (ver «Duplicación
+con el sitio del producto», más arriba): un número escrito a mano en un archivo que nadie
+vuelve a mirar envejece solo y termina contradiciendo a la base. Y un porcentaje copiado en un
+doc interno no obliga a nadie ni respalda nada: la discusión se gana con lo que guarda el
+panel, no con lo que dice este `.md`.
 
-Desde el **16-sep-2026 el reparto es fijo para todo el catálogo**, propio y de partners:
-**50% developer · 20% afiliado · 30% G360iA** sobre cada cuota cobrada. No se negocia por
-producto, y la razón está escrita en las dos páginas: si cada producto paga distinto, el
-afiliado elige el que más le paga a él en vez del que le sirve al cliente, y el catálogo se
-vuelve un ranking de comisiones. El 20% del afiliado no cambió justamente para que fusionar
-los dos programas no obligue a renegociar nada.
+Dónde está el número de verdad, en orden de autoridad:
 
-La fuente de verdad del split es el brief de `g360ia-catalogo` (su `README.md`, bloque
-«Reparto y monetización»). Si cambia ahí, cambian `/afiliados` (cinta, paso 04, FAQ y el
-`COMISION` de la calculadora), `/developers` (cinta, requisito 06, FAQ y el `HowTo`) y
-`/legal/terminos` (puntos 7.2 y 8.1), que es donde el reparto queda escrito como condición
-y no como argumento de venta.
+1. Lo que cada afiliado o developer **aceptó al registrarse**, guardado en su fila con
+   `CONDICIONES_VERSION` en `g360ia-PRM`. Es lo único que respalda una liquidación discutida.
+2. El brief de `g360ia-catalogo` (`README.md`, bloque «Reparto y monetización»), que es la
+   fuente de verdad del split, y la base del turnero para la comisión de los productos propios.
+3. Las copias que el sitio muestra, que salen de las dos anteriores y nunca al revés.
+
+Cuando el reparto o la comisión cambian en la fuente, hay que tocar **todas estas copias**,
+que no se leen entre sí:
+
+| Dónde | Qué |
+|---|---|
+| `data.jsx` (este repo) | `COMISION_PCT` |
+| `lib/afiliado-textos.js` (turnero) | `COMISION_PCT` |
+| migración 090 del turnero | el DEFAULT de `afiliado.comision_pct` |
+| `g360ia-PRM/app/lib/programa.js` | `PCT_AFILIADO` y compañía — y subir `CONDICIONES_VERSION` |
+| `/afiliados` | cinta, paso 04, FAQ y el `COMISION` de la calculadora |
+| `/developers` | cinta, requisito 06, FAQ y el `HowTo` |
+| `/legal/terminos` | puntos 7.2 y 8.1 |
+
+`/legal/terminos` es la copia delicada: ahí el reparto no es un argumento de venta sino una
+condición escrita, así que es la que no puede quedar atrasada respecto de lo que el panel le
+hizo aceptar a la gente.
+
+Lo que sí es criterio y por eso se escribe acá: desde el **16-sep-2026 el reparto es fijo para
+todo el catálogo**, propio y de partners, y **no se negocia por producto**. La razón está en
+las dos páginas: si cada producto paga distinto, el afiliado elige el que más le paga a él en
+vez del que le sirve al cliente, y el catálogo se vuelve un ranking de comisiones. La parte del
+afiliado tampoco se tocó al fusionar los dos programas, justamente para no obligar a
+renegociar nada.
 
 ### Los legales son tres y viven en `/legal`
 
@@ -374,13 +394,17 @@ vidriera pública que informa y se indexa. `g360ia-PRM/app` es la puerta de entr
 ya decidió, y lleva `noindex` — son cosas distintas a propósito, si compitieran por las
 mismas búsquedas se partirían la señal.
 
-### Los números del programa están en tres lugares
+### Los números del programa no viven en este repo
 
-`PCT_AFILIADO` y compañía viven en `g360ia-PRM/app/lib/programa.js`, en `data.jsx` de este
-repo, y en la base del turnero. La fuente de verdad es el brief
-(`g360ia-PRM/app/README.md`). Si cambia el reparto, cambian los tres — y sube
-`CONDICIONES_VERSION` en `g360ia-PRM`, porque lo que cada afiliado aceptó al registrarse
-queda guardado en su fila y es lo que respalda una liquidación discutida.
+`PCT_AFILIADO` y compañía viven en `g360ia-PRM/app/lib/programa.js` y en la base del turnero;
+acá sólo hay una copia para mostrar (`COMISION_PCT` en `data.jsx`) y el texto de las páginas.
+La fuente de verdad es el brief (`g360ia-PRM/app/README.md`), y lo que obliga frente a una
+persona concreta es la versión que aceptó al registrarse, guardada en su fila con
+`CONDICIONES_VERSION`.
+
+La lista completa de copias a sincronizar está en la Regla 6, «Comisión de afiliados y reparto
+del catálogo» — junto con el motivo por el que ningún porcentaje ni monto se escribe en este
+archivo.
 
 ### El lead que manda este sitio depende de una variable en el otro repo
 
