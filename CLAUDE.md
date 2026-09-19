@@ -236,13 +236,26 @@ Dónde está el número de verdad, en orden de autoridad:
 Cuando el reparto o la comisión cambian en la fuente, hay que tocar **todas estas copias**,
 que no se leen entre sí:
 
+**Desde septiembre de 2026 el reparto dejó de ser un número solo**, y eso cambia qué hay que
+sincronizar. Lo que es fijo e igual para todo el catálogo es **lo que se queda la plataforma**:
+es el costo de cobrar, no una participación en el negocio del developer. **La comisión del
+vendedor la define cada developer, producto por producto**, con un techo, y se publica en la
+ficha del catálogo.
+
+Por eso **en el sitio no va ningún porcentaje de comisión**. Ni en un titular, ni en una FAQ,
+ni como constante: el catálogo lo desmentiría al día siguiente. Lo que el sitio promete es
+estructural y no numérico —que el número está a la vista antes de tomar el link, y que el del
+primer pago de cada cliente queda garantizado un año—, y eso no envejece.
+
 | Dónde | Qué |
 |---|---|
-| `data.jsx` (este repo) | `COMISION_PCT` |
+| `data.jsx` (este repo) | `PCT_PLATAFORMA` — sólo el nuestro |
 | `lib/afiliado-textos.js` (turnero) | `COMISION_PCT` |
 | migración 090 del turnero | el DEFAULT de `afiliado.comision_pct` |
 | `g360ia-PRM/app/lib/programa.js` | `PCT_AFILIADO` y compañía — y subir `CONDICIONES_VERSION` |
-| `/afiliados` | cinta, paso 04, FAQ y el `COMISION` de la calculadora |
+| `/afiliados` | cinta, paso 04 y FAQ. La calculadora ya **no** tiene constante: la comisión es un control más |
+| `/developers` | cinta del hero, requisito 06, la comparativa y la FAQ (las dos copias: JSON-LD y visible) |
+| `/legal/terminos` | puntos 7.2, 7.3, 8.1 y 8.3 — y subir la versión del documento |
 | `/developers` | cinta, requisito 06, FAQ y el `HowTo` |
 | `/legal/terminos` | puntos 7.2 y 8.1 |
 

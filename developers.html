@@ -122,7 +122,7 @@
       "@type": "HowToStep",
       "position": 2,
       "name": "Cargar el producto, el CVU y el webhook de activación",
-      "text": "Desde su panel el desarrollador carga la ficha del producto, el CVU o alias donde quiere cobrar y la URL del webhook que activa un plan en su sistema. El reparto no se negocia: 50% para el desarrollador, 20% para el afiliado y 30% para Gestión 360 IA. Sin webhook cargado no se puede publicar.",
+      "text": "Desde su panel el desarrollador carga la ficha del producto, sus planes con los precios reales, la comisión que le paga al vendedor, el CVU o alias donde quiere cobrar y dos URLs de su sistema: el webhook que activa un plan y el endpoint que responde en qué plan está cada cuenta traída por un vendedor. Gestión 360 IA se queda el 5% de cada cuota, que es lo que cuesta cobrar; la comisión del vendedor la define el desarrollador y el resto es suyo. Sin esas URLs no se puede publicar.",
       "url": "https://g360ia.com.ar/developers#como-funciona"
     },
     {
@@ -154,7 +154,7 @@
       "name": "¿Cuánto cuesta publicar mi software en el catálogo?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nada por adelantado. No se cobra por publicar, ni por estar listado, ni una cuota por mantener la ficha: el costo es el 50% de cada cuota, y existe sólo sobre plata que ya entró. Si nadie vende tu producto, no pagás nada. Aparte hay dos cosas opcionales que podés contratar si las querés —ampliar el cupo de afiliados y los listados de contacto del rubro—, pero nada de eso es necesario para estar publicado."
+        "text": "Nada por adelantado. No se cobra por publicar, ni por estar listado, ni una cuota por mantener la ficha. El costo son dos cosas y las dos existen sólo sobre plata que ya entró: el 5% que se queda la plataforma, que es lo que cuesta cobrar, y la comisión que vos elegís pagarle al vendedor. Si nadie vende tu producto, no pagás nada. Aparte hay dos cosas opcionales que podés contratar si las querés —ampliar el cupo de afiliados y los listados de contacto del rubro—, pero nada de eso es necesario para estar publicado."
       }
     },
     {
@@ -178,12 +178,12 @@
       "name": "¿Qué comisión tengo que pagar?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "El reparto es fijo y es el mismo para todos: 50% para vos, 20% para el afiliado que trajo al cliente y 30% para nosotros, sobre cada cuota y mientras ese cliente siga suscripto. No se negocia por producto — un reparto distinto para cada uno vuelve el catálogo imposible de comparar para el afiliado, que entonces vende siempre el que más paga en vez del que mejor le sirve al cliente."
+        "text": "De cada cuota nos quedamos el 5%, y eso no se negocia: es lo que cuesta mover la plata, porque la pasarela de pago se lleva cerca de un 4%. La comisión del vendedor la elegís vos, con un techo del 95%, y queda publicada en tu ficha del catálogo. El resto es tuyo. Podés cambiar esa comisión hasta dos veces cada 30 días, y cada cambio se les avisa a los vendedores que tengan tu producto tomado."
       }
     },
     {
       "@type": "Question",
-      "name": "¿El 50% no es carísimo?",
+      "name": "¿Cuánta comisión conviene poner?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Es alto comparado con un canal que ya tenés andando, y bajo comparado con no vender. La cuenta honesta es contra tu alternativa real: un vendedor propio son meses de sueldo fijo antes de la primera venta y el riesgo es tuyo; acá el costo existe sólo sobre plata que ya entró. Si tu producto se vende solo, este canal no te conviene y lo vas a ver vos mismo en los números antes de cargar nada."
@@ -478,12 +478,12 @@
         </div>
 
         <div class="g-cinta g-rev" style="margin-top: 26px">
-          <div class="g-cinta-n">50%</div>
+          <div class="g-cinta-n">5%</div>
           <p class="g-cinta-t">
-            <strong>de cada cuota es tuyo, y el reparto no se negocia.</strong>
-            El otro 50% se parte en dos: <strong>20%</strong> para el afiliado que trajo al
-            cliente y <strong>30%</strong> para nosotros, que ponemos el cobro, el reparto, la
-            liquidación y la red que sale a vender. Publicar no cuesta nada y no hay cuota por
+            <strong>es lo único que nos quedamos, y no se negocia.</strong>
+            Es lo que cuesta mover la plata: la pasarela de pago se lleva cerca de un 4%, así que
+            el 5% paga la cobranza y un punto. <strong>La comisión del vendedor la elegís vos</strong>,
+            producto por producto, y el resto es tuyo. Publicar no cuesta nada y no hay cuota por
             estar en el catálogo: si nadie vende, no pagás nada.
           </p>
         </div>
@@ -511,9 +511,9 @@
             <ul>
               <li>El producto funcionando, con clientes reales que ya lo pagan</li>
               <li>La demostración, la puesta en marcha y el soporte del día a día</li>
-              <li>El webhook de activación, cargado en tu panel y verificado antes de publicar</li>
-              <li>La ficha del producto y tu CVU o alias, cargados desde tu panel</li>
-              <li>El 50% de cada cuota, repartido entre el afiliado y nosotros</li>
+              <li>El webhook de activación y el endpoint de estado, verificados antes de publicar</li>
+              <li>La ficha, tus planes con los precios reales y tu CVU o alias, desde tu panel</li>
+              <li>El 5% de cada cuota para la plataforma, y la comisión que vos le fijes al vendedor</li>
               <li>Tu propia infraestructura: el software sigue corriendo donde vos lo tenés</li>
             </ul>
           </div>
@@ -621,12 +621,13 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
             </span>
             <span class="g-card-kick">Requisito 06</span>
-            <h3 class="g-card-t">El 50% de la cuota te cierra</h3>
+            <h3 class="g-card-t">La comisión que vas a pagar te cierra</h3>
             <p class="g-card-p">
-              El reparto es fijo: la mitad para vos, 20% para el afiliado y 30% para nosotros.
-              No se negocia por producto, y conviene hacer la cuenta antes de registrarte: si tu
-              margen no soporta ceder la mitad, este canal no es para vos y es mejor saberlo
-              ahora.
+              Nuestro 5% es fijo y es el costo de cobrar. Lo que hay que pensar antes de
+              registrarte es el otro número: <strong>cuánto le vas a pagar al vendedor</strong>.
+              Lo elegís vos y queda publicado en tu ficha, así que es lo que decide si alguien
+              sale a vender tu producto o pasa al siguiente. Al cargarlo te mostramos el promedio
+              y el máximo de tu rubro.
             </p>
           </article>
         </div>
@@ -703,11 +704,12 @@
             <summary>¿Cuánto cuesta publicar mi software en el catálogo?</summary>
             <p class="g-faq-r">
               Nada por adelantado. No se cobra por publicar, ni por estar listado, ni una cuota
-              por mantener la ficha: el costo es el 50% de cada cuota, y existe sólo sobre plata
-              que ya entró. Si nadie vende tu producto, no pagás nada. Aparte hay dos cosas
-              opcionales que podés contratar si las querés —ampliar el cupo de afiliados y los
-              listados de contacto del rubro—, pero nada de eso es necesario para estar
-              publicado.
+              por mantener la ficha. El costo son dos cosas, y las dos existen sólo sobre plata
+              que ya entró: <strong>el 5% que se queda la plataforma</strong> —lo que cuesta
+              cobrar— y <strong>la comisión que vos elegís pagarle al vendedor</strong>. Si nadie
+              vende tu producto, no pagás nada. Aparte hay dos cosas opcionales —ampliar el cupo
+              de afiliados y los listados de contacto del rubro—, pero nada de eso es necesario
+              para estar publicado.
             </p>
           </details>
           <details>
@@ -731,31 +733,43 @@
           <details>
             <summary>¿Qué comisión tengo que pagar?</summary>
             <p class="g-faq-r">
-              El reparto es fijo y es el mismo para todos: <strong>50% para vos, 20% para el
-              afiliado que trajo al cliente y 30% para nosotros</strong>, sobre cada cuota y
-              mientras ese cliente siga suscripto. No se negocia por producto — un reparto
-              distinto para cada uno vuelve el catálogo imposible de comparar para el afiliado,
-              que entonces vende siempre el que más paga en vez del que mejor le sirve al
-              cliente.
+              Dos números distintos. <strong>El nuestro es 5% de cada cuota y no se negocia</strong>:
+              es lo que cuesta mover la plata, porque la pasarela se lleva cerca de un 4%. El
+              otro es <strong>la comisión del vendedor, que la elegís vos</strong>, con un techo
+              del 95%, y que queda publicada en tu ficha. El resto es tuyo.
+            </p>
+            <p class="g-faq-r">
+              Podés cambiarla hasta dos veces cada 30 días, y cada cambio se les avisa a los
+              vendedores que tengan tu producto tomado. Lo que no podés es bajársela a un cliente
+              que ya está pagando: <strong>el porcentaje que regía cuando ese cliente pagó por
+              primera vez le vale un año</strong> a quien lo trajo. Si la subís, la suba entra
+              enseguida y arranca un año nuevo.
             </p>
           </details>
           <details>
-            <summary>¿El 50% no es carísimo?</summary>
+            <summary>¿Cuánta comisión conviene poner?</summary>
             <p class="g-faq-r">
-              Es alto comparado con un canal que ya tenés andando, y bajo comparado con no
-              vender. La cuenta honesta es contra tu alternativa real: un vendedor propio son
-              meses de sueldo fijo antes de la primera venta y el riesgo es tuyo; acá el costo
-              existe sólo sobre plata que ya entró. Si tu producto se vende solo, este canal no
-              te conviene y lo vas a ver vos mismo en los números antes de cargar nada.
+              La que te cierre contra tu alternativa real. Un vendedor propio son meses de sueldo
+              fijo antes de la primera venta y el riesgo es tuyo; acá el costo existe sólo sobre
+              plata que ya entró. Si tu producto se vende solo, este canal no te conviene y lo vas
+              a ver en los números antes de cargar nada.
+            </p>
+            <p class="g-faq-r">
+              El número igual no lo elegís a ciegas: al cargarlo te mostramos <strong>el promedio
+              y el máximo que paga tu rubro</strong>. Poner por debajo del promedio no está
+              prohibido, pero tu ficha va a quedar última en una vidriera donde el vendedor
+              compara cuánto le deja cada producto por mes.
             </p>
           </details>
           <details>
             <summary>¿Cuánto tarda en publicarse mi producto?</summary>
             <p class="g-faq-r">
-              Hasta dos horas desde que tu webhook pasa la verificación. El orden importa:
-              primero cargás la ficha y la URL del webhook en tu panel, nosotros lo probamos
-              contra tu servidor, y recién con esa prueba en verde la ficha entra a revisión.
-              Sin webhook verificado no hay publicación, por más completa que esté la ficha.
+              Hasta dos horas desde que tus URLs pasan la verificación. El orden importa: primero
+              cargás la ficha, tus planes con los precios reales y las dos URLs de tu sistema
+              —el webhook que activa un plan y el endpoint que responde en qué plan está cada
+              cuenta—, nosotros las probamos contra tu servidor, y recién con esa prueba en verde
+              la ficha entra a revisión. Sin las dos verificadas no hay publicación, por más
+              completa que esté la ficha.
             </p>
           </details>
           <details>
@@ -772,11 +786,17 @@
           <details>
             <summary>¿Cómo se registra que un cliente vino de un afiliado?</summary>
             <p class="g-faq-r">
-              De nuestro lado, y a propósito. El link del afiliado pasa primero por un redirect
-              nuestro, que registra el click y recién ahí manda a la persona a tu sitio. No
-              tenés que implementar ningún <code>?ref=</code>, ni guardar códigos, ni discutir
-              después de quién era la venta: cuando el pago se confirma, ya sabemos qué afiliado
-              la trajo.
+              El link del afiliado pasa primero por un redirect nuestro, que <strong>genera un
+              identificador de esa visita</strong> y recién ahí manda a la persona a tu sitio. Vos
+              lo recibís en la URL y lo guardás junto a la cuenta cuando esa persona se registra:
+              es un campo de texto y una línea al crear el usuario.
+            </p>
+            <p class="g-faq-r">
+              Ese identificador <strong>queda atado a esa cuenta para siempre</strong> y es lo que
+              hace que no haya nada que discutir después. También es lo que te dejamos preguntar:
+              el día que esa cuenta pase de tu plan gratis al pago —dentro de tu sistema, meses
+              después, sin pasar por ninguna pantalla nuestra— nosotros lo vemos igual, y el
+              vendedor que la trajo cobra.
             </p>
           </details>
           <details>
@@ -792,11 +812,12 @@
           <details>
             <summary>¿Cuánto trabajo de integración es esto para mí?</summary>
             <p class="g-faq-r">
-              Un endpoint que reciba una llamada firmada y active el plan de un usuario. Nada
-              más: el cobro, el reparto y el seguimiento del referido son nuestros. El contrato
-              exacto —firma, formato y reintentos— te lo pasamos por escrito antes de que
-              escribas una línea, y con los primeros productos lo integramos a mano y
-              acompañados, no tirándote una documentación y suerte.
+              Un campo de texto en tu tabla de cuentas, una llamada cuando alguien se registra, y
+              dos endpoints: uno que reciba una llamada firmada y active el plan, y otro que
+              conteste en qué plan está una cuenta. Nada más. El panel te genera el pedido
+              completo, con tus claves y tus planes adentro, para que se lo pases a tu asistente
+              de código y lo tengas andando en una tarde. Con los primeros productos lo
+              integramos a mano y acompañados, no tirándote una documentación y suerte.
             </p>
           <details>
             <summary>¿Qué tan grande es la red de afiliados hoy?</summary>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Icon, SERVICES, PUERTAS, COMISION_PCT } from './data.jsx';
+import { Icon, SERVICES, PUERTAS, PCT_PLATAFORMA } from './data.jsx';
 
 /* ===========================================================================
    LA HOME — sistema claro, scroll vertical
@@ -219,7 +219,7 @@ const CIFRAS = [
   { n: '+24', t: 'empresas acompañadas en Argentina y LATAM' },
   { n: '10',  t: 'servicios que se integran entre sí' },
   { n: '1',   t: 'software propio publicado, y las verticales que vienen' },
-  { n: COMISION_PCT + '%', t: 'de comisión recurrente para quien lo venda' },
+  { n: PCT_PLATAFORMA + '%', t: 'es todo lo que se queda la plataforma de cada cuota' },
 ];
 
 function Cifras() {
@@ -405,11 +405,12 @@ function Afiliados() {
           </div>
 
           <div className="g-cinta g-rev" style={{ '--g-delay': '120ms' }}>
-            <div className="g-cinta-n">{COMISION_PCT}%</div>
+            <div className="g-cinta-n">12</div>
             <p className="g-cinta-t">
-              <strong>de cada pago, todos los meses.</strong> No es una comisión por la
-              primera venta: se repite mientras el cliente que trajiste siga usando el
-              sistema. Sin techo, sin plazo y sin cupo mínimo.
+              <strong>meses con el porcentaje que te prometieron, por cada cliente.</strong>{' '}
+              No es una comisión por la primera venta: se repite mientras el cliente que
+              trajiste siga usando el sistema. Cada producto define cuánto paga y lo publica
+              en su ficha, y el número del primer pago de cada cliente te queda un año.
             </p>
           </div>
         </div>

@@ -453,14 +453,17 @@ const PUERTAS = [
   },
 ];
 
-/* La comisión del afiliado. Desde el 16-sep-2026 es fija y vale para todo el
-   catálogo —propio y de partners— dentro del reparto 50/20/30: 50% para quien
-   construyó el software, 20% para el vendedor y 30% para la agencia.
-   Es el mismo número que el DEFAULT de `afiliado.comision_pct` en el turnero
-   (migración 090) y que el que muestra app.g360ia.com.ar. Ya no se
-   negocia por producto: ver «Comisión de afiliados» en CLAUDE.md. */
-const COMISION_PCT = 20;
+/* Lo único que se queda la plataforma de cada cuota, y el único número del
+   reparto que es igual para todo el catálogo: es lo que cuesta cobrar, porque
+   la pasarela de pago se lleva alrededor de un 4%.
+
+   **La comisión del vendedor ya no es un número de este archivo.** La define
+   cada developer, producto por producto, con un techo del 95%, y se publica en
+   la ficha del catálogo. Cualquier porcentaje de comisión escrito en el sitio
+   sería una copia que el catálogo desmiente al día siguiente: ver «Comisión de
+   afiliados» en CLAUDE.md. */
+const PCT_PLATAFORMA = 5;
 
 const CLIENT_LOGOS = ["Norte Capital", "Salud+ Clínica", "Studio Verde", "Lumen Retail", "Astra Ventures", "Pampa Foods"];
 
-export { Icon, SERVICES, SOFTWARES, PUERTAS, COMISION_PCT, PROCESS, CASES, CLIENT_LOGOS };
+export { Icon, SERVICES, SOFTWARES, PUERTAS, PCT_PLATAFORMA, PROCESS, CASES, CLIENT_LOGOS };
