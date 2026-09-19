@@ -453,17 +453,6 @@ const PUERTAS = [
   },
 ];
 
-/* Lo único que se queda la plataforma de cada cuota, y el único número del
-   reparto que es igual para todo el catálogo: es lo que cuesta cobrar, porque
-   la pasarela de pago se lleva alrededor de un 4%.
-
-   **La comisión del vendedor ya no es un número de este archivo.** La define
-   cada developer, producto por producto, con un techo del 95%, y se publica en
-   la ficha del catálogo. Cualquier porcentaje de comisión escrito en el sitio
-   sería una copia que el catálogo desmiente al día siguiente: ver «Comisión de
-   afiliados» en CLAUDE.md. */
-const PCT_PLATAFORMA = 5;
-
 const CLIENT_LOGOS = ["Norte Capital", "Salud+ Clínica", "Studio Verde", "Lumen Retail", "Astra Ventures", "Pampa Foods"];
 
-export { Icon, SERVICES, SOFTWARES, PUERTAS, PCT_PLATAFORMA, PROCESS, CASES, CLIENT_LOGOS };
+export { Icon, SERVICES, SOFTWARES, PUERTAS, PROCESS, CASES, CLIENT_LOGOS };

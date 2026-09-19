@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Icon, SERVICES, PUERTAS, PCT_PLATAFORMA } from './data.jsx';
+import { Icon, SERVICES, PUERTAS } from './data.jsx';
 
 /* ===========================================================================
    LA HOME — sistema claro, scroll vertical
@@ -219,7 +219,7 @@ const CIFRAS = [
   { n: '+24', t: 'empresas acompañadas en Argentina y LATAM' },
   { n: '10',  t: 'servicios que se integran entre sí' },
   { n: '1',   t: 'software propio publicado, y las verticales que vienen' },
-  { n: PCT_PLATAFORMA + '%', t: 'es todo lo que se queda la plataforma de cada cuota' },
+  { n: '12', t: 'meses con la comisión garantizada por cada cliente que traiga un vendedor' },
 ];
 
 function Cifras() {

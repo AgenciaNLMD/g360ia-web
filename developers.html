@@ -122,7 +122,7 @@
       "@type": "HowToStep",
       "position": 2,
       "name": "Cargar el producto, el CVU y el webhook de activación",
-      "text": "Desde su panel el desarrollador carga la ficha del producto, sus planes con los precios reales, la comisión que le paga al vendedor, el CVU o alias donde quiere cobrar y dos URLs de su sistema: el webhook que activa un plan y el endpoint que responde en qué plan está cada cuenta traída por un vendedor. Gestión 360 IA se queda el 5% de cada cuota, que es lo que cuesta cobrar; la comisión del vendedor la define el desarrollador y el resto es suyo. Sin esas URLs no se puede publicar.",
+      "text": "Desde su panel el desarrollador carga la ficha del producto, sus planes con los precios reales, la comisión que le paga al vendedor, el CVU o alias donde quiere cobrar y dos URLs de su sistema: el webhook que activa un plan y el endpoint que responde en qué plan está cada cuenta traída por un vendedor. De cada cuota se descuentan dos comisiones: la de la plataforma, que es lo que cuesta cobrar y es igual para todo el catálogo, y la del vendedor, que la define el desarrollador. El resto es suyo. Sin esas URLs no se puede publicar.",
       "url": "https://g360ia.com.ar/developers#como-funciona"
     },
     {
@@ -154,7 +154,7 @@
       "name": "¿Cuánto cuesta publicar mi software en el catálogo?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nada por adelantado. No se cobra por publicar, ni por estar listado, ni una cuota por mantener la ficha. El costo son dos cosas y las dos existen sólo sobre plata que ya entró: el 5% que se queda la plataforma, que es lo que cuesta cobrar, y la comisión que vos elegís pagarle al vendedor. Si nadie vende tu producto, no pagás nada. Aparte hay dos cosas opcionales que podés contratar si las querés —ampliar el cupo de afiliados y los listados de contacto del rubro—, pero nada de eso es necesario para estar publicado."
+        "text": "Nada por adelantado. No se cobra por publicar, ni por estar listado, ni una cuota por mantener la ficha. El costo son dos comisiones y las dos existen sólo sobre plata que ya entró: la de la plataforma, que es lo que cuesta cobrar, y la que el desarrollador elige pagarle al vendedor. Si nadie vende el producto, no se paga nada. Aparte hay dos cosas opcionales que se pueden contratar —ampliar el cupo de afiliados y los listados de contacto del rubro—, pero nada de eso es necesario para estar publicado."
       }
     },
     {
@@ -178,7 +178,7 @@
       "name": "¿Qué comisión tengo que pagar?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "De cada cuota nos quedamos el 5%, y eso no se negocia: es lo que cuesta mover la plata, porque la pasarela de pago se lleva cerca de un 4%. La comisión del vendedor la elegís vos, con un techo del 95%, y queda publicada en tu ficha del catálogo. El resto es tuyo. Podés cambiar esa comisión hasta dos veces cada 30 días, y cada cambio se les avisa a los vendedores que tengan tu producto tomado."
+        "text": "Dos comisiones distintas. La de la plataforma no se negocia: es lo que cuesta mover la plata, no una participación en el negocio del desarrollador, y es la misma para todo el catálogo. La otra es la del vendedor, que la elige el desarrollador con un techo, y queda publicada en su ficha del catálogo. El resto es suyo. Los dos porcentajes están en las condiciones que se aceptan al registrarse y a la vista en el panel. La comisión del vendedor se puede cambiar hasta dos veces cada 30 días, y cada cambio se les avisa a los vendedores que tengan ese producto tomado."
       }
     },
     {
@@ -478,13 +478,15 @@
         </div>
 
         <div class="g-cinta g-rev" style="margin-top: 26px">
-          <div class="g-cinta-n">5%</div>
+          <div class="g-cinta-n">0</div>
           <p class="g-cinta-t">
-            <strong>es lo único que nos quedamos, y no se negocia.</strong>
-            Es lo que cuesta mover la plata: la pasarela de pago se lleva cerca de un 4%, así que
-            el 5% paga la cobranza y un punto. <strong>La comisión del vendedor la elegís vos</strong>,
-            producto por producto, y el resto es tuyo. Publicar no cuesta nada y no hay cuota por
-            estar en el catálogo: si nadie vende, no pagás nada.
+            <strong>de costo fijo. No se cobra por publicar, ni por estar listado, ni una cuota
+            por mantener la ficha.</strong>
+            Lo único que pagás sale de plata que ya entró: <strong>la comisión que vos elegís
+            pagarle al vendedor</strong>, producto por producto, y la de la plataforma, que es lo
+            que cuesta mover la plata y no una participación en tu negocio. Los dos porcentajes
+            están en las condiciones que aceptás al registrarte y a la vista en tu panel. Si nadie
+            vende, no pagás nada.
           </p>
         </div>
       </div>
@@ -513,7 +515,7 @@
               <li>La demostración, la puesta en marcha y el soporte del día a día</li>
               <li>El webhook de activación y el endpoint de estado, verificados antes de publicar</li>
               <li>La ficha, tus planes con los precios reales y tu CVU o alias, desde tu panel</li>
-              <li>El 5% de cada cuota para la plataforma, y la comisión que vos le fijes al vendedor</li>
+              <li>La comisión de la plataforma y la que vos le fijes al vendedor, sobre lo cobrado</li>
               <li>Tu propia infraestructura: el software sigue corriendo donde vos lo tenés</li>
             </ul>
           </div>
@@ -623,11 +625,11 @@
             <span class="g-card-kick">Requisito 06</span>
             <h3 class="g-card-t">La comisión que vas a pagar te cierra</h3>
             <p class="g-card-p">
-              Nuestro 5% es fijo y es el costo de cobrar. Lo que hay que pensar antes de
-              registrarte es el otro número: <strong>cuánto le vas a pagar al vendedor</strong>.
-              Lo elegís vos y queda publicado en tu ficha, así que es lo que decide si alguien
-              sale a vender tu producto o pasa al siguiente. Al cargarlo te mostramos el promedio
-              y el máximo de tu rubro.
+              La de la plataforma es fija y es el costo de cobrar. La que hay que pensar antes de
+              registrarte es la otra: <strong>cuánto le vas a pagar al vendedor</strong>. La
+              elegís vos y queda publicada en tu ficha, así que es lo que decide si alguien sale a
+              vender tu producto o pasa al siguiente. Al cargarla te mostramos el promedio y el
+              máximo de tu rubro.
             </p>
           </article>
         </div>
@@ -704,12 +706,13 @@
             <summary>¿Cuánto cuesta publicar mi software en el catálogo?</summary>
             <p class="g-faq-r">
               Nada por adelantado. No se cobra por publicar, ni por estar listado, ni una cuota
-              por mantener la ficha. El costo son dos cosas, y las dos existen sólo sobre plata
-              que ya entró: <strong>el 5% que se queda la plataforma</strong> —lo que cuesta
-              cobrar— y <strong>la comisión que vos elegís pagarle al vendedor</strong>. Si nadie
-              vende tu producto, no pagás nada. Aparte hay dos cosas opcionales —ampliar el cupo
-              de afiliados y los listados de contacto del rubro—, pero nada de eso es necesario
-              para estar publicado.
+              por mantener la ficha. El costo son dos comisiones, y las dos existen sólo sobre
+              plata que ya entró: <strong>la de la plataforma</strong> —lo que cuesta cobrar— y
+              <strong>la que vos elegís pagarle al vendedor</strong>. Los dos porcentajes están en
+              las condiciones que aceptás al registrarte y a la vista en tu panel. Si nadie vende
+              tu producto, no pagás nada. Aparte hay dos cosas opcionales —ampliar el cupo de
+              afiliados y los listados de contacto del rubro—, pero nada de eso es necesario para
+              estar publicado.
             </p>
           </details>
           <details>
@@ -733,10 +736,13 @@
           <details>
             <summary>¿Qué comisión tengo que pagar?</summary>
             <p class="g-faq-r">
-              Dos números distintos. <strong>El nuestro es 5% de cada cuota y no se negocia</strong>:
-              es lo que cuesta mover la plata, porque la pasarela se lleva cerca de un 4%. El
-              otro es <strong>la comisión del vendedor, que la elegís vos</strong>, con un techo
-              del 95%, y que queda publicada en tu ficha. El resto es tuyo.
+              Dos comisiones distintas. <strong>La de la plataforma no se negocia</strong>: es lo
+              que cuesta mover la plata, no una participación en tu negocio, y es la misma para
+              todo el catálogo. La otra es <strong>la del vendedor, que la elegís vos</strong>,
+              con un techo, y que queda publicada en tu ficha. El resto es tuyo. Los dos números
+              están en las condiciones que aceptás al registrarte y en tu panel: acá no se
+              publican, porque un porcentaje escrito en una página de venta envejece solo y
+              termina contradiciendo al panel, que es el que liquida.
             </p>
             <p class="g-faq-r">
               Podés cambiarla hasta dos veces cada 30 días, y cada cambio se les avisa a los

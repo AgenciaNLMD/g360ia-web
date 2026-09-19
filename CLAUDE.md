@@ -242,14 +242,22 @@ es el costo de cobrar, no una participación en el negocio del developer. **La c
 vendedor la define cada developer, producto por producto**, con un techo, y se publica en la
 ficha del catálogo.
 
-Por eso **en el sitio no va ningún porcentaje de comisión**. Ni en un titular, ni en una FAQ,
-ni como constante: el catálogo lo desmentiría al día siguiente. Lo que el sitio promete es
-estructural y no numérico —que el número está a la vista antes de tomar el link, y que el del
-primer pago de cada cliente queda garantizado un año—, y eso no envejece.
+Por eso **en el sitio no va ningún porcentaje del reparto. Ninguno, ni el nuestro.** Ni en un
+titular, ni en una FAQ, ni como constante. Los dos pueden cambiar, y un número escrito en una
+página de venta envejece solo hasta que contradice al panel, que es el que liquida.
+
+Lo que el sitio sí dice, y no envejece: **que las dos comisiones existen** —la de la plataforma,
+que es el costo de cobrar y es igual para todo el catálogo, y la del vendedor, que la define cada
+developer—, **dónde está el número de verdad** —las condiciones que cada uno acepta al
+registrarse, y el panel— y **las promesas estructurales**: que la comisión está a la vista antes
+de tomar el link, y que la del primer pago de cada cliente queda garantizada un año.
+
+Si alguna vez hace falta un número en una cinta o en una cifra del hero, que sea uno que no sea
+un porcentaje del reparto: el **0** de costo fijo para publicar, o los **12** meses de garantía.
 
 | Dónde | Qué |
 |---|---|
-| `data.jsx` (este repo) | `PCT_PLATAFORMA` — sólo el nuestro |
+| `data.jsx` (este repo) | ya no guarda ninguno — no volver a agregar la constante |
 | `lib/afiliado-textos.js` (turnero) | `COMISION_PCT` |
 | migración 090 del turnero | el DEFAULT de `afiliado.comision_pct` |
 | `g360ia-PRM/app/lib/programa.js` | `PCT_AFILIADO` y compañía — y subir `CONDICIONES_VERSION` |
