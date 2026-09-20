@@ -53,6 +53,15 @@
 	@vet path /software-para-veterinarias /software-para-veterinarias.html
 	redir @vet https://vet.g360ia.com.ar permanent
 
+	# 3b) /contacto -> home, sección de contacto
+	# La página /contacto existió en el origen del sitio y se borró hace años;
+	# hoy el contacto es la sección #contacto de la home (secciones-home.jsx).
+	# Sigue indexada/enlazada desde campañas viejas (Search Console la marca
+	# 404 con querystrings tipo ?servicio=...&plan=...) así que en vez de
+	# dejarla morir en un 404 manda a la sección real. Los query params se
+	# pierden a propósito: no hay nada del otro lado que los consuma.
+	redir /contacto /#contacto permanent
+
 	# 4) /loquesea.html -> /loquesea
 	# /partials/* queda excluido: no son páginas, son fragmentos que se piden por fetch
 	# (ver Regla 4 / footer compartido). Redirigirlos sólo agrega un salto a cada carga.
