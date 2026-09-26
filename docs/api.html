@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Documentación de la API v1 · Developers · Gestión 360 IA</title>
+  <meta name="description" content="Cómo conectar tu software con el catálogo de Gestión 360 IA: credenciales, avisar altas y cambios de plan, el webhook de activación, el endpoint de estado, la firma HMAC y los códigos de error. Con ejemplos en cURL, Node, PHP y Python." />
+  <link rel="canonical" href="https://g360ia.com.ar/docs/api" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Gestión 360 IA" />
+  <meta name="theme-color" content="#0e2137" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Gestión 360 IA" />
+  <meta property="og:title" content="Documentación de la API v1 · Gestión 360 IA" />
+  <meta property="og:description" content="Todo lo que necesita tu software para conectarse al catálogo: credenciales, endpoints, firma y errores." />
+  <meta property="og:url" content="https://g360ia.com.ar/docs/api" />
+  <meta property="og:image" content="https://g360ia.com.ar/og-image.jpg" />
+  <meta property="og:locale" content="es_AR" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- La referencia pública de la API. Lo que acá se promete es el contrato de
+       la versión 1: un campo o un código de error que cambie de forma va en una
+       versión nueva, no en esta página. La fuente del comportamiento es el repo
+       g360ia-PRM (`app/api/v1/*`, `lib/integracion.js`, `lib/verificacion.js`). -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Documentación de la API v1 de Gestión 360 IA",
+  "description": "Cómo conectar un software al catálogo de Gestión 360 IA: credenciales, altas, cambios de plan, webhook de activación, endpoint de estado, firma HMAC y errores.",
+  "url": "https://g360ia.com.ar/docs/api",
+  "inLanguage": "es-AR",
+  "proficiencyLevel": "Beginner",
+  "dependencies": "HTTPS, JSON, HMAC-SHA256",
+  "publisher": { "@type": "Organization", "name": "Gestión 360 IA", "url": "https://g360ia.com.ar" },
+  "dateModified": "2026-09-26"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://g360ia.com.ar/" },
+    { "@type": "ListItem", "position": 2, "name": "Developers", "item": "https://g360ia.com.ar/developers" },
+    { "@type": "ListItem", "position": 3, "name": "API", "item": "https://g360ia.com.ar/docs/api" }
+  ]
+}
+  </script>
+</head>
+<body class="g-light g-pagina">
+
+  <!-- ===================== BARRA ===================== -->
+  <nav class="g-nav" aria-label="Navegación principal">
+    <div class="g-contenedor">
+      <div class="g-nav-caja">
+        <a href="/" class="g-marca">
+          <img src="/logo.webp" alt="" width="34" height="34" />
+          <span class="g-marca-txt">Gestion<span class="num">360</span><span class="ia">.iA</span></span>
+        </a>
+
+        <div class="g-nav-links">
+          <a class="g-nav-link" href="/servicios">Servicios</a>
+          <a class="g-nav-link" href="/software">Software</a>
+          <a class="g-nav-link" href="/afiliados">Afiliados</a>
+          <a class="g-nav-link" href="/developers">Developers</a>
+          <a class="g-nav-link" href="/blog/">Blog</a>
+        </div>
+
+        <div class="g-nav-acciones">
+          <a class="g-btn g-btn--primario" href="https://app.g360ia.com.ar" target="_blank" rel="noopener">
+            Publicar mi software
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <button class="g-hamb" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="g-nav-movil" id="menu-movil" hidden>
+        <a href="/servicios">Servicios</a>
+        <a href="/software">Software</a>
+        <a href="/afiliados">Afiliados</a>
+        <a href="/developers">Developers</a>
+        <a href="/blog/">Blog</a>
+        <a class="g-btn g-btn--primario" href="https://app.g360ia.com.ar" target="_blank" rel="noopener">Publicar mi software</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="g-pag-hero">
+      <div class="g-contenedor">
+        <div class="g-pag-hero-inner">
+          <nav class="g-migas" aria-label="Migas de pan">
+            <a href="/">Inicio</a><span>/</span><a href="/developers">Developers</a><span>/</span>API
+          </nav>
+          <span class="g-eyebrow">Documentación · API v1</span>
+          <h1>Conectá tu software <em>con el catálogo</em></h1>
+          <p class="g-lead">
+            Todo lo que tu sistema necesita para que un vendedor de la red cobre por los clientes
+            que te trae: credenciales, los dos endpoints que llamás vos, los dos que programás
+            vos, la firma y los errores. Con ejemplos en cURL, Node, PHP y Python.
+          </p>
+          <div class="g-hero-ctas">
+            <a class="g-btn g-btn--primario g-btn--grande" href="https://app.g360ia.com.ar" target="_blank" rel="noopener">
+              Obtener mis credenciales
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="g-btn g-btn--fantasma g-btn--grande" href="#empezar">Empezar en 4 pasos</a>
+          </div>
+        </div>
+      </div>
+      <svg class="g-onda" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,40 C240,8 480,8 720,28 C960,48 1200,58 1440,34 L1440,64 L0,64 Z" />
+      </svg>
+    </section>
+
+    <section class="g-sec">
+      <div class="g-contenedor">
+        <div class="g-doc">
+
+          <nav class="g-doc-indice" aria-label="Contenido de la documentación">
+            <p class="g-doc-indice-t">Contenido</p>
+            <ol>
+              <li><a href="#empezar">Empezar en 4 pasos</a></li>
+              <li><a href="#como-funciona">Cómo funciona</a></li>
+              <li><a href="#credenciales">Credenciales</a></li>
+              <li class="g-doc-indice-grupo">Lo que llamás vos</li>
+              <li><a href="#referido">1 · Guardar el referido</a></li>
+              <li><a href="#altas">2 · Avisar un alta</a></li>
+              <li><a href="#contratar">3 · El botón de contratar</a></li>
+              <li><a href="#cambios">4 · Avisar un cambio de plan</a></li>
+              <li class="g-doc-indice-grupo">Lo que programás vos</li>
+              <li><a href="#estado">5 · Endpoint de estado</a></li>
+              <li><a href="#webhook">6 · Webhook de activación</a></li>
+              <li><a href="#firma">Verificar la firma</a></li>
+              <li class="g-doc-indice-grupo">Referencia</li>
+              <li><a href="#errores">Errores</a></li>
+              <li><a href="#probar">Probar la API</a></li>
+              <li><a href="#con-ia">Integrarla con IA</a></li>
+              <li><a href="#versiones">Versiones</a></li>
+            </ol>
+          </nav>
+
+          <div class="g-doc-cuerpo">
+
+            <!-- ===================== EMPEZAR ===================== -->
+            <section id="empezar">
+              <h2>Empezar en 4 pasos</h2>
+              <p>
+                Igual que con cualquier API: te registrás, se habilita, copiás tus credenciales e
+                integrás. No hay que pedir acceso a nadie.
+              </p>
+              <ol class="g-doc-pasos">
+                <li>
+                  <strong>Creá tu cuenta de developer</strong>
+                  En <a href="https://app.g360ia.com.ar" target="_blank" rel="noopener">app.g360ia.com.ar</a>,
+                  con tu cuenta de Google.
+                </li>
+                <li>
+                  <strong>Publicá tu software</strong>
+                  Cargás la ficha y los planes. Al publicarlo se habilita la API para ese producto y
+                  se generan sus credenciales.
+                </li>
+                <li>
+                  <strong>Copiá tus credenciales</strong>
+                  En el panel, <em>Mis softwares → Conectar API</em>: una clave y un secreto, propios
+                  de cada producto. Van a variables de entorno, nunca al código.
+                </li>
+                <li>
+                  <strong>Integrá y probá</strong>
+                  Seguí esta documentación (o pasale el pedido armado a tu IA) y apretá
+                  <em>Probar API</em> en el panel: te dice qué anda y qué falta.
+                </li>
+              </ol>
+              <div class="g-doc-nota">
+                <p>
+                  <strong>URL base de la API:</strong> <code>https://app.g360ia.com.ar/api/v1</code>.
+                  Todo viaja por HTTPS y en JSON.
+                </p>
+              </div>
+            </section>
+
+            <!-- ===================== CÓMO FUNCIONA ===================== -->
+            <section id="como-funciona">
+              <h2>Cómo funciona</h2>
+              <p>
+                Un vendedor de la red le pasa a un negocio su link. El negocio se registra en tu
+                software, y desde ese momento los dos sistemas tienen que ponerse de acuerdo sobre
+                <strong>qué cuenta es de qué vendedor y en qué plan está</strong>. Eso es toda la
+                integración. Hay dos direcciones:
+              </p>
+              <div class="g-doc-tabla-caja">
+                <table class="g-doc-tabla">
+                  <thead><tr><th>Quién llama</th><th>Qué</th><th>Cuándo</th></tr></thead>
+                  <tbody>
+                    <tr><td>Tu software → nosotros</td><td><a href="#altas">Avisar un alta</a></td><td>Cuando alguien se registra</td></tr>
+                    <tr><td>Tu software → nosotros</td><td><a href="#cambios">Avisar un cambio de plan</a></td><td>Cuando una cuenta contrata, sube, baja o cancela</td></tr>
+                    <tr><td>Nosotros → tu software</td><td><a href="#estado">Consultar el estado</a></td><td>Una vez por día, por cada cuenta que trajo un vendedor</td></tr>
+                    <tr><td>Nosotros → tu software</td><td><a href="#webhook">Webhook de activación</a></td><td>Cuando cobramos por nuestro checkout, o una cuenta deja de pagar</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                El recorrido completo de una venta:
+              </p>
+              <ol class="g-doc-lista">
+                <li>El vendedor reparte su link. Pasa por nuestro servidor y llega a tu pantalla de registro con un identificador: <code>?g360ref=9wxyg3bqq1hb</code>.</li>
+                <li>Tu pantalla guarda ese identificador y, al crear la cuenta, nos <a href="#altas">avisa el alta</a>. Te devolvemos un <code>token</code> que guardás pegado a esa cuenta.</li>
+                <li>Cuando esa cuenta quiere pagar, <a href="#contratar">tu botón de contratar</a> la manda a nuestro checkout con su token. Cobramos y te mandamos un <code>activar</code> por el <a href="#webhook">webhook</a>.</li>
+                <li>Si la cuenta contrata adentro de tu software, por tu propio cobro, nos <a href="#cambios">avisás el cambio</a>. Y una vez por día te <a href="#estado">preguntamos</a> en qué plan está, por si algún aviso se perdió.</li>
+              </ol>
+              <p>
+                Los clientes que llegan solos, sin link de un vendedor, <strong>no pasan por nada de
+                esto</strong>: los seguís cobrando vos, como siempre.
+              </p>
+            </section>
+
+            <!-- ===================== CREDENCIALES ===================== -->
+            <section id="credenciales">
+              <h2>Credenciales</h2>
+              <p>Cada software publicado tiene su propio par. Las dos se ven y se cambian en el panel, en <em>Mis softwares → Conectar API</em>.</p>
+              <div class="g-doc-tabla-caja">
+                <table class="g-doc-tabla">
+                  <thead><tr><th>Credencial</th><th>Empieza con</th><th>Para qué</th><th>Variable sugerida</th></tr></thead>
+                  <tbody>
+                    <tr><td>Clave</td><td><code>sk_</code></td><td>Autentica lo que tu software nos manda (pasos 2 y 4).</td><td><code>G360_CLAVE</code></td></tr>
+                    <tr><td>Secreto</td><td><code>whsec_</code></td><td>Firma lo que nosotros te mandamos (pasos 5 y 6), para que puedas comprobar que es nuestro.</td><td><code>G360_SECRETO</code></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <h3>Cómo se manda la clave</h3>
+              <p>En cada pedido, como <code>Authorization: Bearer</code>. Si tu lenguaje lo complica, también se acepta en el header <code>X-G360-Clave</code>.</p>
+              <div class="g-doc-codigo"><pre><code>Authorization: Bearer sk_4f1c…</code></pre></div>
+              <div class="g-doc-nota">
+                <p>
+                  <strong>Van en variables de entorno, nunca escritas en el código.</strong> Así es
+                  como se filtran: alguien las pega para probar, el archivo se commitea y el
+                  repositorio las guarda para siempre, aunque después se borre la línea.
+                </p>
+                <p>
+                  Si se te escapó una, cambiala desde el panel. La anterior deja de servir en el
+                  momento, así que actualizá el entorno y volvé a desplegar.
+                </p>
+              </div>
+            </section>
+
+            <!-- ===================== 1 · REFERIDO ===================== -->
+            <section id="referido">
+              <h2>1 · Guardar el referido</h2>
+              <p>
+                El link del vendedor llega a tu pantalla de registro con el parámetro
+                <code>g360ref</code>. Leelo apenas carga la página y guardalo (una cookie larga o
+                <code>localStorage</code>): entre el clic y el registro pueden pasar días. Al crear la
+                cuenta lo copiás a una columna nueva, por ejemplo <code>g360_ref</code>.
+              </p>
+              <div class="g-doc-codigo">
+                <span class="g-doc-codigo-rotulo">JavaScript · en tu pantalla de registro</span>
+                <pre><code>const p = new URLSearchParams(location.search);
+const ref = p.get("g360ref");
+
+// Validar formato: viene de la URL, o sea de cualquiera.
+// Gana el primero: si ya había uno guardado, no se pisa.
+if (ref &amp;&amp; /^[a-z0-9_-]{1,60}$/.test(ref) &amp;&amp; !localStorage.getItem("g360ref")) {
+  localStorage.setItem("g360ref", ref);
+}
+
+// Al crear la cuenta, mandá localStorage.getItem("g360ref") junto al registro.</code></pre>
+              </div>
+              <ul>
+                <li><strong>Se llama <code>g360ref</code> y no <code>ref</code> a propósito.</strong> Si tu software ya tiene su propio programa de referidos, <code>ref</code> probablemente esté ocupado. Son dos programas distintos y van en columnas distintas.</li>
+                <li><strong>Gana el primero.</strong> Si llega un segundo link, no reemplaces el que ya tenías: el último que tocó un link no puede llevarse una venta que trajo otro.</li>
+              </ul>
+            </section>
+
+            <!-- ===================== 2 · ALTAS ===================== -->
+            <section id="altas">
+              <h2>2 · Avisar un alta</h2>
+              <div class="g-doc-ruta">
+                <span class="g-doc-metodo">POST</span> https://app.g360ia.com.ar/api/v1/altas
+                <span class="g-doc-quien">Lo llamás vos</span>
+              </div>
+              <p>Justo después de crear la cuenta, desde tu servidor. Se manda siempre, venga o no con referido.</p>
+
+              <h3>Cuerpo</h3>
+              <div class="g-doc-tabla-caja">
+                <table class="g-doc-tabla">
+                  <thead><tr><th>Campo</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>cuenta</code></td><td>string · obligatorio</td><td>El id de esa cuenta en tu sistema. Estable y único: es con lo que te vamos a nombrar esa cuenta en el webhook.</td></tr>
+                    <tr><td><code>negocio</code></td><td>string · obligatorio</td><td>El nombre con el que se registró.</td></tr>
+                    <tr><td><code>ref</code></td><td>string o null</td><td>El <code>g360ref</code> que guardaste en el paso 1, o <code>null</code> si no vino.</td></tr>
+                    <tr><td><code>ciudad</code>, <code>provincia</code></td><td>string · opcional</td><td>Para ubicar al negocio en el panel.</td></tr>
+                    <tr><td><code>prueba</code></td><td>boolean · opcional</td><td>En <code>true</code> hace todo el recorrido —clave, campos, referido— y no guarda nada.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="g-doc-tabs">
+                <div class="g-doc-panel" data-lang="curl">
+                  <div class="g-doc-codigo">
+                    <span class="g-doc-codigo-rotulo">cURL</span>
+                    <pre><code>curl -X POST https://app.g360ia.com.ar/api/v1/altas \
+  -H "Authorization: Bearer $G360_CLAVE" \
+  -H "Content-Type: application/json" \
+  -d '{"cuenta":"8821","negocio":"Veterinaria Sur","ref":"9wxyg3bqq1hb"}'</code></pre>
+                  </div>
+                </div>
+                <div class="g-doc-panel" data-lang="node">
+                  <div class="g-doc-codigo">
+                    <span class="g-doc-codigo-rotulo">Node</span>
+                    <pre><code>const r = await fetch("https://app.g360ia.com.ar/api/v1/altas", {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${process.env.G360_CLAVE}`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    cuenta: String(cuenta.id),
+    negocio: cuenta.nombre,
+    ref: cuenta.g360_ref ?? null,
+  }),
+});
+
+const datos = await r.json();
+if (datos.token) await guardarToken(cuenta.id, datos.token);</code></pre>
+                  </div>
+                </div>
+                <div class="g-doc-panel" data-lang="php">
+                  <div class="g-doc-codigo">
+                    <span class="g-doc-codigo-rotulo">PHP</span>
+                    <pre><code>$ch = curl_init('https://app.g360ia.com.ar/api/v1/altas');
+curl_setopt_array($ch, [
+  CURLOPT_POST           =&gt; true,
+  CURLOPT_RETURNTRANSFER =&gt; true,
+  CURLOPT_TIMEOUT        =&gt; 10,
+  CURLOPT_HTTPHEADER     =&gt; [
+    'Authorization: Bearer ' . getenv('G360_CLAVE'),
+    'Content-Type: application/json',
+  ],
+  CURLOPT_POSTFIELDS     =&gt; json_encode([
+    'cuenta'  =&gt; (string) $cuenta-&gt;id,
+    'negocio' =&gt; $cuenta-&gt;nombre,
+    'ref'     =&gt; $cuenta-&gt;g360_ref,
+  ]),
+]);
+
+$datos = json_decode(curl_exec($ch), true);
+if (!empty($datos['token'])) guardarToken($cuenta-&gt;id, $datos['token']);</code></pre>
+                  </div>
+                </div>
+                <div class="g-doc-panel" data-lang="python">
+                  <div class="g-doc-codigo">
+                    <span class="g-doc-codigo-rotulo">Python</span>
+                    <pre><code>import os, requests
+
+r = requests.post(
+    "https://app.g360ia.com.ar/api/v1/altas",
+    headers={"Authorization": f"Bearer {os.environ['G360_CLAVE']}"},
+    json={"cuenta": str(cuenta.id), "negocio": cuenta.nombre, "ref": cuenta.g360_ref},
+    timeout=10,
+)
+
+datos = r.json()
+if datos.get("token"):
+    guardar_token(cuenta.id, datos["token"])</code></pre>
+                  </div>
+                </div>
+              </div>
+
+              <h3>Respuesta</h3>
+              <div class="g-doc-codigo"><pre><code>{ "ok": true, "id": 123, "nuevo": true, "conVendedor": true, "token": "9wxyg3bqq1hb", "aviso": null }</code></pre></div>
+              <div class="g-doc-tabla-caja">
+                <table class="g-doc-tabla">
+                  <thead><tr><th>Campo</th><th>Descripción</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>token</code></td><td><strong>Guardalo pegado a la cuenta</strong> (por ejemplo en <code>g360_token</code>). Es la pieza central: arma el botón de contratar, va en los avisos de cambio y es por lo que te preguntamos el estado. Puede no ser igual al <code>ref</code> que mandaste: guardá el de la respuesta.</td></tr>
+                    <tr><td><code>conVendedor</code></td><td><code>false</code> (y <code>token: null</code>) quiere decir que ese cliente llegó solo. Es tuyo y no aparece en la plataforma.</td></tr>
+                    <tr><td><code>nuevo</code></td><td><code>false</code> si esa <code>cuenta</code> ya nos la habías mandado.</td></tr>
+                    <tr><td><code>aviso</code></td><td>Viene cuando el <code>ref</code> no corresponde a ningún vendedor. Casi siempre es un bug en la captura del paso 1: logueálo.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="g-doc-nota">
+                <p>
+                  <strong>Es idempotente por <code>cuenta</code>:</strong> mandarla dos veces no
+                  duplica nada y devuelve el mismo token. Por eso, si el aviso falla, no voltees el
+                  alta —el cliente ya está adentro—: logueá y reintentalo con un job cada 15 minutos
+                  hasta tener token o <code>conVendedor: false</code>.
+                </p>
+              </div>
+            </section>
+
+            <!-- ===================== 3 · CONTRATAR ===================== -->
+            <section id="contratar">
+              <h2>3 · El botón de contratar</h2>
+              <p>
+                Tu botón de «Mejorar plan» lo ven todos tus clientes. Los que trajo un vendedor pagan
+                por nuestro checkout; los demás, por el tuyo de siempre. No hacen falta dos
+                pantallas: es un <code>if</code> sobre el token.
+              </p>
+              <div class="g-doc-codigo">
+                <span class="g-doc-codigo-rotulo">JavaScript</span>
+                <pre><code>const destino = cuenta.g360_token
+  ? `https://app.g360ia.com.ar/p/${cuenta.g360_token}?plan=${encodeURIComponent(plan)}`
+  : miCheckoutDeSiempre;</code></pre>
+              </div>
+              <p>
+                <code>plan</code> es el nombre exacto de uno de los planes que cargaste en tu ficha. No
+                mandes el precio ni el id de la cuenta: el precio lo ponemos nosotros, sacado de tu
+                ficha, así que nadie puede pagar de menos cambiando la URL.
+              </p>
+            </section>
+
+            <!-- ===================== 4 · CAMBIOS ===================== -->
+            <section id="cambios">
+              <h2>4 · Avisar un cambio de plan</h2>
+              <div class="g-doc-ruta">
+                <span class="g-doc-metodo">POST</span> https://app.g360ia.com.ar/api/v1/cambios
+                <span class="g-doc-quien">Lo llamás vos</span>
+              </div>
+              <p>
+                Desde el lugar de tu código donde el plan cambia de verdad —contratar, subir, bajar,
+                cancelar y la baja automática por falta de pago—, <strong>sólo para cuentas con
+                token</strong>. Las que llegaron solas no nos interesan.
+              </p>
+              <div class="g-doc-tabla-caja">
+                <table class="g-doc-tabla">
+                  <thead><tr><th>Campo</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>token</code></td><td>string · obligatorio</td><td>El <code>g360_token</code> de esa cuenta.</td></tr>
+                    <tr><td><code>plan</code></td><td>string</td><td>El plan en el que quedó. Obligatorio si <code>activa</code> es <code>true</code>.</td></tr>
+                    <tr><td><code>activa</code></td><td>boolean · opcional</td><td><code>false</code> si se dio de baja o dejó de pagar. Si no viene, se toma como <code>true</code>.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="g-doc-tabs">
+                <div class="g-doc-panel" data-lang="curl">
+                  <div class="g-doc-codigo">
+                    <span class="g-doc-codigo-rotulo">cURL</span>
+                    <pre><code>curl -X POST https://app.g360ia.com.ar/api/v1/cambios \
+  -H "Authorization: Bearer $G360_CLAVE" \
+  -H "Content-Type: application/json" \
+  -d '{"token":"9wxyg3bqq1hb","plan":"Pro","activa":true}'</code></pre>
+                  </div>
+                </div>
+                <div class="g-doc-panel" data-lang="node">
+                  <div class="g-doc-codigo">
+                    <span class="g-doc-codigo-rotulo">Node</span>
+                    <pre><code>await fetch("https://app.g360ia.com.ar/api/v1/cambios", {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${process.env.G360_CLAVE}`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ token: cuenta.g360_token, plan: "Pro", activa: true }),
+});</code></pre>
+                  </div>
+                </div>
+                <div class="g-doc-panel" data-lang="php">
+                  <div class="g-doc-codigo">
+                    <span class="g-doc-codigo-rotulo">PHP</span>
+                    <pre><code>$ch = curl_init('https://app.g360ia.com.ar/api/v1/cambios');
+curl_setopt_array($ch, [
+  CURLOPT_POST           =&gt; true,
+  CURLOPT_RETURNTRANSFER =&gt; true,
+  CURLOPT_TIMEOUT        =&gt; 10,
+  CURLOPT_HTTPHEADER     =&gt; [
+    'Authorization: Bearer ' . getenv('G360_CLAVE'),
+    'Content-Type: application/json',
+  ],
+  CURLOPT_POSTFIELDS     =&gt; json_encode([
+    'token'  =&gt; $cuenta-&gt;g360_token,
+    'plan'   =&gt; 'Pro',
+    'activa' =&gt; true,
+  ]),
+]);
+$datos = json_decode(curl_exec($ch), true);</code></pre>
+                  </div>
+                </div>
+                <div class="g-doc-panel" data-lang="python">
+                  <div class="g-doc-codigo">
+                    <span class="g-doc-codigo-rotulo">Python</span>
+                    <pre><code>requests.post(
+    "https://app.g360ia.com.ar/api/v1/cambios",
+    headers={"Authorization": f"Bearer {os.environ['G360_CLAVE']}"},
+    json={"token": cuenta.g360_token, "plan": "Pro", "activa": True},
+    timeout=10,
+)</code></pre>
+                  </div>
+                </div>
+              </div>
+
+              <h3>Respuesta</h3>
+              <div class="g-doc-codigo"><pre><code>{ "ok": true, "planReconocido": true, "aviso": null }</code></pre></div>
+              <p>
+                <code>planReconocido: false</code> quiere decir que ese nombre no coincide con ninguno de
+                los planes de tu ficha. Es la única forma de enterarte antes de la liquidación: logueálo.
+              </p>
+              <div class="g-doc-nota">
+                <p>
+                  <strong>Idempotente:</strong> dos avisos del mismo cambio no cuentan doble, así que
+                  reintentar es gratis. Y como el alta, si falla no puede voltear el cambio de tu
+                  lado: logueá y reintentá.
+                </p>
+              </div>
+            </section>
+
+            <!-- ===================== 5 · ESTADO ===================== -->
+            <section id="estado">
+              <h2>5 · Endpoint de estado</h2>
+              <div class="g-doc-ruta">
+                <span class="g-doc-metodo">POST</span> https://tusitio.com/la-ruta-que-elijas
+                <span class="g-doc-quien">Lo programás vos</span>
+              </div>
+              <p>
+                Una ruta de tu backend que, dado un token, contesta en qué plan está esa cuenta. La
+                llamamos una vez por día por cada cuenta que te trajo un vendedor. Es lo que hace que
+                una venta hecha adentro de tu software —el que se registró gratis y contrata a los
+                dos meses— igual le pague al vendedor que la trajo. La URL la cargás en tu ficha.
+              </p>
+              <p><strong>Es obligatorio para estar en el catálogo.</strong> Si deja de contestar 24 horas, el producto sale del catálogo y vuelve a mano desde el panel.</p>
+
+              <h3>Lo que te mandamos</h3>
+              <div class="g-doc-codigo"><pre><code>POST /la-ruta-que-elijas
+Content-Type:       application/json
+X-G360-Api-Version: 1
+X-G360-Evento:      estado
+X-G360-Firma:       &lt;HMAC-SHA256 del cuerpo crudo, con tu secreto&gt;
+
+{ "token": "9wxyg3bqq1hb", "producto": "tu-producto" }</code></pre></div>
+
+              <h3>Lo que contestás</h3>
+              <div class="g-doc-tabla-caja">
+                <table class="g-doc-tabla">
+                  <thead><tr><th>Situación de la cuenta</th><th>Respuesta</th></tr></thead>
+                  <tbody>
+                    <tr><td>Paga y está al día</td><td><code>200 { "activa": true, "plan": "Pro" }</code></td></tr>
+                    <tr><td>En el plan gratis o en prueba</td><td><code>200 { "activa": true, "plan": "Free" }</code></td></tr>
+                    <tr><td>Suspendida por falta de pago</td><td><code>200 { "activa": false, "plan": "Pro" }</code></td></tr>
+                    <tr><td>Dada de baja o eliminada</td><td><code>200 { "activa": false, "plan": null }</code></td></tr>
+                    <tr><td>Token que no conocés</td><td><code>404</code></td></tr>
+                    <tr><td>Firma inválida</td><td><code>401</code></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <ul>
+                <li><strong>Se pregunta el plan, nunca el precio.</strong> El precio sale de los planes de tu ficha, buscado por nombre: los nombres tienen que coincidir exactamente.</li>
+                <li><strong>El plan gratis se contesta igual que cualquier otro.</strong> Vale cero, así que no genera comisión, y nos dice que la cuenta sigue viva.</li>
+                <li><strong>El 404 del token desconocido no es un detalle.</strong> Un endpoint que contesta <code>activa: true</code> a cualquier token le inventa una suscripción a cada cuenta que preguntemos.</li>
+              </ul>
+              <div class="g-doc-codigo">
+                <span class="g-doc-codigo-rotulo">Node · Express</span>
+                <pre><code>app.post("/api/g360/estado", express.raw({ type: "application/json" }), async (req, res) =&gt; {
+  if (!firmaValida(req.body, req.get("X-G360-Firma"))) return res.status(401).end();
+
+  const { token } = JSON.parse(req.body);
+  const cuenta = await buscarCuentaPorToken(token);
+  if (!cuenta) return res.status(404).json({ error: "token desconocido" });
+
+  res.json({ activa: cuenta.activa, plan: cuenta.plan ?? null });
+});</code></pre>
+              </div>
+            </section>
+
+            <!-- ===================== 6 · WEBHOOK ===================== -->
+            <section id="webhook">
+              <h2>6 · Webhook de activación</h2>
+              <div class="g-doc-ruta">
+                <span class="g-doc-metodo">POST</span> https://tusitio.com/la-ruta-que-elijas
+                <span class="g-doc-quien">Lo programás vos</span>
+              </div>
+              <p>
+                Cuando una cuenta paga por nuestro checkout, te pedimos que la actives. Si no cargás
+                webhook, te avisamos por mail y la activás a mano. La URL la cargás en tu ficha.
+              </p>
+
+              <h3>Lo que te mandamos</h3>
+              <div class="g-doc-codigo"><pre><code>POST /la-ruta-que-elijas
+Content-Type:       application/json
+X-G360-Api-Version: 1
+X-G360-Evento:      activar
+X-G360-Evento-Id:   pago-8821
+X-G360-Firma:       &lt;HMAC-SHA256 del cuerpo crudo, con tu secreto&gt;
+
+{
+  "evento":    "activar",
+  "evento_id": "pago-8821",
+  "enviado":   "2026-09-26T19:40:00.000Z",
+  "producto":  "tu-producto",
+  "cuenta":    "8821",
+  "negocio":   "Veterinaria Sur",
+  "plan":      "Pro",
+  "periodo":   "mensual",
+  "pago":      "8821"
+}</code></pre></div>
+
+              <div class="g-doc-tabla-caja">
+                <table class="g-doc-tabla">
+                  <thead><tr><th>Evento</th><th>Qué hacer</th></tr></thead>
+                  <tbody>
+                    <tr><td><code>activar</code></td><td>Poner esa cuenta en ese plan, o renovarle el período si ya lo tenía. Trae <code>plan</code>, <code>periodo</code> (<code>mensual</code> o <code>anual</code>) y <code>pago</code>.</td></tr>
+                    <tr><td><code>pausar</code></td><td>Dejó pasar el vencimiento de lo que pagó por nuestro checkout. Vos decidís qué hacer con el acceso. Si vuelve a pagar, llega un <code>activar</code> normal.</td></tr>
+                    <tr><td><code>ping</code></td><td>Contestar 200 sin tocar nada. Es la prueba del panel.</td></tr>
+                    <tr><td><code>reactivar</code>, <code>baja</code></td><td>Parte del contrato, todavía no se emiten. Contemplalos: el día que existan llegan sin avisar.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3>Las reglas</h3>
+              <ol class="g-doc-lista">
+                <li><strong>Verificá la firma antes de hacer nada</strong> (<a href="#firma">cómo</a>). Si no coincide: 401 y no tocás datos.</li>
+                <li><strong>Deduplicá por <code>evento_id</code>.</strong> Reintentamos hasta recibir un 200, con el mismo <code>evento_id</code>. Guardalo con un índice único <em>en la misma transacción</em> que el cambio: si ya estaba, contestá 200 y no hagas nada. No uses <code>enviado</code>: cambia en cada intento.</li>
+                <li><strong>Si trae <code>"prueba": true</code>, contestá 200 y no modifiques nada</strong>, sea cual sea el evento. Y no guardes su <code>evento_id</code>.</li>
+                <li><strong>Lo que no podés aplicar no mejora reintentándolo:</strong> cuenta que no existe, plan que no vendés o evento desconocido → 200 con el motivo, y no apliques nada. Los únicos que no son 200: firma inválida (401) y cuerpo que no es JSON (400).</li>
+                <li><strong>Ignorá los campos que no conozcas.</strong> Dentro de la versión 1 podemos sumar campos nuevos; nunca sacamos ni cambiamos los que están.</li>
+              </ol>
+              <div class="g-doc-codigo">
+                <span class="g-doc-codigo-rotulo">Node · Express</span>
+                <pre><code>app.post("/api/g360/webhook", express.raw({ type: "application/json" }), async (req, res) =&gt; {
+  if (!firmaValida(req.body, req.get("X-G360-Firma"))) return res.status(401).end();
+
+  let ev;
+  try { ev = JSON.parse(req.body); } catch { return res.status(400).end(); }
+
+  if (ev.prueba || ev.evento === "ping") return res.json({ ok: true });
+
+  // Una sola transacción: registrar evento_id (índice único) y aplicar el cambio.
+  const aplicado = await db.transaction(async (tx) =&gt; {
+    const nuevo = await tx.registrarEventoSiNoExiste(ev.evento_id);
+    if (!nuevo) return false;         // ya lo habíamos aplicado
+    await aplicarEvento(tx, ev);      // activar / pausar / reactivar / baja
+    return true;
+  });
+
+  res.json({ ok: true, repetido: !aplicado });
+});</code></pre>
+              </div>
+            </section>
+
+            <!-- ===================== FIRMA ===================== -->
+            <section id="firma">
+              <h2>Verificar la firma</h2>
+              <p>
+                Todo lo que te mandamos (pasos 5 y 6) viene con <code>X-G360-Firma</code>: un
+                HMAC-SHA256, en hexadecimal, del <strong>cuerpo crudo</strong> con tu secreto. Es lo que
+                impide que cualquiera que adivine tu URL se active cuentas gratis.
+              </p>
+              <div class="g-doc-nota">
+                <p>
+                  Calculala sobre los bytes tal como llegaron, <strong>antes de parsear</strong>. Si
+                  primero parseás el JSON y después lo volvés a serializar, no coincide nunca. Y
+                  comparala en tiempo constante.
+                </p>
+              </div>
+              <div class="g-doc-tabs">
+                <div class="g-doc-panel" data-lang="node">
+                  <div class="g-doc-codigo">
+                    <span class="g-doc-codigo-rotulo">Node</span>
+                    <pre><code>import crypto from "node:crypto";
+
+// cuerpoCrudo: el body tal como llegó (Buffer o string), sin parsear.
+export function firmaValida(cuerpoCrudo, firma) {
+  const esperada = crypto
+    .createHmac("sha256", process.env.G360_SECRETO)
+    .update(cuerpoCrudo)
+    .digest("hex");
+  const a = Buffer.from(esperada);
+  const b = Buffer.from(String(firma || ""));
+  return a.length === b.length &amp;&amp; crypto.timingSafeEqual(a, b);
+}</code></pre>
+                  </div>
+                </div>
+                <div class="g-doc-panel" data-lang="php">
+                  <div class="g-doc-codigo">
+                    <span class="g-doc-codigo-rotulo">PHP</span>
+                    <pre><code>$crudo    = file_get_contents('php://input');
+$firma    = $_SERVER['HTTP_X_G360_FIRMA'] ?? '';
+$esperada = hash_hmac('sha256', $crudo, getenv('G360_SECRETO'));
+
+if (!hash_equals($esperada, $firma)) {
+  http_response_code(401);
+  exit;
+}
+
+$evento = json_decode($crudo, true);</code></pre>
+                  </div>
+                </div>
+                <div class="g-doc-panel" data-lang="python">
+                  <div class="g-doc-codigo">
+                    <span class="g-doc-codigo-rotulo">Python</span>
+                    <pre><code>import hmac, hashlib, os
+from flask import request, abort
+
+crudo = request.get_data()  # bytes, sin parsear
+esperada = hmac.new(os.environ["G360_SECRETO"].encode(), crudo, hashlib.sha256).hexdigest()
+
+if not hmac.compare_digest(esperada, request.headers.get("X-G360-Firma", "")):
+    abort(401)
+
+evento = request.get_json()</code></pre>
+                  </div>
+                </div>
+              </div>
+              <p>Esperamos tu respuesta hasta 10 segundos. Tus dos rutas tienen que estar publicadas en internet: un <code>localhost</code> no sirve. Para probar antes de desplegar, exponelas con ngrok o similar.</p>
+            </section>
+
+            <!-- ===================== ERRORES ===================== -->
+            <section id="errores">
+              <h2>Errores</h2>
+              <p>
+                Los endpoints que llamás vos (pasos 2 y 4) contestan los errores siempre con la misma
+                forma. Tu código compara el <code>codigo</code>, no el texto: el texto puede cambiar de
+                redacción, el código no cambia dentro de la versión 1.
+              </p>
+              <div class="g-doc-codigo"><pre><code>{ "ok": false, "codigo": "clave_invalida", "error": "Clave inválida." }</code></pre></div>
+              <div class="g-doc-tabla-caja">
+                <table class="g-doc-tabla">
+                  <thead><tr><th>HTTP</th><th>codigo</th><th>Qué significa</th></tr></thead>
+                  <tbody>
+                    <tr><td>401</td><td><code>clave_invalida</code></td><td>La clave no sirve, o la cambiaste y el entorno tiene la vieja.</td></tr>
+                    <tr><td>400</td><td><code>json_invalido</code></td><td>El cuerpo no es JSON.</td></tr>
+                    <tr><td>400</td><td><code>falta_campo</code></td><td>Falta un campo obligatorio. El <code>error</code> dice cuál.</td></tr>
+                    <tr><td>404</td><td><code>token_desconocido</code></td><td>Ese token no es de ninguna cuenta de este producto (paso 4).</td></tr>
+                    <tr><td>500</td><td><code>error_interno</code></td><td>Falló de nuestro lado. Reintentá: los dos endpoints son idempotentes.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- ===================== PROBAR ===================== -->
+            <section id="probar">
+              <h2>Probar la API</h2>
+              <p>
+                En el panel, <em>Mis softwares → Conectar API → Probar API</em>. Un solo botón que
+                recorre la integración entera y te dice qué anda y qué falta:
+              </p>
+              <ul>
+                <li>Un alta de prueba con tu clave, que no guarda nada.</li>
+                <li>Un <code>ping</code> a tu webhook, firmado igual que un cobro.</li>
+                <li>Un <code>activar</code> con <code>prueba: true</code> a la cuenta <code>prueba-g360</code>, con uno de tus planes.</li>
+                <li>Tu endpoint de estado, por una cuenta real y por un token inventado (tiene que dar 404).</li>
+                <li>Si ya nos llegó un alta de verdad y un aviso de cambio de plan.</li>
+              </ul>
+              <p>
+                Los dos últimos no se pueden disparar desde un botón: registrá una cuenta entrando con
+                <code>?g360ref=</code> y cambiale el plan desde tu software. Después de la prueba, en
+                tu base no tiene que haber cambiado nada: si algo se activó, tu código no está
+                respetando <code>prueba: true</code>.
+              </p>
+            </section>
+
+            <!-- ===================== CON IA ===================== -->
+            <section id="con-ia">
+              <h2>Integrarla con IA</h2>
+              <p>
+                Si programás con Claude, Cursor o un asistente parecido, en el panel está esta misma
+                documentación escrita como pedido, con tus planes y tus credenciales ya adentro:
+                <em>Conectar API → Documentación de la API → Que lo haga la IA</em>. Le agregás tu
+                stack, lo pegás y te deja la integración hecha. Después la verificás con
+                <a href="#probar">Probar API</a>.
+              </p>
+              <p>
+                Tené en cuenta que ese pedido lleva tus credenciales: queda en el historial de la
+                herramienta, igual que si pegaras un <code>.env</code>. Si preferís, borralas antes de
+                enviarlo y cargalas a mano.
+              </p>
+            </section>
+
+            <!-- ===================== VERSIONES ===================== -->
+            <section id="versiones">
+              <h2>Versiones</h2>
+              <p>
+                La versión va en la URL (<code>/api/v1</code>) y en el header
+                <code>X-G360-Api-Version</code>, que viaja en las dos direcciones. Dentro de una
+                versión sólo sumamos cosas: campos nuevos, eventos nuevos. Cualquier cambio que rompa
+                una integración va en una versión nueva, y la anterior sigue andando.
+              </p>
+              <div class="g-doc-tabla-caja">
+                <table class="g-doc-tabla">
+                  <thead><tr><th>Fecha</th><th>Cambio</th></tr></thead>
+                  <tbody>
+                    <tr><td>26/09/2026</td><td>Sale la <strong>v1</strong>: <code>/api/v1/altas</code> y <code>/api/v1/cambios</code>, errores con <code>codigo</code> y header de versión. Las rutas sin versión (<code>/api/altas</code>, <code>/api/cambios</code>) siguen andando para quien ya estaba integrado.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="g-sec g-sec--dark g-sec--corta">
+      <div class="g-contenedor">
+        <div class="g-cab">
+          <span class="g-eyebrow">¿Todavía no publicaste?</span>
+          <h2 class="g-h2">Las credenciales salen <em>al publicar tu software</em></h2>
+          <p class="g-lead">Te registrás con Google, cargás la ficha y los planes, y la API queda habilitada para ese producto.</p>
+        </div>
+        <div class="g-cierre">
+          <a class="g-btn g-btn--primario g-btn--grande" href="https://app.g360ia.com.ar" target="_blank" rel="noopener">
+            Crear mi cuenta de developer
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="g-btn g-btn--fantasma g-btn--grande" href="/developers">Cómo funciona el programa</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="/g-pagina.js" defer></script>
+  <script src="/docs.js" defer></script>
+</body>
+</html>

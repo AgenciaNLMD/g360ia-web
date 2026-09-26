@@ -49,11 +49,10 @@
        referido, comisión recurrente.
 
        No se declara ninguna `Offer` ni ningún precio: acá no se contrata nada
-       online. El reparto (50/20/30) sí es fijo y va escrito en el cuerpo y en
-       el `HowTo`, porque es el dato que decide si alguien sigue leyendo. Lo que
-       no se publica es el contrato técnico del webhook —firma, formato,
-       reintentos—: se pasa por escrito a cada developer antes de integrar, y
-       publicarlo sin validar convertiría cada cambio en un breaking change. -->
+       online. El contrato técnico —endpoints, firma, errores— vive en
+       /docs/api desde el 26-sep-2026: se publicó recién cuando la API tuvo
+       versión (v1), porque es la versión la que permite cambiarla sin romper
+       a quien ya integró. -->
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -602,6 +601,7 @@
               en tu panel y lo verificamos contra tu servidor antes de publicar: es el único
               requisito que no se puede dejar para después, porque sin él la venta se cobra y
               el cliente se queda esperando. El tracking del referido no es problema tuyo.
+              <a href="/docs/api">Ver la documentación de la API</a>.
             </p>
           </article>
 
@@ -955,13 +955,13 @@
               <span class="g-rel-d">Qué hay publicado hoy y cómo se cuenta un producto</span>
             </span>
           </a>
-          <a class="g-rel-card" href="/blog/software-gestion-por-suscripcion-pymes">
+          <a class="g-rel-card" href="/docs/api">
             <span class="g-rel-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
             </span>
             <span class="g-rel-txt">
-              <span class="g-rel-n">Suscripción</span>
-              <span class="g-rel-d">Por qué el modelo por cuota cambia quién te puede vender</span>
+              <span class="g-rel-n">Documentación de la API</span>
+              <span class="g-rel-d">Credenciales, endpoints, firma y errores, con ejemplos</span>
             </span>
           </a>
         </div>

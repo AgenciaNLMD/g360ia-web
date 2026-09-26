@@ -4360,3 +4360,137 @@ body.g-light .footer-bottom {
 }
 body.g-light .footer-bottom a { color: rgba(255,255,255,0.5); }
 body.g-light .footer-bottom a:hover { color: var(--g-gold-soft); }
+
+/* ===========================================================================
+   DOCUMENTACIÓN — `/docs/*`, sobre el sistema claro
+   ---------------------------------------------------------------------------
+   Una página de referencia se lee distinto que una de venta: se entra buscando
+   un campo puntual y se vuelve muchas veces. Por eso el índice queda fijo al
+   costado en desktop, y cada bloque de código tiene su botón de copiar.
+
+   Las pestañas por lenguaje las arma `docs.js`. Sin script se ven todos los
+   ejemplos uno debajo del otro, cada uno con su rótulo: nada queda escondido.
+   =========================================================================== */
+.g-doc { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 56px; align-items: start; }
+.g-doc-indice {
+  position: sticky; top: 96px;
+  font-size: 13.5px; line-height: 1.4;
+  border-left: 1px solid var(--g-line);
+  padding-left: 16px;
+}
+.g-doc-indice-t {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--g-ink-mute); margin: 0 0 12px;
+}
+.g-doc-indice ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.g-doc-indice a { color: var(--g-ink-soft); }
+.g-doc-indice a:hover { color: var(--g-gold-ink); }
+.g-doc-indice .g-doc-indice-grupo {
+  margin-top: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--g-ink-mute);
+}
+
+.g-doc-cuerpo { min-width: 0; color: var(--g-ink); font-size: 16px; line-height: 1.7; }
+.g-doc-cuerpo > section { padding-bottom: 56px; margin-bottom: 56px; border-bottom: 1px solid var(--g-line); scroll-margin-top: 96px; }
+.g-doc-cuerpo > section:last-child { border-bottom: none; margin-bottom: 0; }
+.g-doc-cuerpo h2 { font-size: clamp(24px, 2.6vw, 30px); line-height: 1.2; margin: 0 0 14px; color: var(--g-navy); }
+.g-doc-cuerpo h3 { font-size: 18px; margin: 32px 0 10px; color: var(--g-navy); scroll-margin-top: 96px; }
+.g-doc-cuerpo p { margin: 0 0 14px; color: var(--g-ink-soft); }
+.g-doc-cuerpo p strong, .g-doc-cuerpo li strong { color: var(--g-ink); }
+.g-doc-cuerpo ul, .g-doc-cuerpo ol.g-doc-lista { margin: 0 0 16px; padding-left: 22px; color: var(--g-ink-soft); }
+.g-doc-cuerpo li { margin-bottom: 6px; }
+.g-doc-cuerpo a:not(.g-btn) { color: var(--g-gold-ink); text-decoration: underline; text-underline-offset: 2px; }
+.g-doc-cuerpo code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.88em; background: var(--g-bg-soft); border: 1px solid var(--g-line);
+  border-radius: 6px; padding: 1px 6px; color: var(--g-navy); word-break: break-word;
+}
+
+/* Método + ruta, como encabezado de cada endpoint. */
+.g-doc-ruta {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px;
+  background: var(--g-bg-soft); border: 1px solid var(--g-line); border-radius: var(--g-radio-s);
+  padding: 10px 14px; margin: 0 0 18px; color: var(--g-navy); word-break: break-all;
+}
+.g-doc-metodo {
+  font-weight: 700; font-size: 12px; letter-spacing: 0.04em; border-radius: 6px; padding: 3px 8px;
+  background: var(--g-navy); color: #fff;
+}
+.g-doc-quien {
+  font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600;
+  color: var(--g-gold-ink); background: var(--g-gold-bg); border: 1px solid var(--g-gold-line);
+  border-radius: 999px; padding: 2px 10px; margin-left: auto;
+}
+
+/* Tablas de campos y de errores. En teléfono se desplazan de costado dentro de
+   su caja en vez de romper el ancho de la página. */
+.g-doc-tabla-caja { overflow-x: auto; margin: 0 0 20px; border: 1px solid var(--g-line); border-radius: var(--g-radio-s); }
+.g-doc-tabla { width: 100%; border-collapse: collapse; font-size: 14px; }
+.g-doc-tabla th, .g-doc-tabla td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--g-line); vertical-align: top; }
+.g-doc-tabla tr:last-child td { border-bottom: none; }
+.g-doc-tabla th { background: var(--g-bg-soft); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--g-ink-mute); }
+.g-doc-tabla td { color: var(--g-ink-soft); }
+.g-doc-tabla td:first-child { white-space: nowrap; }
+
+/* Código */
+.g-doc-codigo { position: relative; margin: 0 0 20px; border-radius: var(--g-radio-s); background: var(--g-navy); overflow: hidden; }
+.g-doc-codigo pre {
+  margin: 0; padding: 18px 20px; overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13.5px; line-height: 1.6; color: #e6edf5; tab-size: 2;
+}
+.g-doc-codigo pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+.g-doc-codigo-rotulo {
+  display: block; padding: 8px 20px 0; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--g-gold-soft);
+}
+.g-doc-copiar {
+  position: absolute; top: 8px; right: 8px;
+  font: 600 12px Inter, system-ui, sans-serif; color: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 8px; padding: 4px 10px; cursor: pointer;
+}
+.g-doc-copiar:hover { background: rgba(255,255,255,0.16); color: #fff; }
+
+.g-doc-tabs-botones { display: flex; gap: 4px; padding: 8px 8px 0; background: #0a1a2c; }
+.g-doc-tab {
+  font: 600 12.5px Inter, system-ui, sans-serif; color: rgba(255,255,255,0.6);
+  background: none; border: none; border-radius: 8px 8px 0 0; padding: 7px 12px; cursor: pointer;
+}
+.g-doc-tab[aria-selected="true"] { background: var(--g-navy); color: #fff; }
+.g-doc-tabs.is-listo .g-doc-codigo-rotulo { display: none; }
+.g-doc-tabs.is-listo .g-doc-panel[hidden] { display: none; }
+.g-doc-tabs .g-doc-codigo { margin: 0; border-radius: 0; }
+.g-doc-tabs { margin: 0 0 20px; border-radius: var(--g-radio-s); overflow: hidden; background: var(--g-navy); }
+
+/* Avisos dentro del texto: `ojo` para lo que rompe plata si se hace mal. */
+.g-doc-nota {
+  border-left: 3px solid var(--g-gold); background: var(--g-gold-bg);
+  border-radius: 0 var(--g-radio-s) var(--g-radio-s) 0; padding: 14px 18px; margin: 0 0 20px;
+}
+.g-doc-nota p { margin: 0; color: var(--g-ink); font-size: 15px; }
+.g-doc-nota p + p { margin-top: 8px; }
+
+/* Los cuatro pasos del arranque, numerados. */
+.g-doc-pasos { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 12px; counter-reset: doc; }
+.g-doc-pasos li {
+  counter-increment: doc; position: relative; padding: 16px 18px 16px 62px; margin: 0;
+  border: 1px solid var(--g-line); border-radius: var(--g-radio-s); background: var(--g-bg);
+}
+.g-doc-pasos li::before {
+  content: counter(doc); position: absolute; left: 18px; top: 15px;
+  width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 700; font-size: 14px; background: var(--g-navy); color: #fff;
+}
+.g-doc-pasos li strong { display: block; color: var(--g-navy); margin-bottom: 2px; }
+
+@media (max-width: 960px) {
+  .g-doc { grid-template-columns: 1fr; gap: 32px; }
+  .g-doc-indice { position: static; border-left: none; padding: 18px; border: 1px solid var(--g-line); border-radius: var(--g-radio-s); }
+  .g-doc-indice ol { grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+}
+@media (max-width: 520px) {
+  .g-doc-indice ol { grid-template-columns: 1fr; }
+  .g-doc-quien { margin-left: 0; }
+}

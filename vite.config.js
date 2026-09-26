@@ -34,6 +34,13 @@ const legal = Object.fromEntries(
     .map((f) => ['legal/' + f.replace('.html', ''), resolve(root, 'legal', f)])
 )
 
+/* Documentación para developers: cada .html sale en dist/docs/ (hoy, /docs/api) */
+const docs = Object.fromEntries(
+  readdirSync(resolve(root, 'docs'))
+    .filter((f) => f.endsWith('.html'))
+    .map((f) => ['docs/' + f.replace('.html', ''), resolve(root, 'docs', f)])
+)
+
 export default defineConfig({
   plugins: [react()],
   build: {
@@ -57,6 +64,7 @@ export default defineConfig({
         ...software,
         ...blog,
         ...legal,
+        ...docs,
       },
     },
   },
