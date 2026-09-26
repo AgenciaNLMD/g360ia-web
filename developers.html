@@ -114,28 +114,28 @@
       "@type": "HowToStep",
       "position": 1,
       "name": "Crear la cuenta de developer",
-      "text": "El desarrollador se registra con su cuenta de Google en app.g360ia.com.ar. No hay entrevista ni aprobación de la cuenta: al registrarse acepta las condiciones del programa, que son el reparto fijo 50/20/30 y los requisitos de admisión del producto.",
+      "text": "El desarrollador se registra con su cuenta de Google en app.g360ia.com.ar. No hay entrevista ni aprobación de la cuenta: al registrarse acepta las condiciones del programa, que son las dos comisiones —la de la plataforma, fija, y la del vendedor, que define el desarrollador— y los requisitos de admisión del producto.",
       "url": "https://g360ia.com.ar/developers#como-funciona"
     },
     {
       "@type": "HowToStep",
       "position": 2,
-      "name": "Cargar el producto, el CVU y el webhook de activación",
-      "text": "Desde su panel el desarrollador carga la ficha del producto, sus planes con los precios reales, la comisión que le paga al vendedor, el CVU o alias donde quiere cobrar y dos URLs de su sistema: el webhook que activa un plan y el endpoint que responde en qué plan está cada cuenta traída por un vendedor. De cada cuota se descuentan dos comisiones: la de la plataforma, que es lo que cuesta cobrar y es igual para todo el catálogo, y la del vendedor, que la define el desarrollador. El resto es suyo. Sin esas URLs no se puede publicar.",
+      "name": "Publicar el producto y recibir las credenciales de la API",
+      "text": "Desde su panel el desarrollador carga la ficha del producto, sus planes con los precios reales y la comisión que le paga al vendedor. Al publicarlo recibe sus credenciales de API: una clave para autenticar lo que su sistema le manda a la plataforma y un secreto para verificar lo que la plataforma le manda a él. De cada cuota se descuentan dos comisiones: la de la plataforma, que es lo que cuesta cobrar y es igual para todo el catálogo, y la del vendedor, que la define el desarrollador. El resto es suyo.",
       "url": "https://g360ia.com.ar/developers#como-funciona"
     },
     {
       "@type": "HowToStep",
       "position": 3,
-      "name": "Verificar el webhook y aprobar la ficha",
-      "text": "Gestión 360 IA prueba el webhook contra el servidor real del desarrollador. Con la verificación en verde, la ficha entra a revisión y queda publicada en hasta dos horas. Desde ese momento cualquier afiliado de la red la ve en el catálogo y puede venderla con su código.",
+      "name": "Conectar la API y pasar la revisión",
+      "text": "El desarrollador conecta su sistema con la API de Gestión 360 IA siguiendo la documentación pública, y la prueba desde su panel con un botón que recorre la integración entera. En paralelo la agencia revisa la ficha. El producto entra al catálogo cuando está aprobado y su sistema contesta la consulta diaria de estado; desde ese momento cualquier afiliado de la red lo ve y puede venderlo con su link.",
       "url": "https://g360ia.com.ar/developers#como-funciona"
     },
     {
       "@type": "HowToStep",
       "position": 4,
       "name": "Cobrar, repartir y activar el plan",
-      "text": "La suscripción se cobra desde el catálogo, que reparte cada cuota 50/20/30 entre el desarrollador, el afiliado y Gestión 360 IA, y liquida cada parte por transferencia al CVU cargado en el panel. Al confirmarse el pago, el catálogo llama al webhook del desarrollador y el plan queda activo en el momento.",
+      "text": "El negocio que trajo un afiliado paga por el checkout del catálogo, que reparte la cuota y le avisa al sistema del desarrollador para que active el plan, o paga adentro del software del desarrollador, que se lo informa a la API; en ese caso la comisión del vendedor se descuenta del saldo prepago del desarrollador. Cada parte se liquida por transferencia.",
       "url": "https://g360ia.com.ar/developers#reparto"
     }
   ]
@@ -153,7 +153,7 @@
       "name": "¿Cuánto cuesta publicar mi software en el catálogo?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nada por adelantado. No se cobra por publicar, ni por estar listado, ni una cuota por mantener la ficha. El costo son dos comisiones y las dos existen sólo sobre plata que ya entró: la de la plataforma, que es lo que cuesta cobrar, y la que el desarrollador elige pagarle al vendedor. Si nadie vende el producto, no se paga nada. Aparte hay dos cosas opcionales que se pueden contratar —ampliar el cupo de afiliados y los listados de contacto del rubro—, pero nada de eso es necesario para estar publicado."
+        "text": "Nada por adelantado. No se cobra por publicar, ni por estar listado, ni una cuota por mantener la ficha. El costo son dos comisiones y las dos existen sólo sobre plata que ya entró: la de la plataforma, que es lo que cuesta cobrar, y la que el desarrollador elige pagarle al vendedor. Si nadie vende el producto, no se paga nada. Aparte está el plan pago, opcional, que amplía el cupo de vendedores por producto y la cantidad de productos en el catálogo; no es necesario para estar publicado."
       }
     },
     {
@@ -161,7 +161,7 @@
       "name": "¿Pierdo el control de mi producto o de mis clientes?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "El producto es tuyo y corre en tu infraestructura: no lo alojamos, no lo tocamos y no entramos en tus decisiones. El cliente usa tu software con tu marca y te escribe a vos cuando algo no anda. Lo que sí pasa por el catálogo es el cobro, porque es la única forma de repartir una cuota entre tres partes sin que nadie dependa de la buena fe del otro. No es una adquisición ni una sociedad."
+        "text": "El producto es tuyo y corre en tu infraestructura: no lo alojamos, no lo tocamos y no entramos en tus decisiones. El cliente usa tu software con tu marca y te escribe a vos cuando algo no anda. El cobro puede pasar por el checkout del catálogo o seguir en el tuyo: si cobrás vos, la comisión del vendedor se descuenta de tu saldo prepago y la API nos informa el plan de cada cuenta, así nadie depende de la buena fe del otro. No es una adquisición ni una sociedad."
       }
     },
     {
@@ -193,7 +193,7 @@
       "name": "¿Cuánto tarda en publicarse mi producto?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Hasta dos horas desde que tu webhook pasa la verificación. El orden importa: primero cargás la ficha y la URL del webhook en tu panel, nosotros lo probamos contra tu servidor, y recién con esa prueba en verde la ficha entra a revisión. Sin webhook verificado no hay publicación, por más completa que esté la ficha."
+        "text": "Se publica en el momento: el producto queda en revisión y recibís tus credenciales de API. Entra al catálogo cuando la agencia aprueba la ficha y tu sistema ya está conectado —avisa las altas y contesta la consulta diaria de estado—. Lo podés comprobar vos mismo desde el panel con el botón Probar API."
       }
     },
     {
@@ -201,7 +201,7 @@
       "name": "¿Hay algo más que pueda pagar, además de la comisión?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Dos cosas, las dos opcionales y las dos las decidís vos. Una es ampliar el cupo de afiliados: cada producto arranca con hasta cinco vendiéndolo a la vez, y si querés más, se amplía. La otra son los listados de contacto del rubro de tu producto, para que los afiliados que lo venden tengan a quién golpearle la puerta desde el primer día. Publicar y estar en el catálogo no cuesta nada."
+        "text": "Una sola, opcional: el plan pago, que amplía el cupo de afiliados —cada producto arranca con hasta cinco vendiéndolo a la vez— y te deja tener más productos en el catálogo. Publicar y estar en el catálogo no cuesta nada."
       }
     },
     {
@@ -209,7 +209,7 @@
       "name": "¿Cómo se registra que un cliente vino de un afiliado?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "De nuestro lado, y a propósito. El link del afiliado pasa primero por un redirect nuestro, que registra el click y recién ahí manda a la persona a tu sitio. No tenés que implementar ningún ?ref=, ni guardar códigos, ni discutir después de quién era la venta: cuando el pago se confirma, ya sabemos qué afiliado la trajo."
+        "text": "El link del afiliado pasa primero por un redirect nuestro, que genera un identificador de esa visita y recién ahí manda a la persona a tu sitio. Tu sistema lo guarda y nos lo informa por la API cuando esa persona se registra; desde ese momento la cuenta queda atada a ese afiliado para siempre, aunque pague meses después y adentro de tu software."
       }
     },
     {
@@ -225,7 +225,7 @@
       "name": "¿Cuánto trabajo de integración es esto para mí?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Un endpoint que reciba una llamada firmada y active el plan de un usuario. Nada más: el cobro, el reparto y el seguimiento del referido son nuestros. El contrato exacto —firma, formato y reintentos— te lo pasamos por escrito antes de que escribas una línea, y con los primeros productos lo integramos a mano y acompañados, no tirándote una documentación y suerte."
+        "text": "Un campo en tu tabla de cuentas y cuatro puntos de contacto con nuestra API: avisar las altas, avisar los cambios de plan, una ruta que conteste en qué plan está una cuenta y, opcional, un webhook que active el plan cuando cobramos nosotros. Todo está en la documentación pública, en g360ia.com.ar/docs/api, y el panel te arma el pedido completo para tu asistente de código. Con el botón Probar API ves en el momento qué anda y qué falta."
       }
     },
     {
@@ -443,35 +443,36 @@
             <h3>Creás tu cuenta</h3>
             <p>
               Entrás con tu cuenta de Google y listo. Al registrarte aceptás las condiciones
-              del programa —el reparto 50/20/30 y los requisitos de más abajo—, así que no hay
+              del programa —las dos comisiones y los requisitos de más abajo—, así que no hay
               nada que negociar después.
             </p>
           </article>
           <article class="g-paso">
             <span class="g-paso-n">02</span>
-            <h3>Cargás tu producto y tu webhook</h3>
+            <h3>Publicás y recibís tus credenciales</h3>
             <p>
-              Desde tu panel cargás la ficha —qué hace, capturas, demo, precios—, el CVU o
-              alias donde querés cobrar, y la <strong>URL del webhook</strong> que activa un
-              plan en tu sistema. Sin webhook cargado no se puede publicar nada.
+              Desde tu panel cargás la ficha —qué hace, capturas, demo, planes y comisión— en
+              seis pasos. Al publicar recibís tus <strong>credenciales de API</strong>, como en
+              Google Maps o Mercado Pago: una clave y un secreto propios de ese producto.
             </p>
           </article>
           <article class="g-paso">
             <span class="g-paso-n">03</span>
-            <h3>Verificamos y aprobamos</h3>
+            <h3>Conectás la API y la probás</h3>
             <p>
-              Probamos tu webhook contra tu servidor de verdad: si no responde como dice el
-              contrato, no entra. Con la prueba en verde, la ficha pasa a revisión y queda
-              publicada en <strong>hasta dos horas</strong>.
+              Conectás tu sistema siguiendo la <a class="g-link" href="/docs/api">documentación</a>
+              y lo probás con un botón que recorre la integración entera. En paralelo revisamos
+              la ficha: entra al catálogo cuando está aprobada y tu sistema ya contesta.
             </p>
           </article>
           <article class="g-paso">
             <span class="g-paso-n">04</span>
             <h3>Se cobra y se reparte</h3>
             <p>
-              El afiliado lo ve en el catálogo y lo vende con su código. La suscripción se
-              cobra desde el catálogo, el reparto sale solo y tu sistema recibe el aviso para
-              activar el plan en el momento en que el pago se confirma.
+              El afiliado lo ve en el catálogo y lo vende con su link. El negocio paga por
+              nuestro checkout —y tu sistema recibe el aviso para activar el plan— o adentro de
+              tu software, y ahí la comisión del vendedor sale de tu saldo prepago. El reparto
+              sale solo.
             </p>
           </article>
         </div>
@@ -512,9 +513,9 @@
             <ul>
               <li>El producto funcionando, con clientes reales que ya lo pagan</li>
               <li>La demostración, la puesta en marcha y el soporte del día a día</li>
-              <li>El webhook de activación y el endpoint de estado, verificados antes de publicar</li>
-              <li>La ficha, tus planes con los precios reales y tu CVU o alias, desde tu panel</li>
-              <li>La comisión de la plataforma y la que vos le fijes al vendedor, sobre lo cobrado</li>
+              <li>Tu sistema conectado a nuestra API, con las credenciales en variables de entorno</li>
+              <li>La ficha y tus planes con los precios reales, desde tu panel</li>
+              <li>La comisión que le fijes al vendedor, y la de la plataforma sobre lo que cobra nuestro checkout</li>
               <li>Tu propia infraestructura: el software sigue corriendo donde vos lo tenés</li>
             </ul>
           </div>
@@ -526,11 +527,11 @@
             </h3>
             <ul>
               <li>La red de afiliados y el alta de cada vendedor</li>
-              <li>Tu panel para cargar la ficha, el webhook y el CVU, y ver tus liquidaciones</li>
-              <li>El seguimiento del referido, de punta a punta: el link pasa por nuestro redirect, así no tenés que implementar nada</li>
-              <li>El cobro de la suscripción, el reparto entre las tres partes y la liquidación por transferencia</li>
+              <li>Tu panel para publicar, ver tus credenciales de API y tus liquidaciones</li>
+              <li>El seguimiento del referido: el link pasa por nuestro redirect y vos sólo guardás el identificador que llega</li>
+              <li>El checkout para cobrar la suscripción, el reparto entre las tres partes y la liquidación por transferencia</li>
               <li>El aviso a tu sistema cuando el pago está confirmado, con reintentos si estás caído</li>
-              <li>La verificación de tu webhook antes de publicar, para que no salga algo roto a la red</li>
+              <li>La API, su documentación pública y la prueba automática de tu conexión, antes y después de publicar</li>
             </ul>
           </div>
         </div>
@@ -595,12 +596,12 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg>
             </span>
             <span class="g-card-kick">Requisito 04</span>
-            <h3 class="g-card-t">Cargás un webhook y lo probamos</h3>
+            <h3 class="g-card-t">Te conectás a nuestra API</h3>
             <p class="g-card-p">
-              Un endpoint que reciba «a este usuario activale este plan» y lo haga. Lo cargás
-              en tu panel y lo verificamos contra tu servidor antes de publicar: es el único
-              requisito que no se puede dejar para después, porque sin él la venta se cobra y
-              el cliente se queda esperando. El tracking del referido no es problema tuyo.
+              Tu sistema nos avisa las altas y los cambios de plan, y contesta en qué plan está
+              cada cuenta que trajo un vendedor. Es el único requisito técnico y no se puede
+              dejar para después: sin él, una venta hecha adentro de tu software no la ve nadie
+              y el vendedor no cobra. Lo probás vos mismo desde el panel.
               <a href="/docs/api">Ver la documentación de la API</a>.
             </p>
           </article>
@@ -673,9 +674,8 @@
               no pedimos participación y no entramos en tus decisiones de producto.
             </p>
             <p>
-              <strong>No nos quedamos con tu cliente.</strong> El cobro sí pasa por el
-              catálogo —es la única forma de repartir entre tres partes sin que nadie tenga
-              que confiar en la palabra del otro—, pero el cliente es tuyo: usa tu producto,
+              <strong>No nos quedamos con tu cliente.</strong> El cobro puede pasar por
+              nuestro checkout o seguir en el tuyo, pero el cliente es tuyo: usa tu producto,
               te escribe a vos y se va con vos si un día nos vamos nosotros.
             </p>
             <p>
@@ -710,9 +710,8 @@
               plata que ya entró: <strong>la de la plataforma</strong> —lo que cuesta cobrar— y
               <strong>la que vos elegís pagarle al vendedor</strong>. Los dos porcentajes están en
               las condiciones que aceptás al registrarte y a la vista en tu panel. Si nadie vende
-              tu producto, no pagás nada. Aparte hay dos cosas opcionales —ampliar el cupo de
-              afiliados y los listados de contacto del rubro—, pero nada de eso es necesario para
-              estar publicado.
+              tu producto, no pagás nada. Aparte está el plan pago, opcional, que amplía el
+              cupo de vendedores por producto; no hace falta para estar publicado.
             </p>
           </details>
           <details>
@@ -720,9 +719,10 @@
             <p class="g-faq-r">
               El producto es tuyo y corre en tu infraestructura: no lo alojamos, no lo tocamos
               y no entramos en tus decisiones. El cliente usa tu software con tu marca y te
-              escribe a vos cuando algo no anda. Lo que sí pasa por el catálogo es el cobro,
-              porque es la única forma de repartir una cuota entre tres partes sin que nadie
-              dependa de la buena fe del otro. No es una adquisición ni una sociedad.
+              escribe a vos cuando algo no anda. El cobro puede pasar por nuestro checkout o
+              seguir en el tuyo: si cobrás vos, la comisión del vendedor sale de tu saldo prepago
+              y la API nos dice en qué plan está cada cuenta, así nadie depende de la buena fe
+              del otro. No es una adquisición ni una sociedad.
             </p>
           </details>
           <details>
@@ -770,23 +770,19 @@
           <details>
             <summary>¿Cuánto tarda en publicarse mi producto?</summary>
             <p class="g-faq-r">
-              Hasta dos horas desde que tus URLs pasan la verificación. El orden importa: primero
-              cargás la ficha, tus planes con los precios reales y las dos URLs de tu sistema
-              —el webhook que activa un plan y el endpoint que responde en qué plan está cada
-              cuenta—, nosotros las probamos contra tu servidor, y recién con esa prueba en verde
-              la ficha entra a revisión. Sin las dos verificadas no hay publicación, por más
-              completa que esté la ficha.
+              Se publica en el momento: el producto queda en revisión y recibís tus credenciales
+              de API. Entra al catálogo cuando aprobamos la ficha y tu sistema ya está conectado
+              —nos avisa las altas y contesta la consulta diaria de estado—. No hace falta
+              esperar a nadie para saber si anda: el botón <strong>Probar API</strong> de tu
+              panel te lo dice en el momento.
             </p>
           </details>
           <details>
             <summary>¿Hay algo más que pueda pagar, además de la comisión?</summary>
             <p class="g-faq-r">
-              Dos cosas, las dos opcionales y las dos las decidís vos. Una es <strong>ampliar
-              el cupo de afiliados</strong>: cada producto arranca con hasta cinco vendiéndolo
-              a la vez, y si querés más, se amplía. La otra son los
-              <strong>listados de contacto</strong> del rubro de tu producto, para que los
-              afiliados que lo venden tengan a quién golpearle la puerta desde el primer día.
-              Publicar y estar en el catálogo no cuesta nada.
+              Una sola, opcional: el <strong>plan pago</strong>, que amplía el cupo de
+              afiliados —cada producto arranca con hasta cinco vendiéndolo a la vez— y te deja
+              tener más productos en el catálogo. Publicar y estar en el catálogo no cuesta nada.
             </p>
           </details>
           <details>
@@ -794,8 +790,8 @@
             <p class="g-faq-r">
               El link del afiliado pasa primero por un redirect nuestro, que <strong>genera un
               identificador de esa visita</strong> y recién ahí manda a la persona a tu sitio. Vos
-              lo recibís en la URL y lo guardás junto a la cuenta cuando esa persona se registra:
-              es un campo de texto y una línea al crear el usuario.
+              lo recibís en la URL, lo guardás junto a la cuenta cuando esa persona se registra y
+              nos lo informás por la API: un campo de texto y una llamada al crear el usuario.
             </p>
             <p class="g-faq-r">
               Ese identificador <strong>queda atado a esa cuenta para siempre</strong> y es lo que
@@ -818,13 +814,15 @@
           <details>
             <summary>¿Cuánto trabajo de integración es esto para mí?</summary>
             <p class="g-faq-r">
-              Un campo de texto en tu tabla de cuentas, una llamada cuando alguien se registra, y
-              dos endpoints: uno que reciba una llamada firmada y active el plan, y otro que
-              conteste en qué plan está una cuenta. Nada más. El panel te genera el pedido
-              completo, con tus claves y tus planes adentro, para que se lo pases a tu asistente
-              de código y lo tengas andando en una tarde. Con los primeros productos lo
-              integramos a mano y acompañados, no tirándote una documentación y suerte.
+              Un campo de texto en tu tabla de cuentas y cuatro puntos de contacto con nuestra
+              API: avisar las altas, avisar los cambios de plan, una ruta que conteste en qué plan
+              está una cuenta y, opcional, un webhook que active el plan cuando cobramos
+              nosotros. Está todo en la <a class="g-link" href="/docs/api">documentación de la
+              API</a>, y el panel te arma el pedido completo, con tus credenciales y tus planes
+              adentro, para tu asistente de código. Con <strong>Probar API</strong> ves en el
+              momento qué anda y qué falta.
             </p>
+          </details>
           <details>
             <summary>¿Qué tan grande es la red de afiliados hoy?</summary>
             <p class="g-faq-r">
@@ -975,9 +973,9 @@
           <span class="g-eyebrow">Empezar</span>
           <h2 class="g-h2">No hay entrevista:<br /><em>hay requisitos y un panel</em></h2>
           <p class="g-lead">
-            Te registrás con tu cuenta de Google, cargás la ficha, el CVU y el webhook, y lo
-            único que se revisa es que el webhook responda y que el producto cumpla los seis
-            requisitos. Si cumple, está publicado el mismo día.
+            Te registrás con tu cuenta de Google, publicás tu software y recibís tus
+            credenciales de API. Conectás tu sistema, lo probás desde el panel y, con la ficha
+            aprobada y los seis requisitos cumplidos, entra al catálogo.
           </p>
         </div>
         <div class="g-cierre g-rev">

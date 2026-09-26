@@ -214,7 +214,8 @@ un producto—. El panel vive en el repo `g360ia-PRM`.
 
 El alta es **self-service en las dos puntas**: no hay entrevista, ni aprobación de cuenta, ni
 comisión que negociar. Al registrarse se aceptan las condiciones. Lo único que se revisa es el
-producto del developer: que el webhook responda y que cumpla los seis requisitos.
+producto del developer: que su sistema esté conectado a la API (documentada en `/docs/api`,
+repo `g360ia-PRM`, `app/api/v1`) y que cumpla los seis requisitos.
 
 ### Comisión de afiliados y reparto del catálogo
 
