@@ -230,8 +230,10 @@ Dónde está el número de verdad, en orden de autoridad:
 
 1. Lo que cada afiliado o developer **aceptó al registrarse**, guardado en su fila con
    `CONDICIONES_VERSION` en `g360ia-PRM`. Es lo único que respalda una liquidación discutida.
-2. El brief de `g360ia-catalogo` (`README.md`, bloque «Reparto y monetización»), que es la
-   fuente de verdad del split, y la base del turnero para la comisión de los productos propios.
+2. `g360ia-PRM/planes.md`, que es la fuente de las reglas de negocio del programa —la plata,
+   los cupos, los niveles, la prospección—, y la base del turnero para la comisión de los
+   productos propios. (`g360ia-PRM/brief.md` es el resumen para inversores: trae proyecciones
+   y propuestas que no están construidas, así que no se copia al sitio.)
 3. Las copias que el sitio muestra, que salen de las dos anteriores y nunca al revés.
 
 Cuando el reparto o la comisión cambian en la fuente, hay que tocar **todas estas copias**,
@@ -265,19 +267,30 @@ un porcentaje del reparto: el **0** de costo fijo para publicar, o los **12** me
 | `/afiliados` | cinta, paso 04 y FAQ. La calculadora ya **no** tiene constante: la comisión es un control más |
 | `/developers` | cinta del hero, requisito 06, la comparativa y la FAQ (las dos copias: JSON-LD y visible) |
 | `/legal/terminos` | puntos 7.2, 7.3, 8.1 y 8.3 — y subir la versión del documento |
-| `/developers` | cinta, requisito 06, FAQ y el `HowTo` |
-| `/legal/terminos` | puntos 7.2 y 8.1 |
 
 `/legal/terminos` es la copia delicada: ahí el reparto no es un argumento de venta sino una
 condición escrita, así que es la que no puede quedar atrasada respecto de lo que el panel le
 hizo aceptar a la gente.
 
-Lo que sí es criterio y por eso se escribe acá: desde el **16-sep-2026 el reparto es fijo para
-todo el catálogo**, propio y de partners, y **no se negocia por producto**. La razón está en
-las dos páginas: si cada producto paga distinto, el afiliado elige el que más le paga a él en
-vez del que le sirve al cliente, y el catálogo se vuelve un ranking de comisiones. La parte del
-afiliado tampoco se tocó al fusionar los dos programas, justamente para no obligar a
-renegociar nada.
+Historia, para no volver atrás: del 16-sep-2026 hasta fines de septiembre el reparto fue fijo
+para todo el catálogo y no se negociaba por producto. Se abandonó: hoy lo fijo es sólo la parte
+de la plataforma, y la del vendedor la elige cada developer con el promedio y el máximo de su
+rubro a la vista. Lo que evita el «ranking de comisiones» ya no es un número único sino que la
+ficha muestre cuánta plata deja cada negocio por mes, que es lo que el vendedor compara.
+
+### Las reglas del programa también envejecen
+
+Lo mismo que con los porcentajes pasa con los cupos, los ritmos y los niveles: salen de
+`g360ia-PRM/planes.md` y de la tabla `plan_cuenta` / la función `nivel_developer(n)`, y
+cambian con un UPDATE. Por eso las páginas describen **el mecanismo** (el lugar se sostiene
+con ventas nuevas, los niveles suman vendedores y productos) y evitan fijar cuántos lugares
+trae cada nivel. Se descubrió el 28-sep-2026: `/developers` decía «hasta cinco vendedores»
+cuando el nivel gratis ya tenía tres, y `/afiliados` y el punto 7.3 de `/legal/terminos`
+seguían diciendo que la primera venta paga volvía el lugar permanente, regla que se había
+reemplazado por los 45 días por negocio nuevo.
+
+Al cambiar una regla del programa en `planes.md`, revisar: `/afiliados` (FAQ, `HowTo`),
+`/developers` (requisitos, FAQ, `HowTo`) y `/legal/terminos` (7.3), subiendo la versión.
 
 ### Los legales son tres y viven en `/legal`
 
@@ -419,8 +432,8 @@ mismas búsquedas se partirían la señal.
 ### Los números del programa no viven en este repo
 
 `PCT_AFILIADO` y compañía viven en `g360ia-PRM/app/lib/programa.js` y en la base del turnero;
-acá sólo hay una copia para mostrar (`COMISION_PCT` en `data.jsx`) y el texto de las páginas.
-La fuente de verdad es el brief (`g360ia-PRM/app/README.md`), y lo que obliga frente a una
+acá no hay ninguna copia, sólo el texto de las páginas.
+La fuente de verdad es `g360ia-PRM/planes.md`, y lo que obliga frente a una
 persona concreta es la versión que aceptó al registrarse, guardada en su fila con
 `CONDICIONES_VERSION`.
 
