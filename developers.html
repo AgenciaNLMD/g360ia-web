@@ -694,6 +694,97 @@
       </div>
     </section>
 
+    <!-- ===================== 6b · NIVELES =====================
+         Lo que el developer puede pagar, opcional. Ningún precio ni cupo está
+         escrito acá: la tabla la llena /planes.js desde
+         app.g360ia.com.ar/api/planes, que lee `nivel_developer(n)`, la misma
+         función con la que el panel cobra. Sin la API, la tabla queda oculta y
+         la lista de arriba explica el mecanismo sin números. Va después de
+         «Dónde está esto hoy» a propósito: el tope de los niveles es el tamaño
+         de la red. -->
+    <section class="g-sec g-sec--warm" id="niveles">
+      <div class="g-contenedor">
+        <div class="g-split">
+          <div class="g-rev">
+            <span class="g-eyebrow">Niveles</span>
+            <h2 class="g-h2">Publicar es gratis.<br /><em>Más vendedores, si los querés</em></h2>
+            <p class="g-lead" style="margin-bottom: 22px">
+              Lo que se paga no es un tablero ni un reporte: es <strong>acceso a más
+              vendedores</strong>. El Nivel 1 es gratis y trae
+              <span data-plan="dev-nivel1-cupo">un cupo chico de</span> vendedores por producto y
+              <span data-plan="dev-nivel1-softwares">pocos</span> softwares en el catálogo. Cada
+              nivel pago suma lugares y productos, y se paga cada
+              <span data-plan="dev-dias">30</span> días, sin débito automático: si no renovás,
+              volvés al Nivel 1 sin que nadie te baje nada.
+            </p>
+            <ul class="g-lista">
+              <li><strong>Lo elegís con una barra</strong> en «Mi nivel», dentro de tu panel</li>
+              <li><strong>Renovar suma días</strong>; cambiar de nivel pasa los días que te quedaban según lo que vale cada uno</li>
+              <li>Desde el primer nivel pago, <strong>tu ficha sale destacada</strong> y podés mandarles un aviso a los vendedores</li>
+              <li><strong>El tope es la red</strong>: no te vendemos un nivel con más vendedores de los que hay. Si no alcanza, el panel te lo dice y te sugiere el más alto posible</li>
+            </ul>
+          </div>
+
+          <!-- min-width:0: sin esto la columna crece hasta el ancho mínimo de la
+               tabla y se come el costado de la página en el teléfono. -->
+          <div class="g-rev" style="--g-delay: 120ms; min-width: 0">
+            <span class="g-etiqueta g-etiqueta--gris" data-plan-estado="dev-niveles">Próximamente</span>
+            <div class="g-tabla-caja g-tabla-caja--scroll" hidden>
+              <table class="g-tabla">
+                <thead>
+                  <tr>
+                    <th scope="col">Nivel</th>
+                    <th scope="col">Cada <span data-plan="dev-dias">30</span> días</th>
+                    <th scope="col">Vendedores por producto</th>
+                    <th scope="col">Softwares</th>
+                    <th scope="col">Contactos de regalo por vendedor</th>
+                  </tr>
+                </thead>
+                <tbody data-plan-niveles></tbody>
+              </table>
+            </div>
+            <p class="g-calc-nota" data-plan="dev-nivel-siguiente">
+              Los niveles no tienen techo: los precios y los cupos de cada uno están en tu panel.
+            </p>
+          </div>
+        </div>
+
+        <div class="g-grid g-grid--3 g-rev" style="margin-top: 32px">
+          <article class="g-card">
+            <h3 class="g-card-t">Contactos para tus vendedores</h3>
+            <p class="g-card-p" style="margin-bottom:0">
+              Desde el primer nivel pago, cada vendedor que toma tu software recibe
+              <span data-plan="dev-regalo-por-vendedor">un paquete de</span> contactos de negocios
+              reales de tu rubro, sacados de Google Maps. Arranca a llamar el primer día en vez de
+              salir a buscar a quién.
+            </p>
+          </article>
+          <article class="g-card">
+            <span class="g-etiqueta g-etiqueta--gris" data-plan-estado="dev-regalo">Próximamente</span>
+            <h3 class="g-card-t">Regalo al que trabaja bien</h3>
+            <p class="g-card-p" style="margin-bottom:0">
+              En «Mis vendedores» ves qué hace cada uno con los contactos que le financiaste:
+              contactados, respuestas, altas y ventas. Al que los trabaja le podés regalar más,
+              <span data-plan="dev-regalo">por paquete</span>, y le llega el aviso.
+            </p>
+          </article>
+          <article class="g-card">
+            <h3 class="g-card-t">Lista de espera</h3>
+            <p class="g-card-p" style="margin-bottom:0">
+              Si tu producto está lleno, el vendedor marca «Lo quiero vender» y vos ves cuántos
+              esperan. Cuando subís de nivel, les llega un aviso por orden de llegada: los lugares
+              nuevos no quedan vacíos.
+            </p>
+          </article>
+        </div>
+
+        <p class="g-calc-nota g-rev">
+          Los precios están en dólares y salen del panel, que es el que cobra: cambian ahí, no en
+          esta página. Nada de esto hace falta para estar publicado ni cambia las dos comisiones.
+        </p>
+      </div>
+    </section>
+
     <!-- ===================== 7 · PREGUNTAS FRECUENTES ===================== -->
     <section class="g-sec g-sec--soft" id="preguntas">
       <div class="g-contenedor">
@@ -712,7 +803,8 @@
               <strong>la que vos elegís pagarle al vendedor</strong>. Los dos porcentajes están en
               las condiciones que aceptás al registrarte y a la vista en tu panel. Si nadie vende
               tu producto, no pagás nada. Aparte están los <strong>niveles pagos</strong>, opcionales,
-              que amplían el cupo de vendedores por producto; no hacen falta para estar publicado.
+              que amplían el cupo de vendedores por producto (ver <a class="g-link" href="#niveles">niveles</a>);
+              no hacen falta para estar publicado.
             </p>
           </details>
           <details>
@@ -1004,5 +1096,6 @@
   <div id="site-footer"></div>
 
   <script src="/g-pagina.js" defer></script>
+  <script src="/planes.js" defer></script>
 </body>
 </html>

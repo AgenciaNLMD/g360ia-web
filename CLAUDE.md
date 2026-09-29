@@ -292,6 +292,21 @@ reemplazado por los 45 días por negocio nuevo.
 Al cambiar una regla del programa en `planes.md`, revisar: `/afiliados` (FAQ, `HowTo`),
 `/developers` (requisitos, FAQ, `HowTo`) y `/legal/terminos` (7.3), subiendo la versión.
 
+### Los precios de los planes se leen, no se escriben
+
+`/afiliados#planes` (Free/Pro del vendedor, paquetes de contactos, extensión del lugar) y
+`/developers#niveles` (la tabla de niveles, los contactos de regalo) muestran precios y cupos
+sin tener ninguno escrito: los pone `public/planes.js`, que pide
+`app.g360ia.com.ar/api/planes` (repo `g360ia-PRM`, `app/api/planes/route.js`). Esa ruta lee
+`plan_cuenta`, `nivel_developer(n)` y las constantes de cobro, así que un UPDATE en el panel
+cambia la página sin tocar este repo.
+
+Cada `[data-plan]` trae un texto de reserva que se lee bien sin número, por si la API no
+contesta; la tabla de niveles arranca `hidden`. Las etiquetas `[data-plan-estado]` dicen
+«Próximamente» hasta que la API devuelve `disponible: true`, que pasa cuando dLocal Go deja el
+sandbox (y, para el Pro del vendedor, cuando tenga checkout: `PRO_AFILIADO_CONTRATABLE` en esa
+ruta). Al sumar un plan o un paquete nuevo: el dato va en la ruta, y acá sólo el `data-plan`.
+
 ### Los legales son tres y viven en `/legal`
 
 `aviso-legal` (titularidad y uso del sitio), `privacidad` (datos) y `terminos` (las

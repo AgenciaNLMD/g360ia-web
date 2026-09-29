@@ -198,7 +198,7 @@
       "name": "¿Tengo que invertir algo para entrar?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. No se compra stock, no se paga una licencia de vendedor y crear la cuenta es gratis y queda lista en el momento. Lo que sí hay es un ritmo para conservar el lugar en cada producto: traer el mínimo de altas que fija su ficha cada 15 días, y lograr una suscripción paga antes de los 30. Después, cada negocio nuevo que paga te da 45 días más de lugar: si pasan 45 días sin uno, el lugar se libera y ese producto no se puede volver a tomar por 10 días, salvo que lo mantengas pagando la extensión que muestra el panel. Si el lugar se libera, no perdés lo que ya trajiste: esos clientes se te siguen liquidando mientras paguen."
+        "text": "No. No se compra stock, no se paga una licencia de vendedor y crear la cuenta es gratis y queda lista en el momento. El plan gratis alcanza para vender y cobrar; el plan Pro, con CRM, WhatsApp conectado y prospección de negocios, es opcional. Lo que sí hay es un ritmo para conservar el lugar en cada producto: traer el mínimo de altas que fija su ficha cada 15 días, y lograr una suscripción paga antes de los 30. Después, cada negocio nuevo que paga te da 45 días más de lugar: si pasan 45 días sin uno, el lugar se libera y ese producto no se puede volver a tomar por 10 días, salvo que lo mantengas pagando la extensión que muestra el panel. Si el lugar se libera, no perdés lo que ya trajiste: esos clientes se te siguen liquidando mientras paguen."
       }
     },
     {
@@ -774,6 +774,102 @@
       </div>
     </section>
 
+    <!-- ===================== 8b · PLANES DEL VENDEDOR =====================
+         Qué es gratis y qué es pago del lado del que vende. Ningún precio ni
+         límite está escrito acá: los pone /planes.js desde
+         app.g360ia.com.ar/api/planes, que lee lo mismo con lo que cobra el
+         panel. El texto de reserva de cada [data-plan] se lee bien solo, por si
+         la API no contesta. Mientras un pago no se pueda hacer de verdad, su
+         etiqueta dice «Próximamente». -->
+    <section class="g-sec" id="planes">
+      <div class="g-contenedor">
+        <div class="g-cab g-rev">
+          <span class="g-eyebrow">Planes del vendedor</span>
+          <h2 class="g-h2">Vender es gratis.<br /><em>Las herramientas son opcionales</em></h2>
+          <p class="g-lead">
+            El plan gratis alcanza para vender y cobrar. El Pro suma lo que hace falta para
+            vender con volumen: un CRM, tu WhatsApp conectado y negocios reales del rubro para
+            contactar. Nada de esto es obligatorio para cobrar tus comisiones.
+          </p>
+        </div>
+
+        <div class="g-comp g-rev">
+          <div class="g-comp-col">
+            <span class="g-etiqueta">Disponible</span>
+            <h3 class="g-comp-t">Free · gratis</h3>
+            <ul>
+              <li>Un ritmo de <strong><span data-plan="afi-free-semana">pocos</span> softwares nuevos por semana</strong>: no es un total, es un ritmo, para que nadie acapare lugares sin vender</li>
+              <li>Tu link de referido por cada software, con su QR</li>
+              <li>El panel de comisiones: qué trajiste, qué se liquidó y qué está pendiente</li>
+              <li>Cobro el segundo viernes de cada mes</li>
+            </ul>
+          </div>
+          <div class="g-comp-col g-comp-col--si">
+            <span class="g-etiqueta g-etiqueta--gris" data-plan-estado="afi-pro">Próximamente</span>
+            <h3 class="g-comp-t"><span>Pro · <span data-plan="afi-pro-precio">cuota mensual</span></span></h3>
+            <ul>
+              <li>Softwares nuevos <strong>sin tope semanal</strong></li>
+              <li><strong>CRM</strong> por software: pipeline de Nuevo a Ganado, contactos y agenda con «volver a llamar»</li>
+              <li><strong>Tu WhatsApp conectado</strong> al CRM, con tu propio número — nunca uno de la plataforma</li>
+              <li><strong>Prospección con cupo mensual</strong>: negocios reales de Google Maps, del rubro del software que vendés</li>
+              <li>Recordatorios automáticos y embudo propio, en desarrollo</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="g-grid g-grid--3 g-rev" style="margin-top: 18px">
+          <article class="g-card">
+            <span class="g-etiqueta g-etiqueta--gris" data-plan-estado="afi-paquete">Próximamente</span>
+            <h3 class="g-card-t">Paquetes de contactos</h3>
+            <p class="g-card-p">
+              <strong><span data-plan="afi-paquete">Se compran por paquete</span></strong>, por
+              software, eligiendo rubro y ciudad desde el CRM. La búsqueda corre sola cuando se
+              aprueba el pago, y cada negocio se le asigna a <strong>un solo vendedor</strong> de
+              toda la red: nadie más le escribe al mismo.
+            </p>
+            <p class="g-card-p" style="margin-bottom:0">
+              Para comprar otro hay que haber trabajado el anterior. Es a propósito: los
+              contactos se gastan llamando, no guardándolos.
+            </p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-etiqueta g-etiqueta--gris" data-plan-estado="dev-niveles">Próximamente</span>
+            <h3 class="g-card-t">Contactos de regalo</h3>
+            <p class="g-card-p">
+              Los developers que pagan un nivel le regalan
+              <strong><span data-plan="dev-regalo-por-vendedor">un paquete de</span> contactos</strong>
+              a cada vendedor que toma su software: te caen al CRM sin pedir nada.
+            </p>
+            <p class="g-card-p" style="margin-bottom:0">
+              Y el developer ve qué hace cada vendedor con los contactos que financió. Al que los
+              trabaja bien le puede regalar más.
+            </p>
+          </article>
+
+          <article class="g-card">
+            <span class="g-etiqueta g-etiqueta--gris" data-plan-estado="afi-lugar">Próximamente</span>
+            <h3 class="g-card-t">Mantener tu lugar</h3>
+            <p class="g-card-p">
+              Cada negocio nuevo que paga te da 45 días más en ese software. Si se te está por
+              vencer y tenés una venta en camino, lo podés sostener pagando
+              <strong><span data-plan="afi-lugar">una extensión</span></strong> mientras
+              todavía lo tenés.
+            </p>
+            <p class="g-card-p" style="margin-bottom:0">
+              El aviso te llega tres días antes, por correo y en la campanita del panel.
+            </p>
+          </article>
+        </div>
+
+        <p class="g-calc-nota g-rev">
+          Los precios están en dólares porque lo que los sostiene —la búsqueda de negocios y los
+          mensajes de WhatsApp— también se paga en dólares; el monto en pesos sale del dólar del
+          día. Salen del panel y cambian ahí, no en esta página.
+        </p>
+      </div>
+    </section>
+
     <!-- ===================== 9 · PREGUNTAS FRECUENTES ===================== -->
     <section class="g-sec g-sec--soft" id="preguntas">
       <div class="g-contenedor">
@@ -827,7 +923,9 @@
             <summary>¿Tengo que invertir algo para entrar?</summary>
             <p class="g-faq-r">
               No. No se compra stock, no se paga una licencia de vendedor, y crear la cuenta es
-              gratis y queda lista en el momento.
+              gratis y queda lista en el momento. El plan gratis alcanza para vender y cobrar; el
+              <a class="g-link" href="#planes">plan Pro</a>, con CRM, WhatsApp conectado y
+              prospección de negocios, es opcional.
             </p>
             <p class="g-faq-r">
               Lo que sí hay es un <strong>ritmo para conservar el lugar</strong> en cada producto:
@@ -1077,5 +1175,6 @@
   </script>
 
   <script src="/g-pagina.js" defer></script>
+  <script src="/planes.js" defer></script>
 </body>
 </html>

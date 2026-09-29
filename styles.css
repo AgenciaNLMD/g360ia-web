@@ -4306,6 +4306,11 @@ a.g-via:hover {
 .g-tabla tbody td { color: var(--g-ink-soft); }
 .g-tabla tbody td:first-child { color: var(--g-navy); font-weight: 600; }
 .g-tabla tbody tr:last-child td { border-bottom: 0; }
+/* Una tabla con muchas columnas se corre de costado dentro de su caja en vez
+   de romper el ancho de la página en el teléfono. */
+.g-tabla-caja--scroll { overflow-x: auto; }
+.g-tabla-caja--scroll .g-tabla { min-width: 560px; }
+.g-tabla-caja--scroll td { white-space: nowrap; }
 
 /* ===========================================================================
    RESPONSIVO
