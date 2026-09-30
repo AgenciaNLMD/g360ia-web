@@ -168,7 +168,7 @@ a su propio sitio. La única página de este repo que habla de los productos es 
 hace, cómo se ve, qué es igual en todos— y manda allá para el detalle, los precios y el alta.
 Su JSON-LD de `SoftwareApplication` declara `@id` y `url` en `vet.g360ia.com.ar` justamente
 para que la entidad consolide en el sitio del producto y no se parta en dos dominios. El
-mismo `@id` se usa en `afiliados.html` y en el `OfferCatalog` de la home: es el identificador
+mismo `@id` se usa en `devaffi/paginas/Afiliados.jsx` y en el `OfferCatalog` de la home: es el identificador
 de la entidad, así que si cambia, cambia en los tres.
 
 Tampoco se declaran precios acá: salen de la base del producto por `/api/planes` y cambian
@@ -264,11 +264,13 @@ un porcentaje del reparto: el **0** de costo fijo para publicar, o los **12** me
 | `lib/afiliado-textos.js` (turnero) | `COMISION_PCT` |
 | migración 090 del turnero | el DEFAULT de `afiliado.comision_pct` |
 | `g360ia-PRM/app/lib/programa.js` | `PCT_AFILIADO` y compañía — y subir `CONDICIONES_VERSION` |
-| `/afiliados` | cinta, paso 04 y FAQ. La calculadora ya **no** tiene constante: la comisión es un control más |
-| `/developers` | cinta del hero, requisito 06, la comparativa y la FAQ (las dos copias: JSON-LD y visible) |
+| `/afiliados` (`devaffi/paginas/Afiliados.jsx`) | cinta, paso 04 y FAQ. La calculadora ya **no** tiene constante: la comisión es un control más |
+| `/developers` (`devaffi/paginas/Developers.jsx`) | cinta, requisito 06, la comparativa y la FAQ (una sola copia: el JSON-LD sale del mismo array) |
+| `/devaffi` y `/planes` | las FAQ y el bloque «reparto» de la portada |
 | `/legal/terminos` | puntos 7.2, 7.3, 8.1 y 8.3 — y subir la versión del documento |
+| `/terminos-devaffi` | puntos 3.2, 3.3, 4.1 y 4.3 (la copia con marca Devaffi) — y subir su versión |
 
-`/legal/terminos` es la copia delicada: ahí el reparto no es un argumento de venta sino una
+`/legal/terminos` y `/terminos-devaffi` son las copias delicadas —dicen lo mismo con dos marcas—: ahí el reparto no es un argumento de venta sino una
 condición escrita, así que es la que no puede quedar atrasada respecto de lo que el panel le
 hizo aceptar a la gente.
 
@@ -290,22 +292,26 @@ seguían diciendo que la primera venta paga volvía el lugar permanente, regla q
 reemplazado por los 45 días por negocio nuevo.
 
 Al cambiar una regla del programa en `planes.md`, revisar: `/afiliados` (FAQ, `HowTo`),
-`/developers` (requisitos, FAQ, `HowTo`) y `/legal/terminos` (7.3), subiendo la versión.
+`/developers` (requisitos, FAQ, `HowTo`), `/planes`, `/legal/terminos` (7.3) y
+`/terminos-devaffi` (3.3), subiendo la versión de los dos términos.
 
 ### Los precios de los planes se leen, no se escriben
 
-`/afiliados#planes` (Free/Pro del vendedor, paquetes de contactos, extensión del lugar) y
-`/developers#niveles` (la tabla de niveles, los contactos de regalo) muestran precios y cupos
-sin tener ninguno escrito: los pone `public/planes.js`, que pide
+`/planes#vendedores` (Free/Pro del vendedor, paquetes de contactos, extensión del lugar) y
+`/planes#developers` (la tabla de niveles, los contactos de regalo) muestran precios y cupos
+sin tener ninguno escrito: los pone `devaffi/planes-api.jsx` (`<Dato>`, `<Estado>`,
+`<TablaNiveles>`), que después de hidratar pide
 `app.g360ia.com.ar/api/planes` (repo `g360ia-PRM`, `app/api/planes/route.js`). Esa ruta lee
 `plan_cuenta`, `nivel_developer(n)` y las constantes de cobro, así que un UPDATE en el panel
 cambia la página sin tocar este repo.
 
-Cada `[data-plan]` trae un texto de reserva que se lee bien sin número, por si la API no
-contesta; la tabla de niveles arranca `hidden`. Las etiquetas `[data-plan-estado]` dicen
+Cada `<Dato>` trae de hijo un texto de reserva que se lee bien sin número —es lo que sale en
+el prerender y lo que queda si la API no contesta—; la tabla de niveles no se dibuja sin
+datos. Las etiquetas `<Estado>` dicen
 «Próximamente» hasta que la API devuelve `disponible: true`, que pasa cuando dLocal Go deja el
 sandbox (y, para el Pro del vendedor, cuando tenga checkout: `PRO_AFILIADO_CONTRATABLE` en esa
-ruta). Al sumar un plan o un paquete nuevo: el dato va en la ruta, y acá sólo el `data-plan`.
+ruta). Al sumar un plan o un paquete nuevo: el dato va en la ruta, y acá la clave en `traducir()` y un
+`<Dato>`. (`public/planes.js`, que hacía lo mismo con `data-plan`, se borró el 30-sep-2026.)
 
 ### Los legales son tres y viven en `/legal`
 
@@ -342,10 +348,11 @@ nada que pueda quedar cortado.
 ### Qué páginas están en cuál
 
 Migradas al sistema claro: la home, `/servicios`, `/servicios/consultoria-ia`,
-`/servicios/automatizaciones`, `/afiliados` y `/software`. Sigue en el viejo sólo lo que
+`/servicios/automatizaciones` y `/software`. `/afiliados` y `/developers` salieron del sistema
+claro el 30-sep-2026: son de Devaffi, que tiene su propio diseño (Regla 9). Sigue en el viejo sólo lo que
 queda: las ocho páginas de servicio restantes, el blog y los legales.
 
-Las dos páginas de rama —`/afiliados` y `/software`— usan el hero de la home (`.g-hero` con
+La página de rama `/software` usa el hero de la home (`.g-hero` con
 foto de fondo y el texto repartido en el ancho) y no `.g-pag-hero`: son la portada de su rama
 y no una página de contenido interna. Las de `/servicios/*` sí usan `.g-pag-hero`, que es la
 banda navy sin foto.
@@ -387,7 +394,7 @@ otro. Se descubrió agregando `/developers`:
 | | Dónde | Qué cubre |
 |---|---|---|
 | Barra 1 | `ENLACES` en `secciones-home.jsx` | sólo la home (React) |
-| Barra 2 | el `<nav class="g-nav">` escrito a mano en cada HTML del sistema claro | `afiliados`, `developers`, `software/index`, `servicios/index`, `servicios/consultoria-ia`, `servicios/automatizaciones` |
+| Barra 2 | el `<nav class="g-nav">` escrito a mano en cada HTML del sistema claro | `software/index`, `servicios/index`, `servicios/consultoria-ia`, `servicios/automatizaciones` |
 | Barra 3 | `SECCIONES` **y** el bloque `svc-nav-right` de `public/navbar-init.js` | las ocho páginas viejas de `/servicios`, el blog y los legales |
 | Pie 1 | `sections-bottom.jsx` | sólo la home |
 | Pie 2 | `public/partials/footer.html` | todo el resto (Regla 4) |
@@ -395,7 +402,8 @@ otro. Se descubrió agregando `/developers`:
 La barra del sistema claro está escrita a mano en cada página y no se carga por `fetch` a
 propósito: así existe en el primer parseo y no hay salto de layout. El precio es esta
 duplicación, y hay que pagarlo a conciencia — al agregar una página nueva, copiar la barra de
-`afiliados.html`, que es la que está al día.
+`software/index.html`, que es la que está al día. (Devaffi tiene su propia barra, en
+`devaffi/componentes.jsx`: no se copia en ningún otro lado.)
 
 ### Los diez servicios y sus seis listas
 
@@ -464,6 +472,52 @@ El panel se mudó de `panel.g360ia.com.ar` a `admin.g360ia.com.ar` (ver `g360ia-
 si `PANEL_LEADS_URL` sigue apuntando al dominio viejo, los leads del sitio dejan de guardarse
 **sin ningún error visible** — `forwardToPanel()` sólo loguea el fallo, no reintenta ni
 avisa. Verificar esa variable después de mudar el admin.
+
+## Regla 9 — Devaffi: la red de afiliados tiene marca, diseño y código propios
+
+Desde el 30-sep-2026 el programa de afiliados y developers se presenta como **Devaffi**
+(«Plataforma de afiliados para desarrolladores»), un producto de Gestión 360 IA que en el
+futuro se muda a **devaffi.com**. Mientras tanto vive en este repo con estas URLs, todas en la
+raíz de g360ia.com.ar y **no** bajo `/devaffi/…` (así se pidió):
+
+| URL | Archivo | Qué es |
+|---|---|---|
+| `/devaffi` | `devaffi/index.html` · `paginas/Inicio.jsx` | portada de la red |
+| `/developers` | `developers.html` · `paginas/Developers.jsx` | el lado del que publica |
+| `/afiliados` | `afiliados.html` · `paginas/Afiliados.jsx` | el lado del que vende |
+| `/planes` | `planes.html` · `paginas/Planes.jsx` | Free/Pro del vendedor y niveles del developer |
+| `/sobre-devaffi` | `sobre-devaffi.html` · `paginas/Nosotros.jsx` | quiénes somos (no `/nosotros`: en la raíz de g360ia se leería como la de G360iA) |
+| `/terminos-devaffi` | `terminos-devaffi.html` · `paginas/Terminos.jsx` | términos del programa, `noindex` |
+
+**No comparte nada visual con G360iA**: ni `styles.css`, ni el navy/dorado, ni la barra ni el
+pie compartidos (las Reglas 4 y 7 no aplican). Todo vive en `devaffi/`: `devaffi.css` (prefijo
+`.dv-`, colores del logo), `componentes.jsx` (barra, pie, isotipo en SVG, FAQ, etc.),
+`planes-api.jsx` y una página por archivo en `paginas/`. El isotipo es un redibujo en vector
+del logo; si llega el SVG oficial, se cambia en `Isotipo` (y en `public/devaffi-icono.svg`).
+
+**React prerenderizado, no SPA.** Cada HTML trae `<div id="dv-root"></div>` vacío; después de
+`vite build`, `scripts/prerender-devaffi.mjs` renderiza cada página con `renderToString` y la
+escribe adentro (el build falla si no encuentra el contenedor). El navegador hidrata con
+`devaffi/entrada.jsx`, que carga sólo el chunk de esa página. Así el contenido llega en el
+primer byte para buscadores e IA. Consecuencias:
+
+- Nada de `window`, fechas ni azar **durante el render**: rompería la hidratación. Lo que
+  depende del navegador va en `useEffect` (como el fetch de `planes-api.jsx`).
+- Página nueva: el HTML (copiar uno existente, cambiar `data-dv` y los meta), la entrada en
+  `vite.config.js`, y la clave en `devaffi/paginas.js` y en `devaffi/ssr.jsx`.
+- En `npm run dev` no hay prerender: la página se renderiza de cero en el cliente.
+- Las FAQ se escriben una vez (arrays con `**negrita**` y `[texto](url)`) y de ahí salen la
+  vista y el JSON-LD de `FAQPage`: no pueden decir cosas distintas.
+
+**Qué se comunica primero.** La portada le habla al developer (es lo que dice el slogan y es
+el lado que hace falta primero: sin producto no hay nada que vender), pero la puerta del
+vendedor está en el mismo primer pantallazo; después va el mecanismo en tres pasos y el
+reparto, las dos puertas, las reglas, y «dónde está esto hoy» sin inflar. Todo lo de la
+Regla 6 sigue valiendo: ningún porcentaje ni precio escrito, ningún partner nombrado antes
+de estar publicado, los CTA a `app.g360ia.com.ar`.
+
+**Al mudarse a devaffi.com**: cambiar `SITIO` y `RUTAS` en `componentes.jsx`, los
+`canonical`/`og:url` de los seis HTML, y dejar 301 desde estas URLs en el Caddyfile.
 
 ## Stack
 
