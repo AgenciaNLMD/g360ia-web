@@ -9,8 +9,10 @@ import Developers from './paginas/Developers.jsx';
 import Planes from './paginas/Planes.jsx';
 import Nosotros from './paginas/Nosotros.jsx';
 import Terminos from './paginas/Terminos.jsx';
+import Privacidad from './paginas/Privacidad.jsx';
+import Legales from './paginas/Legales.jsx';
 
-const COMPONENTES = { inicio: Inicio, afiliados: Afiliados, developers: Developers, planes: Planes, nosotros: Nosotros, terminos: Terminos };
+const COMPONENTES = { inicio: Inicio, afiliados: Afiliados, developers: Developers, planes: Planes, nosotros: Nosotros, terminos: Terminos, privacidad: Privacidad, legales: Legales };
 
 export function render(clave) {
   const C = COMPONENTES[clave];

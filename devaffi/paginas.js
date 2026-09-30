@@ -8,4 +8,6 @@ export const PAGINAS = {
   planes:     { html: 'planes.html',            cargar: () => import('./paginas/Planes.jsx') },
   nosotros:   { html: 'sobre-devaffi.html',     cargar: () => import('./paginas/Nosotros.jsx') },
   terminos:   { html: 'terminos-devaffi.html',  cargar: () => import('./paginas/Terminos.jsx') },
+  privacidad: { html: 'privacidad-devaffi.html', cargar: () => import('./paginas/Privacidad.jsx') },
+  legales:    { html: 'legales-devaffi.html',   cargar: () => import('./paginas/Legales.jsx') },
 };

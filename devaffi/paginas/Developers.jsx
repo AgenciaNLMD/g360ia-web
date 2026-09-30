@@ -66,15 +66,11 @@ const FAQ = [
   },
   {
     q: '¿Qué tan grande es la red de afiliados hoy?',
-    a: ['Está arrancando. El programa está abierto, la liquidación funciona y hay un producto publicado, que es Vet 360iA. No hay una red de cientos de vendedores y decirlo sería mentir: el que entra hoy entra temprano, con la ventaja y el riesgo que eso significa.'],
+    a: ['Está arrancando. El programa está abierto, la liquidación funciona y hay un primer software publicado. No hay una red de cientos de vendedores y decirlo sería mentir: el que entra hoy entra temprano, con la ventaja y el riesgo que eso significa.'],
   },
   {
     q: '¿Ustedes me construyen el software?',
-    a: ['Eso es otra cosa: [desarrollo a medida](/servicios/desarrollo-software), que hace Gestión 360 IA y se cotiza aparte. Devaffi es para software que ya existe y funciona. Si lo que tenés es una idea sin construir, el camino es el de desarrollo y no el del catálogo.'],
-  },
-  {
-    q: '¿Puede entrar un software que compite con uno que ya está?',
-    a: ['Se conversa. Si resuelve el mismo rubro que un producto propio de Gestión 360 IA, lo honesto es decirlo de frente antes de publicar nada, porque los dos estarían peleando por el mismo afiliado y el mismo cliente. Si resuelve otro rubro, no hay conflicto y es justamente lo que le falta al catálogo.'],
+    a: ['No. Devaffi es para software que ya existe y funciona, con clientes que pagan. Si lo que tenés es una idea, construila —con las herramientas de IA de hoy es más fácil que nunca— y cuando tenga su primer cliente que paga, publicala.'],
   },
   {
     q: '¿Quién da soporte al cliente que trae un afiliado?',
@@ -102,7 +98,7 @@ const REQUISITOS = [
   ['rayo', 'Das de alta un cliente sin tocar nada', 'Multitenant, o con un aprovisionamiento automático que haga lo mismo. Si para sumar un cliente tenés que levantar una instancia a mano, el afiliado termina vendiendo algo que tarda dos días en estar arriba.'],
   ['chat', 'Está terminado, en uso y con soporte', 'Con clientes reales que ya pagan — no hace falta que sean muchos, pero tiene que haber alguien que no sea amigo tuyo. Y el que entre por un afiliado te va a escribir a vos cuando algo no ande.'],
   ['enlace', 'Te conectás a nuestra API', 'Tu sistema nos avisa las altas y los cambios de plan, y contesta en qué plan está cada cuenta que trajo un vendedor. Es el único requisito técnico y no se deja para después. Si tu sistema deja de contestar 24 horas, el producto sale solo del catálogo hasta que vuelva.'],
-  ['diana', 'Le sirve a un rubro identificable', '«Para cualquier empresa» no se puede vender. Un afiliado necesita saber a qué puerta golpear: veterinarias, estudios contables, talleres, consultorios. Cuanto más definido el rubro, más fácil encontrar quién ya lo conoce.'],
+  ['diana', 'Le sirve a un rubro identificable', '«Para cualquier empresa» no se puede vender. Un afiliado necesita saber a qué puerta golpear, y cuanto más definido el rubro, más fácil encontrar quién ya lo conoce.'],
   ['tarjeta', 'La comisión que vas a pagar te cierra', 'La de la plataforma es fija y es el costo de cobrar. La que hay que pensar es cuánto le vas a pagar al vendedor: la elegís vos, queda en tu ficha y decide si alguien sale a vender tu producto. Al cargarla te mostramos el promedio y el máximo de tu rubro.'],
 ];
 
@@ -176,7 +172,7 @@ export default function Developers() {
               <span className="dv-pildora"><i />Para quien desarrolla software · Canal de venta</span>
               <h1 className="dv-h1">Vos lo construís. <span className="dv-grad-txt">La red sale a venderlo.</span></h1>
               <p className="dv-hero-lead">
-                Si hiciste un software que se cobra por suscripción y el problema no es el producto
+                Si hiciste un software —a mano o con IA— que se cobra por suscripción y el problema no es el producto
                 sino que nadie lo conoce, publicalo en el catálogo: una red de afiliados lo presenta
                 con su link y cobra sólo cuando hay una venta.
               </p>
@@ -322,15 +318,15 @@ export default function Developers() {
               <h2 className="dv-h2">La red está arrancando, y <span className="dv-grad-txt">no te lo vamos a esconder</span></h2>
               <p className="dv-lead">
                 No hay cientos de vendedores esperando tu producto. Hay un programa de afiliados
-                abierto, la liquidación funcionando y un producto publicado —Vet 360iA, para
-                veterinarias— con el que probamos el mecanismo antes de invitar a nadie.
+                abierto, la liquidación funcionando y un primer software publicado, con el que
+                probamos el mecanismo antes de invitar a nadie.
               </p>
               <p>
                 Entrar temprano tiene una ventaja concreta: sos el único de tu rubro en el catálogo, y
                 los afiliados que se suman ahora te encuentran a vos.
               </p>
               <ul className="dv-lista">
-                <li>El mecanismo <strong>ya está probado</strong> con un producto real, no es una idea</li>
+                <li>El mecanismo <strong>ya está probado</strong> con un software real, no es una idea</li>
                 <li>No arriesgás plata: <strong>si no vende, no pagás</strong></li>
                 <li>La integración la <strong>probás vos solo</strong>, sin reuniones ni esperas</li>
               </ul>

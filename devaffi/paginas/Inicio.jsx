@@ -14,7 +14,7 @@
 import React from 'react';
 import {
   Layout, Boton, Cab, Chips, Faq, faqLd, JsonLd, Mockup, Cierre, Icono, Flecha, Isotipo,
-  APP, VET, RUTAS, SITIO,
+  APP, RUTAS, SITIO,
 } from '../componentes.jsx';
 
 const FAQ = [
@@ -36,11 +36,11 @@ const FAQ = [
   },
   {
     q: '¿Dónde se crea la cuenta?',
-    a: ['En [app.g360ia.com.ar](https://app.g360ia.com.ar), que es una sola puerta para los dos lados: entrás con tu cuenta de Google y el panel te muestra la cara que te corresponde —la del vendedor o la del developer—.'],
+    a: ['En [el panel de Devaffi](https://app.g360ia.com.ar), que es una sola puerta para los dos lados: entrás con tu cuenta de Google y el panel te muestra la cara que te corresponde —la del vendedor o la del developer—.'],
   },
   {
     q: '¿Quién está detrás de Devaffi?',
-    a: ['[Gestión 360 IA](https://g360ia.com.ar), una empresa de software de Buenos Aires. Construimos el mecanismo para vender nuestro propio producto, Vet 360iA, y lo abrimos para que otros developers lo usen. La historia completa está en [Nosotros](/sobre-devaffi).'],
+    a: ['Un equipo de Buenos Aires, Argentina, que construyó la plataforma de punta a punta: el panel, la API que verifica cada venta, los cobros y las herramientas del vendedor. La historia completa está en [Nosotros](/sobre-devaffi).'],
   },
 ];
 
@@ -84,8 +84,8 @@ export default function Inicio() {
             Vos programás.<br /><span className="dv-grad-txt">La red sale a vender.</span>
           </h1>
           <p className="dv-hero-lead">
-            Devaffi conecta a quien construye software por suscripción con vendedores que ya
-            conocen el rubro. Publicás tu producto, ellos lo presentan con su link y la comisión
+            Con IA cada vez más gente construye software, y casi nadie sabe venderlo. Devaffi
+            conecta a quien lo construye con vendedores que ya conocen el rubro. Publicás tu producto, ellos lo presentan con su link y la comisión
             sale de cada cuota cobrada — todos los meses, mientras el cliente siga pagando.
             Nadie pone plata por adelantado.
           </p>
@@ -269,12 +269,11 @@ export default function Inicio() {
               </p>
             </div>
             <div className="dv-grid dv-rev">
-              <a className="dv-card" href={VET} target="_blank" rel="noopener">
-                <span className="dv-etiqueta">Disponible</span>
-                <h3 className="dv-h3">Vet 360iA</h3>
-                <p>Gestión completa para veterinarias: turnos, historia clínica, facturación, inventario y un bot de WhatsApp que agenda solo.</p>
-                <span className="dv-card-mas">Ver el producto <Flecha /></span>
-              </a>
+              <article className="dv-card">
+                <span className="dv-etiqueta">Publicado</span>
+                <h3 className="dv-h3">El primer software del catálogo</h3>
+                <p>Un sistema de gestión por suscripción, con el programa abierto y la liquidación funcionando. Los vendedores lo ven con su ficha y su demo adentro del panel.</p>
+              </article>
               <article className="dv-card">
                 <span className="dv-etiqueta dv-etiqueta--gris">Entrando al catálogo</span>
                 <h3 className="dv-h3">Software de otros developers</h3>

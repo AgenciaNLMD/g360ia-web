@@ -67,6 +67,8 @@ export default defineConfig({
         planes: resolve(root, 'planes.html'),
         'sobre-devaffi': resolve(root, 'sobre-devaffi.html'),
         'terminos-devaffi': resolve(root, 'terminos-devaffi.html'),
+        'privacidad-devaffi': resolve(root, 'privacidad-devaffi.html'),
+        'legales-devaffi': resolve(root, 'legales-devaffi.html'),
 
         ...servicios,
         ...software,

@@ -1,7 +1,8 @@
 /* /terminos-devaffi — las condiciones del programa, con la marca Devaffi.
  *
- * OJO: es una COPIA de los puntos 7 a 11 de /legal/terminos (y de lo que
- * aplica de 1, 2, 4.1, 12 a 16), reescrita para Devaffi. Las dos páginas tienen
+ * OJO: repite las reglas de los puntos 7 a 11 de /legal/terminos, reescritas
+ * para Devaffi (sin nombrarlos: la marca titular sólo aparece en el punto 2 y
+ * en el pie). Las dos páginas tienen
  * que decir lo mismo: si cambia una regla del programa en g360ia-PRM/planes.md,
  * se tocan las dos y se sube la versión de las dos (CLAUDE.md, Reglas 6 y 9).
  * Ninguna fija un porcentaje: el número vive en las condiciones que cada uno
@@ -9,7 +10,7 @@
  *
  * Es noindex, igual que los legales de /legal. */
 import React from 'react';
-import { Layout, Migas, RUTAS, APP } from '../componentes.jsx';
+import { Layout, Migas, RUTAS, APP, MAIL, TEL, TEL_HREF } from '../componentes.jsx';
 
 const INDICE = [
   ['alcance', 'Qué cubre este documento'],
@@ -27,7 +28,7 @@ const INDICE = [
   ['ley', 'Ley aplicable y jurisdicción'],
 ];
 
-const Panel = () => <a href={APP} target="_blank" rel="noopener">app.g360ia.com.ar</a>;
+const Panel = () => <a href={APP} target="_blank" rel="noopener">el panel de Devaffi</a>;
 
 export default function Terminos() {
   return (
@@ -36,7 +37,7 @@ export default function Terminos() {
         <div className="dv-cont dv-cont--angosto">
           <Migas actual="Términos del programa" />
           <h1 className="dv-h1" style={{ maxWidth: 'none' }}>Términos del programa</h1>
-          <p className="dv-version">Versión 1.0 · Última actualización: septiembre de 2026</p>
+          <p className="dv-version">Versión 1.1 · Última actualización: septiembre de 2026</p>
           <p className="dv-hero-lead" style={{ marginBottom: 0 }}>
             Las reglas de Devaffi para los que venden software del catálogo y para los que publican
             el suyo. Están escritas para que se entiendan sin abogado: cada punto dice qué pasa y por qué.
@@ -59,9 +60,7 @@ export default function Terminos() {
           <p>
             <strong>Lo vinculante es lo que cada uno acepta al crear su cuenta</strong> en <Panel />, que
             queda registrado con la versión vigente en ese momento. Esta página es el resumen público y
-            permanente de esas reglas; si se contradijeran, prevalece lo aceptado en el panel. Son las
-            mismas reglas que publican los puntos 7 a 11 de los{' '}
-            <a href="/legal/terminos">términos de Gestión 360 IA</a>.
+            permanente de esas reglas; si se contradijeran, prevalece lo aceptado en el panel.
           </p>
           <p>
             Cada software del catálogo tiene <strong>sus propios términos de uso y su propia política de
@@ -78,10 +77,11 @@ export default function Terminos() {
 
           <h2 id="titular">2. Quién opera Devaffi</h2>
           <p>
-            Devaffi es una marca de <strong>Gestión 360 IA</strong> (en adelante «G360iA» o «nosotros»),
-            con domicilio en Buenos Aires, República Argentina, que opera la plataforma, el panel, el
-            cobro y la liquidación. Contacto:{' '}
-            <a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a>. Los datos de
+            Devaffi (en adelante «Devaffi» o «nosotros») es una marca de titularidad de{' '}
+            <strong>Gestión 360 IA</strong>, con domicilio en Buenos Aires, República Argentina, que
+            opera la plataforma, el panel, el cobro y la liquidación. Más datos en el{' '}
+            <a href={RUTAS.legales}>aviso legal</a>. Contacto:{' '}
+            <a href={'mailto:' + MAIL}>{MAIL}</a>. Los datos de
             inscripción fiscal se informan en la facturación de cada operación y a pedido por ese correo.
           </p>
 
@@ -189,7 +189,7 @@ export default function Terminos() {
           <p>
             El afiliado <strong>presenta y acompaña</strong>. La demostración, la puesta en marcha, el
             soporte, la facturación y el cobro son de quien publica el producto. El afiliado no representa a
-            Devaffi, a G360iA ni al developer, no es empleado, agente ni socio, no puede asumir obligaciones
+            Devaffi ni al developer, no es empleado, agente ni socio, no puede asumir obligaciones
             en nombre de ninguno, y actúa por cuenta propia a su exclusivo riesgo comercial e impositivo.
           </p>
           <p>
@@ -342,14 +342,32 @@ export default function Terminos() {
             tipo de cambio del día. Los niveles del developer se pagan por período sin débito automático: si
             no se renuevan, la cuenta vuelve al nivel gratuito.
           </p>
+          <h3 id="contactos">6.1 Uso de los contactos de prospección</h3>
+          <p>
+            Los contactos que el vendedor recibe por la prospección —por su plan, por un paquete o de
+            regalo de un developer— son datos de negocios obtenidos de fuentes públicas, tratados como
+            describe la <a href={RUTAS.privacidad + '#prospeccion'}>política de privacidad</a>. Al
+            usarlos, el vendedor se obliga a:
+          </p>
+          <ul>
+            <li><strong>Usarlos sólo para ofrecer el software</strong> del catálogo para el que se le asignaron, al rubro correspondiente. No se pueden revender, ceder, exportar a otras bases ni usar para otro fin.</li>
+            <li><strong>Respetar la baja.</strong> Si un negocio pide no ser contactado, no se lo vuelve a contactar por ningún canal, y se lo marca en el CRM para que quede excluido.</li>
+            <li><strong>Respetar el Registro Nacional No Llame</strong> (Ley 26.951) y la Ley 25.326 de protección de datos personales en cada contacto que hace.</li>
+            <li>Identificarse con su nombre en el primer mensaje y decir de dónde obtuvo el dato si el negocio lo pregunta.</li>
+          </ul>
+          <p>
+            <strong>El vendedor es responsable del uso que hace de cada contacto.</strong> Cada negocio
+            se le asigna a un solo vendedor de la red, así que un uso indebido se atribuye sin
+            ambigüedad y es causal de suspensión en los términos del punto 8.
+          </p>
 
           <h2 id="conducta">7. Conducta prohibida</h2>
           <p>Estas reglas aplican a afiliados y developers. Está prohibido:</p>
           <ul>
             <li>Prometer funciones, precios, plazos o resultados que el producto no tiene.</li>
-            <li>Presentarse como empleado, representante legal o socio de Devaffi, de G360iA o de un developer.</li>
+            <li>Presentarse como empleado, representante legal o socio de Devaffi o de un developer.</li>
             <li>Enviar spam por cualquier canal —correo, WhatsApp, SMS, redes— o comprar bases de contactos para difundir el código.</li>
-            <li>Registrar dominios, perfiles, cuentas o aplicaciones que usen la marca Devaffi, la de G360iA o la de un producto del catálogo sin autorización escrita.</li>
+            <li>Registrar dominios, perfiles, cuentas o aplicaciones que usen la marca Devaffi o la de un producto del catálogo sin autorización escrita.</li>
             <li>Pujar por esas marcas en campañas de búsqueda pagas, ni usarlas como dominio visible del anuncio.</li>
             <li>Generar altas artificiales, auto-referencias, cuentas duplicadas o cualquier maniobra para devengar comisiones sin una venta real.</li>
             <li>Ofrecer el producto como marca blanca propia.</li>
@@ -368,7 +386,7 @@ export default function Terminos() {
 
           <h2 id="baja">8. Suspensión y baja de cuentas</h2>
           <ul>
-            <li><strong>Baja voluntaria.</strong> Cualquiera puede dar de baja su cuenta cuando quiera, desde el panel o escribiendo a <a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a>. Los saldos devengados y cobrados hasta ese momento se liquidan normalmente.</li>
+            <li><strong>Baja voluntaria.</strong> Cualquiera puede dar de baja su cuenta cuando quiera, desde el panel o escribiendo a <a href={'mailto:' + MAIL}>{MAIL}</a>. Los saldos devengados y cobrados hasta ese momento se liquidan normalmente.</li>
             <li><strong>Suspensión.</strong> Podemos suspender una cuenta ante un incumplimiento del punto 7, una sospecha razonable de fraude o un pedido de autoridad competente, mientras dure la revisión. Se informa por escrito y con el motivo.</li>
             <li><strong>Baja por incumplimiento.</strong> Confirmado el incumplimiento, la cuenta se da de baja y se pierden las comisiones asociadas a las operaciones afectadas. Las comisiones por ventas legítimas anteriores se liquidan.</li>
             <li><strong>Efecto sobre el cliente.</strong> La baja de un afiliado no afecta al cliente que trajo: su suscripción sigue igual y las comisiones dejan de devengarse.</li>
@@ -376,7 +394,7 @@ export default function Terminos() {
 
           <h2 id="propiedad">9. Propiedad intelectual</h2>
           <p>
-            La marca Devaffi, su logo y los contenidos de estas páginas son propiedad de G360iA. El material
+            La marca Devaffi, su logo y los contenidos de estas páginas son propiedad de su titular (punto 2). El material
             de venta que se entrega a los afiliados se licencia para promocionar los productos del catálogo
             mientras la cuenta esté activa, sin derecho a modificarlo de forma que altere lo que el producto
             hace. Cada developer conserva todos los derechos sobre su software y su marca, y autoriza a
@@ -387,8 +405,8 @@ export default function Terminos() {
           <h2 id="datos">10. Datos personales</h2>
           <p>
             El tratamiento de datos personales se describe en la{' '}
-            <a href="/legal/privacidad">Política de Privacidad</a>, que forma parte de estos términos: qué
-            datos se recolectan en el programa de afiliados y developers, con qué finalidad, con quién se
+            <a href={RUTAS.privacidad}>Política de Privacidad</a>, que forma parte de estos términos: qué
+            datos se recolectan en el programa de afiliados y developers y en la prospección, con qué finalidad, con quién se
             comparten y cómo ejercer los derechos de la Ley 25.326. Los datos que los clientes cargan dentro
             de un software del catálogo se rigen por la política de ese producto, y el responsable de su
             tratamiento es quien lo publica.
@@ -427,7 +445,7 @@ export default function Terminos() {
           </p>
           <p>
             Consultas sobre este documento:{' '}
-            <a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a>.
+            <a href={'mailto:' + MAIL}>{MAIL}</a>.
           </p>
         </div>
       </div>

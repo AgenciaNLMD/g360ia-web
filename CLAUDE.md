@@ -168,8 +168,8 @@ a su propio sitio. La única página de este repo que habla de los productos es 
 hace, cómo se ve, qué es igual en todos— y manda allá para el detalle, los precios y el alta.
 Su JSON-LD de `SoftwareApplication` declara `@id` y `url` en `vet.g360ia.com.ar` justamente
 para que la entidad consolide en el sitio del producto y no se parta en dos dominios. El
-mismo `@id` se usa en `devaffi/paginas/Afiliados.jsx` y en el `OfferCatalog` de la home: es el identificador
-de la entidad, así que si cambia, cambia en los tres.
+mismo `@id` se usa en el `OfferCatalog` de la home (Devaffi ya no nombra el producto, Regla 9): es el identificador
+de la entidad, así que si cambia, cambia en los dos.
 
 Tampoco se declaran precios acá: salen de la base del producto por `/api/planes` y cambian
 con un UPDATE. Un número escrito a mano se desactualiza solo, y un precio incorrecto en datos
@@ -488,12 +488,32 @@ raíz de g360ia.com.ar y **no** bajo `/devaffi/…` (así se pidió):
 | `/planes` | `planes.html` · `paginas/Planes.jsx` | Free/Pro del vendedor y niveles del developer |
 | `/sobre-devaffi` | `sobre-devaffi.html` · `paginas/Nosotros.jsx` | quiénes somos (no `/nosotros`: en la raíz de g360ia se leería como la de G360iA) |
 | `/terminos-devaffi` | `terminos-devaffi.html` · `paginas/Terminos.jsx` | términos del programa, `noindex` |
+| `/privacidad-devaffi` | `privacidad-devaffi.html` · `paginas/Privacidad.jsx` | privacidad, con la sección de prospección (`#prospeccion`), `noindex` |
+| `/legales-devaffi` | `legales-devaffi.html` · `paginas/Legales.jsx` | puerta a los legales + aviso legal, `noindex` |
 
 **No comparte nada visual con G360iA**: ni `styles.css`, ni el navy/dorado, ni la barra ni el
 pie compartidos (las Reglas 4 y 7 no aplican). Todo vive en `devaffi/`: `devaffi.css` (prefijo
 `.dv-`, colores del logo), `componentes.jsx` (barra, pie, isotipo en SVG, FAQ, etc.),
 `planes-api.jsx` y una página por archivo en `paginas/`. El isotipo es un redibujo en vector
 del logo; si llega el SVG oficial, se cambia en `Isotipo` (y en `public/devaffi-icono.svg`).
+
+**Devaffi se cuenta como marca propia.** Desde el 30-sep-2026 no nombra a Gestión 360 IA ni
+a Vet 360iA en el cuerpo de ninguna página: la empresa titular aparece **sólo** en el pie
+(«Devaffi es un producto de Gestión 360 IA», con link, por SEO) y en la titularidad de los
+legales, que la ley exige. El catálogo se describe sin nombrar productos («el primer software
+publicado»), y **no se dan ejemplos de rubros**. El contacto sale de `MAIL`/`TEL` en
+`componentes.jsx`: el correo ya es `contacto@devaffi.com`, el teléfono es provisorio (el de la
+empresa). En el JSON-LD sí queda `parentOrganization`, que no se ve y ayuda a la entidad.
+
+**La prospección se informa en `/privacidad-devaffi#prospeccion` y en el punto 6.1 de los
+términos.** Los campos que se nombran (nombre, rubro, ciudad y dirección, teléfono, sitio web,
+Instagram) son los de `lead_pool` en `g360ia-PRM` (migración 048, `lib/apify.js`): si la
+tabla cambia, cambia la política. **Ojo:** la página promete una baja que excluye al negocio de
+toda la red y el respeto del Registro No Llame; al escribirlo el panel todavía no tenía ni la
+lista de exclusión ni el cruce con ese registro.
+
+**Nunca se copia nada de material para inversores** (`g360ia-PRM/DevAffi presentación.docx` y
+similares): ni montos, ni proyecciones, ni costos, ni comparables, ni porcentajes de modelo.
 
 **React prerenderizado, no SPA.** Cada HTML trae `<div id="dv-root"></div>` vacío; después de
 `vite build`, `scripts/prerender-devaffi.mjs` renderiza cada página con `renderToString` y la
@@ -517,7 +537,7 @@ Regla 6 sigue valiendo: ningún porcentaje ni precio escrito, ningún partner no
 de estar publicado, los CTA a `app.g360ia.com.ar`.
 
 **Al mudarse a devaffi.com**: cambiar `SITIO` y `RUTAS` en `componentes.jsx`, los
-`canonical`/`og:url` de los seis HTML, y dejar 301 desde estas URLs en el Caddyfile.
+`canonical`/`og:url` de los ocho HTML, y dejar 301 desde estas URLs en el Caddyfile.
 
 ## Stack
 

@@ -9,7 +9,7 @@
 import React, { useState } from 'react';
 import {
   Layout, Boton, Cab, Chips, Faq, faqLd, JsonLd, Geo, Migas, Cierre, Icono, Flecha,
-  APP, VET, WA, RUTAS, SITIO, migasLd,
+  APP, WA, RUTAS, SITIO, migasLd,
 } from '../componentes.jsx';
 
 const URL = SITIO + RUTAS.afiliados;
@@ -17,7 +17,7 @@ const URL = SITIO + RUTAS.afiliados;
 const FAQ = [
   {
     q: '¿Qué software puedo vender como afiliado?',
-    a: ['Todo lo que esté publicado en el catálogo. Hoy está Vet 360iA, y el catálogo se está abriendo a sistemas de otros developers que entran con su propia comisión. No hay exclusividad: podés vender uno, varios o todos, y seguir vendiendo lo que ya vendías por fuera de Devaffi. Lo que sí hay es un **cupo de vendedores por producto**: tomar un link ocupa un lugar, y el lugar se libera solo si no se usa. Si un producto está lleno, marcás **«Lo quiero vender»** y te avisamos cuando se abra un lugar, por orden de llegada.'],
+    a: ['Todo lo que esté publicado en el catálogo. Hoy hay un primer software publicado, y el catálogo se está abriendo a sistemas de otros developers que entran con su propia comisión. No hay exclusividad: podés vender uno, varios o todos, y seguir vendiendo lo que ya vendías por fuera de Devaffi. Lo que sí hay es un **cupo de vendedores por producto**: tomar un link ocupa un lugar, y el lugar se libera solo si no se usa. Si un producto está lleno, marcás **«Lo quiero vender»** y te avisamos cuando se abra un lugar, por orden de llegada.'],
   },
   {
     q: '¿Cuánto cobra un afiliado de Devaffi?',
@@ -95,11 +95,10 @@ const LD = [
       { '@type': 'Thing', name: 'Canal de venta de software' },
     ],
     mentions: [
-      { '@type': 'SoftwareApplication', '@id': 'https://vet.g360ia.com.ar/#app', name: 'Vet 360iA', url: VET, applicationCategory: 'BusinessApplication' },
       { '@type': 'Thing', name: 'Software como servicio (SaaS)' },
       { '@type': 'Thing', name: 'Código de referido' },
     ],
-    significantLink: [VET, SITIO + RUTAS.developers, APP],
+    significantLink: [SITIO + RUTAS.developers, SITIO + RUTAS.planes, APP],
   },
   migasLd('Afiliados'),
   {
@@ -215,13 +214,12 @@ export default function Afiliados() {
             lead="La idea es que esta red venda buen software, sea de quien sea. Acá está lo que hay publicado hoy, dicho sin inflar."
           />
           <div className="dv-grid dv-grid--3 dv-rev">
-            <a className="dv-card" href={VET} target="_blank" rel="noopener">
-              <span className="dv-etiqueta">Disponible</span>
-              <h3 className="dv-h3">Vet 360iA</h3>
-              <p>El sistema de gestión completo para una veterinaria: agenda de turnos, ficha de clientes y mascotas, historia clínica, facturación, inventario y un bot de WhatsApp que atiende y agenda solo.</p>
-              <p>Es el que hoy tiene el programa abierto y la liquidación funcionando. Se paga por mes, así que la comisión se repite por mes.</p>
-              <span className="dv-card-mas">Ver el producto <Flecha /></span>
-            </a>
+            <article className="dv-card">
+              <span className="dv-etiqueta">Publicado</span>
+              <h3 className="dv-h3">El primer software</h3>
+              <p>Un sistema de gestión por suscripción, terminado y con clientes, que hoy tiene el programa abierto y la liquidación funcionando.</p>
+              <p>Se paga por mes, así que la comisión se repite por mes. Lo ves con su ficha, sus capturas y su demo adentro de tu panel.</p>
+            </article>
             <article className="dv-card">
               <span className="dv-etiqueta dv-etiqueta--gris">Entrando al catálogo</span>
               <h3 className="dv-h3">Software de otros developers</h3>
@@ -229,10 +227,10 @@ export default function Afiliados() {
               <p>Entran con su nombre, su ficha y la comisión que cada uno decide pagar, y se venden con la misma cuenta. Todavía no hay ninguno publicado: el día que lo haya, aparece en tu panel.</p>
             </article>
             <article className="dv-card">
-              <span className="dv-etiqueta dv-etiqueta--gris">En construcción</span>
-              <h3 className="dv-h3">Las verticales que vienen</h3>
-              <p>Vet 360iA es la primera vertical de una base que ya resuelve turnos, fichas, facturación y WhatsApp — consultorios, estudios, comercios y talleres son adaptaciones de semanas.</p>
-              <p>Si conocés bien un rubro y creés que ahí hay mercado, <a className="dv-link" href={WA} target="_blank" rel="noopener">decínoslo</a>: el que trae la idea suele ser el que después la vende.</p>
+              <span className="dv-etiqueta dv-etiqueta--gris">Lo que viene</span>
+              <h3 className="dv-h3">Software hecho con IA</h3>
+              <p>Con las herramientas de IA cada vez más gente construye software, y casi ninguno sabe venderlo. Ese software nuevo es el que va a ir llenando el catálogo.</p>
+              <p>Si conocés bien un rubro y sabés qué sistema le falta, <a className="dv-link" href={WA} target="_blank" rel="noopener">decínoslo</a>: el que trae la idea suele ser el que después lo vende.</p>
             </article>
           </div>
           <div className="dv-caja dv-caja--tinte dv-rev" style={{ marginTop: 24 }}>
@@ -386,15 +384,15 @@ export default function Afiliados() {
       <section className="dv-sec dv-sec--corta dv-sec--borde" id="relacionados">
         <div className="dv-cont">
           <div className="dv-grid dv-grid--3 dv-rev">
-            <a className="dv-card" href="/blog/programa-afiliados-software-comision-recurrente">
-              <span className="dv-card-ico"><Icono n="precio" /></span>
-              <h3 className="dv-h3">Comisión recurrente</h3>
-              <p>Cómo se gana de verdad con afiliados de software.</p>
+            <a className="dv-card" href={RUTAS.planes + '#vendedores'}>
+              <span className="dv-card-ico"><Icono n="estrella" /></span>
+              <h3 className="dv-h3">Planes del vendedor</h3>
+              <p>Qué es gratis y qué suma el Pro: CRM, WhatsApp y prospección.</p>
             </a>
-            <a className="dv-card" href="/blog/vender-software-sin-ser-programador">
+            <a className="dv-card" href={RUTAS.terminos}>
               <span className="dv-card-ico dv-card-ico--verde"><Icono n="libro" /></span>
-              <h3 className="dv-h3">Vender software</h3>
-              <p>La guía para el que no es programador.</p>
+              <h3 className="dv-h3">Las reglas, por escrito</h3>
+              <p>Comisión, cupos, atribución y cobro, en los términos del programa.</p>
             </a>
             <a className="dv-card" href={RUTAS.developers}>
               <span className="dv-card-ico"><Icono n="codigo" /></span>

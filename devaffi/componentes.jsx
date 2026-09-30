@@ -7,6 +7,12 @@ import React, { useState, useEffect } from 'react';
 
 export const APP = 'https://app.g360ia.com.ar';
 export const WA = 'https://wa.me/5491125526561';
+
+/* Contacto de Devaffi. El correo ya es del dominio propio; el teléfono es
+   provisorio (el de la empresa titular) y se cambia acá, en un solo lugar. */
+export const MAIL = 'contacto@devaffi.com';
+export const TEL = '+54 9 11 2552-6561';
+export const TEL_HREF = 'tel:+5491125526561';
 export const VET = 'https://vet.g360ia.com.ar';
 export const SITIO = 'https://g360ia.com.ar';
 
@@ -17,6 +23,8 @@ export const RUTAS = {
   planes: '/planes',
   nosotros: '/sobre-devaffi',
   terminos: '/terminos-devaffi',
+  privacidad: '/privacidad-devaffi',
+  legales: '/legales-devaffi',
 };
 
 /* ── Íconos ─────────────────────────────────────────────────────────────── */
@@ -190,7 +198,8 @@ export function Pie() {
             <ul>
               <li><a href={RUTAS.nosotros}>Nosotros</a></li>
               <li><a href={WA} target="_blank" rel="noopener">WhatsApp</a></li>
-              <li><a href="mailto:consultora@g360ia.com.ar">consultora@g360ia.com.ar</a></li>
+              <li><a href={TEL_HREF}>{TEL}</a></li>
+              <li><a href={'mailto:' + MAIL}>{MAIL}</a></li>
               <li><a href={APP} target="_blank" rel="noopener">Entrar al panel</a></li>
             </ul>
           </div>
@@ -198,14 +207,17 @@ export function Pie() {
             <h4>Legales</h4>
             <ul>
               <li><a href={RUTAS.terminos}>Términos del programa</a></li>
-              <li><a href="/legal/privacidad">Privacidad</a></li>
-              <li><a href="/legal/aviso-legal">Aviso legal</a></li>
+              <li><a href={RUTAS.privacidad}>Privacidad</a></li>
+              <li><a href={RUTAS.privacidad + '#prospeccion'}>Datos de prospección</a></li>
+              <li><a href={RUTAS.legales}>Aviso legal</a></li>
             </ul>
           </div>
         </div>
         <div className="dv-pie-base">
-          <span>© 2026 Devaffi · Un producto de <a href={SITIO + '/'}>Gestión 360 IA</a></span>
-          <span>Hecho en Buenos Aires, Argentina</span>
+          {/* El único lugar visible donde se nombra a Gestión 360 IA: el enlace
+              le pasa señal al sitio de la empresa y deja clara la titularidad. */}
+          <span>© 2026 Devaffi · Todos los derechos reservados. Devaffi es un producto de <a href={SITIO + '/'}>Gestión 360 IA</a>.</span>
+          <span>Buenos Aires, Argentina</span>
         </div>
       </div>
     </footer>
