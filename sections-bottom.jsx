@@ -113,6 +113,7 @@ function Footer() {
                 </a>
               </li>
               <li><a href="/software">Ver el catálogo</a></li>
+              <li><a href="https://devaffi.com/">Devaffi · Red de afiliados</a></li>
               <li><a href="https://devaffi.com/afiliados">Vendelos y ganá comisión</a></li>
               <li><a href="https://devaffi.com/developers">Publicá tu software</a></li>
             </ul>

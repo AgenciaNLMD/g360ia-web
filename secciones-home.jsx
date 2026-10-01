@@ -395,7 +395,9 @@ function Afiliados() {
             <p className="g-lead" style={{ marginBottom: 24 }}>
               Si ya tratás con negocios de un rubro —porque les vendés insumos, les llevás
               la contabilidad o simplemente los conocés— podés presentarles los sistemas del
-              catálogo con tu código y cobrar una comisión de cada cuota que paguen.
+              catálogo con tu código y cobrar una comisión de cada cuota que paguen. El
+              programa funciona en <a className="g-link" href="https://devaffi.com/">Devaffi</a>,
+              la red de afiliados para software que construimos.
             </p>
             <div className="g-hero-ctas">
               <a className="g-btn g-btn--primario" href="https://devaffi.com/afiliados">
