@@ -27,8 +27,8 @@
      cosa. */
   const SECCIONES = [
     { label: 'Software propio',       href: '/software' },
-    { label: 'Programa de afiliados', href: '/afiliados' },
-    { label: 'Developers',            href: '/developers' },
+    { label: 'Programa de afiliados', href: 'https://devaffi.com/afiliados' },
+    { label: 'Developers',            href: 'https://devaffi.com/developers' },
   ];
 
   /* ─────────── HTML ─────────── */
@@ -56,8 +56,8 @@
 
       <div class="svc-nav-right">
         <a href="/software" class="svc-nav-seccion">Software</a>
-        <a href="/afiliados" class="svc-nav-seccion">Afiliados</a>
-        <a href="/developers" class="svc-nav-seccion">Developers</a>
+        <a href="https://devaffi.com/afiliados" class="svc-nav-seccion">Afiliados</a>
+        <a href="https://devaffi.com/developers" class="svc-nav-seccion">Developers</a>
 
         <div class="svc-services-wrap">
           <button class="svc-services-btn" id="svc-services-btn" aria-expanded="false">

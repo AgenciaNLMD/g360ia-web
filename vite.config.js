@@ -34,13 +34,6 @@ const legal = Object.fromEntries(
     .map((f) => ['legal/' + f.replace('.html', ''), resolve(root, 'legal', f)])
 )
 
-/* Documentación para developers: cada .html sale en dist/docs/ (hoy, /docs/api) */
-const docs = Object.fromEntries(
-  readdirSync(resolve(root, 'docs'))
-    .filter((f) => f.endsWith('.html'))
-    .map((f) => ['docs/' + f.replace('.html', ''), resolve(root, 'docs', f)])
-)
-
 export default defineConfig({
   plugins: [react()],
   build: {
@@ -57,24 +50,15 @@ export default defineConfig({
            vet.g360ia.com.ar en el Caddyfile —está indexada y la escriben los
            mails del turnero (lib/email-textos.js)— y el contenido del producto
            lo cuenta ahora `/software`. */
-        /* Devaffi: la red de afiliados, con marca y hoja propias (Regla 9).
-           La portada vive en /devaffi y el resto de sus páginas en la raíz,
-           porque así se pidieron las URLs. Salen vacías de acá y las llena
-           scripts/prerender-devaffi.mjs, que corre después de vite build. */
-        devaffi: resolve(root, 'devaffi/index.html'),
-        afiliados: resolve(root, 'afiliados.html'),
-        developers: resolve(root, 'developers.html'),
-        planes: resolve(root, 'planes.html'),
-        'sobre-devaffi': resolve(root, 'sobre-devaffi.html'),
-        'terminos-devaffi': resolve(root, 'terminos-devaffi.html'),
-        'privacidad-devaffi': resolve(root, 'privacidad-devaffi.html'),
-        'legales-devaffi': resolve(root, 'legales-devaffi.html'),
+        /* Devaffi (la red de afiliados) vivió acá hasta el 1-oct-2026 con
+           /devaffi, /afiliados, /developers, /planes, /docs/api y sus legales.
+           Se mudó a su repo y dominio propios (devaffi.com); las URLs viejas
+           hacen 301 en el Caddyfile. */
 
         ...servicios,
         ...software,
         ...blog,
         ...legal,
-        ...docs,
       },
     },
   },

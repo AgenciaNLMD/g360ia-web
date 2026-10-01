@@ -14,6 +14,30 @@
 	# Canónica = https://g360ia.com.ar/... (sin www, sin /index, sin .html)
 	# Los <link rel="canonical"> del HTML ya apuntan ahí; esto lo fuerza con 301.
 
+	# 0) Devaffi -> devaffi.com
+	# La red de afiliados vivió en este sitio hasta el 1-oct-2026 y se mudó a su
+	# repo y dominio propios. Cada URL vieja va a su par, con y sin .html, y sin
+	# mirar el host: van ANTES de las reglas de www y de la genérica de .html
+	# para que www, extensión y todo lleguen en un solo salto.
+	@dv_inicio path /devaffi /devaffi/ /devaffi.html /devaffi/index.html
+	redir @dv_inicio https://devaffi.com/ permanent
+	@dv_afiliados path /afiliados /afiliados.html
+	redir @dv_afiliados https://devaffi.com/afiliados permanent
+	@dv_developers path /developers /developers.html
+	redir @dv_developers https://devaffi.com/developers permanent
+	@dv_planes path /planes /planes.html
+	redir @dv_planes https://devaffi.com/planes permanent
+	@dv_about path /sobre-devaffi /sobre-devaffi.html
+	redir @dv_about https://devaffi.com/about permanent
+	@dv_terminos path /terminos-devaffi /terminos-devaffi.html
+	redir @dv_terminos https://devaffi.com/legal/terminos permanent
+	@dv_privacidad path /privacidad-devaffi /privacidad-devaffi.html
+	redir @dv_privacidad https://devaffi.com/legal/privacidad permanent
+	@dv_legales path /legales-devaffi /legales-devaffi.html
+	redir @dv_legales https://devaffi.com/legal permanent
+	@dv_docs path /docs/api /docs/api.html
+	redir @dv_docs https://devaffi.com/docs/api permanent
+
 	# 1) www -> apex, siempre en UN solo salto (sin cadenas de redirección).
 	# Las reglas de www que normalizan el path van primero: si sólo estuviera la
 	# genérica, www/index haría 301 a apex/index y recién ahí a / (dos saltos).
