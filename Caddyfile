@@ -46,9 +46,9 @@
 	# Conservan el posicionamiento ya ganado; no quitar mientras sigan indexadas.
 	redir /devaffi https://devaffi.com/ permanent
 	redir /devaffi/ https://devaffi.com/ permanent
-	@devaffi_paginas path /afiliados /developers /planes /sobre-devaffi /terminos-devaffi /privacidad-devaffi /legales-devaffi
+	@devaffi_paginas path /docs/api /afiliados /developers /planes /sobre-devaffi /terminos-devaffi /privacidad-devaffi /legales-devaffi
 	redir @devaffi_paginas https://devaffi.com{path} permanent
-	@devaffi_html path /afiliados.html /developers.html /planes.html /sobre-devaffi.html /terminos-devaffi.html /privacidad-devaffi.html /legales-devaffi.html
+	@devaffi_html path /docs/api.html /afiliados.html /developers.html /planes.html /sobre-devaffi.html /terminos-devaffi.html /privacidad-devaffi.html /legales-devaffi.html
 	redir @devaffi_html https://devaffi.com{path} permanent
 
 	# 3) /software-para-veterinarias -> el sitio del producto

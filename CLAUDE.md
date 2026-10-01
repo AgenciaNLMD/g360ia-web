@@ -483,7 +483,7 @@ de Devaffi. Lo único que sigue en este repo son:
   `/sobre-devaffi` y los legales hacia devaffi.com. No sacarlos mientras las URLs viejas sigan indexadas.
 - Los enlaces del navbar, del pie y de la home, que apuntan directo a `https://devaffi.com/...`
   (el destino final, para no pasar por el 301).
-- `/docs/api`, que sigue acá.
+- `/docs/api`, que también se mudó (https://devaffi.com/docs/api) y tiene su 301.
 
 Todo lo que se escribió antes sobre Devaffi en este archivo (marca, diseño propio, hoja
 `devaffi.css`, prerender) quedó en el historial de git y ahora se mantiene en `devaffi-web`.

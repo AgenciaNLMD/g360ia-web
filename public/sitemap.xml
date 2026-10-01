@@ -107,14 +107,7 @@
        al buscador que rastree algo que ya sabe que no es la página. -->
 
   <!-- Devaffi se mudó a https://devaffi.com el 1-oct-2026 (sitemap propio). Las URLs
-       viejas (/devaffi, /afiliados, /developers, /planes, /sobre-devaffi) son 301. -->
-
-  <url>
-    <loc>https://g360ia.com.ar/docs/api</loc>
-    <lastmod>2026-09-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
+       viejas (/devaffi, /docs/api, /afiliados, /developers, /planes, /sobre-devaffi) son 301. -->
 
   <!-- Blog -->
   <url>
