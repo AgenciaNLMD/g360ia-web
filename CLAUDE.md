@@ -452,6 +452,6 @@ pasó de «router de tres puertas» a: hero → cifras → servicios → softwar
   `vender-software-sin-ser-programador`) con sus imágenes y sus entradas del sitemap. Sus URLs
   hacen 301 a `/blog` en el Caddyfile (`@blog_retiradas`). Las 301 de las URLs viejas del
   programa a devaffi.com (bloque 0) se dejaron: son entrada, no contenido.
-- Pendiente de decidir (no se tocó): `/legal/terminos` (puntos 7 y 8) y `/legal/privacidad`
-  (sección 5) todavía describen el programa; y `public/portfolio_pablo_montenegro.html`
-  lista Devaffi como proyecto personal.
+- Los legales (`/legal`) quedaron solo de G360iA: servicios, software por suscripción, uso del sitio y
+  una cláusula de no responsabilidad por enlaces y software de terceros (términos v2.0, punto 7).
+  `public/portfolio_pablo_montenegro.html` sigue listando Devaffi como proyecto personal, a propósito.
