@@ -57,18 +57,8 @@ export default defineConfig({
            vet.g360ia.com.ar en el Caddyfile —está indexada y la escriben los
            mails del turnero (lib/email-textos.js)— y el contenido del producto
            lo cuenta ahora `/software`. */
-        /* Devaffi: la red de afiliados, con marca y hoja propias (Regla 9).
-           La portada vive en /devaffi y el resto de sus páginas en la raíz,
-           porque así se pidieron las URLs. Salen vacías de acá y las llena
-           scripts/prerender-devaffi.mjs, que corre después de vite build. */
-        devaffi: resolve(root, 'devaffi/index.html'),
-        afiliados: resolve(root, 'afiliados.html'),
-        developers: resolve(root, 'developers.html'),
-        planes: resolve(root, 'planes.html'),
-        'sobre-devaffi': resolve(root, 'sobre-devaffi.html'),
-        'terminos-devaffi': resolve(root, 'terminos-devaffi.html'),
-        'privacidad-devaffi': resolve(root, 'privacidad-devaffi.html'),
-        'legales-devaffi': resolve(root, 'legales-devaffi.html'),
+        /* Devaffi (afiliados, developers, planes...) se mudó a su propio repo,
+           devaffi-web, y vive en devaffi.com. Acá sólo quedan los 301 (Caddyfile). */
 
         ...servicios,
         ...software,

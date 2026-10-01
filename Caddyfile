@@ -42,6 +42,15 @@
 	redir /index / permanent
 	redir /index.html / permanent
 
+	# 2b) Devaffi se mudó a devaffi.com (1-oct-2026): 301 de las URLs viejas.
+	# Conservan el posicionamiento ya ganado; no quitar mientras sigan indexadas.
+	redir /devaffi https://devaffi.com/ permanent
+	redir /devaffi/ https://devaffi.com/ permanent
+	@devaffi_paginas path /afiliados /developers /planes /sobre-devaffi /terminos-devaffi /privacidad-devaffi /legales-devaffi
+	redir @devaffi_paginas https://devaffi.com{path} permanent
+	@devaffi_html path /afiliados.html /developers.html /planes.html /sobre-devaffi.html /terminos-devaffi.html /privacidad-devaffi.html /legales-devaffi.html
+	redir @devaffi_html https://devaffi.com{path} permanent
+
 	# 3) /software-para-veterinarias -> el sitio del producto
 	# La landing se borró el 16-sep-2026: el que busca el software para
 	# veterinarias quiere entrar al software, no leer una página intermedia que

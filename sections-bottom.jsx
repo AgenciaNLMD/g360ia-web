@@ -99,8 +99,8 @@ function Footer() {
             <ul>
               <li><a href="/servicios">Servicios</a></li>
               <li><a href="/software">Software propio</a></li>
-              <li><a href="/afiliados">Programa de afiliados</a></li>
-              <li><a href="/developers">Developers</a></li>
+              <li><a href="https://devaffi.com/afiliados">Programa de afiliados</a></li>
+              <li><a href="https://devaffi.com/developers">Developers</a></li>
               <li><a href="/blog/">Blog</a></li>
             </ul>
           </div>
@@ -113,8 +113,8 @@ function Footer() {
                 </a>
               </li>
               <li><a href="/software">Ver el catálogo</a></li>
-              <li><a href="/afiliados">Vendelos y ganá comisión</a></li>
-              <li><a href="/developers">Publicá tu software</a></li>
+              <li><a href="https://devaffi.com/afiliados">Vendelos y ganá comisión</a></li>
+              <li><a href="https://devaffi.com/developers">Publicá tu software</a></li>
             </ul>
           </div>
           <div>

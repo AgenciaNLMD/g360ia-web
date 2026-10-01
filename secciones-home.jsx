@@ -76,8 +76,8 @@ function useRevelar() {
 const ENLACES = [
   { texto: 'Servicios',  href: '/servicios' },
   { texto: 'Software',   href: '/software' },
-  { texto: 'Afiliados',  href: '/afiliados' },
-  { texto: 'Developers', href: '/developers' },
+  { texto: 'Afiliados',  href: 'https://devaffi.com/afiliados' },
+  { texto: 'Developers', href: 'https://devaffi.com/developers' },
   { texto: 'Blog',       href: '/blog/' },
 ];
 
@@ -398,7 +398,7 @@ function Afiliados() {
               catálogo con tu código y cobrar una comisión de cada cuota que paguen.
             </p>
             <div className="g-hero-ctas">
-              <a className="g-btn g-btn--primario" href="/afiliados">
+              <a className="g-btn g-btn--primario" href="https://devaffi.com/afiliados">
                 Cómo funciona el programa <Flecha />
               </a>
             </div>
