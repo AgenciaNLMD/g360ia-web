@@ -62,6 +62,24 @@
 	# pierden a propósito: no hay nada del otro lado que los consuma.
 	redir /contacto /#contacto permanent
 
+	# 3c) Devaffi -> devaffi.com
+	# La red de afiliados vivió acá hasta el 1-oct-2026 (portada en /devaffi y
+	# el resto en la raíz) y se mudó a su dominio, repo devaffi-web. Las URLs
+	# están indexadas y las enlazaban el panel y los mails, así que cada una
+	# hace 301 a su par en devaffi.com, con y sin .html, en un solo salto.
+	@dv_inicio path /devaffi /devaffi/ /devaffi.html /devaffi/index.html
+	redir @dv_inicio https://devaffi.com/ permanent
+	@dv_igual path_regexp dvigual ^/(afiliados|developers|planes|docs/api)(\.html)?$
+	redir @dv_igual https://devaffi.com/{re.dvigual.1} permanent
+	@dv_nosotros path /sobre-devaffi /sobre-devaffi.html
+	redir @dv_nosotros https://devaffi.com/nosotros permanent
+	@dv_terminos path /terminos-devaffi /terminos-devaffi.html
+	redir @dv_terminos https://devaffi.com/legal/terminos permanent
+	@dv_privacidad path /privacidad-devaffi /privacidad-devaffi.html
+	redir @dv_privacidad https://devaffi.com/legal/privacidad permanent
+	@dv_legales path /legales-devaffi /legales-devaffi.html
+	redir @dv_legales https://devaffi.com/legal permanent
+
 	# 4) /loquesea.html -> /loquesea
 	# /partials/* queda excluido: no son páginas, son fragmentos que se piden por fetch
 	# (ver Regla 4 / footer compartido). Redirigirlos sólo agrega un salto a cada carga.

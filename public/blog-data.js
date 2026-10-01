@@ -21,7 +21,7 @@ window.BlogData = (function () {
     /* No es un servicio que se contrata: es la puerta de reventa. Vive acá
        porque el modal de palabra clave del blog se arma con esta misma lista
        y las notas de afiliados necesitan poder apuntar a algún lado. */
-    afiliados:       { name: 'Programa de afiliados', url: '/afiliados' }
+    afiliados:       { name: 'Programa de afiliados', url: 'https://devaffi.com/afiliados' }
   };
 
   /* Artículos del blog. `services` = a qué servicio se relaciona cada nota. */

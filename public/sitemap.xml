@@ -106,48 +106,9 @@
        sitemap: el sitemap declara destinos finales, y listar un 301 es pedirle
        al buscador que rastree algo que ya sabe que no es la página. -->
 
-  <!-- Devaffi — la red de afiliados, con marca propia (CLAUDE.md, Regla 9).
-       /terminos-devaffi no va: es noindex, como los legales de /legal. -->
-  <url>
-    <loc>https://g360ia.com.ar/devaffi</loc>
-    <lastmod>2026-09-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://g360ia.com.ar/planes</loc>
-    <lastmod>2026-09-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://g360ia.com.ar/sobre-devaffi</loc>
-    <lastmod>2026-09-30</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://g360ia.com.ar/afiliados</loc>
-    <lastmod>2026-09-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://g360ia.com.ar/developers</loc>
-    <lastmod>2026-09-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://g360ia.com.ar/docs/api</loc>
-    <lastmod>2026-09-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
+  <!-- Devaffi (/devaffi, /afiliados, /developers, /planes, /docs/api...) se mudó
+       a devaffi.com el 1-oct-2026 y esas URLs son 301 (ver Caddyfile). Van en el
+       sitemap de devaffi.com, no en este. -->
 
   <!-- Blog -->
   <url>

@@ -110,8 +110,8 @@ contacto. Cada puerta lleva a su rama y ahí se despliega el detalle.
 |---|---|---|---|
 | Servicios | `/servicios` + `/servicios/<slug>` | trabajo a medida | este repo |
 | Software propio | `/software` | producto por cuota mensual | el sitio del producto (`vet.g360ia.com.ar`) |
-| Afiliados | `/afiliados` | reventa por comisión | informa acá; se entra en `app.g360ia.com.ar` (Regla 8) |
-| Developers | `/developers` | publicar tu software en el catálogo | informa acá; se entra en `app.g360ia.com.ar` (Regla 8) |
+| Afiliados | `devaffi.com/afiliados` | reventa por comisión | vive en el repo `devaffi-web` (Regla 9) |
+| Developers | `devaffi.com/developers` | publicar tu software en el catálogo | vive en el repo `devaffi-web` (Regla 9) |
 
 `/afiliados` y `/developers` son **la misma máquina vista desde los dos lados**: una le habla
 al que sale a vender, la otra al que construyó el producto. Comparten vocabulario a propósito
@@ -264,13 +264,13 @@ un porcentaje del reparto: el **0** de costo fijo para publicar, o los **12** me
 | `lib/afiliado-textos.js` (turnero) | `COMISION_PCT` |
 | migración 090 del turnero | el DEFAULT de `afiliado.comision_pct` |
 | `g360ia-PRM/app/lib/programa.js` | `PCT_AFILIADO` y compañía — y subir `CONDICIONES_VERSION` |
-| `/afiliados` (`devaffi/paginas/Afiliados.jsx`) | cinta, paso 04 y FAQ. La calculadora ya **no** tiene constante: la comisión es un control más |
-| `/developers` (`devaffi/paginas/Developers.jsx`) | cinta, requisito 06, la comparativa y la FAQ (una sola copia: el JSON-LD sale del mismo array) |
-| `/devaffi` y `/planes` | las FAQ y el bloque «reparto» de la portada |
+| `devaffi.com/afiliados` (repo `devaffi-web`, `devaffi/paginas/Afiliados.jsx`) | cinta, paso 04 y FAQ. La calculadora ya **no** tiene constante: la comisión es un control más |
+| `devaffi.com/developers` (repo `devaffi-web`, `devaffi/paginas/Developers.jsx`) | cinta, requisito 06, la comparativa y la FAQ (una sola copia: el JSON-LD sale del mismo array) |
+| portada y `/planes` de devaffi.com | las FAQ y el bloque «reparto» de la portada |
 | `/legal/terminos` | puntos 7.2, 7.3, 8.1 y 8.3 — y subir la versión del documento |
-| `/terminos-devaffi` | puntos 3.2, 3.3, 4.1 y 4.3 (la copia con marca Devaffi) — y subir su versión |
+| `devaffi.com/legal/terminos` | puntos 3.2, 3.3, 4.1 y 4.3 (la copia con marca Devaffi) — y subir su versión |
 
-`/legal/terminos` y `/terminos-devaffi` son las copias delicadas —dicen lo mismo con dos marcas—: ahí el reparto no es un argumento de venta sino una
+`/legal/terminos` y `devaffi.com/legal/terminos` son las copias delicadas —dicen lo mismo con dos marcas—: ahí el reparto no es un argumento de venta sino una
 condición escrita, así que es la que no puede quedar atrasada respecto de lo que el panel le
 hizo aceptar a la gente.
 
@@ -293,13 +293,13 @@ reemplazado por los 45 días por negocio nuevo.
 
 Al cambiar una regla del programa en `planes.md`, revisar: `/afiliados` (FAQ, `HowTo`),
 `/developers` (requisitos, FAQ, `HowTo`), `/planes`, `/legal/terminos` (7.3) y
-`/terminos-devaffi` (3.3), subiendo la versión de los dos términos.
+`devaffi.com/legal/terminos` (3.3), subiendo la versión de los dos términos.
 
 ### Los precios de los planes se leen, no se escriben
 
 `/planes#vendedores` (Free/Pro del vendedor, paquetes de contactos, extensión del lugar) y
 `/planes#developers` (la tabla de niveles, los contactos de regalo) muestran precios y cupos
-sin tener ninguno escrito: los pone `devaffi/planes-api.jsx` (`<Dato>`, `<Estado>`,
+sin tener ninguno escrito: los pone `devaffi/planes-api.jsx` (repo `devaffi-web`) (`<Dato>`, `<Estado>`,
 `<TablaNiveles>`), que después de hidratar pide
 `app.g360ia.com.ar/api/planes` (repo `g360ia-PRM`, `app/api/planes/route.js`). Esa ruta lee
 `plan_cuenta`, `nivel_developer(n)` y las constantes de cobro, así que un UPDATE en el panel
@@ -473,71 +473,30 @@ si `PANEL_LEADS_URL` sigue apuntando al dominio viejo, los leads del sitio dejan
 **sin ningún error visible** — `forwardToPanel()` sólo loguea el fallo, no reintenta ni
 avisa. Verificar esa variable después de mudar el admin.
 
-## Regla 9 — Devaffi: la red de afiliados tiene marca, diseño y código propios
+## Regla 9 — Devaffi vive en su propio repo y dominio
 
 Desde el 30-sep-2026 el programa de afiliados y developers se presenta como **Devaffi**
-(«Plataforma de afiliados para desarrolladores»), un producto de Gestión 360 IA que en el
-futuro se muda a **devaffi.com**. Mientras tanto vive en este repo con estas URLs, todas en la
-raíz de g360ia.com.ar y **no** bajo `/devaffi/…` (así se pidió):
+(«Plataforma de afiliados para desarrolladores»). Vivió en este repo hasta el **1-oct-2026**
+y se mudó a **`devaffi-web`** (carpeta local `C:GitHubDevaffi-web`), servido en
+**devaffi.com**. Sus reglas (marca propia, prerender, ningún número escrito) están en el
+`CLAUDE.md` de ese repo. El panel es otro repo, **`devaffi`** (antes `g360ia-PRM`), en
+`app.devaffi.com`.
 
-| URL | Archivo | Qué es |
-|---|---|---|
-| `/devaffi` | `devaffi/index.html` · `paginas/Inicio.jsx` | portada de la red |
-| `/developers` | `developers.html` · `paginas/Developers.jsx` | el lado del que publica |
-| `/afiliados` | `afiliados.html` · `paginas/Afiliados.jsx` | el lado del que vende |
-| `/planes` | `planes.html` · `paginas/Planes.jsx` | Free/Pro del vendedor y niveles del developer |
-| `/sobre-devaffi` | `sobre-devaffi.html` · `paginas/Nosotros.jsx` | quiénes somos (no `/nosotros`: en la raíz de g360ia se leería como la de G360iA) |
-| `/terminos-devaffi` | `terminos-devaffi.html` · `paginas/Terminos.jsx` | términos del programa, `noindex` |
-| `/privacidad-devaffi` | `privacidad-devaffi.html` · `paginas/Privacidad.jsx` | privacidad, con la sección de prospección (`#prospeccion`), `noindex` |
-| `/legales-devaffi` | `legales-devaffi.html` · `paginas/Legales.jsx` | puerta a los legales + aviso legal, `noindex` |
+Lo que queda acá:
 
-**No comparte nada visual con G360iA**: ni `styles.css`, ni el navy/dorado, ni la barra ni el
-pie compartidos (las Reglas 4 y 7 no aplican). Todo vive en `devaffi/`: `devaffi.css` (prefijo
-`.dv-`, colores del logo), `componentes.jsx` (barra, pie, isotipo en SVG, FAQ, etc.),
-`planes-api.jsx` y una página por archivo en `paginas/`. El isotipo es un redibujo en vector
-del logo; si llega el SVG oficial, se cambia en `Isotipo` (y en `public/devaffi-icono.svg`).
+- **301 en el `Caddyfile`** (regla 3c) desde cada URL vieja a su par en devaffi.com:
+  `/devaffi` → `/`, `/afiliados`, `/developers`, `/planes` y `/docs/api` → igual,
+  `/sobre-devaffi` → `/nosotros`, `/terminos-devaffi` → `/legal/terminos`,
+  `/privacidad-devaffi` → `/legal/privacidad`, `/legales-devaffi` → `/legal`. No se
+  borran: están indexadas y las enlazaron el panel y los mails.
+- **Los links del sitio** (barra, pie, home, servicios, software, blog, legales) van directo
+  a `https://devaffi.com/afiliados` y `/developers`, sin pasar por el 301.
+- **`/legal/terminos` de este sitio** sigue describiendo el programa con la marca G360iA
+  (puntos 7.x y 8.x). Es la copia que hay que mantener en línea con
+  `devaffi.com/legal/terminos` (Regla 6) mientras exista.
 
-**Devaffi se cuenta como marca propia.** Desde el 30-sep-2026 no nombra a Gestión 360 IA ni
-a Vet 360iA en el cuerpo de ninguna página: la empresa titular aparece **sólo** en el pie
-(«Devaffi es un producto de Gestión 360 IA», con link, por SEO) y en la titularidad de los
-legales, que la ley exige. El catálogo se describe sin nombrar productos («el primer software
-publicado»), y **no se dan ejemplos de rubros**. El contacto sale de `MAIL`/`TEL` en
-`componentes.jsx`: el correo ya es `contacto@devaffi.com`, el teléfono es provisorio (el de la
-empresa). En el JSON-LD sí queda `parentOrganization`, que no se ve y ayuda a la entidad.
-
-**La prospección se informa en `/privacidad-devaffi#prospeccion` y en el punto 6.1 de los
-términos.** Los campos que se nombran (nombre, rubro, ciudad y dirección, teléfono, sitio web,
-Instagram) son los de `lead_pool` en `g360ia-PRM` (migración 048, `lib/apify.js`): si la
-tabla cambia, cambia la política. **Ojo:** la página promete una baja que excluye al negocio de
-toda la red y el respeto del Registro No Llame; al escribirlo el panel todavía no tenía ni la
-lista de exclusión ni el cruce con ese registro.
-
-**Nunca se copia nada de material para inversores** (`g360ia-PRM/DevAffi presentación.docx` y
-similares): ni montos, ni proyecciones, ni costos, ni comparables, ni porcentajes de modelo.
-
-**React prerenderizado, no SPA.** Cada HTML trae `<div id="dv-root"></div>` vacío; después de
-`vite build`, `scripts/prerender-devaffi.mjs` renderiza cada página con `renderToString` y la
-escribe adentro (el build falla si no encuentra el contenedor). El navegador hidrata con
-`devaffi/entrada.jsx`, que carga sólo el chunk de esa página. Así el contenido llega en el
-primer byte para buscadores e IA. Consecuencias:
-
-- Nada de `window`, fechas ni azar **durante el render**: rompería la hidratación. Lo que
-  depende del navegador va en `useEffect` (como el fetch de `planes-api.jsx`).
-- Página nueva: el HTML (copiar uno existente, cambiar `data-dv` y los meta), la entrada en
-  `vite.config.js`, y la clave en `devaffi/paginas.js` y en `devaffi/ssr.jsx`.
-- En `npm run dev` no hay prerender: la página se renderiza de cero en el cliente.
-- Las FAQ se escriben una vez (arrays con `**negrita**` y `[texto](url)`) y de ahí salen la
-  vista y el JSON-LD de `FAQPage`: no pueden decir cosas distintas.
-
-**Qué se comunica primero.** La portada le habla al developer (es lo que dice el slogan y es
-el lado que hace falta primero: sin producto no hay nada que vender), pero la puerta del
-vendedor está en el mismo primer pantallazo; después va el mecanismo en tres pasos y el
-reparto, las dos puertas, las reglas, y «dónde está esto hoy» sin inflar. Todo lo de la
-Regla 6 sigue valiendo: ningún porcentaje ni precio escrito, ningún partner nombrado antes
-de estar publicado, los CTA a `app.g360ia.com.ar`.
-
-**Al mudarse a devaffi.com**: cambiar `SITIO` y `RUTAS` en `componentes.jsx`, los
-`canonical`/`og:url` de los ocho HTML, y dejar 301 desde estas URLs en el Caddyfile.
+**No volver a agregar páginas de Devaffi acá**: ni `styles.css`, ni la barra, ni el pie de
+G360iA se usan allá, y dos copias de la misma página en dos dominios se parten la señal.
 
 ## Stack
 
