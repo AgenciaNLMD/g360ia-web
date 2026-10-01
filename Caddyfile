@@ -72,7 +72,7 @@
 	@dv_igual path_regexp dvigual ^/(afiliados|developers|planes|docs/api)(\.html)?$
 	redir @dv_igual https://devaffi.com/{re.dvigual.1} permanent
 	@dv_nosotros path /sobre-devaffi /sobre-devaffi.html
-	redir @dv_nosotros https://devaffi.com/nosotros permanent
+	redir @dv_nosotros https://devaffi.com/about permanent
 	@dv_terminos path /terminos-devaffi /terminos-devaffi.html
 	redir @dv_terminos https://devaffi.com/legal/terminos permanent
 	@dv_privacidad path /privacidad-devaffi /privacidad-devaffi.html

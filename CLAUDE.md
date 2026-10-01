@@ -486,7 +486,7 @@ Lo que queda acá:
 
 - **301 en el `Caddyfile`** (regla 3c) desde cada URL vieja a su par en devaffi.com:
   `/devaffi` → `/`, `/afiliados`, `/developers`, `/planes` y `/docs/api` → igual,
-  `/sobre-devaffi` → `/nosotros`, `/terminos-devaffi` → `/legal/terminos`,
+  `/sobre-devaffi` → `/about`, `/terminos-devaffi` → `/legal/terminos`,
   `/privacidad-devaffi` → `/legal/privacidad`, `/legales-devaffi` → `/legal`. No se
   borran: están indexadas y las enlazaron el panel y los mails.
 - **Los links del sitio** (barra, pie, home, servicios, software, blog, legales) van directo
