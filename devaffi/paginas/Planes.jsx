@@ -1,7 +1,7 @@
 /* /planes — qué es gratis y qué es pago, de los dos lados.
  *
  * Ningún precio, cupo ni plazo está escrito acá: los pone planes-api.jsx
- * desde app.g360ia.com.ar/api/planes, que lee lo mismo con lo que cobra el
+ * desde app.devaffi.com/api/planes, que lee lo mismo con lo que cobra el
  * panel. Cada <Dato> trae un texto de reserva que se lee bien solo, y cada
  * <Estado> dice «Próximamente» hasta que el pago se puede hacer de verdad. */
 import React from 'react';

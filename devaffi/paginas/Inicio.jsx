@@ -36,7 +36,7 @@ const FAQ = [
   },
   {
     q: '¿Dónde se crea la cuenta?',
-    a: ['En [el panel de Devaffi](https://app.g360ia.com.ar), que es una sola puerta para los dos lados: entrás con tu cuenta de Google y el panel te muestra la cara que te corresponde —la del vendedor o la del developer—.'],
+    a: ['En [el panel de Devaffi](https://app.devaffi.com), que es una sola puerta para los dos lados: entrás con tu cuenta de Google y el panel te muestra la cara que te corresponde —la del vendedor o la del developer—.'],
   },
   {
     q: '¿Quién está detrás de Devaffi?',

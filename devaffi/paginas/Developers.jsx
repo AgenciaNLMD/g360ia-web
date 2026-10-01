@@ -142,7 +142,7 @@ function Codigo() {
     <figure className="dv-codigo dv-rev">
       <div className="dv-codigo-bar" aria-hidden="true"><i /><i /><i /><span>POST /api/v1/altas</span></div>
       <pre><code>{`// Justo después de crear la cuenta en tu sistema
-await fetch("https://app.g360ia.com.ar/api/v1/altas", {
+await fetch("https://app.devaffi.com/api/v1/altas", {
   method: "POST",
   headers: {
     "Authorization": \`Bearer \${process.env.G360_CLAVE}\`,

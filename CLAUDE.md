@@ -110,8 +110,8 @@ contacto. Cada puerta lleva a su rama y ahí se despliega el detalle.
 |---|---|---|---|
 | Servicios | `/servicios` + `/servicios/<slug>` | trabajo a medida | este repo |
 | Software propio | `/software` | producto por cuota mensual | el sitio del producto (`vet.g360ia.com.ar`) |
-| Afiliados | `/afiliados` | reventa por comisión | informa acá; se entra en `app.g360ia.com.ar` (Regla 8) |
-| Developers | `/developers` | publicar tu software en el catálogo | informa acá; se entra en `app.g360ia.com.ar` (Regla 8) |
+| Afiliados | `/afiliados` | reventa por comisión | informa acá; se entra en `app.devaffi.com` (Regla 8) |
+| Developers | `/developers` | publicar tu software en el catálogo | informa acá; se entra en `app.devaffi.com` (Regla 8) |
 
 `/afiliados` y `/developers` son **la misma máquina vista desde los dos lados**: una le habla
 al que sale a vender, la otra al que construyó el producto. Comparten vocabulario a propósito
@@ -199,8 +199,8 @@ Desde el **17-sep-2026** los CTA de las dos páginas apuntan al mismo lugar:
 
 | Página | CTA va a | Qué es |
 |---|---|---|
-| `/afiliados` | `app.g360ia.com.ar` | puerta única: se entra con Google y el servidor manda al panel del rol |
-| `/developers` | `app.g360ia.com.ar` | la misma puerta; el developer cae en el suyo |
+| `/afiliados` | `app.devaffi.com` | puerta única: se entra con Google y el servidor manda al panel del rol |
+| `/developers` | `app.devaffi.com` | la misma puerta; el developer cae en el suyo |
 
 No son dos paneles en dos subdominios sino uno solo con tres caras —afiliado, developer y el
 admin de la agencia—, y el rol lo resuelve el servidor después del login. Por eso los CTA no
@@ -210,12 +210,12 @@ Antes apuntaban a `afiliados.g360ia.com.ar` y `developers.g360ia.com.ar` (16-sep
 subdominios que resolvían en DNS pero no servían nada: los CTA estuvieron muertos hasta que el
 panel se levantó. Y antes de eso `/afiliados` mandaba a `vet.g360ia.com.ar/afiliados`, que era
 el panel del producto veterinario y no del programa —el afiliado vende **todo el catálogo**, no
-un producto—. El panel vive en el repo `g360ia-PRM`.
+un producto—. El panel vive en el repo `devaffi`.
 
 El alta es **self-service en las dos puntas**: no hay entrevista, ni aprobación de cuenta, ni
 comisión que negociar. Al registrarse se aceptan las condiciones. Lo único que se revisa es el
 producto del developer: que su sistema esté conectado a la API (documentada en `/docs/api`,
-repo `g360ia-PRM`, `app/api/v1`) y que cumpla los seis requisitos.
+repo `devaffi`, `app/api/v1`) y que cumpla los seis requisitos.
 
 ### Comisión de afiliados y reparto del catálogo
 
@@ -301,7 +301,7 @@ Al cambiar una regla del programa en `planes.md`, revisar: `/afiliados` (FAQ, `H
 `/planes#developers` (la tabla de niveles, los contactos de regalo) muestran precios y cupos
 sin tener ninguno escrito: los pone `devaffi/planes-api.jsx` (`<Dato>`, `<Estado>`,
 `<TablaNiveles>`), que después de hidratar pide
-`app.g360ia.com.ar/api/planes` (repo `g360ia-PRM`, `app/api/planes/route.js`). Esa ruta lee
+`app.devaffi.com/api/planes` (repo `devaffi`, `app/api/planes/route.js`). Esa ruta lee
 `plan_cuenta`, `nivel_developer(n)` y las constantes de cobro, así que un UPDATE en el panel
 cambia la página sin tocar este repo.
 
@@ -430,7 +430,7 @@ extensión, así que escribirla es un redirect en cada clic.
 ## Regla 8 — Este repo es sólo la vidriera. El login y los paneles viven aparte
 
 Hasta el 16-sep-2026 este repo alojó por un tiempo una app Next en `plataforma/` (el login
-único de `app.g360ia.com.ar`). Se sacó de acá: hoy vive en el repo **`g360ia-PRM`**
+único de `app.devaffi.com`). Se sacó de acá: hoy vive en el repo **`devaffi`**
 (renombrado desde `g360ia-panel`), carpeta `app/`, junto al panel de la agencia en `admin/`.
 `g360ia-web` es **sólo** Vite + React + HTML estático — sin base de datos, sin login, sin
 lógica de negocio. La única excepción es `chat-api/`, un proxy sin estado hacia la API de
@@ -534,7 +534,7 @@ el lado que hace falta primero: sin producto no hay nada que vender), pero la pu
 vendedor está en el mismo primer pantallazo; después va el mecanismo en tres pasos y el
 reparto, las dos puertas, las reglas, y «dónde está esto hoy» sin inflar. Todo lo de la
 Regla 6 sigue valiendo: ningún porcentaje ni precio escrito, ningún partner nombrado antes
-de estar publicado, los CTA a `app.g360ia.com.ar`.
+de estar publicado, los CTA a `app.devaffi.com`.
 
 **Al mudarse a devaffi.com**: cambiar `SITIO` y `RUTAS` en `componentes.jsx`, los
 `canonical`/`og:url` de los ocho HTML, y dejar 301 desde estas URLs en el Caddyfile.

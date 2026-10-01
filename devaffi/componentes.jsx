@@ -5,7 +5,7 @@
  * Node que en el navegador. Nada de `window`, fechas ni azar durante el render. */
 import React, { useState, useEffect } from 'react';
 
-export const APP = 'https://app.g360ia.com.ar';
+export const APP = 'https://app.devaffi.com';
 export const WA = 'https://wa.me/5491125526561';
 
 /* Contacto de Devaffi. El correo ya es del dominio propio; el teléfono es

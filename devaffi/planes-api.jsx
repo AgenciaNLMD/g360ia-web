@@ -1,7 +1,7 @@
 /* Los números de los planes, leídos del panel.
  *
  * Ninguna página de Devaffi escribe un precio ni un límite: los pide a
- * app.g360ia.com.ar/api/planes (repo g360ia-PRM, app/api/planes/route.js), que
+ * app.devaffi.com/api/planes (repo devaffi, app/api/planes/route.js), que
  * los saca de la misma tabla y la misma fórmula con las que el panel cobra. Un
  * número copiado acá envejecería solo hasta contradecir al panel (CLAUDE.md,
  * Regla 6).
@@ -12,7 +12,7 @@
  * «Próximamente». */
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const API = 'https://app.g360ia.com.ar/api/planes';
+const API = 'https://app.devaffi.com/api/planes';
 const Ctx = createContext({});
 
 function usd(n) {
