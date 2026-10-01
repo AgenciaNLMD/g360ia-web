@@ -1,5 +1,9 @@
 # Reglas del proyecto — G360ia website
 
+> **Vigente desde el 1-oct-2026 (Regla 10): el sitio vuelve a ser el de una consultora de IA.**
+> Ya no enlaza ni nombra a Devaffi, afiliados ni developers. Donde las Reglas 6, 8 y 9 hablen
+> de esas ramas, es historia: leer primero la Regla 10.
+
 ## Regla 1 — Scroll snap en páginas de servicios (desktop Y mobile)
 
 Todas las páginas en `/servicios/*.html` tienen `<body class="svc-page">`.
@@ -434,3 +438,20 @@ Consecuencias para este repo:
 - CSS: `styles.css` global con variables CSS (tema dark glassmorphism, navy + gold)
 - Tailwind: solo utilitarios, `preflight: false`, escanea `*.jsx` y `components/**/*.jsx`
 - Deploy: Easypanel con nixpacks.toml, Node 18
+
+## Regla 10 — Sin Devaffi: el sitio es de la consultora
+
+El 1-oct-2026 se sacó de la home, las barras, los pies, `/software`, `/servicios`, el blog y el
+prompt del chat todo lo que apuntaba a Devaffi (programa de afiliados y developers). La home
+pasó de «router de tres puertas» a: hero → cifras → servicios → software propio → contacto.
+
+- **No volver a enlazar `devaffi.com`** ni agregar entradas de afiliados/developers a las
+  barras (`ENLACES`, los `<nav class="g-nav">`, `navbar-init.js`), a los pies
+  (`sections-bottom.jsx`, `partials/footer.html`) ni a `blog-data.js`.
+- Se borraron ocho notas del blog (las seis de Devaffi, `programa-afiliados-…` y
+  `vender-software-sin-ser-programador`) con sus imágenes y sus entradas del sitemap. Sus URLs
+  hacen 301 a `/blog` en el Caddyfile (`@blog_retiradas`). Las 301 de las URLs viejas del
+  programa a devaffi.com (bloque 0) se dejaron: son entrada, no contenido.
+- Pendiente de decidir (no se tocó): `/legal/terminos` (puntos 7 y 8) y `/legal/privacidad`
+  (sección 5) todavía describen el programa; y `public/portfolio_pablo_montenegro.html`
+  lista Devaffi como proyecto personal.

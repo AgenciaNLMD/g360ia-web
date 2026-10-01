@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Icon, SERVICES, PUERTAS } from './data.jsx';
+import { Icon, SERVICES } from './data.jsx';
 
 /* ===========================================================================
    LA HOME — sistema claro, scroll vertical
@@ -11,9 +11,8 @@ import { Icon, SERVICES, PUERTAS } from './data.jsx';
    lo que mide su contenido y se distingue de la anterior por el fondo.
 
    El orden alterna a propósito:
-     hero (oscuro, con la foto) → cifras (blanco) → puertas (gris) →
-     servicios (blanco) → software (gris) → afiliados (crema) →
-     contacto (oscuro) → pie
+     hero (oscuro, con la foto) → cifras (blanco) → servicios (gris) →
+     software (blanco) → contacto (oscuro) → pie
 
    Ninguna sección repite el fondo de la que tiene al lado, que es lo que hace
    que se lea dónde empieza cada una sin una sola línea divisoria.
@@ -76,8 +75,6 @@ function useRevelar() {
 const ENLACES = [
   { texto: 'Servicios',  href: '/servicios' },
   { texto: 'Software',   href: '/software' },
-  { texto: 'Afiliados',  href: 'https://devaffi.com/afiliados' },
-  { texto: 'Developers', href: 'https://devaffi.com/developers' },
   { texto: 'Blog',       href: '/blog/' },
 ];
 
@@ -240,45 +237,6 @@ function Cifras() {
 }
 
 /* ===========================================================================
-   LAS TRES PUERTAS
-   La home pregunta a qué viniste en vez de mostrarle las tres cosas enteras a
-   todo el mundo: son tres embudos distintos para tres personas distintas, y
-   meterlos en el mismo scroll era lo que la tenía cargada.
-   =========================================================================== */
-function Puertas() {
-  return (
-    <section className="g-sec g-sec--soft" id="puertas">
-      <div className="g-contenedor">
-        <div className="g-cab g-rev">
-          <span className="g-eyebrow">Por dónde empezar</span>
-          <h2 className="g-h2">¿A qué viniste?</h2>
-          <p className="g-lead g-lead--centro">
-            Hacemos tres cosas distintas para tres personas distintas.
-            Elegí la tuya y te llevamos derecho.
-          </p>
-        </div>
-
-        <div className="g-grid g-grid--3">
-          {PUERTAS.map((p, i) => {
-            const Ico = Icon[p.icon];
-            return (
-              <a key={p.id} href={p.href} className="g-card g-card--puerta g-rev"
-                 style={{ '--g-delay': 100 + i * 90 + 'ms' }}>
-                <span className="g-card-ico" aria-hidden="true"><Ico /></span>
-                <span className="g-card-kick">{p.kicker}</span>
-                <h3 className="g-card-t">{p.titulo}</h3>
-                <p className="g-card-p">{p.desc}</p>
-                <span className="g-card-mas">{p.accion} <Flecha /></span>
-              </a>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ===========================================================================
    SERVICIOS
    Ocho tarjetas que enlazan. Antes había acá un bento con overlay animado que
    mostraba un resumen de lo que ya cuenta cada página de servicio; el usuario
@@ -287,7 +245,7 @@ function Puertas() {
    =========================================================================== */
 function Servicios() {
   return (
-    <section className="g-sec" id="servicios">
+    <section className="g-sec g-sec--soft" id="servicios">
       <div className="g-contenedor">
         <div className="g-cab g-rev">
           <span className="g-eyebrow">Servicios</span>
@@ -332,7 +290,7 @@ function Servicios() {
    =========================================================================== */
 function Software() {
   return (
-    <section className="g-sec g-sec--soft" id="software">
+    <section className="g-sec" id="software">
       <div className="g-contenedor">
         <div className="g-split g-split--ancha">
           <div className="g-rev">
@@ -371,49 +329,6 @@ function Software() {
                 alt="Panel de Vet 360iA con los turnos del día, la facturación de la jornada y los avisos pendientes de la veterinaria"
               />
             </figure>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ===========================================================================
-   AFILIADOS
-   Va sobre el crema y no sobre el navy a propósito: la sección de contacto que
-   viene abajo ya es oscura, y dos bandas oscuras seguidas borran el corte
-   entre las dos.
-   =========================================================================== */
-function Afiliados() {
-  return (
-    <section className="g-sec g-sec--warm" id="afiliados">
-      <div className="g-contenedor">
-        <div className="g-split">
-          <div className="g-rev">
-            <span className="g-eyebrow">Programa de afiliados</span>
-            <h2 className="g-h2">¿Y si en vez de comprarlo <em>lo vendés</em>?</h2>
-            <p className="g-lead" style={{ marginBottom: 24 }}>
-              Si ya tratás con negocios de un rubro —porque les vendés insumos, les llevás
-              la contabilidad o simplemente los conocés— podés presentarles los sistemas del
-              catálogo con tu código y cobrar una comisión de cada cuota que paguen. El
-              programa funciona en <a className="g-link" href="https://devaffi.com/">Devaffi</a>,
-              la red de afiliados para software que construimos.
-            </p>
-            <div className="g-hero-ctas">
-              <a className="g-btn g-btn--primario" href="https://devaffi.com/afiliados">
-                Cómo funciona el programa <Flecha />
-              </a>
-            </div>
-          </div>
-
-          <div className="g-cinta g-rev" style={{ '--g-delay': '120ms' }}>
-            <div className="g-cinta-n">12</div>
-            <p className="g-cinta-t">
-              <strong>meses con el porcentaje que te prometieron, por cada cliente.</strong>{' '}
-              No es una comisión por la primera venta: se repite mientras el cliente que
-              trajiste siga usando el sistema. Cada producto define cuánto paga y lo publica
-              en su ficha, y el número del primer pago de cada cliente te queda un año.
-            </p>
           </div>
         </div>
       </div>
@@ -501,4 +416,4 @@ function Contacto() {
   );
 }
 
-export { Nav, Hero, Cifras, Puertas, Servicios, Software, Afiliados, Contacto, useRevelar, Flecha };
+export { Nav, Hero, Cifras, Servicios, Software, Contacto, useRevelar, Flecha };

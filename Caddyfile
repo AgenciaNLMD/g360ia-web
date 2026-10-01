@@ -38,6 +38,11 @@
 	@dv_docs path /docs/api /docs/api.html
 	redir @dv_docs https://devaffi.com/docs/api permanent
 
+	# Notas del blog sobre afiliados/Devaffi: se retiraron el 1-oct-2026. Estaban
+	# indexadas, así que van con 301 al índice del blog y no a un 404.
+	@blog_retiradas path /blog/que-es-devaffi-plataforma-afiliados-software /blog/como-ser-afiliado-vender-software-devaffi /blog/red-de-afiliados-para-tu-software-developers /blog/partners-devaffi-agencias-consultoras-software /blog/por-que-no-existia-red-afiliados-software-pymes /blog/con-ia-sobra-software-falta-quien-lo-venda /blog/programa-afiliados-software-comision-recurrente /blog/vender-software-sin-ser-programador /blog/que-es-devaffi-plataforma-afiliados-software.html /blog/como-ser-afiliado-vender-software-devaffi.html /blog/red-de-afiliados-para-tu-software-developers.html /blog/partners-devaffi-agencias-consultoras-software.html /blog/por-que-no-existia-red-afiliados-software-pymes.html /blog/con-ia-sobra-software-falta-quien-lo-venda.html /blog/programa-afiliados-software-comision-recurrente.html /blog/vender-software-sin-ser-programador.html
+	redir @blog_retiradas /blog permanent
+
 	# 1) www -> apex, siempre en UN solo salto (sin cadenas de redirección).
 	# Las reglas de www que normalizan el path van primero: si sólo estuviera la
 	# genérica, www/index haría 301 a apex/index y recién ahí a / (dos saltos).

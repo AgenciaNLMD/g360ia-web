@@ -70,7 +70,6 @@ PROYECTOS:
 - Sistema de gestión municipal / GovTech: turnos, reclamos en mapa y panel admin, con colas Redis/BullMQ y almacenamiento S3.
 - Chatbots y agentes de IA en WhatsApp: Evolution API + Claude + herramientas propias (MCP); ejecutan acciones reales, no respuestas fijas.
 - Vet 360ia: SaaS multi-tenant para veterinarias (Next.js 14, PostgreSQL). Doce módulos (turnos, clientes, mascotas, historia clínica, facturación, inventario...) sobre una base de 70 tablas donde triggers y constraints resuelven la lógica de negocio.
-- Devaffi (devaffi.com): su propia startup, una plataforma de afiliados para desarrolladores. Los developers publican su software por suscripción y vendedores de rubro lo presentan con su link, cobrando una comisión de cada cuota. Una app Next.js + PostgreSQL con tres paneles por rol detrás de un login con Google, API pública versionada para conectar cada software, cobros y liquidaciones con medios de pago locales, y un CRM para el vendedor con WhatsApp (Evolution API) y prospección con Apify.
 - Este sitio (g360ia.com.ar): Vite + React + GSAP, blog SEO/GEO, deploy propio.
 - Adaptación de un ERP open source (NestJS, Vue 3, MongoDB).
 

@@ -21,14 +21,10 @@
     { label: 'Branding & UI/UX',   href: '/servicios/branding-uiux' },
   ];
 
-  /* Las otras patas del negocio. Van fuera de SERVICES porque no son
-     servicios a medida: son producto propio, programa de reventa y la puerta
-     para quien desarrolla software, y en el menú tienen que leerse como otra
-     cosa. */
+  /* Producto propio: no es un servicio a medida y en el menú tiene que leerse
+     como otra cosa. */
   const SECCIONES = [
     { label: 'Software propio',       href: '/software' },
-    { label: 'Programa de afiliados', href: 'https://devaffi.com/afiliados' },
-    { label: 'Developers',            href: 'https://devaffi.com/developers' },
   ];
 
   /* ─────────── HTML ─────────── */
@@ -56,8 +52,6 @@
 
       <div class="svc-nav-right">
         <a href="/software" class="svc-nav-seccion">Software</a>
-        <a href="https://devaffi.com/afiliados" class="svc-nav-seccion">Afiliados</a>
-        <a href="https://devaffi.com/developers" class="svc-nav-seccion">Developers</a>
 
         <div class="svc-services-wrap">
           <button class="svc-services-btn" id="svc-services-btn" aria-expanded="false">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, Hero, Cifras, Puertas, Servicios, Software, Afiliados, Contacto, useRevelar } from './secciones-home.jsx';
+import { Nav, Hero, Cifras, Servicios, Software, Contacto, useRevelar } from './secciones-home.jsx';
 import { Footer } from './sections-bottom.jsx';
 import { useTweaks } from './use-tweaks.js';
 
@@ -50,10 +50,8 @@ function App() {
       <main>
         <Hero />
         <Cifras />
-        <Puertas />
         <Servicios />
         <Software />
-        <Afiliados />
         <Contacto />
       </main>
 
