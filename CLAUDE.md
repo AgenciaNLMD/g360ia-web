@@ -51,7 +51,7 @@ diseño escrito dos veces, así que toda columna que se agregue va en los dos ar
 sitio se contradice a sí mismo según por dónde entre el visitante.
 
 Las columnas hoy son seis: marca · Navegación · **Softwares 360iA** · Servicios · Contacto ·
-Seguinos. La de softwares apunta al sitio del producto (`vet.g360ia.com.ar`): el que busca el
+Seguinos. La de softwares apunta al sitio del producto (`vet360ia.online`): el que busca el
 software quiere entrar al software. Desde el 16-sep-2026 ése es el criterio en **todo** el
 sitio, no sólo en el pie — ver la Regla 6.
 
@@ -113,7 +113,7 @@ contacto. Cada puerta lleva a su rama y ahí se despliega el detalle.
 | Rama | URL | Qué es | Dónde vive el detalle |
 |---|---|---|---|
 | Servicios | `/servicios` + `/servicios/<slug>` | trabajo a medida | este repo |
-| Software propio | `/software` | producto por cuota mensual | el sitio del producto (`vet.g360ia.com.ar`) |
+| Software propio | `/software` | producto por cuota mensual | el sitio del producto (`vet360ia.online`) |
 | Afiliados | `devaffi.com/afiliados` | reventa por comisión | repo `Devaffi-web`; se entra en `app.devaffi.com` (Reglas 8 y 9) |
 | Developers | `devaffi.com/developers` | publicar tu software en el catálogo | repo `Devaffi-web`; se entra en `app.devaffi.com` (Reglas 8 y 9) |
 
@@ -146,13 +146,13 @@ chica, o partir el segmento en dos. Nunca con `overflow-y: auto`.
 ### No hay landing por producto: el producto se enlaza directo
 
 Hubo una landing por vertical, `/software-para-veterinarias`, hasta el **16-sep-2026**. Se
-borró: era una página intermedia que contaba lo mismo que `vet.g360ia.com.ar` cuenta mejor, y
+borró: era una página intermedia que contaba lo mismo que `vet360ia.online` cuenta mejor, y
 el que busca el software para veterinarias quiere entrar al software, no leer una reseña de
 él. Todo lo que la enlazaba —la home, `/software`, `/afiliados`, `SOFTWARES` en `data.jsx`—
-apunta ahora a `https://vet.g360ia.com.ar`.
+apunta ahora a `https://vet360ia.online`.
 
 La URL **no se dejó morir en un 404**: está indexada y la escriben los mails del turnero
-(`lib/email-textos.js`), así que el Caddyfile la redirige con **301 a `vet.g360ia.com.ar`**.
+(`lib/email-textos.js`), así que el Caddyfile la redirige con **301 a `vet360ia.online`**.
 Esa regla va antes de la genérica de `.html` para que la forma con extensión llegue en un
 solo salto. Y salió del `sitemap.xml`: el sitemap declara destinos finales, y listar un 301
 es pedirle al buscador que rastree algo que ya sabe que no es la página.
@@ -162,10 +162,10 @@ a su propio sitio. La única página de este repo que habla de los productos es 
 
 ### Duplicación con el sitio del producto
 
-`vet.g360ia.com.ar` tiene sus propias páginas de funciones y precios y su propio sitemap.
+`vet360ia.online` tiene sus propias páginas de funciones y precios y su propio sitemap.
 `/software` **no las repite**: cuenta el producto desde el lado de quien lo construye —qué
 hace, cómo se ve, qué es igual en todos— y manda allá para el detalle, los precios y el alta.
-Su JSON-LD de `SoftwareApplication` declara `@id` y `url` en `vet.g360ia.com.ar` justamente
+Su JSON-LD de `SoftwareApplication` declara `@id` y `url` en `vet360ia.online` justamente
 para que la entidad consolide en el sitio del producto y no se parta en dos dominios. El
 mismo `@id` se usa en el `OfferCatalog` de la home (Devaffi ya no nombra el producto, Regla 9): es el identificador
 de la entidad, así que si cambia, cambia en los dos.
@@ -359,7 +359,7 @@ dentro de `g360ia-web`, ese mismo problema se hubiera repetido acá.
 **Lo que sigue siendo cierto de esa app** (documentado en el repo `devaffi`, no acá): login único
 con Google que deriva por rol a `/afiliados` o `/developer`, con `app.` y no `login.` para
 que la cookie de sesión no tenga que emitirse para `.g360ia.com.ar` entero — cosa que la
-haría viajar también a `vet.g360ia.com.ar`, un producto aparte con su propia sesión.
+haría viajar también a `vet360ia.online`, un producto aparte con su propia sesión.
 
 `devaffi.com/afiliados` y `devaffi.com/developers` (repo `Devaffi-web`, Regla 9) son la
 vidriera pública que informa y se indexa. `app/` del repo `devaffi` es la puerta de entrada de quien

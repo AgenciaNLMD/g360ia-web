@@ -102,7 +102,7 @@
   </url>
 
   <!-- /software-para-veterinarias se borró el 16-sep-2026 y hoy es un 301 a
-       vet.g360ia.com.ar (ver Caddyfile). Una URL que redirige no va en el
+       vet360ia.online (ver Caddyfile). Una URL que redirige no va en el
        sitemap: el sitemap declara destinos finales, y listar un 301 es pedirle
        al buscador que rastree algo que ya sabe que no es la página. -->
 

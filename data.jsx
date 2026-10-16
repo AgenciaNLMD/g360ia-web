@@ -370,7 +370,7 @@ const CASES = [
    `page` apunta al sitio del producto y no a una landing de este dominio: el
    que busca el software quiere entrar al software. La landing intermedia
    /software-para-veterinarias existió hasta el 16-sep-2026 y hoy es un 301 a
-   vet.g360ia.com.ar; quien quiera leer sobre el producto sin salir del sitio
+   vet360ia.online; quien quiera leer sobre el producto sin salir del sitio
    lo tiene contado en /software.
 
    `estado` decide qué muestra la tarjeta: "disponible" lleva al producto,
@@ -384,8 +384,8 @@ const SOFTWARES = [
     rubro: "Veterinarias y clínicas de mascotas",
     tagline: "El sistema de gestión completo para una veterinaria",
     desc: "Agenda de turnos, ficha de cada paciente, historia clínica, facturación, inventario y un bot de WhatsApp que atiende y agenda solo. Todo en un panel, sin instalar nada.",
-    page: "https://vet.g360ia.com.ar",
-    demo: "https://vet.g360ia.com.ar",
+    page: "https://vet360ia.online",
+    demo: "https://vet360ia.online",
     img: "/portfolio/vet360ia/dashboard.webp",
     modulos: [
       "Agenda de turnos con recordatorios automáticos",

@@ -307,7 +307,7 @@ function Software() {
               <li><strong>Sin permanencia:</strong> cuota mensual o anual, y el anual sale diez meses</li>
             </ul>
             <div className="g-hero-ctas" style={{ marginTop: 28 }}>
-              <a className="g-btn g-btn--primario" href="https://vet.g360ia.com.ar"
+              <a className="g-btn g-btn--primario" href="https://vet360ia.online"
                  target="_blank" rel="noopener">
                 Ir a Vet 360iA <Flecha />
               </a>
@@ -321,7 +321,7 @@ function Software() {
                 <span className="g-marco-punto" />
                 <span className="g-marco-punto" />
                 <span className="g-marco-punto" />
-                <span className="g-marco-url">vet.g360ia.com.ar/panel</span>
+                <span className="g-marco-url">vet360ia.online/panel</span>
               </div>
               <img
                 src="/portfolio/vet360ia/dashboard.webp"

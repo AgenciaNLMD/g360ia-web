@@ -106,7 +106,7 @@ function Footer() {
             <h5>Softwares 360iA</h5>
             <ul>
               <li>
-                <a href="https://vet.g360ia.com.ar" target="_blank" rel="noopener">
+                <a href="https://vet360ia.online" target="_blank" rel="noopener">
                   Vet 360iA · Veterinarias
                 </a>
               </li>
