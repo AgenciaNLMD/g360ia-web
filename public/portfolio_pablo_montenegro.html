@@ -679,20 +679,17 @@ const projects=[
   thumb:"/portfolio/govtech.webp",media:[
     {type:'youtube',id:'IGFxeJ90UCc',autoplay:true,loop:true,alt:'Demo del sistema de gestión municipal: mapa de reclamos, turnos y panel'}
   ]},
- {cat:"ERP · Producto",catEn:"ERP · Product",tag:"ERP",tagEn:"ERP",title:"Software modular por rubros",titleEn:"Modular software by industry",sub:"ERP para PyMEs",subEn:"ERP for SMBs",
-  desc:"ERP armado por módulos según el rubro: CRM, ventas, stock, finanzas y más. Cada cliente instala solo lo que necesita.",
-  descEn:"ERP built from modules by industry: CRM, sales, stock, finance and more. Each client installs only what they need.",
-  win:"11 módulos independientes sobre una misma base, con catálogo compartido para instalar un cliente nuevo en minutos.",
-  winEn:"11 independent modules on the same base, with a shared catalog to onboard a new client in minutes.",
-  stack:["Next.js","MySQL","NextAuth","Chart.js","Leaflet","XLSX"],
-  thumb:"/portfolio/ph-erp.svg",media:[]},
  {cat:"IA · Automatización",catEn:"AI · Automation",tag:"IA",tagEn:"AI",title:"Chatbots y agentes de IA",titleEn:"Chatbots and AI agents",sub:"WhatsApp + Claude",subEn:"WhatsApp + Claude",
   desc:"Bots en WhatsApp vía Evolution API con agentes que usan Claude y MCP. No solo responden: ejecutan acciones sobre el sistema.",
   descEn:"WhatsApp bots via Evolution API with agents using Claude and MCP. They don't just reply — they take action on the system.",
   win:"Agentes con MCP que actúan sobre sistemas reales, no chatbots de respuestas fijas.",
   winEn:"MCP-powered agents that act on real systems, not fixed-reply chatbots.",
   stack:["Node.js","Claude","MCP","Evolution API","WhatsApp"],ai:true,action:'openChat',actionLabel:'Testear →',actionLabelEn:'Test it →',
-  thumb:"/portfolio/ph-bots.svg",media:[]},
+  thumb:"/portfolio/carta360ia/pc-whatsapp.webp",media:[
+    {type:'image',src:'/portfolio/carta360ia/pc-whatsapp.webp',alt:'Bot de WhatsApp de un local: se vincula por QR, conoce el negocio, responde y toma pedidos'},
+    {type:'image',src:'/portfolio/carta360ia/panel-2.webp',alt:'Configuración del agente: cómo contesta, preguntas frecuentes, atención humana y chat de prueba'},
+    {type:'image',src:'/portfolio/carta360ia/app-whatsapp.webp',alt:'El WhatsApp del local que atiende solo, desde la app'}
+  ]},
  {cat:"SaaS · Producto",catEn:"SaaS · Product",tag:"SaaS",tagEn:"SaaS",title:"Vet 360ia",titleEn:"Vet 360ia",sub:"SaaS multi-tenant para veterinarias",subEn:"Multi-tenant SaaS for veterinary clinics",
   desc:"Panel de gestión veterinaria multi-tenant: turnos, clientes, mascotas, historia clínica, facturación, inventario y marketing en un solo sistema, con una base de datos que resuelve sola gran parte de la lógica de negocio.",
   descEn:"Multi-tenant veterinary management panel: appointments, clients, pets, medical records, billing, inventory and marketing in one system, with a database that handles most of the business logic on its own.",
@@ -757,8 +754,8 @@ const projects=[
   winEn:"With AI more and more people build software, and almost nobody knows how to sell it; hiring a sales team costs more than building the product. Devaffi turns sales into a variable cost: developers pay only when a subscription payment comes in, sellers earn every month while the customer stays, and the rules —visible commission, non-expiring attribution, a one-year guarantee— are written before anyone starts. It's my own product bet, not a client project.",
   stack:["Next.js","React 19","PostgreSQL","Prisma","API REST v1","Google OAuth","Evolution API","Apify","Vite SSR"],
   link:"https://devaffi.com",
-  thumb:"/multimedia/que-es-devaffi-plataforma-afiliados-software.webp",media:[
-    {type:'image',src:'/multimedia/que-es-devaffi-plataforma-afiliados-software.webp',alt:'Marca de Devaffi, plataforma de afiliados para desarrolladores, con el panel abierto en una laptop'}
+  thumb:"/portfolio/devaffi.webp",media:[
+    {type:'image',src:'/portfolio/devaffi.webp',alt:'Marca de Devaffi, plataforma de afiliados para desarrolladores, con el panel abierto en una laptop'}
   ]},
  {cat:"Web · Animación",catEn:"Web · Animation",tag:"Web",tagEn:"Web",title:"Este sitio — g360ia.com.ar",titleEn:"This site — g360ia.com.ar",sub:"Vite · React · GSAP",subEn:"Vite · React · GSAP",
   desc:"Sitio de la consultora hecho a mano: Vite + React, animaciones con GSAP, páginas con scroll-snap y blog optimizado para SEO/GEO.",
@@ -1002,7 +999,7 @@ applyLang();
         {q:"¿Puede automatizar mi negocio?",a:"Sí. Conecta tus sistemas con APIs y arma automatizaciones para sacarte de encima las tareas repetitivas."},
         {q:"¿Trabaja con IA y WhatsApp?",a:"Sí. Arma bots en WhatsApp vía Evolution API con agentes que usan Claude y herramientas propias (MCP): no solo responden, ejecutan acciones sobre el sistema."},
         {q:"¿Qué es un agente de IA?",a:"Un asistente que no solo responde: usa herramientas (MCP) para ejecutar acciones reales sobre tus sistemas — consultar datos, cargar registros o avisarte."},
-        {q:"¿Qué proyectos tiene?",a:"Un ERP modular por rubros, un sistema de gestión municipal (GovTech), chatbots con agentes de IA en WhatsApp, Vet 360ia (SaaS multi-tenant para veterinarias), Carta 360iA (carta digital por NFC/QR con pedidos, delivery y bot de WhatsApp con IA, web + app de Android, en carta360ia.online), Devaffi (su propia startup: una plataforma de afiliados para desarrolladores, en devaffi.com) y este mismo sitio."},
+        {q:"¿Qué proyectos tiene?",a:"Un sistema de gestión municipal (GovTech), chatbots con agentes de IA en WhatsApp, Vet 360ia (SaaS multi-tenant para veterinarias), Carta 360iA (carta digital por NFC/QR con pedidos, delivery y bot de WhatsApp con IA, web + app de Android, en carta360ia.online), Devaffi (su propia startup: una plataforma de afiliados para desarrolladores, en devaffi.com) y este mismo sitio."},
         {q:"¿Trabaja con municipios?",a:"Sí. Desarrolló un sistema de gestión municipal con turnos, reclamos ubicados en mapa y panel de administración, pensado para el sector público."},
         {q:"¿Qué stack usa?",a:"Backend con Node.js, Next.js y NestJS; front con React + Vite; datos con MySQL, Prisma y MongoDB; e IA con Claude + MCP. También VPS con Caddy, colas Redis/BullMQ y S3."},
         {q:"¿Está disponible?",a:"Sí, está disponible para nuevos proyectos: software, bots o agentes de IA. Escribile y lo charlan sin compromiso."},
@@ -1025,7 +1022,7 @@ applyLang();
         {q:"Can he automate my business?",a:"Yes. He connects your systems with APIs and builds automations to take repetitive tasks off your plate."},
         {q:"Does he work with AI and WhatsApp?",a:"Yes. He builds WhatsApp bots via Evolution API with agents that use Claude and custom tools (MCP): they don't just reply, they take action on the system."},
         {q:"What's an AI agent?",a:"An assistant that doesn't just reply: it uses tools (MCP) to take real actions on your systems — query data, log records or notify you."},
-        {q:"What projects has he built?",a:"A modular ERP by industry, a municipal management system (GovTech), WhatsApp chatbots with AI agents, Vet 360ia (a multi-tenant SaaS for veterinary clinics), Carta 360iA (an NFC/QR digital menu with orders, delivery and an AI WhatsApp bot, web + Android app, at carta360ia.online), Devaffi (his own startup: an affiliate platform for developers, at devaffi.com) and this very site."},
+        {q:"What projects has he built?",a:"A municipal management system (GovTech), WhatsApp chatbots with AI agents, Vet 360ia (a multi-tenant SaaS for veterinary clinics), Carta 360iA (an NFC/QR digital menu with orders, delivery and an AI WhatsApp bot, web + Android app, at carta360ia.online), Devaffi (his own startup: an affiliate platform for developers, at devaffi.com) and this very site."},
         {q:"Does he work with governments?",a:"Yes. He built a municipal management system with appointments, map-located complaints and an admin panel, designed for the public sector."},
         {q:"What's his stack?",a:"Backend with Node.js, Next.js and NestJS; front with React + Vite; data with MySQL, Prisma and MongoDB; and AI with Claude + MCP. Plus VPS with Caddy, Redis/BullMQ queues and S3."},
         {q:"Is he available?",a:"Yes, he's available for new projects: software, bots or AI agents. Message him and talk it through, no strings attached."},
