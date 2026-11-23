@@ -97,6 +97,11 @@
 	# necesita la barra final o las imágenes se piden en la raíz y dan 404.
 	redir /afa /afa/ permanent
 
+	# 3d) /como -> /como/
+	# Página suelta "Como 1907, lo que queda" (vive en public/como/, se edita en
+	# C:\GitHub\proyectos\como). Misma razón que /afa: rutas relativas.
+	redir /como /como/ permanent
+
 	# 4) /loquesea.html -> /loquesea
 	# /partials/* queda excluido: no son páginas, son fragmentos que se piden por fetch
 	# (ver Regla 4 / footer compartido). Redirigirlos sólo agrega un salto a cada carga.

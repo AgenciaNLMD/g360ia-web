@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b3d8c">
+<meta name="robots" content="noindex, follow">
+<title>Como 1907: lo que queda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ tokens (sin color-mix: compatible con celulares viejos) ============ */
+:root{
+  --bg:#f2f6fc; --surface:#ffffff; --surface-2:#f5f8fd; --border:#e0e7f2; --border-2:#cbd6e7;
+  --text:#0a1630; --muted:#5a6886; --faint:#8994ad;
+  --acc:#0b5ed7; --acc-hi:#3d86ef; --acc-soft:rgba(11,94,215,.10); --acc-line:rgba(11,94,215,.32);
+  --oro:#c99400; --oro-hi:#f7c23b; --oro-soft:rgba(227,168,0,.13); --oro-line:rgba(227,168,0,.45);
+  --ok:#14915a; --ok-soft:rgba(20,145,90,.10); --ok-line:rgba(20,145,90,.35);
+  --warn:#b86e00; --warn-line:rgba(184,110,0,.40);
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 8px 24px -12px rgba(16,24,40,.18);
+  --glow:rgba(11,94,215,.12);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#040b18; --surface:#0b1529; --surface-2:#0f1b34; --border:rgba(255,255,255,.08); --border-2:rgba(255,255,255,.16);
+    --text:#eef3fb; --muted:#93a1bd; --faint:#6b7996;
+    --acc:#5aa9ff; --acc-hi:#8cc4ff; --acc-soft:rgba(90,169,255,.13); --acc-line:rgba(90,169,255,.40);
+    --oro:#f7c23b; --oro-hi:#ffd66b; --oro-soft:rgba(247,194,59,.12); --oro-line:rgba(247,194,59,.45);
+    --ok:#3ccf86; --ok-soft:rgba(60,207,134,.12); --ok-line:rgba(60,207,134,.38);
+    --warn:#f3a93b; --warn-line:rgba(243,169,59,.45);
+    --shadow:0 12px 30px -16px rgba(0,0,0,.7);
+    --glow:rgba(90,169,255,.18);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#040b18; --surface:#0b1529; --surface-2:#0f1b34; --border:rgba(255,255,255,.08); --border-2:rgba(255,255,255,.16);
+  --text:#eef3fb; --muted:#93a1bd; --faint:#6b7996;
+  --acc:#5aa9ff; --acc-hi:#8cc4ff; --acc-soft:rgba(90,169,255,.13); --acc-line:rgba(90,169,255,.40);
+  --oro:#f7c23b; --oro-hi:#ffd66b; --oro-soft:rgba(247,194,59,.12); --oro-line:rgba(247,194,59,.45);
+  --ok:#3ccf86; --ok-soft:rgba(60,207,134,.12); --ok-line:rgba(60,207,134,.38);
+  --warn:#f3a93b; --warn-line:rgba(243,169,59,.45);
+  --shadow:0 12px 30px -16px rgba(0,0,0,.7);
+  --glow:rgba(90,169,255,.18);
+}
+
+/* ============ base ============ */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{margin:0;overflow-x:hidden}
+body{
+  background:
+    radial-gradient(1100px 520px at 0% -10%, var(--glow), transparent 60%),
+    radial-gradient(800px 420px at 100% 0%, var(--acc-soft), transparent 60%),
+    var(--bg);
+  color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+section{margin:40px 0}
+.sec-h{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.sec-h h2{margin:0;font-size:22px;letter-spacing:-.4px}
+.sec-h p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--acc)}
+
+.crest{width:22px;height:22px;object-fit:contain;flex:none}
+.crest.ini{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:var(--surface-2);border:1px solid var(--border-2);font-size:8px;font-weight:800;color:var(--muted)}
+.crests{display:inline-flex;align-items:center;flex:none}
+.crests .crest + .crest{margin-left:-6px}
+.cup{object-fit:contain;flex:none}
+/* escudo blanco de la Juve: en tema claro se pasa a negro */
+:root[data-theme="light"] .crest.inv{filter:invert(1)}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]) .crest.inv{filter:invert(1)} }
+.next .crest.inv,.big-vs .crest.inv,.next img.inv,.big-vs img.inv{filter:none !important}
+
+/* tags */
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.2px;white-space:nowrap;border:1px solid transparent;width:-webkit-fit-content;width:fit-content;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.tag.won{background:var(--oro-soft);color:var(--oro);border-color:var(--oro-line)}
+.tag.alive{background:var(--acc-soft);color:var(--acc-hi);border-color:var(--acc-line)}
+.tag.qual{background:var(--ok-soft);color:var(--ok);border-color:var(--ok-line)}
+.tag.maybe{color:var(--muted);border:1px dashed var(--border-2)}
+.tag.out{color:var(--faint);border-color:var(--border)}
+.tag.tbc{color:var(--warn);border-color:var(--warn-line)}
+.tag.ok{color:var(--ok);border-color:var(--ok-line)}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}
+.click{cursor:pointer;text-align:left;transition:transform .15s ease,border-color .15s ease}
+.click:active{transform:scale(.985)}
+@media (hover:hover){ .click:hover{transform:translateY(-2px);border-color:var(--acc-line)} }
+.click:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+/* ============ hero ============ */
+.hero{padding:24px 0 4px}
+.hero-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:20px;align-items:stretch}
+.brand{display:flex;flex-direction:column;justify-content:center;gap:10px;min-width:0}
+.brand-top{display:flex;align-items:center;gap:12px}
+.brand-top img{width:56px;height:56px}
+.brand h1{margin:0;font-size:clamp(28px,4.6vw,48px);line-height:1.04;letter-spacing:-1.2px;font-weight:800}
+.brand h1 span{color:var(--acc)}
+@supports (-webkit-background-clip:text){ .brand h1 span{background:linear-gradient(90deg,var(--acc),var(--acc-hi));-webkit-background-clip:text;background-clip:text;color:transparent} }
+.brand p{margin:0;color:var(--muted)}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.stat{display:flex;align-items:center;gap:7px;padding:7px 11px;border-radius:12px;background:var(--surface);border:1px solid var(--border);font-size:13px}
+.stat img{width:18px;height:22px;object-fit:contain}
+.stat b{font-size:17px}
+
+.next{position:relative;overflow:hidden;padding:18px;border-radius:22px;color:#fff;min-width:0;
+  background:linear-gradient(135deg,#0b4fb3 0%,#0a3478 55%,#06204d 100%);border:1px solid rgba(255,255,255,.08)}
+.next::after{content:"";position:absolute;left:0;right:0;top:50%;height:34px;transform:translateY(-50%) skewY(-6deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);pointer-events:none}
+.next > *{position:relative;z-index:1}
+.next .eyebrow{color:#9fd0ff}
+.next-comp{display:flex;align-items:center;gap:8px;font-size:13px;opacity:.9;margin-top:4px}
+.next-comp img{width:20px;height:26px;object-fit:contain}
+.versus{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin:14px 0}
+.versus .side{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-weight:700;font-size:14px;line-height:1.2;min-width:0}
+.versus .side img{width:62px;height:62px;object-fit:contain}
+.versus .mid{font-size:12px;font-weight:800;opacity:.7}
+.next-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;font-size:13px;opacity:.92;text-align:center}
+.count{display:flex;justify-content:center;gap:8px;margin-top:12px}
+.count div{flex:1 1 0;max-width:72px;min-width:0;text-align:center;padding:7px 4px;border-radius:12px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.08)}
+.count b{display:block;font-size:22px;font-variant-numeric:tabular-nums;color:#bfe0ff;line-height:1.1}
+.count span{font-size:10px;text-transform:uppercase;letter-spacing:.6px;opacity:.75}
+
+/* ============ agenda ============ */
+.agenda{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.ag{display:flex;flex-direction:column;gap:9px;padding:14px;border-radius:18px;min-width:0}
+.ag.is-next{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft),var(--shadow)}
+.ag.cond{border-style:dashed}
+.ag-top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
+.ag-date{font-size:13px;color:var(--muted)}
+.ag-date b{font-size:22px;color:var(--text);letter-spacing:-.5px;margin-right:4px}
+.ag-time{text-align:right;line-height:1.15}
+.ag-time b{display:block;font-weight:800;font-variant-numeric:tabular-nums}
+.ag-time small{font-size:10.5px;color:var(--faint)}
+.ag-comp{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--acc)}
+.ag-comp .cup{width:18px;height:22px}
+.ag-vs{display:flex;align-items:center;gap:10px}
+.ag-vs .crest{width:32px;height:32px}
+.ag-vs .crests .crest + .crest{margin-left:-10px}
+.ag-vs .x{font-size:11px;font-weight:800;color:var(--faint)}
+.ag-rival{font-weight:700;line-height:1.25}
+.ag-foot{display:flex;flex-direction:column;gap:6px;margin-top:auto;font-size:12px;color:var(--muted)}
+
+/* ============ torneos ============ */
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--border);background:var(--surface);border-radius:99px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.tc{display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:18px;min-width:0}
+.tc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.tc-cup{width:58px;height:58px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 55%,rgba(255,255,255,.14),transparent 70%),linear-gradient(160deg,#0d3a86,#061633);flex:none}
+.tc-cup img{width:46px;height:50px;object-fit:contain}
+.tc.alive .tc-cup{box-shadow:0 0 0 2px var(--acc-line)}
+.tc.out{opacity:.75}
+.tc h3{margin:0;font-size:16px;letter-spacing:-.2px;line-height:1.25}
+.tc .when{font-size:13px;color:var(--muted)}
+.tc .vsline{display:flex;align-items:center;gap:8px;font-size:13px;margin-top:auto;padding-top:9px;border-top:1px solid var(--border);min-width:0}
+.tc .vsline span:not(.crests){min-width:0}
+.tc .more{margin-left:auto;font-size:12px;color:var(--faint);white-space:nowrap}
+.tc[hidden]{display:none}
+
+/* ============ árbol de copas ============ */
+.trees{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.tree{border-radius:22px;padding:14px 12px 12px;color:#fff;position:relative;overflow:hidden;
+  background:radial-gradient(600px 300px at 50% 0%,rgba(90,169,255,.30),transparent 70%),linear-gradient(170deg,#0b2f6e,#061533 70%);border:1px solid rgba(255,255,255,.08)}
+.tree h3{margin:0 4px 2px;font-size:15px;letter-spacing:.2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tree h3 small{font-weight:500;opacity:.65;font-size:12px}
+.tree svg{display:block;width:100%;height:auto;margin:0 auto}
+.tree .tn{cursor:pointer}
+.tree .tn:focus{outline:none}
+.tree .tn:focus .hit,.tree .tn:hover .hit{stroke:rgba(159,208,255,.85)}
+.tree .hit{fill:transparent;stroke:transparent;stroke-width:1.2}
+.tree .lbl{font:800 10px Inter,system-ui,sans-serif;fill:#fff;letter-spacing:.3px;text-anchor:middle}
+.tree .ptx{font:700 8.8px Inter,system-ui,sans-serif;text-anchor:start}
+.tree-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;opacity:.85;margin:10px 4px 0}
+.tree-legend i{display:inline-block;width:20px;border-top:2px solid;vertical-align:middle;margin-right:5px}
+
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:10px;margin-top:16px}
+.route{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:16px;min-width:0}
+.route .cups{display:flex;align-items:center;gap:2px;flex:none}
+.route .cups img{width:34px;height:42px;object-fit:contain}
+.route .cups .ar{color:var(--acc);font-weight:800;margin:0 2px}
+.route p{margin:0;font-size:13.5px;line-height:1.4;min-width:0}
+.route .k{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--acc);margin-bottom:2px}
+
+/* ============ modal ============ */
+dialog{border:none;padding:0;background:transparent;color:var(--text);max-width:min(1240px,96vw);width:100%;max-height:92vh}
+dialog::backdrop{background:rgba(3,8,20,.6)}
+.mbox{background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.55);max-height:92vh;display:flex;flex-direction:column;overflow:hidden}
+.mhead{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border);background:var(--surface-2);flex:none}
+.mhead .tc-cup{width:52px;height:52px}
+.mhead .tc-cup img{width:40px;height:44px}
+.mhead h3{margin:0;font-size:18px;letter-spacing:-.3px;line-height:1.2}
+.mhead .sub{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:3px}
+.mhead > div:nth-child(2){min-width:0;flex:1}
+.mclose{width:40px;height:40px;border-radius:12px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:18px;flex:none}
+.mbody{padding:16px;overflow:auto;-webkit-overflow-scrolling:touch}
+.mbody h5{margin:18px 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--faint)}
+.mbody > h5:first-child,.box h5{margin-top:0}
+.mbody ul{margin:0;padding-left:18px}
+.mbody li{margin:4px 0}
+.mrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.box{padding:14px;border-radius:14px;background:var(--surface-2);border:1px solid var(--border);min-width:0}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.link{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:12px;border:1px solid var(--border);background:var(--surface-2);cursor:pointer;font-size:13px;font-weight:600;text-align:left}
+.link img{width:26px;height:32px;object-fit:contain}
+.link small{display:block;font-weight:500;color:var(--muted)}
+.big-vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:16px;border-radius:16px;background:linear-gradient(135deg,#0b4fb3,#06204d);color:#fff}
+.big-vs .side{display:flex;flex-direction:column;align-items:center;gap:8px;font-weight:700;text-align:center;line-height:1.2;min-width:0}
+.big-vs .side img{width:66px;height:66px;object-fit:contain}
+.big-vs .score{font-size:30px;font-weight:800;letter-spacing:2px;text-align:center}
+.big-vs .score small{display:block;font-size:10.5px;letter-spacing:.4px;font-weight:600;opacity:.75}
+.hero-cup{display:flex;justify-content:center;margin:0 0 12px;padding:12px;border-radius:16px;background:radial-gradient(circle at 50% 60%,rgba(255,255,255,.16),transparent 65%),linear-gradient(160deg,#0d3a86,#061633)}
+.hero-cup img{height:150px;width:auto;max-width:60%;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.35))}
+.path{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.step{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;background:var(--surface-2);border:1px solid var(--border);font-size:13px;min-width:0}
+.step b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--acc)}
+.step.now{border-color:var(--acc)}
+.arrow{color:var(--faint)}
+/* tablas */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:14px}
+table.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--faint);font-weight:700;padding:8px 10px;background:var(--surface-2);border-bottom:1px solid var(--border);white-space:nowrap}
+.tbl td{padding:7px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td.n{text-align:right;font-variant-numeric:tabular-nums}
+.tbl tr.me td{background:var(--acc-soft);font-weight:700}
+.tbl .tm{display:flex;align-items:center;gap:8px}
+.tbl .tm .crest{width:20px;height:20px}
+.tbl .res{font-weight:800}
+.tbl .res.w{color:var(--ok)} .tbl .res.l{color:#e05252} .tbl .res.d{color:var(--muted)}
+.zone{display:inline-block;width:4px;height:16px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.zone.cl{background:#3b82f6} .zone.el{background:#f59e0b} .zone.ecl{background:#10b981} .zone.no{background:transparent}
+
+/* ============ cuadro ============ */
+.bracket-scroll{overflow-x:auto;margin:0 -4px;padding:40px 4px 4px;-webkit-overflow-scrolling:touch}
+.bracket{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:24px;min-width:1150px}
+.col{display:flex;flex-direction:column}
+.col h6{margin:0 0 8px;text-align:center;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--faint)}
+.col h6 em{display:block;font-style:normal;font-weight:500;text-transform:none;letter-spacing:0}
+.rounds{flex:1;display:flex;flex-direction:column}
+.pair{flex:1;display:flex;flex-direction:column;position:relative}
+.slot{flex:1;display:flex;align-items:center;position:relative;padding:6px 0}
+.L .pair::after,.R .pair::after{content:"";position:absolute;top:25%;bottom:25%;width:12px;border:2px solid var(--border-2)}
+.L .pair::after{right:-12px;border-left:none;border-radius:0 6px 6px 0}
+.R .pair::after{left:-12px;border-right:none;border-radius:6px 0 0 6px}
+.L.in .slot::before,.R.in .slot::before,.center .slot::before,.center .slot::after{content:"";position:absolute;top:50%;width:12px;border-top:2px solid var(--border-2)}
+.L.in .slot::before{left:-12px}
+.R.in .slot::before{right:-12px}
+.center .slot::before{left:-24px;width:24px}
+.center .slot::after{right:-24px;width:24px}
+.bp .pair.bp::after{border-color:var(--acc)}
+.mt{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:12.5px}
+.mt.mine{border:2px solid var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
+.mt .hd{display:flex;justify-content:space-between;gap:6px;padding:4px 8px;font-size:10.5px;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border)}
+.mt .hd .st{font-weight:700}
+.mt .hd .st.pend{color:var(--warn)}
+.t{display:flex;align-items:center;gap:6px;padding:5px 8px;min-height:30px}
+.t + .t{border-top:1px solid var(--border)}
+.t .crest{width:18px;height:18px}
+.t .crests .crest + .crest{margin-left:-7px}
+.t .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t .sc{font-weight:800;font-variant-numeric:tabular-nums}
+.t.w{background:var(--acc-soft);font-weight:700}
+.t.l{color:var(--faint)}
+.t.tbd .nm{font-style:italic;color:var(--muted)}
+.t.isme .nm{color:var(--acc);font-weight:800}
+.mt .vn{padding:3px 8px 5px;font-size:10px;color:var(--faint);border-top:1px dashed var(--border)}
+.final-box{position:relative;width:100%}
+.final-box .fcup{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:4px;width:30px;height:36px;object-fit:contain}
+
+footer{padding:10px 0 70px;font-size:12px;color:var(--muted)}
+footer a{color:inherit}
+.theme-btn{position:fixed;right:12px;bottom:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:5;border:1px solid var(--border);background:var(--surface);border-radius:99px;padding:9px 13px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:var(--shadow)}
+
+/* ============ responsive ============ */
+@media (min-width: 900px){ body{background-attachment:fixed} dialog::backdrop{-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)} }
+@media (max-width: 900px){ .trees{grid-template-columns:1fr;max-width:560px;margin:0 auto} }
+@media (max-width: 860px){
+  .hero-grid{grid-template-columns:1fr}
+  .bracket-scroll{padding-top:4px}
+  .bracket{display:flex;flex-direction:column;min-width:0;gap:16px}
+  .col{order:var(--o)}
+  .col h6{text-align:left}
+  .rounds,.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+  .slot{padding:0}
+  .pair::after,.slot::before,.slot::after{display:none !important}
+  .final-box .fcup{display:none}
+}
+@media (max-width: 640px){
+  section{margin:32px 0}
+  .sec-h h2{font-size:20px}
+  .agenda{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;margin:0 -16px;padding:2px 16px 8px}
+  .ag{flex:0 0 80%;scroll-snap-align:start}
+  .tgrid{grid-template-columns:1fr 1fr;gap:10px}
+  .tc{padding:11px;gap:7px}
+  .tc-top{flex-direction:column;gap:6px}
+  .tc-cup{width:48px;height:48px;border-radius:12px}
+  .tc-cup img{width:38px;height:42px}
+  .tc h3{font-size:14px}
+  .tc .when{font-size:12px;line-height:1.35}
+  .tc .vsline{font-size:12px;padding-top:7px;gap:6px}
+  .tc .vsline .crest{width:18px;height:18px}
+  .tc .more{display:none}
+  .tc .tag{font-size:10px;padding:2px 7px}
+  .versus .side img{width:52px;height:52px}
+  .routes{grid-template-columns:1fr}
+  .route{align-items:flex-start;padding:11px 12px;gap:10px}
+  .route .cups img{width:28px;height:36px}
+  dialog{max-width:100%;width:100%;max-height:100%;height:100%;margin:0}
+  .mbox{border-radius:0;max-height:100%;height:100%;border:none}
+  .mbody{padding:14px}
+  .path .arrow{display:none}
+  .path .step{width:100%}
+  .big-vs{padding:12px}
+  .big-vs .side img{width:50px;height:50px}
+  .big-vs .score{font-size:24px}
+  .hero-cup img{height:110px}
+  .tbl{font-size:12.5px}
+  .tbl td,.tbl th{padding:6px 8px}
+}
+/* celulares muy chicos (Samsung J1 y similares: 320 px) */
+@media (max-width: 360px){
+  body{font-size:14px}
+  .wrap{padding-left:12px;padding-right:12px}
+  .agenda{margin:0 -12px;padding:2px 12px 8px}
+  .ag{flex-basis:86%}
+  .brand-top img{width:44px;height:44px}
+  .brand h1{font-size:26px}
+  .stats{display:grid;grid-template-columns:1fr;gap:6px}
+  .stat{padding:6px 8px;font-size:12.5px}
+  .stat b{font-size:15px}
+  .next{padding:14px;border-radius:18px}
+  .versus .side{font-size:12.5px}
+  .versus .side img{width:44px;height:44px}
+  .count{gap:5px}
+  .count b{font-size:18px}
+  .count span{font-size:9px}
+  .tgrid{gap:8px}
+  .tc{padding:10px}
+  .tc h3{font-size:13px}
+  .tree{padding:12px 6px 10px;border-radius:18px}
+  .mhead{padding:10px 12px;gap:10px}
+  .mhead .tc-cup{width:42px;height:42px}
+  .mhead .tc-cup img{width:32px;height:36px}
+  .mhead h3{font-size:15.5px}
+  .big-vs{gap:6px}
+  .big-vs .side{font-size:12px}
+  .big-vs .side img{width:42px;height:42px}
+  .big-vs .score{font-size:20px;letter-spacing:1px}
+  .rounds,.pair{grid-template-columns:1fr}
+  .tbl .hide-xs{display:none}
+  .theme-btn{padding:7px 10px;font-size:12px}
+}
+/* celular acostado: poca altura */
+@media (max-height: 500px) and (orientation: landscape){
+  .hero{padding-top:12px}
+  .hero-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .brand h1{font-size:24px}
+  .brand p{display:none}
+  .brand-top img{width:40px;height:40px}
+  .next{padding:12px}
+  .versus{margin:8px 0}
+  .versus .side img{width:40px;height:40px}
+  .count{margin-top:8px}
+  .count b{font-size:17px}
+  .agenda{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:2px 16px 8px}
+  .ag{flex:0 0 44%;scroll-snap-align:start}
+  .tgrid{grid-template-columns:repeat(3,1fr)}
+  .trees{grid-template-columns:1fr 1fr;max-width:none}
+  dialog{max-width:100%;width:100%;max-height:100%;height:100%;margin:0}
+  .mbox{border-radius:0;max-height:100%;height:100%}
+  .mhead{padding:6px 12px}
+  .mhead .tc-cup{width:36px;height:36px}
+  .mhead .tc-cup img{width:28px;height:32px}
+  .mhead h3{font-size:15px}
+  .mhead .sub{margin-top:0}
+  .mbody{padding:10px 14px}
+  .hero-cup img{height:90px}
+}
+/* navegadores sin "gap" en flex (Chrome viejo): margen de respaldo */
+@supports not (aspect-ratio: 1 / 1){
+  .count div + div,.stats .stat + .stat,.filters .chip + .chip,.links .link + .link,.ag-vs > * + *,.vsline > * + *,.ag-comp > * + *,.tbl .tm > * + *{margin-left:6px}
+  .tag::before{margin-right:6px}
+  .stats .stat,.filters .chip,.links .link{margin-bottom:6px}
+  .ag-foot > * + *,.brand > * + *{margin-top:6px}
+}
+.nodialog dialog{display:none;position:fixed;left:0;top:0;right:0;bottom:0;max-width:none;max-height:none;margin:0;z-index:50;background:rgba(3,8,20,.6)}
+.nodialog dialog.open{display:flex;align-items:flex-end;justify-content:center}
+.nodialog dialog .mbox{width:100%;max-width:1240px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-grid">
+      <div class="brand">
+        <div class="brand-top">
+          <img src="escudos/como.png" alt="Como 1907" width="56" height="56">
+          <div class="eyebrow">Temporada 2026-27 · act. <span id="upd"></span></div>
+        </div>
+        <h1>Como 1907,<br><span>lo que queda.</span></h1>
+        <p>El equipo de Cesc Fàbregas en su primera Champions. Fechas, rivales y a qué copas lleva cada torneo. Horarios de Argentina, con el de Italia al lado.</p>
+        <div class="stats" id="stats"></div>
+      </div>
+      <div class="next" id="next"></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-h"><div><h2>Agenda</h2><p>Lo que viene en las tres competencias. La Serie A completa está dentro de su tarjeta.</p></div></div>
+    <div class="agenda" id="agenda"></div>
+  </section>
+
+  <section>
+    <div class="sec-h">
+      <div><h2>Torneos</h2><p>En juego y los que se pueden abrir</p></div>
+      <div class="filters" id="filters"></div>
+    </div>
+    <div class="tgrid" id="tgrid"></div>
+  </section>
+
+  <section>
+    <div class="sec-h"><div><h2>Camino a las copas</h2><p>Cada copa que ganás te lleva a otra. Se lee de abajo hacia arriba. Tocá una copa para ver el detalle.</p></div></div>
+    <div class="trees">
+      <div class="tree">
+        <h3>Italia <small>Lega Serie A · FIGC</small></h3>
+        <div id="treeITA"></div>
+      </div>
+      <div class="tree">
+        <h3>Europa y el mundo <small>UEFA · FIFA</small></h3>
+        <div id="treeEUR"></div>
+      </div>
+    </div>
+    <div class="tree-legend" style="color:var(--muted);opacity:1;margin-top:10px">
+      <span><i style="border-color:var(--acc)"></i>Camino si el Como gana</span>
+    </div>
+    <div class="routes" id="routes"></div>
+  </section>
+</div>
+
+<footer class="wrap">
+  Fuentes:
+  <a href="https://it.wikipedia.org/wiki/Como_1907_2026-2027" target="_blank" rel="noopener">Wikipedia, Como 2026-27</a> ·
+  <a href="https://en.wikipedia.org/wiki/2026%E2%80%9327_Como_1907_season" target="_blank" rel="noopener">Wikipedia, 2026–27 Como season</a> ·
+  <a href="https://en.wikipedia.org/wiki/2026%E2%80%9327_Serie_A" target="_blank" rel="noopener">Serie A 2026–27</a> ·
+  <a href="https://en.wikipedia.org/wiki/2026%E2%80%9327_UEFA_Champions_League_league_phase" target="_blank" rel="noopener">Champions, fase liga</a> ·
+  <a href="https://en.wikipedia.org/wiki/2026%E2%80%9327_Coppa_Italia" target="_blank" rel="noopener">Coppa Italia 2026–27</a>.
+  Los horarios de la Serie A desde la fecha 20 todavía no están fijados.<br>
+  Trofeos: dibujos de Wikimedia Commons (MacMoreno, 0 Noctis 0, Arrow303, RS1974; dominio público y CC BY-SA 4.0). Serie A: dibujo propio basado en la Coppa Campioni d'Italia. Detalle en CREDITOS.md.
+</footer>
+
+<dialog id="modal" aria-labelledby="mtitle">
+  <div class="mbox">
+    <div class="mhead">
+      <div class="tc-cup"><img id="mcup" src="" alt=""></div>
+      <div><h3 id="mtitle"></h3><div class="sub" id="msub"></div></div>
+      <button class="mclose" id="mclose" type="button" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="mbody" id="mbody"></div>
+  </div>
+</dialog>
+
+<button class="theme-btn" id="themeBtn" type="button">◐ Tema</button>
+
+<script>
+/* =====================================================================
+   DATOS. Actualizá todo desde acá.
+   Horarios: se cargan en hora de ITALIA (CET +01:00 hasta el 28/3/2027,
+   después CEST +02:00) y la página calcula la hora argentina sola.
+   ===================================================================== */
+var UPDATED = "2026-11-23";
+var ME = "como";
+
+// [nombre, nombre corto, opciones]. El escudo es escudos/<clave>.png (sin escudo: nocrest)
+var TEAMS = {
+  "como":["Como 1907","Como"], "juventus":["Juventus","Juve",{inv:1}], "milan":["AC Milan","Milan"], "inter":["Inter"],
+  "napoli":["Napoli"], "roma":["Roma"], "lazio":["Lazio"], "atalanta":["Atalanta"], "fiorentina":["Fiorentina"],
+  "bologna":["Bologna"], "torino":["Torino"], "udinese":["Udinese"], "genoa":["Genoa"], "cagliari":["Cagliari"],
+  "lecce":["Lecce"], "sassuolo":["Sassuolo"], "parma":["Parma"], "monza":["Monza"], "cremonese":["Cremonese"],
+  "venezia":["Venezia"], "frosinone":["Frosinone"], "verona":["Hellas Verona","Verona"], "palermo":["Palermo","Palermo",{nocrest:1}],
+  "psg":["Paris Saint-Germain","PSG"], "barcelona":["Barcelona","Barça"], "betis":["Real Betis","Betis"], "real-madrid":["Real Madrid"],
+  "arsenal":["Arsenal"], "man-united":["Manchester United","Man. United"], "leipzig":["RB Leipzig","Leipzig"], "feyenoord":["Feyenoord"],
+  "lens":["Lens"], "aek":["AEK Atenas","AEK"], "aston-villa":["Aston Villa"], "man-city":["Manchester City","Man. City"],
+  "liverpool":["Liverpool"], "club-brugge":["Club Brugge","Brujas"], "sporting":["Sporting CP","Sporting"]
+};
+
+/* Agenda. t = torneo · time = hora de Italia · state: ok | tbc | if */
+var FIXTURES = [
+  { t:"ucl",    date:"2026-11-24", time:"21:00", stage:"Fase liga · fecha 5", rivals:["aek"], home:true, venue:"Stadio Sinigaglia, Como", state:"ok" },
+  { t:"seriea", date:"2026-11-29", time:"20:45", stage:"Fecha 13", rivals:["juventus"], home:true, venue:"Stadio Sinigaglia", state:"ok" },
+  { t:"coppa",  date:"2026-12-02", time:"21:00", stage:"Octavos", rivals:["cremonese"], home:true, venue:"Stadio Sinigaglia", state:"ok" },
+  { t:"seriea", date:"2026-12-05", time:"15:00", stage:"Fecha 14", rivals:["monza"], home:false, venue:"Stadio Brianteo, Monza", state:"ok" },
+  { t:"ucl",    date:"2026-12-09", time:"18:45", stage:"Fase liga · fecha 6", rivals:["betis"], home:false, venue:"Estadio La Cartuja, Sevilla", state:"ok" },
+  { t:"seriea", date:"2026-12-12", time:"20:45", stage:"Fecha 15", rivals:["bologna"], home:true, venue:"Stadio Sinigaglia", state:"ok" },
+  { t:"seriea", date:"2026-12-19", time:"18:00", stage:"Fecha 16", rivals:["milan"], home:false, venue:"San Siro, Milán", state:"ok" },
+  { t:"seriea", date:"2027-01-03", time:"15:00", stage:"Fecha 17", rivals:["lecce"], home:true, venue:"Stadio Sinigaglia", state:"ok" },
+  { t:"seriea", date:"2027-01-06", time:"18:00", stage:"Fecha 18", rivals:["atalanta"], home:false, venue:"Bérgamo", state:"ok" },
+  { t:"seriea", date:"2027-01-10", time:"12:30", stage:"Fecha 19", rivals:["lazio"], home:true, venue:"Stadio Sinigaglia", state:"ok" },
+  { t:"ucl",    date:"2027-01-20", time:"21:00", stage:"Fase liga · fecha 7", rivals:["psg"], home:true, venue:"Stadio Sinigaglia", state:"ok" },
+  { t:"ucl",    date:"2027-01-27", time:"21:00", stage:"Fase liga · fecha 8", rivals:["barcelona"], home:false, venue:"Camp Nou, Barcelona", state:"ok" },
+  { t:"coppa",  date:"2027-02-03", dateTo:"2027-02-10", stage:"Cuartos", rivals:["milan","monza"], venue:"San Siro o Brianteo", state:"if", cond:"Si pasa octavos" },
+  { t:"ucl",    date:"2027-03-09", dateTo:"2027-03-17", stage:"Octavos (ida y vuelta)", rivals:[], rivalText:"Rival por sorteo", venue:"Si termina 1° a 8°; si no, antes juega el play-off de febrero", state:"if", cond:"Si avanza" },
+  { t:"coppa",  date:"2027-05-19", time:"21:00", stage:"Final", rivals:[], rivalText:"Rival a definir", venue:"Stadio Olimpico, Roma", state:"if", cond:"Si llega a la final" },
+  { t:"ucl",    date:"2027-06-05", stage:"Final", rivals:[], rivalText:"Rival a definir", venue:"Metropolitano, Madrid", state:"if", cond:"Si llega a la final" }
+];
+
+/* Serie A: lo que queda (time null = la Liga todavía no lo fijó) */
+var SERIEA_LEFT = [
+  ["2026-11-29","20:45","juventus",1],["2026-12-05","15:00","monza",0],["2026-12-12","20:45","bologna",1],["2026-12-19","18:00","milan",0],
+  ["2027-01-03","15:00","lecce",1],["2027-01-06","18:00","atalanta",0],["2027-01-10","12:30","lazio",1],["2027-01-16",null,"cagliari",0],
+  ["2027-01-23",null,"napoli",1],["2027-01-30",null,"sassuolo",0],["2027-02-06",null,"monza",1],["2027-02-13",null,"bologna",0],
+  ["2027-02-20",null,"torino",1],["2027-02-27",null,"milan",1],["2027-03-06",null,"lecce",0],["2027-03-13",null,"udinese",1],
+  ["2027-03-20",null,"juventus",0],["2027-04-03",null,"fiorentina",1],["2027-04-10",null,"parma",0],["2027-04-17",null,"frosinone",1],
+  ["2027-04-24",null,"lazio",0],["2027-05-01",null,"inter",1],["2027-05-08",null,"venezia",0],["2027-05-15",null,"atalanta",1],
+  ["2027-05-22",null,"roma",0],["2027-05-29",null,"genoa",1]
+];
+var SERIEA_TABLE = [ // tras la fecha 12 (22/11)
+  ["lazio",12,32,19,"cl"],["roma",12,30,25,"cl"],["inter",12,29,15,"cl"],["milan",12,27,14,"cl"],
+  ["como",12,26,10,"el"],["juventus",12,21,7,"ecl"],["frosinone",12,20,5,"no"],["napoli",12,18,5,"no"]
+];
+var SERIEA_PLAYED = [
+  ["udinese",0,"1-1","d"],["napoli",0,"2-1","w"],["genoa",0,"4-1","w"],["parma",1,"2-1","w"],["frosinone",0,"0-2","l"],["roma",1,"0-0","d"],
+  ["fiorentina",0,"3-1","w"],["sassuolo",1,"2-0","w"],["torino",0,"3-1","w"],["venezia",1,"1-0","w"],["inter",0,"0-2","l"],["cagliari",1,"2-0","w"]
+];
+var UCL_TABLE = [ // tras la fecha 4
+  ["psg",12,15],["real-madrid",12,6],["arsenal",10,5],["como",9,13],["barcelona",9,8],
+  ["aston-villa",9,6],["man-city",9,5],["liverpool",9,4],["club-brugge",9,4],["sporting",9,4]
+];
+var UCL_PLAYED = [["leipzig",1,"4-1","w"],["feyenoord",0,"2-3","l"],["man-united",1,"4-1","w"],["lens",0,"9-1","w"]];
+
+/* Coppa Italia: cuadro desde octavos. Lado: clave o {label, keys} */
+var BRACKET = {
+  left: { // lado del Como
+    oct: [
+      { date:"1/12 21:00", venue:"San Siro", a:"inter", b:"genoa" },
+      { date:"15/12 21:00", venue:"Dall'Ara", a:"bologna", b:"palermo" },
+      { date:"2/12 21:00", venue:"Sinigaglia", a:"como", b:"cremonese", mine:true },
+      { date:"13/1 21:00", venue:"San Siro", a:"milan", b:"monza" }
+    ],
+    qf: [
+      { date:"3-10/2", a:{label:"Inter / Genoa", keys:["inter","genoa"]}, b:{label:"Bologna / Palermo", keys:["bologna"]} },
+      { date:"3-10/2", a:{label:"Como / Cremonese", keys:["como","cremonese"]}, b:{label:"Milan / Monza", keys:["milan","monza"]}, mine:true }
+    ],
+    sf: { date:"2-3/3 y 20-21/4", a:{label:"Ganador cuarto 1", keys:[]}, b:{label:"Ganador cuarto Como", keys:["como"]}, mine:true }
+  },
+  right: {
+    oct: [
+      { date:"12/1 21:00", venue:"Olimpico", a:"roma", b:"verona" },
+      { date:"3/12 21:00", venue:"Allianz Stadium", a:"juventus", b:"sassuolo" },
+      { date:"26/1 21:00", venue:"Bérgamo", a:"atalanta", b:"udinese" },
+      { date:"16/12 21:00", venue:"Maradona", a:"napoli", b:"fiorentina" }
+    ],
+    qf: [
+      { date:"3-10/2", a:{label:"Roma / Verona", keys:["roma","verona"]}, b:{label:"Juve / Sassuolo", keys:["juventus","sassuolo"]} },
+      { date:"3-10/2", a:{label:"Atalanta / Udinese", keys:["atalanta","udinese"]}, b:{label:"Napoli / Fiorentina", keys:["napoli","fiorentina"]} }
+    ],
+    sf: { date:"2-3/3 y 20-21/4", a:{label:"Ganador cuarto 3", keys:[]}, b:{label:"Ganador cuarto 4", keys:[]} }
+  },
+  final: { date:"Mié 19/5", venue:"Olimpico, Roma", a:{label:"Ganador semi 1", keys:[]}, b:{label:"Ganador semi 2", keys:[]}, mine:true }
+};
+
+/* ---------- helpers ---------- */
+function $(s){ return document.querySelector(s); }
+function $$(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); }
+var MES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+var DIA = ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function opt(k){ return TEAMS[k][2] || {}; }
+function tn(k){ return TEAMS[k][0]; }
+function ts(k){ return TEAMS[k][1] || TEAMS[k][0]; }
+function crest(k){
+  if (opt(k).nocrest) return '<span class="crest ini" title="'+esc(tn(k))+'">'+esc(tn(k).slice(0,3).toUpperCase())+'</span>';
+  return '<img class="crest'+(opt(k).inv ? " inv" : "")+'" src="escudos/'+k+'.png" alt="'+esc(tn(k))+'" title="'+esc(tn(k))+'">';
+}
+function crests(ks){ return '<span class="crests">'+ks.map(crest).join("")+'</span>'; }
+function orList(ks){ return ks.length > 2 ? ks.slice(0,-1).map(ts).join(", ") + " o " + ts(ks[ks.length-1]) : ks.map(ts).join(" o "); }
+function pad(n){ return n < 10 ? "0"+n : ""+n; }
+function off(d){ return d >= "2027-03-28" ? "+02:00" : "+01:00"; }
+function kick(d,t){ return new Date(d+"T"+(t || "12:00")+":00"+off(d)); }
+function arg(d,t){ var x = new Date(kick(d,t).getTime() - 3*3600e3); return pad(x.getUTCHours())+":"+pad(x.getUTCMinutes()); }
+function wday(d){ return DIA[new Date(d+"T12:00:00Z").getUTCDay()]; }
+function dmy(d){ return (+d.slice(8))+" "+MES[+d.slice(5,7)-1]; }
+function dm(d){ return (+d.slice(8))+"/"+(+d.slice(5,7)); }
+var STATUS = { won:"Ganado", alive:"En juego", qual:"Clasificado", maybe:"Puede venir", out:"No participa" };
+function tag(cls, txt){ return '<span class="tag '+cls+'">'+esc(txt)+'</span>'; }
+function cupImg(id, cls){ return '<img class="cup '+(cls||"")+'" src="'+T[id].img+'" alt="'+esc(T[id].name)+'">'; }
+function teamCell(k){ return '<span class="tm">'+crest(k)+'<span>'+esc(tn(k))+'</span></span>'; }
+
+/* ---------- torneos ---------- */
+var T = {
+  seriea: {
+    name:"Serie A 2026-27", short:"Serie A", img:"copas/serie-a.svg", status:"alive",
+    when:"5° con 26 puntos · fecha 12 de 38", vs:{keys:["juventus"], text:"Próxima: vs Juventus (29/11)"},
+    body: function(){
+      var tbl = '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>#</th><th>Equipo</th><th class="hide-xs">PJ</th><th>Pts</th><th class="hide-xs">Dif</th></tr></thead><tbody>'+
+        SERIEA_TABLE.map(function(r,i){ return '<tr class="'+(r[0]===ME?"me":"")+'"><td><span class="zone '+r[4]+'"></span>'+(i+1)+'</td><td>'+teamCell(r[0])+'</td><td class="n hide-xs">'+r[1]+'</td><td class="n"><b>'+r[2]+'</b></td><td class="n hide-xs">'+(r[3]>0?"+":"")+r[3]+'</td></tr>'; }).join("")+
+        '</tbody></table></div>';
+      var left = '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Fecha</th><th>Rival</th><th>L/V</th><th>ARG</th><th class="hide-xs">ITA</th></tr></thead><tbody>'+
+        SERIEA_LEFT.map(function(r,i){ return '<tr><td>'+(13+i)+' · '+wday(r[0])+' '+dm(r[0])+'</td><td>'+teamCell(r[2])+'</td><td>'+(r[3]?"Local":"Visita")+'</td><td class="n">'+(r[1]?arg(r[0],r[1]):"a conf.")+'</td><td class="n hide-xs">'+(r[1]||"—")+'</td></tr>'; }).join("")+
+        '</tbody></table></div>';
+      var played = '<div class="tbl-wrap"><table class="tbl"><tbody>'+
+        SERIEA_PLAYED.map(function(r,i){ return '<tr><td>'+(i+1)+'</td><td>'+teamCell(r[0])+'</td><td>'+(r[1]?"Local":"Visita")+'</td><td class="n"><span class="res '+r[3]+'">'+r[2]+'</span></td></tr>'; }).join("")+
+        '</tbody></table></div>';
+      return '<div class="hero-cup">'+cupImg("seriea")+'</div>'+
+        '<div class="mrow"><div class="box"><h5>Cómo viene · tras la fecha 12</h5>'+tbl+
+        '<p style="font-size:12px;color:var(--muted);margin:8px 0 0"><span class="zone cl"></span>Champions <span class="zone el" style="margin-left:8px"></span>Europa League <span class="zone ecl" style="margin-left:8px"></span>Conference</p></div>'+
+        '<div class="box"><h5>Qué da cada puesto</h5><ul><li><b>1°</b>: Scudetto, Champions 2027-28 y Supercoppa Italiana</li><li><b>1° a 4°</b>: Champions League 2027-28</li><li><b>5°</b>: Europa League 2027-28 (si Italia queda entre las 2 mejores ligas de UEFA, el 5° también va a la Champions)</li><li><b>6°</b>: play-off de la Conference League</li><li>El Como está 5°, a 1 punto del Milan (4°) y a 6 de la Lazio (1°)</li></ul></div></div>'+
+        '<h5>Lo que queda · 26 fechas</h5>'+left+
+        '<h5>Lo jugado · 8 ganados, 2 empates, 2 perdidos</h5>'+played;
+    }
+  },
+  ucl: {
+    name:"Champions League 2026-27", short:"Champions", img:"copas/champions.png", status:"alive",
+    when:"4° en la fase liga · la primera de su historia", vs:{keys:["aek"], text:"Próxima: vs AEK (24/11)"},
+    body: function(){
+      var tbl = '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>#</th><th>Equipo</th><th>Pts</th><th class="hide-xs">Dif</th></tr></thead><tbody>'+
+        UCL_TABLE.map(function(r,i){ return '<tr class="'+(r[0]===ME?"me":"")+'"><td>'+(i+1)+'</td><td>'+teamCell(r[0])+'</td><td class="n"><b>'+r[1]+'</b></td><td class="n hide-xs">+'+r[2]+'</td></tr>'; }).join("")+
+        '</tbody></table></div>';
+      var played = UCL_PLAYED.map(function(r){ return '<div class="step">'+crest(r[0])+'<div><b>'+(r[1]?"Local":"Visita")+'</b><span class="res">'+(r[1]?"Como "+r[2]+" "+ts(r[0]):ts(r[0])+" "+r[2].split("-").reverse().join("-")+" Como")+'</span></div></div>'; }).join("");
+      return '<div class="hero-cup">'+cupImg("ucl")+'</div>'+
+        '<h5>El camino</h5><div class="path">'+
+        '<div class="step now"><div><b>Fase liga · faltan 4</b>AEK, Betis, PSG y Barcelona</div></div><span class="arrow">→</span>'+
+        '<div class="step"><div><b>Play-off · 16-24/2</b>sólo si termina 9° a 24°</div></div><span class="arrow">→</span>'+
+        '<div class="step"><div><b>Octavos · 9-17/3</b>directo si termina 1° a 8°</div></div><span class="arrow">→</span>'+
+        '<div class="step"><div><b>Cuartos · 6-14/4</b>ida y vuelta</div></div><span class="arrow">→</span>'+
+        '<div class="step"><div><b>Semis · 27/4-5/5</b>ida y vuelta</div></div><span class="arrow">→</span>'+
+        '<div class="step"><div><b>Final · sáb 5/6/2027</b>Metropolitano, Madrid</div></div></div>'+
+        '<div class="mrow" style="margin-top:12px"><div class="box"><h5>Tabla · tras la fecha 4 (36 equipos)</h5>'+tbl+'<p style="font-size:12px;color:var(--muted);margin:8px 0 0">Los 8 primeros van directo a octavos.</p></div>'+
+        '<div class="box"><h5>Lo jugado · 3 ganados, 1 perdido</h5><div class="path">'+played+'</div>'+
+        '<ul style="margin-top:10px"><li>El 9-1 en Lens es la goleada más grande de un equipo italiano en la historia de la Champions</li></ul></div></div>';
+    }
+  },
+  coppa: {
+    name:"Coppa Italia 2026-27", short:"Coppa Italia", img:"copas/coppa-italia.png", status:"alive",
+    when:"Octavos · mié 2/12 vs Cremonese", vs:{keys:["cremonese"], text:"Octavos vs Cremonese"},
+    body: function(){
+      return '<h5>Camino del Como</h5><div class="path">'+
+        '<div class="step now">'+crest("cremonese")+'<div><b>Octavos · 2/12</b>Cremonese · Sinigaglia</div></div><span class="arrow">→</span>'+
+        '<div class="step">'+crests(["milan","monza"])+'<div><b>Cuartos · 3-10/2</b>Milan o Monza</div></div><span class="arrow">→</span>'+
+        '<div class="step">'+crests(["inter","genoa","bologna"])+'<div><b>Semis · 2-3/3 y 20-21/4</b>Inter, Genoa, Bologna o Palermo</div></div><span class="arrow">→</span>'+
+        '<div class="step"><div><b>Final · mié 19/5</b>Olimpico, Roma</div></div></div>'+
+        '<h5>Cuadro completo</h5><div class="bracket-scroll"><div class="bracket">'+bracketHTML()+'</div></div>'+
+        '<h5>Para tener en cuenta</h5><ul><li>Octavos y cuartos a partido único; las semis son ida y vuelta; la final es en el Olimpico de Roma.</li>'+
+        '<li>El campeón juega la <b>Europa League 2027-28</b> y la <b>Supercoppa Italiana</b>.</li><li>Las fechas exactas de cuartos todavía no están.</li></ul>';
+    }
+  },
+  supita27: {
+    name:"Supercoppa Italiana 2027", short:"Supercoppa Italiana", img:"copas/supercoppa-italiana.png", status:"maybe",
+    when:"Si gana la Serie A o la Coppa Italia", vs:{keys:[], text:"Campeón de Serie A vs campeón de Coppa"},
+    body: function(){
+      return '<div class="hero-cup">'+cupImg("supita27")+'</div>'+
+        '<div class="mrow"><div class="box"><h5>Quién la juega</h5><ul><li>El campeón de la <b>Serie A 2026-27</b></li><li>El campeón de la <b>Coppa Italia 2026-27</b> (si es el mismo, el otro finalista)</li><li>Partido único, a fines de 2027. Sede y fecha a confirmar.</li></ul></div>'+
+        '<div class="box"><h5>Ojo</h5><ul><li>Este es el formato que se usa en la edición 2026. La Liga puede cambiarlo para la próxima, como ya pasó con el de cuatro equipos.</li></ul></div></div>';
+    }
+  },
+  ucl27: {
+    name:"Champions League 2027-28", short:"Champions 27-28", img:"copas/champions.png", status:"maybe",
+    when:"Terminando 1° a 4° en la Serie A", vs:{keys:[], text:"Hoy está 5°, a 1 punto"},
+    body: function(){
+      return '<div class="hero-cup">'+cupImg("ucl27")+'</div>'+
+        '<div class="box"><h5>Cómo se entra</h5><ul><li>Terminar entre los <b>4 primeros</b> de la Serie A</li><li>Si Italia queda entre las dos mejores ligas del ranking UEFA de la temporada, también entra el <b>5°</b></li><li>Ganar la <b>Champions 2026-27</b> también da el lugar</li></ul></div>';
+    }
+  },
+  uel27: {
+    name:"Europa League 2027-28", short:"Europa League 27-28", img:"copas/europa-league.png", status:"maybe",
+    when:"5° en Serie A o ganar la Coppa Italia", vs:{keys:[], text:"Hoy, por la tabla, iría acá"},
+    body: function(){
+      return '<div class="hero-cup">'+cupImg("uel27")+'</div>'+
+        '<div class="box"><h5>Cómo se entra</h5><ul><li>Terminar <b>5°</b> en la Serie A (puesto actual del Como)</li><li>Ganar la <b>Coppa Italia</b>: el campeón va directo a la fase liga</li><li>Si el campeón de la Coppa ya terminó entre los 5 primeros, el lugar pasa al 6°</li></ul></div>';
+    }
+  },
+  uscup: {
+    name:"Supercopa de Europa 2027", short:"Supercopa de Europa", img:"copas/supercopa-uefa.png", status:"maybe",
+    when:"Si gana la Champions", vs:{keys:[], text:"vs campeón de la Europa League"},
+    body: function(){
+      return '<div class="hero-cup">'+cupImg("uscup")+'</div>'+
+        '<div class="box"><h5>Quién la juega</h5><ul><li>El campeón de la <b>Champions 2026-27</b></li><li>El campeón de la <b>Europa League 2026-27</b></li><li>Partido único, en agosto de 2027. Sede a confirmar.</li></ul></div>';
+    }
+  },
+  interc: {
+    name:"Copa Intercontinental FIFA 2027", short:"Intercontinental", img:"copas/intercontinental.png", status:"maybe",
+    when:"Si gana la Champions", vs:{keys:[], text:"Final vs el ganador del resto del mundo"},
+    body: function(){
+      return '<div class="hero-cup">'+cupImg("interc")+'</div>'+
+        '<div class="box"><h5>Quién la juega</h5><ul><li>El campeón de la <b>Champions</b> entra directo a la final</li><li>Enfrenta al que gane los cruces entre los campeones de las otras confederaciones (el de la Libertadores incluido)</li><li>Se juega a fin de 2027. Fecha y sede a confirmar.</li></ul></div>';
+    }
+  }
+};
+var CARD_IDS = ["ucl","seriea","coppa","ucl27","uel27","supita27","uscup","interc"];
+
+/* conexiones [desde, hacia, tipo]. if = si el Como gana · other = otros equipos */
+var EDGES = [
+  ["seriea","supita27","if"], ["seriea","ucl27","if"], ["seriea","uel27","if"],
+  ["coppa","supita27","if"], ["coppa","uel27","if"],
+  ["ucl","uscup","if"], ["ucl","interc","if"], ["ucl","ucl27","if"]
+];
+
+/* árboles */
+var PILL = {
+  seriea:{ cls:"alive", text:"5° · 26 pts", keys:["como"] },
+  coppa:{ cls:"alive", text:"Octavos 2/12", keys:["como"] },
+  supita27:{ cls:"maybe", text:"Si gana" },
+  ucl27:{ cls:"maybe", text:"1° a 4°" },
+  uel27:{ cls:"maybe", text:"5° o Coppa" },
+  ucl:{ cls:"alive", text:"4° fase liga", keys:["como"] },
+  uscup:{ cls:"maybe", text:"Si gana" },
+  interc:{ cls:"maybe", text:"Si gana" }
+};
+var TREE_ITA = {
+  w:320, h:292,
+  nodes:[
+    { id:"ucl27",    x:52,  y:6,   label:["CHAMPIONS","2027-28"] },
+    { id:"supita27", x:160, y:6,   label:["SUPERCOPPA","ITALIANA"] },
+    { id:"uel27",    x:268, y:6,   label:["EUROPA LEAGUE","2027-28"] },
+    { id:"seriea",   x:92,  y:180, label:["SERIE A","2026-27"] },
+    { id:"coppa",    x:228, y:180, label:["COPPA ITALIA","2026-27"] }
+  ],
+  arrows:[
+    { d:"M66,206 H52 V118", k:"if" },
+    { d:"M108,178 V150 H150 V118", k:"if" },
+    { d:"M212,178 V150 H170 V118", k:"if" },
+    { d:"M254,206 H268 V118", k:"if" },
+    { d:"M118,206 H202", k:"none" }
+  ]
+};
+var TREE_EUR = {
+  w:320, h:292,
+  nodes:[
+    { id:"uscup",  x:90,  y:6,   label:["SUPERCOPA","DE EUROPA 2027"] },
+    { id:"interc", x:230, y:6,   label:["INTERCONTINENTAL","FIFA 2027"] },
+    { id:"ucl",    x:160, y:180, label:["CHAMPIONS","2026-27"] }
+  ],
+  arrows:[
+    { d:"M150,178 V150 H90 V118", k:"if" },
+    { d:"M170,178 V150 H230 V118", k:"if" }
+  ]
+};
+
+/* =====================================================================
+   RENDER
+   ===================================================================== */
+$("#upd").textContent = UPDATED.split("-").reverse().join("/");
+
+/* stats */
+$("#stats").innerHTML = [
+  ['<img src="copas/serie-a.svg" alt="">','5°','Serie A · 26 pts'],
+  ['<img src="copas/champions.png" alt="">','4°','Champions · 9 pts'],
+  ['<img src="copas/coppa-italia.png" alt="">','8vos','Coppa Italia']
+].map(function(a){ return '<div class="stat">'+a[0]+'<b>'+a[1]+'</b>'+a[2]+'</div>'; }).join("");
+
+/* próximo partido */
+(function(){
+  var now = new Date();
+  var nx = FIXTURES.filter(function(f){ return f.time && kick(f.date, f.time) > now; })[0] || FIXTURES[0];
+  var dt = kick(nx.date, nx.time), r = nx.rivals[0];
+  var me = '<div class="side"><img src="escudos/como.png" alt="">Como</div>';
+  var rv = '<div class="side"><img src="escudos/'+r+'.png" alt="">'+esc(tn(r))+'</div>';
+  $("#next").innerHTML = '<div class="eyebrow">Próximo partido</div>'+
+    '<div class="next-comp"><img src="'+T[nx.t].img+'" alt="">'+esc(T[nx.t].name)+' · '+esc(nx.stage)+'</div>'+
+    '<div class="versus">'+(nx.home ? me : rv)+'<div class="mid">VS</div>'+(nx.home ? rv : me)+'</div>'+
+    '<div class="next-meta"><span>📅 '+wday(nx.date)+' '+dmy(nx.date)+' · <b>'+arg(nx.date,nx.time)+' ARG</b> ('+nx.time+' ITA)</span><span>📍 '+esc(nx.venue)+'</span></div>'+
+    '<div class="count" id="cd"></div>';
+  function tick(){
+    var s = Math.max(0, Math.floor((dt - new Date()) / 1000));
+    $("#cd").innerHTML = [["días",86400],["hs",3600],["min",60],["seg",1]].map(function(p){
+      var n = Math.floor(s / p[1]); s -= n * p[1];
+      return '<div><b>'+pad(n)+'</b><span>'+p[0]+'</span></div>';
+    }).join("");
+  }
+  tick(); setInterval(tick, 1000);
+})();
+
+/* agenda */
+(function(){
+  var now = new Date(), marked = false;
+  $("#agenda").innerHTML = FIXTURES.map(function(f){
+    var isNext = false;
+    if (!marked && f.time && kick(f.date, f.time) > now) { isNext = true; marked = true; }
+    var dateHTML = '<b>'+(+f.date.slice(8))+(f.dateTo ? "-"+(+f.dateTo.slice(8)) : "")+'</b>'+MES[+f.date.slice(5,7)-1]+(f.date.slice(0,4)==="2027"?" 27":"")+' · '+wday(f.date)+(f.dateTo ? "-"+wday(f.dateTo) : "");
+    var timeHTML = f.time ? '<b>'+arg(f.date,f.time)+' ARG</b><small>'+f.time+' ITA</small>' : '<b>—</b>';
+    var st = { ok:tag("ok","Confirmado"), tbc:tag("tbc", f.cond), "if":tag("maybe", f.cond) }[f.state];
+    var vs = f.rivals.length ? crest("como")+'<span class="x">VS</span>'+crests(f.rivals) : crest("como")+'<span class="x">VS</span><span class="crest ini">?</span>';
+    var rival = f.rivals.length ? orList(f.rivals) : f.rivalText;
+    var la = f.rivals.length === 1 ? (f.home ? " · local" : " · visitante") : "";
+    return '<button type="button" class="card click ag '+(isNext ? "is-next" : "")+' '+(f.state === "if" ? "cond" : "")+'" data-open="'+f.t+'">'+
+      '<div class="ag-top"><span class="ag-date">'+dateHTML+'</span><span class="ag-time">'+timeHTML+'</span></div>'+
+      '<div class="ag-comp">'+cupImg(f.t)+'<span>'+esc(T[f.t].short)+' · '+esc(f.stage)+'</span></div>'+
+      '<div class="ag-vs">'+vs+'</div>'+
+      '<div class="ag-rival">'+esc(rival)+'<span style="font-weight:500;color:var(--muted)">'+la+'</span></div>'+
+      '<div class="ag-foot"><span>📍 '+esc(f.venue)+'</span>'+st+'</div></button>';
+  }).join("");
+})();
+
+/* torneos + filtros */
+(function(){
+  $("#tgrid").innerHTML = CARD_IDS.map(function(id){
+    var t = T[id];
+    return '<button type="button" class="card click tc '+t.status+'" data-open="'+id+'" data-status="'+t.status+'">'+
+      '<div class="tc-top"><div class="tc-cup">'+cupImg(id)+'</div>'+tag(t.status, STATUS[t.status])+'</div>'+
+      '<div><h3>'+esc(t.name)+'</h3><div class="when">'+esc(t.when)+'</div></div>'+
+      '<div class="vsline">'+(t.vs.keys.length ? crests(t.vs.keys) : "")+'<span>'+esc(t.vs.text)+'</span><span class="more">Ver →</span></div></button>';
+  }).join("");
+  var F = [["all","Todos"],["alive","En juego"],["maybe","Pueden venir"]];
+  $("#filters").innerHTML = F.map(function(f,i){ return '<button type="button" class="chip" data-f="'+f[0]+'" aria-pressed="'+(i===0)+'">'+f[1]+'</button>'; }).join("");
+  $("#filters").addEventListener("click", function(e){
+    var b = e.target.closest(".chip"); if (!b) return;
+    $$(".chip").forEach(function(c){ c.setAttribute("aria-pressed", c === b); });
+    $$(".tc").forEach(function(c){ c.hidden = b.dataset.f !== "all" && c.dataset.status !== b.dataset.f; });
+  });
+})();
+
+/* árbol SVG */
+function treeSVG(tr){
+  var NS = 'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"';
+  var col = { "if":"#8cc4ff", other:"rgba(255,255,255,.3)", none:"rgba(255,255,255,0)" };
+  var pillC = { won:["#f7c23b","#2a1d00"], qual:["#3ccf86","#06261a"], alive:["#2f80ed","#ffffff"], maybe:["rgba(255,255,255,.10)","rgba(255,255,255,.9)"], out:["rgba(255,255,255,.08)","rgba(255,255,255,.6)"] };
+  var s = '<svg '+NS+' viewBox="0 0 '+tr.w+' '+tr.h+'" role="img" aria-label="Diagrama de copas"><defs>';
+  ["if","other"].forEach(function(k){
+    s += '<marker id="ar-'+k+'-'+tr.w+tr.h+'" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="'+col[k]+'"/></marker>';
+  });
+  s += '<radialGradient id="g-blue"><stop offset="0" stop-color="#5aa9ff" stop-opacity=".55"/><stop offset="1" stop-color="#5aa9ff" stop-opacity="0"/></radialGradient>';
+  s += '<radialGradient id="g-white"><stop offset="0" stop-color="#ffffff" stop-opacity=".22"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient></defs>';
+  tr.arrows.forEach(function(a){
+    if (a.k === "none") return;
+    s += '<path d="'+a.d+'" fill="none" stroke="'+col[a.k]+'" stroke-width="'+(a.k === "if" ? 2 : 1.6)+'" stroke-linejoin="round" marker-end="url(#ar-'+a.k+'-'+tr.w+tr.h+')"/>';
+  });
+  tr.nodes.forEach(function(n){
+    var t = T[n.id], p = PILL[n.id], x = n.x, y = n.y;
+    var glow = p.cls === "alive" ? "g-blue" : "g-white";
+    var keys = p.keys || [];
+    var pw = 14 + keys.length * 13 + p.text.length * 5.3 + (keys.length ? 3 : 0);
+    var px = x - pw / 2, py = y + 91, c = pillC[p.cls];
+    s += '<g class="tn" data-open="'+n.id+'" tabindex="0" role="button" aria-label="'+esc(t.name)+'">';
+    s += '<rect class="hit" x="'+(x-50)+'" y="'+(y-2)+'" width="100" height="112" rx="10"/>';
+    s += '<ellipse cx="'+x+'" cy="'+(y+34)+'" rx="34" ry="32" fill="url(#'+glow+')"/>';
+    s += '<image href="'+t.img+'" xlink:href="'+t.img+'" x="'+(x-26)+'" y="'+y+'" width="52" height="60" preserveAspectRatio="xMidYMid meet" opacity="'+(p.cls === "out" ? .7 : 1)+'"/>';
+    s += '<text class="lbl" x="'+x+'" y="'+(y+73)+'">'+esc(n.label[0])+'</text>';
+    s += '<text class="lbl" x="'+x+'" y="'+(y+85)+'">'+esc(n.label[1])+'</text>';
+    s += '<rect x="'+px+'" y="'+py+'" width="'+pw+'" height="16" rx="8" fill="'+c[0]+'"'+(p.cls === "maybe" ? ' stroke="rgba(255,255,255,.45)" stroke-dasharray="2 2" stroke-width=".8"' : '')+'/>';
+    var cx = px + 6;
+    keys.forEach(function(k){ s += '<image href="escudos/'+k+'.png" xlink:href="escudos/'+k+'.png" x="'+cx+'" y="'+(py+2)+'" width="12" height="12"/>'; cx += 13; });
+    s += '<text class="ptx" x="'+(cx + (keys.length ? 2 : 1))+'" y="'+(py+11.2)+'" fill="'+c[1]+'">'+esc(p.text)+'</text></g>';
+  });
+  return s + '</svg>';
+}
+$("#treeITA").innerHTML = treeSVG(TREE_ITA);
+$("#treeEUR").innerHTML = treeSVG(TREE_EUR);
+
+/* rutas en frases simples */
+$("#routes").innerHTML = [
+  { ids:["seriea","supita27"], head:"Si gana la Serie A", html:"Primer Scudetto de su historia → <b>Supercoppa Italiana</b> y <b>Champions 2027-28</b>." },
+  { ids:["seriea","ucl27"], head:"Si termina entre los 4 primeros", html:"Hoy es 5°, a un punto del Milan → con un puesto más vuelve a la <b>Champions 2027-28</b>. Si queda 5°, va a la <b>Europa League</b>." },
+  { ids:["coppa","uel27"], head:"Si gana la Coppa Italia", html:"Final el 19/5 en Roma → <b>Europa League 2027-28</b> y <b>Supercoppa Italiana</b>." },
+  { ids:["ucl","uscup"], head:"Si gana la Champions", html:"Final el 5/6 en Madrid → <b>Supercopa de Europa</b> contra el campeón de la Europa League, <b>Intercontinental FIFA</b> y Champions 2027-28." }
+].map(function(r){
+  return '<button type="button" class="card click route" data-open="'+r.ids[0]+'"><span class="cups">'+cupImg(r.ids[0])+'<span class="ar">→</span>'+cupImg(r.ids[1])+'</span>'+
+    '<p><span class="k">'+r.head+'</span>'+r.html+'</p></button>';
+}).join("");
+
+/* cuadro */
+function sideHTML(m, s){
+  var v = m[s], cls = ["t"], inner;
+  if (typeof v === "string") {
+    if (v === ME) cls.push("isme");
+    inner = crest(v)+'<span class="nm" title="'+esc(tn(v))+'">'+esc(ts(v))+'</span>';
+  } else {
+    cls.push("tbd");
+    inner = (v.keys.length ? crests(v.keys) : "")+'<span class="nm" title="'+esc(v.label)+'">'+esc(v.label)+'</span>';
+  }
+  if (m.w) cls.push(m.w === s ? "w" : "l");
+  var sc = m["s"+s];
+  return '<div class="'+cls.join(" ")+'">'+inner+(sc != null ? '<span class="sc">'+sc+'</span>' : "")+'</div>';
+}
+function matchHTML(m){
+  return '<div class="mt '+(m.mine ? "mine" : "")+'"><div class="hd"><span>'+esc(m.date)+'</span><span class="st '+(m.w ? "" : "pend")+'">'+(m.w ? "Final" : "Por jugar")+'</span></div>'+
+    sideHTML(m,"a")+sideHTML(m,"b")+(m.venue ? '<div class="vn">'+esc(m.venue)+'</div>' : "")+'</div>';
+}
+function bracketHTML(){
+  var B = BRACKET;
+  function pairs(list){ var o = ""; for (var i = 0; i < list.length; i += 2) {
+    var two = list.slice(i, i+2);
+    o += '<div class="pair '+(two.some(function(m){ return m.mine; }) ? "bp" : "")+'">'+two.map(function(m){ return '<div class="slot">'+matchHTML(m)+'</div>'; }).join("")+'</div>';
+  } return o; }
+  function col(cls, t, sub, inner, o){ return '<div class="col '+cls+'" style="--o:'+o+'"><h6>'+t+'<em>'+sub+'</em></h6><div class="rounds">'+inner+'</div></div>'; }
+  return [
+    col("L bp","Octavos","1/12 al 26/1", pairs(B.left.oct), 1),
+    col("L in bp","Cuartos","3 al 10/2", pairs(B.left.qf), 3),
+    col("L in bp","Semifinal","ida y vuelta", '<div class="slot">'+matchHTML(B.left.sf)+'</div>', 5),
+    '<div class="col center" style="--o:7"><h6>Final<em>mié 19/5 · Roma</em></h6><div class="rounds"><div class="slot"><div class="final-box"><img class="fcup" src="copas/coppa-italia.png" alt="">'+matchHTML(B.final)+'</div></div></div></div>',
+    col("R in","Semifinal","ida y vuelta", '<div class="slot">'+matchHTML(B.right.sf)+'</div>', 6),
+    col("R in","Cuartos","3 al 10/2", pairs(B.right.qf), 4),
+    col("R","Octavos","3/12 al 26/1", pairs(B.right.oct), 2)
+  ].join("");
+}
+
+/* modal */
+var modal = $("#modal");
+var hasDialog = typeof modal.showModal === "function";
+if (!hasDialog) document.documentElement.className += " nodialog";
+function isOpen(){ return hasDialog ? modal.open : /\bopen\b/.test(modal.className); }
+function openT(id){
+  var t = T[id]; if (!t) return;
+  $("#mcup").src = t.img; $("#mcup").alt = t.name;
+  $("#mtitle").textContent = t.name;
+  $("#msub").innerHTML = tag(t.status, STATUS[t.status])+'<span>'+esc(t.when)+'</span>';
+  var outs = EDGES.filter(function(e){ return e[0] === id; }), ins = EDGES.filter(function(e){ return e[1] === id; });
+  function link(e, dir){ var x = dir === "out" ? e[1] : e[0];
+    return '<button type="button" class="link" data-open="'+x+'">'+cupImg(x)+'<span>'+esc(T[x].short)+'<small>'+(e[2] === "if" ? "si el Como gana" : "otros equipos")+'</small></span></button>'; }
+  $("#mbody").innerHTML = t.body() +
+    (outs.length ? '<h5>Si lo ganás, te lleva a</h5><div class="links">'+outs.map(function(e){ return link(e,"out"); }).join("")+'</div>' : "") +
+    (ins.length ? '<h5>Se llega desde</h5><div class="links">'+ins.map(function(e){ return link(e,"in"); }).join("")+'</div>' : "");
+  $("#mbody").scrollTop = 0;
+  if (!isOpen()) { if (hasDialog) modal.showModal(); else modal.className += " open"; }
+  try { history.replaceState(null, "", "#" + id); } catch(e){}
+}
+function onClose(){ try { history.replaceState(null, "", location.pathname + location.search); } catch(e){} }
+function closeT(){ if (hasDialog) modal.close(); else { modal.className = modal.className.replace(/\s*open\b/g, ""); onClose(); } }
+modal.addEventListener("close", onClose);
+document.addEventListener("click", function(e){
+  var o = e.target.closest ? e.target.closest("[data-open]") : null;
+  if (o) { openT(o.getAttribute("data-open")); return; }
+  if (e.target === modal) closeT();
+});
+document.addEventListener("keydown", function(e){
+  if ((e.key === "Enter" || e.key === " ") && e.target.getAttribute && e.target.getAttribute("role") === "button" && e.target.getAttribute("data-open")) { e.preventDefault(); openT(e.target.getAttribute("data-open")); }
+  if (e.key === "Escape" && !hasDialog && isOpen()) closeT();
+});
+$("#mclose").onclick = closeT;
+if (location.hash && T[location.hash.slice(1)]) openT(location.hash.slice(1));
+
+/* tema */
+(function(){
+  var root = document.documentElement;
+  try { var t = localStorage.getItem("como-theme"); if (t) root.setAttribute("data-theme", t); } catch(e){}
+  $("#themeBtn").onclick = function(){
+    var cur = root.getAttribute("data-theme");
+    var dark = cur ? cur === "dark" : (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
+    root.setAttribute("data-theme", dark ? "light" : "dark");
+    try { localStorage.setItem("como-theme", root.getAttribute("data-theme")); } catch(e){}
+  };
+})();
+</script>
+</body>
+</html>
