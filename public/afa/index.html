@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a3d91">
+<meta name="robots" content="noindex, follow">
+<title>Boca: lo que queda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ tokens (sin color-mix: compatible con celulares viejos) ============ */
+:root{
+  --bg:#f3f5fb; --surface:#ffffff; --surface-2:#f6f8fc; --border:#e2e7f1; --border-2:#cfd7e6;
+  --text:#0b1630; --muted:#5c6884; --faint:#8a95ad;
+  --azul:#0a3d91; --azul-hi:#1f56c6; --azul-soft:rgba(10,61,145,.10); --azul-line:rgba(10,61,145,.30);
+  --oro:#c99400; --oro-hi:#f7c23b; --oro-soft:rgba(227,168,0,.13); --oro-line:rgba(227,168,0,.45);
+  --ok:#14915a; --ok-soft:rgba(20,145,90,.10); --ok-line:rgba(20,145,90,.35);
+  --warn:#b86e00; --warn-line:rgba(184,110,0,.40);
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 8px 24px -12px rgba(16,24,40,.18);
+  --glow:rgba(10,61,145,.10);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#050a17; --surface:#0c1529; --surface-2:#101b34; --border:rgba(255,255,255,.08); --border-2:rgba(255,255,255,.16);
+    --text:#eef2fb; --muted:#94a0bb; --faint:#6c7895;
+    --azul:#3b74ea; --azul-hi:#7ea6f7; --azul-soft:rgba(59,116,234,.14); --azul-line:rgba(59,116,234,.40);
+    --oro:#f7c23b; --oro-hi:#ffd66b; --oro-soft:rgba(247,194,59,.12); --oro-line:rgba(247,194,59,.45);
+    --ok:#3ccf86; --ok-soft:rgba(60,207,134,.12); --ok-line:rgba(60,207,134,.38);
+    --warn:#f3a93b; --warn-line:rgba(243,169,59,.45);
+    --shadow:0 12px 30px -16px rgba(0,0,0,.7);
+    --glow:rgba(59,116,234,.22);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#050a17; --surface:#0c1529; --surface-2:#101b34; --border:rgba(255,255,255,.08); --border-2:rgba(255,255,255,.16);
+  --text:#eef2fb; --muted:#94a0bb; --faint:#6c7895;
+  --azul:#3b74ea; --azul-hi:#7ea6f7; --azul-soft:rgba(59,116,234,.14); --azul-line:rgba(59,116,234,.40);
+  --oro:#f7c23b; --oro-hi:#ffd66b; --oro-soft:rgba(247,194,59,.12); --oro-line:rgba(247,194,59,.45);
+  --ok:#3ccf86; --ok-soft:rgba(60,207,134,.12); --ok-line:rgba(60,207,134,.38);
+  --warn:#f3a93b; --warn-line:rgba(243,169,59,.45);
+  --shadow:0 12px 30px -16px rgba(0,0,0,.7);
+  --glow:rgba(59,116,234,.22);
+}
+
+/* ============ base ============ */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{margin:0;overflow-x:hidden}
+body{
+  background:
+    radial-gradient(1100px 520px at 0% -10%, var(--glow), transparent 60%),
+    radial-gradient(800px 420px at 100% 0%, var(--oro-soft), transparent 60%),
+    var(--bg);
+  color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+section{margin:40px 0}
+.sec-h{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.sec-h h2{margin:0;font-size:22px;letter-spacing:-.4px}
+.sec-h p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--oro)}
+
+.crest{width:22px;height:22px;object-fit:contain;flex:none}
+.crests{display:inline-flex;align-items:center;flex:none}
+.crests .crest + .crest{margin-left:-6px}
+.cup{object-fit:contain;flex:none}
+
+/* tags */
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.2px;white-space:nowrap;border:1px solid transparent;width:-webkit-fit-content;width:fit-content;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.tag.won{background:var(--oro-soft);color:var(--oro);border-color:var(--oro-line)}
+.tag.alive{background:var(--azul-soft);color:var(--azul-hi);border-color:var(--azul-line)}
+.tag.qual{background:var(--ok-soft);color:var(--ok);border-color:var(--ok-line)}
+.tag.maybe{color:var(--muted);border:1px dashed var(--border-2)}
+.tag.out{color:var(--faint);border-color:var(--border)}
+.tag.tbc{color:var(--warn);border-color:var(--warn-line)}
+.tag.ok{color:var(--ok);border-color:var(--ok-line)}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}
+.click{cursor:pointer;text-align:left;transition:transform .15s ease,border-color .15s ease}
+.click:active{transform:scale(.985)}
+@media (hover:hover){ .click:hover{transform:translateY(-2px);border-color:var(--oro-line)} }
+.click:focus-visible{outline:2px solid var(--oro);outline-offset:2px}
+
+/* ============ hero ============ */
+.hero{padding:24px 0 4px}
+.hero-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:20px;align-items:stretch}
+.brand{display:flex;flex-direction:column;justify-content:center;gap:10px;min-width:0}
+.brand-top{display:flex;align-items:center;gap:12px}
+.brand-top img{width:56px;height:56px}
+.brand h1{margin:0;font-size:clamp(28px,4.6vw,48px);line-height:1.04;letter-spacing:-1.2px;font-weight:800}
+.brand h1 span{color:var(--oro)}
+@supports (-webkit-background-clip:text){ .brand h1 span{background:linear-gradient(90deg,var(--oro),var(--oro-hi));-webkit-background-clip:text;background-clip:text;color:transparent} }
+.brand p{margin:0;color:var(--muted)}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.stat{display:flex;align-items:center;gap:6px;padding:7px 11px;border-radius:12px;background:var(--surface);border:1px solid var(--border);font-size:13px}
+.stat b{font-size:17px}
+
+.next{position:relative;overflow:hidden;padding:18px;border-radius:22px;color:#fff;min-width:0;
+  background:linear-gradient(135deg,#0a3d91 0%,#072a66 60%,#051d48 100%);border:1px solid rgba(255,255,255,.08)}
+.next::after{content:"";position:absolute;left:0;right:0;top:50%;height:34px;transform:translateY(-50%) skewY(-6deg);background:linear-gradient(90deg,transparent,rgba(247,194,59,.16),transparent);pointer-events:none}
+.next > *{position:relative;z-index:1}
+.next .eyebrow{color:#ffd66b}
+.next-comp{font-size:13px;opacity:.85;margin-top:2px}
+.versus{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin:14px 0}
+.versus .side{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-weight:700;font-size:14px;line-height:1.2;min-width:0}
+.versus .side img{width:62px;height:62px;object-fit:contain}
+.versus .mid{font-size:12px;font-weight:800;opacity:.7}
+.next-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;font-size:13px;opacity:.9;text-align:center}
+.count{display:flex;justify-content:center;gap:8px;margin-top:12px}
+.count div{flex:1 1 0;max-width:72px;min-width:0;text-align:center;padding:7px 4px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08)}
+.count b{display:block;font-size:22px;font-variant-numeric:tabular-nums;color:#ffd66b;line-height:1.1}
+.count span{font-size:10px;text-transform:uppercase;letter-spacing:.6px;opacity:.75}
+
+/* ============ agenda ============ */
+.agenda{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.ag{display:flex;flex-direction:column;gap:9px;padding:14px;border-radius:18px;min-width:0}
+.ag.is-next{border-color:var(--oro);box-shadow:0 0 0 3px var(--oro-soft),var(--shadow)}
+.ag.cond{border-style:dashed}
+.ag-top{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.ag-date{font-size:13px;color:var(--muted)}
+.ag-date b{font-size:22px;color:var(--text);letter-spacing:-.5px;margin-right:4px}
+.ag-time{font-weight:800;font-variant-numeric:tabular-nums}
+.ag-comp{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--oro)}
+.ag-comp .cup{width:18px;height:22px}
+.ag-vs{display:flex;align-items:center;gap:10px}
+.ag-vs .crest{width:32px;height:32px}
+.ag-vs .crests .crest + .crest{margin-left:-10px}
+.ag-vs .x{font-size:11px;font-weight:800;color:var(--faint)}
+.ag-rival{font-weight:700;line-height:1.25}
+.ag-foot{display:flex;flex-direction:column;gap:6px;margin-top:auto;font-size:12px;color:var(--muted)}
+
+/* ============ torneos ============ */
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--border);background:var(--surface);border-radius:99px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.tc{display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:18px;min-width:0}
+.tc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.tc-cup{width:58px;height:58px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 55%,rgba(255,255,255,.14),transparent 70%),linear-gradient(160deg,#0d2c6b,#061633);flex:none}
+.tc-cup img{width:46px;height:50px;object-fit:contain}
+.tc.won .tc-cup{box-shadow:0 0 0 2px var(--oro-line)}
+.tc.out{opacity:.75}
+.tc h3{margin:0;font-size:16px;letter-spacing:-.2px;line-height:1.25}
+.tc .when{font-size:13px;color:var(--muted)}
+.tc .vsline{display:flex;align-items:center;gap:8px;font-size:13px;margin-top:auto;padding-top:9px;border-top:1px solid var(--border);min-width:0}
+.tc .vsline span:not(.crests){min-width:0}
+.tc .more{margin-left:auto;font-size:12px;color:var(--faint);white-space:nowrap}
+.tc[hidden]{display:none}
+
+/* ============ árbol de copas ============ */
+.trees{display:grid;grid-template-columns:1.35fr 1fr;gap:16px;align-items:start}
+.tree{border-radius:22px;padding:14px 12px 12px;color:#fff;position:relative;overflow:hidden;
+  background:radial-gradient(600px 300px at 50% 0%,rgba(59,116,234,.35),transparent 70%),linear-gradient(170deg,#0b2a6b,#061533 70%);border:1px solid rgba(255,255,255,.08)}
+.tree h3{margin:0 4px 2px;font-size:15px;letter-spacing:.2px;display:flex;align-items:center;gap:8px}
+.tree h3 small{font-weight:500;opacity:.65;font-size:12px}
+.tree svg{display:block;width:100%;height:auto;margin:0 auto}
+.tree .tn{cursor:pointer}
+.tree .tn:focus{outline:none}
+.tree .tn:focus .hit,.tree .tn:hover .hit{stroke:rgba(255,215,107,.8)}
+.tree .hit{fill:transparent;stroke:transparent;stroke-width:1.2}
+.tree .lbl{font:800 10px Inter,system-ui,sans-serif;fill:#fff;letter-spacing:.3px;text-anchor:middle}
+.tree .ptx{font:700 8.8px Inter,system-ui,sans-serif;text-anchor:start}
+.tree-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;opacity:.85;margin:6px 4px 0}
+.tree-legend i{display:inline-block;width:20px;border-top:2px solid;vertical-align:middle;margin-right:5px}
+
+/* rutas en frases */
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:10px;margin-top:16px}
+.route{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:16px;min-width:0}
+.route .cups{display:flex;align-items:center;gap:2px;flex:none}
+.route .cups img{width:34px;height:42px;object-fit:contain}
+.route .cups .ar{color:var(--oro);font-weight:800;margin:0 2px}
+.route p{margin:0;font-size:13.5px;line-height:1.4;min-width:0}
+.route p b{color:var(--text)}
+.route .k{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--oro);margin-bottom:2px}
+.route.if .k{color:var(--azul-hi)}
+
+/* ============ modal ============ */
+dialog{border:none;padding:0;background:transparent;color:var(--text);max-width:min(1240px,96vw);width:100%;max-height:92vh}
+dialog::backdrop{background:rgba(3,8,20,.6)}
+.mbox{background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.55);max-height:92vh;display:flex;flex-direction:column;overflow:hidden}
+.mhead{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border);background:var(--surface-2);flex:none}
+.mhead .tc-cup{width:52px;height:52px}
+.mhead .tc-cup img{width:40px;height:44px}
+.mhead h3{margin:0;font-size:18px;letter-spacing:-.3px;line-height:1.2}
+.mhead .sub{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:3px}
+.mhead > div:nth-child(2){min-width:0;flex:1}
+.mclose{width:40px;height:40px;border-radius:12px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:18px;flex:none}
+.mbody{padding:16px;overflow:auto;-webkit-overflow-scrolling:touch}
+.mbody h5{margin:18px 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--faint)}
+.mbody > h5:first-child,.box h5{margin-top:0}
+.mbody ul{margin:0;padding-left:18px}
+.mbody li{margin:4px 0}
+.mrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.box{padding:14px;border-radius:14px;background:var(--surface-2);border:1px solid var(--border);min-width:0}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.link{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:12px;border:1px solid var(--border);background:var(--surface-2);cursor:pointer;font-size:13px;font-weight:600;text-align:left}
+.link img{width:26px;height:32px;object-fit:contain}
+.link small{display:block;font-weight:500;color:var(--muted)}
+.big-vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:16px;border-radius:16px;background:linear-gradient(135deg,#0a3d91,#051d48);color:#fff}
+.big-vs .side{display:flex;flex-direction:column;align-items:center;gap:8px;font-weight:700;text-align:center;line-height:1.2;min-width:0}
+.big-vs .side img{width:66px;height:66px;object-fit:contain}
+.big-vs .score{font-size:32px;font-weight:800;letter-spacing:2px;text-align:center}
+.big-vs .score small{display:block;font-size:10.5px;letter-spacing:.4px;font-weight:600;opacity:.75}
+.hero-cup{display:flex;justify-content:center;margin:0 0 12px;padding:12px;border-radius:16px;background:radial-gradient(circle at 50% 60%,rgba(255,255,255,.16),transparent 65%),linear-gradient(160deg,#0d2c6b,#061633)}
+.hero-cup img{height:150px;width:auto;max-width:60%;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.35))}
+.path{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.step{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;background:var(--surface-2);border:1px solid var(--border);font-size:13px;min-width:0}
+.step b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--oro)}
+.arrow{color:var(--faint)}
+
+/* ============ cuadro ============ */
+.bracket-scroll{overflow-x:auto;margin:0 -4px;padding:40px 4px 4px;-webkit-overflow-scrolling:touch}
+.bracket{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:24px;min-width:1150px}
+.col{display:flex;flex-direction:column}
+.col h6{margin:0 0 8px;text-align:center;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--faint)}
+.col h6 em{display:block;font-style:normal;font-weight:500;text-transform:none;letter-spacing:0}
+.rounds{flex:1;display:flex;flex-direction:column}
+.pair{flex:1;display:flex;flex-direction:column;position:relative}
+.slot{flex:1;display:flex;align-items:center;position:relative;padding:6px 0}
+.L .pair::after,.R .pair::after{content:"";position:absolute;top:25%;bottom:25%;width:12px;border:2px solid var(--border-2)}
+.L .pair::after{right:-12px;border-left:none;border-radius:0 6px 6px 0}
+.R .pair::after{left:-12px;border-right:none;border-radius:6px 0 0 6px}
+.L.in .slot::before,.R.in .slot::before,.center .slot::before,.center .slot::after{content:"";position:absolute;top:50%;width:12px;border-top:2px solid var(--border-2)}
+.L.in .slot::before{left:-12px}
+.R.in .slot::before{right:-12px}
+.center .slot::before{left:-24px;width:24px}
+.center .slot::after{right:-24px;width:24px}
+.R.bp .pair.bp::after{border-color:var(--oro)}
+.mt{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:12.5px}
+.mt.boca{border:2px solid var(--oro);box-shadow:0 0 0 3px var(--oro-soft)}
+.mt .hd{display:flex;justify-content:space-between;gap:6px;padding:4px 8px;font-size:10.5px;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border)}
+.mt .hd .st{font-weight:700}
+.mt .hd .st.pend{color:var(--warn)}
+.t{display:flex;align-items:center;gap:6px;padding:5px 8px;min-height:30px}
+.t + .t{border-top:1px solid var(--border)}
+.t .sd{font-size:9.5px;font-weight:700;color:var(--faint);width:18px;flex:none}
+.t .crest{width:18px;height:18px}
+.t .crests .crest + .crest{margin-left:-7px}
+.t .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t .sc{font-weight:800;font-variant-numeric:tabular-nums}
+.t .pen{font-size:10px;color:var(--muted)}
+.t.w{background:var(--oro-soft);font-weight:700}
+.t.l{color:var(--faint)}
+.t.l .crest{opacity:.55}
+.t.tbd .nm{font-style:italic;color:var(--muted)}
+.t.isboca .nm{color:var(--azul-hi);font-weight:800}
+.mt .vn{padding:3px 8px 5px;font-size:10px;color:var(--faint);border-top:1px dashed var(--border)}
+.final-box{position:relative;width:100%}
+.final-box .fcup{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:4px;width:30px;height:36px;object-fit:contain}
+
+footer{padding:10px 0 70px;font-size:12px;color:var(--muted)}
+footer a{color:inherit}
+.theme-btn{position:fixed;right:12px;bottom:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:5;border:1px solid var(--border);background:var(--surface);border-radius:99px;padding:9px 13px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:var(--shadow)}
+
+/* ============ responsive ============ */
+@media (min-width: 900px){ body{background-attachment:fixed} dialog::backdrop{-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)} }
+@media (max-width: 980px){ .trees{grid-template-columns:1fr;max-width:560px;margin:0 auto} }
+@media (max-width: 860px){
+  .hero-grid{grid-template-columns:1fr}
+  .bracket-scroll{padding-top:4px}
+  .bracket{display:flex;flex-direction:column;min-width:0;gap:16px}
+  .col{order:var(--o)}
+  .col h6{text-align:left}
+  .rounds,.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+  .slot{padding:0}
+  .pair::after,.slot::before,.slot::after{display:none !important}
+  .final-box .fcup{display:none}
+}
+@media (max-width: 640px){
+  section{margin:32px 0}
+  .sec-h h2{font-size:20px}
+  .agenda{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;margin:0 -16px;padding:2px 16px 8px}
+  .ag{flex:0 0 80%;scroll-snap-align:start}
+  .tgrid{grid-template-columns:1fr 1fr;gap:10px}
+  .tc{padding:11px;gap:7px}
+  .tc-top{flex-direction:column;gap:6px}
+  .tc-cup{width:48px;height:48px;border-radius:12px}
+  .tc-cup img{width:38px;height:42px}
+  .tc h3{font-size:14px}
+  .tc .when{font-size:12px;line-height:1.35}
+  .tc .vsline{font-size:12px;padding-top:7px;gap:6px}
+  .tc .vsline .crest{width:18px;height:18px}
+  .tc .more{display:none}
+  .tc .tag{font-size:10px;padding:2px 7px}
+  .versus .side img{width:52px;height:52px}
+  .routes{grid-template-columns:1fr}
+  .route{align-items:flex-start;padding:11px 12px;gap:10px}
+  .route .cups img{width:28px;height:36px}
+  /* modal como hoja desde abajo */
+  dialog{max-width:100%;width:100%;max-height:100%;height:100%;margin:0}
+  .mbox{border-radius:0;max-height:100%;height:100%;border:none}
+  .mbody{padding:14px}
+  .path .arrow{display:none}
+  .path .step{width:100%}
+  .big-vs{padding:12px}
+  .big-vs .side img{width:50px;height:50px}
+  .big-vs .score{font-size:26px}
+  .hero-cup img{height:110px}
+}
+/* celulares muy chicos (Samsung J1 y similares: 320 px) */
+@media (max-width: 360px){
+  body{font-size:14px}
+  .wrap{padding-left:12px;padding-right:12px}
+  .agenda{margin:0 -12px;padding:2px 12px 8px}
+  .ag{flex-basis:86%}
+  .brand-top img{width:44px;height:44px}
+  .brand h1{font-size:26px}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .stat{padding:6px 8px;font-size:12px}
+  .stat b{font-size:15px}
+  .next{padding:14px;border-radius:18px}
+  .versus .side{font-size:12.5px}
+  .versus .side img{width:44px;height:44px}
+  .count{gap:5px}
+  .count b{font-size:18px}
+  .count span{font-size:9px}
+  .tgrid{gap:8px}
+  .tc{padding:10px}
+  .tc h3{font-size:13px}
+  .tree{padding:12px 6px 10px;border-radius:18px}
+  .mhead{padding:10px 12px;gap:10px}
+  .mhead .tc-cup{width:42px;height:42px}
+  .mhead .tc-cup img{width:32px;height:36px}
+  .mhead h3{font-size:15.5px}
+  .big-vs{grid-template-columns:1fr auto 1fr;gap:6px}
+  .big-vs .side{font-size:12px}
+  .big-vs .side img{width:42px;height:42px}
+  .big-vs .score{font-size:22px;letter-spacing:1px}
+  .rounds,.pair{grid-template-columns:1fr}
+  .theme-btn{padding:7px 10px;font-size:12px}
+}
+/* celular acostado: poca altura */
+@media (max-height: 500px) and (orientation: landscape){
+  .hero{padding-top:12px}
+  .hero-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .brand h1{font-size:24px}
+  .brand p{display:none}
+  .brand-top img{width:40px;height:40px}
+  .next{padding:12px}
+  .versus{margin:8px 0}
+  .versus .side img{width:40px;height:40px}
+  .count{margin-top:8px}
+  .count b{font-size:17px}
+  .agenda{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:2px 16px 8px}
+  .ag{flex:0 0 44%;scroll-snap-align:start}
+  .tgrid{grid-template-columns:repeat(3,1fr)}
+  .trees{grid-template-columns:1fr 1fr;max-width:none}
+  /* modal a pantalla completa */
+  dialog{max-width:100%;width:100%;max-height:100%;height:100%;margin:0}
+  .mbox{border-radius:0;max-height:100%;height:100%}
+  .mhead{padding:6px 12px}
+  .mhead .tc-cup{width:36px;height:36px}
+  .mhead .tc-cup img{width:28px;height:32px}
+  .mhead h3{font-size:15px}
+  .mhead .sub{margin-top:0}
+  .mbody{padding:10px 14px}
+  .hero-cup img{height:90px}
+}
+/* navegadores sin "gap" en flex (Chrome viejo): margen de respaldo */
+@supports not (aspect-ratio: 1 / 1){
+  .count div + div,.stats .stat + .stat,.filters .chip + .chip,.links .link + .link,.ag-vs > * + *,.vsline > * + *,.ag-comp > * + *{margin-left:6px}
+  .tag::before{margin-right:6px}
+  .stats .stat,.filters .chip,.links .link{margin-bottom:6px}
+  .ag-foot > * + *,.brand > * + *{margin-top:6px}
+}
+/* fallback de modal si el navegador no tiene <dialog> */
+.nodialog dialog{display:none;position:fixed;left:0;top:0;right:0;bottom:0;max-width:none;max-height:none;margin:0;z-index:50;background:rgba(3,8,20,.6)}
+.nodialog dialog.open{display:flex;align-items:flex-end;justify-content:center}
+.nodialog dialog .mbox{width:100%;max-width:1240px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-grid">
+      <div class="brand">
+        <div class="brand-top">
+          <img src="escudos/boca.png" alt="Boca Juniors" width="56" height="56">
+          <div class="eyebrow">Temporada 2026 · act. <span id="upd"></span></div>
+        </div>
+        <h1>Boca Juniors,<br><span>lo que queda.</span></h1>
+        <p>Fechas, rivales y a qué copas nos lleva cada título. Tocá cualquier torneo para ver el detalle. Horarios de Argentina.</p>
+        <div class="stats" id="stats"></div>
+      </div>
+      <div class="next" id="next"></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-h"><div><h2>Agenda</h2><p>Próximos partidos y los que se suman si Boca sigue ganando</p></div></div>
+    <div class="agenda" id="agenda"></div>
+  </section>
+
+  <section>
+    <div class="sec-h">
+      <div><h2>Torneos</h2><p>Ganados, en juego y los que se pueden abrir</p></div>
+      <div class="filters" id="filters"></div>
+    </div>
+    <div class="tgrid" id="tgrid"></div>
+  </section>
+
+  <section>
+    <div class="sec-h"><div><h2>Camino a las copas</h2><p>Cada copa que ganás te lleva a otra. Se lee de abajo hacia arriba. Tocá una copa para ver el detalle.</p></div></div>
+    <div class="trees">
+      <div class="tree">
+        <h3>Fútbol argentino <small>8 trofeos · AFA / LPF</small></h3>
+        <div id="treeAFA"></div>
+      </div>
+      <div class="tree">
+        <h3>Copas CONMEBOL <small>internacionales</small></h3>
+        <div id="treeCON"></div>
+        <div class="tree-legend">
+          <span><i style="border-color:#f7c23b"></i>Boca ya tiene el lugar</span>
+          <span><i style="border-color:rgba(255,255,255,.85)"></i>Camino si Boca gana</span>
+          <span><i style="border-color:rgba(255,255,255,.3)"></i>Otros equipos</span>
+        </div>
+      </div>
+    </div>
+    <div class="routes" id="routes"></div>
+  </section>
+</div>
+
+<footer class="wrap">
+  Fuentes:
+  <a href="https://es.wikipedia.org/wiki/Anexo:Temporada_2026_del_Club_Atl%C3%A9tico_Boca_Juniors" target="_blank" rel="noopener">Wikipedia, temporada de Boca</a> ·
+  <a href="https://es.wikipedia.org/wiki/Anexo:Torneo_Clausura_2026_(Argentina)" target="_blank" rel="noopener">Wikipedia, Clausura 2026</a> ·
+  <a href="https://www.ligaprofesional.ar/notas/institucional/2025/11/20/las-competencias-de-2026/" target="_blank" rel="noopener">LPF, competencias 2026</a> ·
+  <a href="https://442.perfil.com/noticias/futbol/la-afa-confirmo-todas-las-competencias-que-se-desarrollaran-en-el-futbol-argentino-en-2026.phtml" target="_blank" rel="noopener">442, títulos 2026</a> ·
+  <a href="https://www.lanacion.com.ar/deportes/futbol/asi-esta-el-cuadro-de-cuartos-de-final-del-torneo-clausura-2026-nid22112026/" target="_blank" rel="noopener">La Nación, cuadro</a> ·
+  <a href="https://www.cadena3.com/noticia/futbol/cuando-y-donde-se-juega-la-final-de-la-copa-argentina-entre-boca-y-platense_613649" target="_blank" rel="noopener">Cadena 3, Copa Argentina</a> ·
+  <a href="https://www.infobae.com/america/agencias/2026/11/23/claves-de-una-copa-libertadores-que-llega-a-la-final-con-records-millones-y-curiosidades/" target="_blank" rel="noopener">Infobae, final Libertadores</a>.
+  Verificá horarios en la AFA o en el club antes de ir.<br>
+  Trofeos: dibujos de Wikimedia Commons (LCont5 CC0; Taf0723 y Guigoma CC BY-SA 4.0; Futbolero44 CC BY 4.0). Libertadores y Recopa de Campeones: dibujos propios basados en los trofeos reales. Detalle en CREDITOS.md.
+</footer>
+
+<dialog id="modal" aria-labelledby="mtitle">
+  <div class="mbox">
+    <div class="mhead">
+      <div class="tc-cup"><img id="mcup" src="" alt=""></div>
+      <div><h3 id="mtitle"></h3><div class="sub" id="msub"></div></div>
+      <button class="mclose" id="mclose" type="button" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="mbody" id="mbody"></div>
+  </div>
+</dialog>
+
+<button class="theme-btn" id="themeBtn" type="button">◐ Tema</button>
+
+<script>
+/* =====================================================================
+   DATOS. Actualizá todo desde acá. Horarios de Argentina (UTC-3).
+   ===================================================================== */
+var UPDATED = "2026-11-23";
+
+// [nombre, nombre corto]. El escudo es escudos/<clave>.png
+var TEAMS = {
+  "boca":["Boca Juniors","Boca"], "platense":["Platense"], "independiente-rivadavia":["Independiente Rivadavia","Ind. Rivadavia"],
+  "gimnasia-lp":["Gimnasia (LP)","Gimnasia LP"], "newells":["Newell's"], "rosario-central":["Rosario Central","Central"],
+  "barracas-central":["Barracas Central","Barracas"], "defensa-y-justicia":["Defensa y Justicia","Defensa"], "velez":["Vélez Sarsfield","Vélez"],
+  "belgrano":["Belgrano"], "argentinos":["Argentinos Juniors","Argentinos"], "independiente":["Independiente"], "instituto":["Instituto"],
+  "huracan":["Huracán"], "river":["River Plate","River"], "lanus":["Lanús"], "gimnasia-mendoza":["Gimnasia (Mendoza)","Gimnasia (M)"],
+  "estudiantes":["Estudiantes (LP)","Estudiantes"], "palmeiras":["Palmeiras"], "atletico-mineiro":["Atlético Mineiro","At. Mineiro"], "banfield":["Banfield"]
+};
+
+// Agenda. state: ok = confirmado · tbc = falta hora/sede · if = depende de que gane · qual = ya clasificado
+var FIXTURES = [
+  { t:"clausura", date:"2026-11-25", time:"21:00", stage:"Octavos", rivals:["independiente-rivadavia"], venue:"La Bombonera", state:"ok" },
+  { t:"clausura", date:"2026-11-28", dateTo:"2026-11-29", stage:"Cuartos", rivals:["gimnasia-lp","newells"], venue:"La Bombonera si es mejor ubicado", state:"if", cond:"Si pasa octavos" },
+  { t:"copaar",   date:"2026-12-02", stage:"Final", rivals:["platense"], venue:"Sede a confirmar", state:"tbc", cond:"Hora y sede a confirmar" },
+  { t:"clausura", date:"2026-12-05", dateTo:"2026-12-06", stage:"Semifinal", rivals:["rosario-central","barracas-central"], venue:"Cancha del mejor ubicado", state:"if", cond:"Si pasa cuartos" },
+  { t:"clausura", date:"2026-12-12", stage:"Final", rivals:["velez","independiente","instituto","river"], venue:"La Plata · neutral", state:"if", cond:"Si pasa semis" },
+  { t:"trofeo",   label:"A conf.", stage:"Partido único", rivals:["belgrano"], venue:"Cancha neutral", state:"if", cond:"Si gana el Clausura" },
+  { t:"recopa",   label:"2027", stage:"Recopa", rivals:["palmeiras","estudiantes"], venue:"Fechas de CONMEBOL a confirmar", state:"qual", cond:"Ya clasificado" }
+];
+
+// Cuadro del Clausura. Lado: ["seed","clave"] o {label, keys}
+var BRACKET = {
+  left: {
+    oct: [
+      { date:"20/11 20:00", venue:"José Amalfitani", a:["3A","velez"], b:["6B","belgrano"], sa:2, sb:2, pa:3, pb:1, w:"a" },
+      { date:"21/11 17:00", venue:"Diego A. Maradona", a:["2B","argentinos"], b:["7A","independiente"], sa:1, sb:2, w:"b" },
+      { date:"22/11 22:00", venue:"Córdoba", a:["1A","instituto"], b:["8B","huracan"], sa:2, sb:1, w:"a" },
+      { date:"22/11 19:00", venue:"Monumental", a:["4B","river"], b:["5A","lanus"], sa:3, sb:1, w:"a" }
+    ],
+    qf: [
+      { date:"28-29/11", a:["3A","velez"], b:["7A","independiente"] },
+      { date:"28-29/11", a:["1A","instituto"], b:["4B","river"] }
+    ],
+    sf: { date:"5-6/12", a:{label:"Vélez / Indep.", keys:["velez","independiente"]}, b:{label:"Instituto / River", keys:["instituto","river"]} }
+  },
+  right: {
+    oct: [
+      { date:"25/11 21:00", venue:"La Bombonera", a:["2A","boca"], b:["7B","independiente-rivadavia"], boca:true },
+      { date:"23/11 17:00", venue:"Juan C. Zerillo", a:["3B","gimnasia-lp"], b:["6A","newells"] },
+      { date:"22/11 16:00", venue:"Gigante de Arroyito", a:["1B","rosario-central"], b:["8A","gimnasia-mendoza"], sa:3, sb:1, w:"a" },
+      { date:"21/11 15:00", venue:"Norberto Tomaghello", a:["4A","defensa-y-justicia"], b:["5B","barracas-central"], sa:0, sb:1, w:"b" }
+    ],
+    qf: [
+      { date:"28-29/11", a:{label:"Boca / Ind. Riv.", keys:["boca","independiente-rivadavia"]}, b:{label:"Gimnasia / NOB", keys:["gimnasia-lp","newells"]}, boca:true },
+      { date:"28-29/11", a:["1B","rosario-central"], b:["5B","barracas-central"] }
+    ],
+    sf: { date:"5-6/12", a:{label:"Ganador cuarto Boca", keys:["boca"]}, b:{label:"Central / Barracas", keys:["rosario-central","barracas-central"]}, boca:true }
+  },
+  final: { date:"Sáb 12/12", venue:"La Plata · neutral", a:{label:"Ganador semi 1", keys:[]}, b:{label:"Ganador semi 2", keys:[]}, boca:true }
+};
+
+/* ---------- helpers ---------- */
+function $(s){ return document.querySelector(s); }
+function $$(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); }
+var MES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+var DIA = ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function tn(k){ return TEAMS[k][0]; }
+function ts(k){ return TEAMS[k][1] || TEAMS[k][0]; }
+function crest(k){ return '<img class="crest" src="escudos/'+k+'.png" alt="'+esc(tn(k))+'" title="'+esc(tn(k))+'">'; }
+function crests(ks){ return '<span class="crests">'+ks.map(crest).join("")+'</span>'; }
+function orList(ks){ return ks.length > 2 ? ks.slice(0,-1).map(ts).join(", ") + " o " + ts(ks[ks.length-1]) : ks.map(ts).join(" o "); }
+function at(d,t){ return new Date(d+"T"+(t || "12:00")+":00-03:00"); }
+function wday(d){ return DIA[new Date(d+"T12:00:00Z").getUTCDay()]; }
+function dmy(d){ return (+d.slice(8))+" "+MES[+d.slice(5,7)-1]; }
+var STATUS = { won:"Ganado", alive:"En juego", qual:"Clasificado", maybe:"Puede venir", out:"Eliminado" };
+function tag(cls, txt){ return '<span class="tag '+cls+'">'+esc(txt)+'</span>'; }
+function cupImg(id, cls){ return '<img class="cup '+(cls||"")+'" src="'+T[id].img+'" alt="'+esc(T[id].name)+'">'; }
+
+/* ---------- torneos ---------- */
+var T = {
+  sud: {
+    name:"Copa Sudamericana 2026", short:"Sudamericana", img:"copas/sudamericana.png", status:"won",
+    when:"Campeón · 21/11 en Barranquilla", vs:{keys:["atletico-mineiro"], text:"2-0 a Atlético Mineiro"},
+    body: function(){ return ''+
+      '<div class="hero-cup">'+cupImg("sud")+'</div>'+
+      '<div class="big-vs"><div class="side"><img src="escudos/atletico-mineiro.png" alt="">Atlético Mineiro</div>'+
+      '<div class="score">0 - 2<small>FINAL · 21/11</small></div><div class="side"><img src="escudos/boca.png" alt="">Boca Juniors</div></div>'+
+      '<div class="mrow" style="margin-top:12px">'+
+      '<div class="box"><h5>El partido</h5><ul><li>Goles: Ascacíbar 16\' y Merentiel 48\'</li><li>Estadio Metropolitano Roberto Meléndez, Barranquilla</li><li>19:30 hora argentina · árbitro Andrés Matonte</li><li>Tercera Sudamericana de la historia de Boca</li></ul></div>'+
+      '<div class="box"><h5>Qué nos dio</h5><ul><li>Lugar en la <b>Recopa Sudamericana 2027</b> contra el campeón de la Libertadores 2026</li><li>Clasificación a la <b>Copa Libertadores 2027</b> (el campeón de la Sudamericana entra directo)</li></ul></div></div>'; }
+  },
+  liga: {
+    name:"Campeón de Liga 2026", short:"Campeón de Liga", img:"copas/campeon-de-liga.png", status:"won",
+    when:"Asegurado el 7/11 · 1° de la tabla anual", vs:{keys:["defensa-y-justicia"], text:"1-0 a Defensa y Justicia"},
+    body: function(){ return ''+
+      '<div class="hero-cup">'+cupImg("liga")+'</div>'+
+      '<div class="mrow"><div class="box"><h5>Cómo se ganó</h5><ul><li>Es el título del equipo con más puntos en la <b>Tabla General Anual</b> (Apertura + Clausura)</li><li>Boca lo aseguró el 7/11 ganándole 1-0 a Defensa y Justicia</li></ul></div>'+
+      '<div class="box"><h5>Qué nos dio</h5><ul><li>Clasificación directa a la <b>Copa Libertadores 2027</b></li><li>Lugar en la <b>Supercopa Internacional</b> contra el ganador del Trofeo de Campeones</li></ul></div></div>'; }
+  },
+  clausura: {
+    name:"Torneo Clausura 2026", short:"Clausura", img:"copas/apertura-clausura.png", status:"alive",
+    when:"Octavos · mié 25/11 21:00", vs:{keys:["independiente-rivadavia"], text:"Octavos vs Ind. Rivadavia"},
+    body: function(){ return ''+
+      '<h5>Camino de Boca</h5><div class="path">'+
+      '<div class="step">'+crest("independiente-rivadavia")+'<div><b>Octavos · 25/11 21:00</b>Ind. Rivadavia · La Bombonera</div></div><span class="arrow">→</span>'+
+      '<div class="step">'+crests(["gimnasia-lp","newells"])+'<div><b>Cuartos · 28-29/11</b>Gimnasia LP o Newell\'s</div></div><span class="arrow">→</span>'+
+      '<div class="step">'+crests(["rosario-central","barracas-central"])+'<div><b>Semi · 5-6/12</b>Central o Barracas</div></div><span class="arrow">→</span>'+
+      '<div class="step">'+crests(["velez","independiente","instituto","river"])+'<div><b>Final · sáb 12/12</b>La Plata</div></div></div>'+
+      '<h5>Cuadro completo</h5><div class="bracket-scroll"><div class="bracket">'+bracketHTML()+'</div></div>'+
+      '<h5>Para tener en cuenta</h5><ul><li>Partido único en cada ronda: es local el mejor ubicado. Si empatan, penales. La final es en cancha neutral.</li>'+
+      '<li>Gimnasia (LP) vs Newell\'s se juega el lunes 23/11 a las 17:00: de ahí sale el rival de Boca en cuartos.</li>'+
+      '<li>La AFA publica los horarios de cuartos y semis cuando están todos los cruces.</li></ul>'; }
+  },
+  copaar: {
+    name:"Copa Argentina 2026", short:"Copa Argentina", img:"copas/copa-argentina.png", status:"alive",
+    when:"Final · mié 2/12", vs:{keys:["platense"], text:"Final vs Platense"},
+    body: function(){ return ''+
+      '<div class="hero-cup">'+cupImg("copaar")+'</div>'+
+      '<div class="big-vs"><div class="side"><img src="escudos/boca.png" alt="">Boca Juniors</div><div class="score">vs<small>FINAL · MIÉ 2/12</small></div><div class="side"><img src="escudos/platense.png" alt="">Platense</div></div>'+
+      '<div class="mrow" style="margin-top:12px"><div class="box"><h5>La final</h5><ul><li>Partido único en cancha neutral</li><li>Hora y sede a confirmar: se mencionan Mendoza, Santiago del Estero o Rosario (el Kempes quedó descartado)</li><li>La AFA podría correrla una semana</li><li>TV a confirmar (suele transmitir TyC Sports)</li></ul></div>'+
+      '<div class="box"><h5>Cómo llegó Boca</h5><div class="step">'+crest("banfield")+'<div><b>Semifinal · 14/11</b>Boca 3-0 Banfield</div></div></div></div>'; }
+  },
+  lib27: {
+    name:"Copa Libertadores 2027", short:"Libertadores 2027", img:"copas/libertadores.svg", status:"qual",
+    when:"Temporada 2027", vs:{keys:["boca"], text:"Boca ya tiene su lugar"},
+    body: function(){ return ''+
+      '<div class="hero-cup">'+cupImg("lib27")+'</div>'+
+      '<div class="box"><h5>Ya clasificado</h5><ul><li>Por ser <b>Campeón de Liga 2026</b>: entra directo</li><li>Por ser <b>campeón de la Sudamericana 2026</b>: también entra directo</li>'+
+      '<li>La Copa Argentina y el Clausura también dan cupo, pero Boca ya lo tiene. Si los gana, el lugar pasa a otro equipo según el reglamento de la AFA.</li></ul></div>'; }
+  },
+  recopa: {
+    name:"Recopa Sudamericana 2027", short:"Recopa Sudamericana", img:"copas/recopa-sudamericana.png", status:"qual",
+    when:"2027 · fechas a confirmar", vs:{keys:["palmeiras","estudiantes"], text:"Palmeiras o Estudiantes"},
+    body: function(){ return ''+
+      '<div class="hero-cup">'+cupImg("recopa")+'</div>'+
+      '<div class="mrow"><div class="box"><h5>Quién la juega</h5><ul><li>El campeón de la <b>Sudamericana 2026</b>: Boca</li><li>El campeón de la <b>Libertadores 2026</b>, que sale de la final del sábado 28/11 en el Estadio Centenario de Montevideo</li><li>CONMEBOL todavía no publicó las fechas</li></ul></div>'+
+      '<div class="box"><h5>El rival sale de acá · sáb 28/11</h5><div class="big-vs" style="padding:12px"><div class="side"><img src="escudos/palmeiras.png" alt="">Palmeiras</div><div class="score" style="font-size:20px">vs<small>FINAL LIBERTADORES</small></div><div class="side"><img src="escudos/estudiantes.png" alt="">Estudiantes</div></div></div></div>'; }
+  },
+  trofeo: {
+    name:"Trofeo de Campeones 2026", short:"Trofeo de Campeones", img:"copas/trofeo-de-campeones.png", status:"maybe",
+    when:"Sólo si gana el Clausura", vs:{keys:["belgrano"], text:"vs Belgrano"},
+    body: function(){ return ''+
+      '<div class="hero-cup">'+cupImg("trofeo")+'</div>'+
+      '<div class="mrow"><div class="box"><h5>Quién lo juega</h5><ul><li>Campeón del <b>Apertura 2026</b>: Belgrano</li><li>Campeón del <b>Clausura 2026</b>: Boca, si lo gana</li><li>Partido único en cancha neutral. Fecha a confirmar.</li></ul></div>'+
+      '<div class="box"><h5>Si Boca lo gana</h5><ul><li>Juega la <b>Supercopa Argentina</b> contra el campeón de la Copa Argentina</li><li>El ganador del Trofeo también va a la Supercopa Internacional, pero Boca ya está ahí como Campeón de Liga. Si pasa, la AFA define el rival (todavía no lo publicó).</li></ul></div></div>'; }
+  },
+  supint: {
+    name:"Supercopa Internacional", short:"Supercopa Internacional", img:"copas/supercopa-internacional.png", status:"qual",
+    when:"Próxima edición · fecha a confirmar", vs:{keys:["boca","belgrano"], text:"Boca vs ganador del Trofeo"},
+    body: function(){ return ''+
+      '<div class="hero-cup">'+cupImg("supint")+'</div>'+
+      '<div class="mrow"><div class="box"><h5>Quién la juega</h5><ul><li><b>Campeón de Liga</b>: Boca, ya clasificado</li><li><b>Ganador del Trofeo de Campeones</b>: Belgrano o el campeón del Clausura</li><li>Partido único en cancha neutral, normalmente fuera del país</li></ul></div>'+
+      '<div class="box"><h5>Si Boca la gana</h5><ul><li>Entra a la <b>Recopa de Campeones</b>, el triangular nuevo de la AFA</li><li>La edición jugada en 2026 la ganó Rosario Central (campeón de Liga 2025)</li></ul></div></div>'; }
+  },
+  supar: {
+    name:"Supercopa Argentina", short:"Supercopa Argentina", img:"copas/supercopa-argentina.png", status:"maybe",
+    when:"Si gana la Copa Argentina o el Trofeo", vs:{keys:["platense","belgrano"], text:"Copa Arg. vs Trofeo de Campeones"},
+    body: function(){ return ''+
+      '<div class="hero-cup">'+cupImg("supar")+'</div>'+
+      '<div class="mrow"><div class="box"><h5>Quién la juega</h5><ul><li><b>Campeón de la Copa Argentina</b>: Boca o Platense</li><li><b>Ganador del Trofeo de Campeones</b>: Belgrano o el campeón del Clausura</li><li>Partido único en cancha neutral. Fecha a confirmar.</li></ul></div>'+
+      '<div class="box"><h5>Boca entra si…</h5><ul><li>le gana la final de la Copa Argentina a Platense, o</li><li>gana el Clausura y después el Trofeo de Campeones</li><li>Ganarla lo mete en la <b>Recopa de Campeones</b></li></ul></div></div>'; }
+  },
+  recopacamp: {
+    name:"Recopa de Campeones", short:"Recopa de Campeones", img:"copas/recopa-de-campeones.svg", status:"maybe",
+    when:"Triangular nuevo de la AFA", vs:{keys:[], text:"Copa Arg. · Supercopa Arg. · Supercopa Int."},
+    body: function(){ return ''+
+      '<div class="hero-cup">'+cupImg("recopacamp")+'</div>'+
+      '<div class="mrow"><div class="box"><h5>Quién la juega</h5><ul><li>Los campeones de la <b>Copa Argentina</b>, la <b>Supercopa Argentina</b> y la <b>Supercopa Internacional</b></li><li>Boca tiene tres caminos para entrar</li></ul></div>'+
+      '<div class="box"><h5>Formato</h5><ul><li>Triangular, sin empates</li><li>3 puntos por ganar en los 90\', 2 por ganar por penales, 1 por perder por penales</li><li>Gana el que suma más puntos</li></ul></div></div>'; }
+  },
+  apertura: {
+    name:"Torneo Apertura 2026", short:"Apertura", img:"copas/apertura-clausura.png", status:"out",
+    when:"Campeón: Belgrano", vs:{keys:["huracan"], text:"Boca quedó en octavos (2-3 vs Huracán)"},
+    body: function(){ return ''+
+      '<div class="hero-cup">'+cupImg("apertura")+'</div>'+
+      '<div class="mrow"><div class="box"><h5>Cómo terminó</h5><ul><li>Campeón: <b>Belgrano</b></li><li>Boca quedó afuera en octavos: perdió 2-3 con Huracán en el alargue (9/5)</li></ul></div>'+
+      '<div class="box"><h5>Qué habilita</h5><ul><li>Belgrano juega el <b>Trofeo de Campeones</b> contra el campeón del Clausura</li></ul></div></div>'; }
+  },
+  lib26: {
+    name:"Copa Libertadores 2026", short:"Libertadores 2026", img:"copas/libertadores.svg", status:"out",
+    when:"Final sáb 28/11 · Montevideo", vs:{keys:["palmeiras","estudiantes"], text:"Palmeiras vs Estudiantes"},
+    body: function(){ return ''+
+      '<div class="hero-cup">'+cupImg("lib26")+'</div>'+
+      '<div class="big-vs"><div class="side"><img src="escudos/palmeiras.png" alt="">Palmeiras</div><div class="score" style="font-size:22px">vs<small>SÁB 28/11 · CENTENARIO</small></div><div class="side"><img src="escudos/estudiantes.png" alt="">Estudiantes</div></div>'+
+      '<div class="mrow" style="margin-top:12px"><div class="box"><h5>Boca</h5><ul><li>Quedó tercero en su grupo y pasó a la Sudamericana, que terminó ganando</li></ul></div>'+
+      '<div class="box"><h5>Por qué importa</h5><ul><li>El campeón es el rival de Boca en la <b>Recopa Sudamericana 2027</b></li></ul></div></div>'; }
+  }
+};
+
+/* conexiones [desde, hacia, tipo]. sure = Boca ya tiene el lugar · if = Boca si gana · other = otros equipos */
+var EDGES = [
+  ["sud","recopa","sure"], ["sud","lib27","sure"], ["lib26","recopa","other"],
+  ["liga","lib27","sure"], ["liga","supint","sure"],
+  ["apertura","trofeo","other"], ["clausura","trofeo","if"],
+  ["trofeo","supar","if"], ["trofeo","supint","if"],
+  ["copaar","supar","if"], ["copaar","recopacamp","if"],
+  ["supar","recopacamp","if"], ["supint","recopacamp","if"]
+];
+
+/* árboles (coordenadas del dibujo; escalan solos al ancho de la pantalla) */
+var PILL = { // estado de Boca en cada copa del árbol
+  recopacamp:{ cls:"maybe", text:"Puede venir" },
+  supar:{ cls:"maybe", text:"Si gana" },
+  copaar:{ cls:"alive", text:"Final 2/12", keys:["boca","platense"] },
+  supint:{ cls:"qual", text:"Clasificado", keys:["boca"] },
+  trofeo:{ cls:"maybe", text:"vs Belgrano", keys:["belgrano"] },
+  apertura:{ cls:"out", text:"Belgrano", keys:["belgrano"] },
+  clausura:{ cls:"alive", text:"En juego", keys:["boca"] },
+  liga:{ cls:"won", text:"Campeón", keys:["boca"] },
+  recopa:{ cls:"qual", text:"Clasificado", keys:["boca"] },
+  lib27:{ cls:"qual", text:"Clasificado", keys:["boca"] },
+  lib26:{ cls:"out", text:"Final 28/11", keys:["palmeiras","estudiantes"] },
+  sud:{ cls:"won", text:"Campeón", keys:["boca"] }
+};
+var TREE_AFA = {
+  w:320, h:524,
+  nodes:[
+    { id:"recopacamp", x:160, y:6,   label:["RECOPA DE","CAMPEONES"] },
+    { id:"supar",      x:55,  y:150, label:["SUPERCOPA","ARGENTINA"] },
+    { id:"copaar",     x:160, y:150, label:["COPA","ARGENTINA"] },
+    { id:"supint",     x:265, y:150, label:["SUPERCOPA","INTERNACIONAL"] },
+    { id:"trofeo",     x:120, y:290, label:["TROFEO DE","CAMPEONES"] },
+    { id:"apertura",   x:50,  y:412, label:["TORNEO","APERTURA"] },
+    { id:"clausura",   x:160, y:412, label:["TORNEO","CLAUSURA"] },
+    { id:"liga",       x:265, y:412, label:["CAMPEÓN DE LIGA","(1° TABLA ANUAL)"] }
+  ],
+  arrows:[
+    { d:"M76,440 H112 V402", k:"other" },
+    { d:"M138,440 H128 V402", k:"if" },
+    { d:"M96,318 H55 V262", k:"if" },
+    { d:"M144,318 H255 V262", k:"if" },
+    { d:"M275,408 V262", k:"sure" },
+    { d:"M136,180 H86", k:"if" },
+    { d:"M160,148 V118", k:"if" },
+    { d:"M55,148 V36 H128", k:"if" },
+    { d:"M265,148 V36 H192", k:"if" }
+  ]
+};
+var TREE_CON = {
+  w:320, h:288,
+  nodes:[
+    { id:"recopa", x:100, y:6,   label:["RECOPA","SUDAMERICANA 2027"] },
+    { id:"lib27",  x:235, y:6,   label:["LIBERTADORES","2027"] },
+    { id:"lib26",  x:52,  y:178, label:["LIBERTADORES","2026"] },
+    { id:"sud",    x:235, y:178, label:["SUDAMERICANA","2026"] }
+  ],
+  arrows:[
+    { d:"M52,174 V36 H70", k:"other" },
+    { d:"M210,206 H112 V118", k:"sure" },
+    { d:"M235,174 V118", k:"sure" }
+  ]
+};
+
+/* =====================================================================
+   RENDER
+   ===================================================================== */
+$("#upd").textContent = UPDATED.split("-").reverse().join("/");
+var BOCA_IDS = ["sud","liga","clausura","copaar","lib27","recopa","trofeo","supint","supar","recopacamp","apertura"];
+
+/* stats */
+(function(){
+  function c(s){ return BOCA_IDS.filter(function(id){ return T[id].status === s; }).length; }
+  $("#stats").innerHTML = [["🏆",c("won"),"ganados"],["⚽",c("alive"),"en juego"],["✅",c("qual"),"clasificado"],["✨",c("maybe"),"pueden venir"]]
+    .map(function(a){ return '<div class="stat">'+a[0]+'<b>'+a[1]+'</b>'+a[2]+'</div>'; }).join("");
+})();
+
+/* próximo partido */
+(function(){
+  var now = new Date();
+  var nx = FIXTURES.filter(function(f){ return f.time && at(f.date, f.time) > now; })[0] || FIXTURES[0];
+  var dt = at(nx.date, nx.time), r = nx.rivals[0];
+  $("#next").innerHTML = '<div class="eyebrow">Próximo partido</div>'+
+    '<div class="next-comp">'+esc(T[nx.t].name)+' · '+esc(nx.stage)+'</div>'+
+    '<div class="versus"><div class="side"><img src="escudos/boca.png" alt="">Boca Juniors</div><div class="mid">VS</div>'+
+    '<div class="side"><img src="escudos/'+r+'.png" alt="">'+esc(tn(r))+'</div></div>'+
+    '<div class="next-meta"><span>📅 '+wday(nx.date)+' '+dmy(nx.date)+' · '+nx.time+' hs</span><span>📍 '+esc(nx.venue)+'</span></div>'+
+    '<div class="count" id="cd"></div>';
+  function tick(){
+    var s = Math.max(0, Math.floor((dt - new Date()) / 1000));
+    $("#cd").innerHTML = [["días",86400],["hs",3600],["min",60],["seg",1]].map(function(p){
+      var n = Math.floor(s / p[1]); s -= n * p[1];
+      return '<div><b>'+(n < 10 ? "0"+n : n)+'</b><span>'+p[0]+'</span></div>';
+    }).join("");
+  }
+  tick(); setInterval(tick, 1000);
+})();
+
+/* agenda */
+(function(){
+  var now = new Date(), marked = false;
+  $("#agenda").innerHTML = FIXTURES.map(function(f){
+    var isNext = false;
+    if (!marked && f.time && at(f.date, f.time) > now) { isNext = true; marked = true; }
+    var dateHTML = f.date
+      ? '<b>'+(+f.date.slice(8))+(f.dateTo ? "-"+(+f.dateTo.slice(8)) : "")+'</b>'+MES[+f.date.slice(5,7)-1]+' · '+wday(f.date)+(f.dateTo ? "-"+wday(f.dateTo) : "")
+      : '<b>'+esc(f.label)+'</b>';
+    var st = { ok:tag("ok","Confirmado"), tbc:tag("tbc", f.cond), "if":tag("maybe", f.cond), qual:tag("qual", f.cond) }[f.state];
+    return '<button type="button" class="card click ag '+(isNext ? "is-next" : "")+' '+(f.state === "if" ? "cond" : "")+'" data-open="'+f.t+'">'+
+      '<div class="ag-top"><span class="ag-date">'+dateHTML+'</span><span class="ag-time">'+(f.time || "—")+'</span></div>'+
+      '<div class="ag-comp">'+cupImg(f.t)+'<span>'+esc(T[f.t].short)+' · '+esc(f.stage)+'</span></div>'+
+      '<div class="ag-vs">'+crest("boca")+'<span class="x">VS</span>'+crests(f.rivals)+'</div>'+
+      '<div class="ag-rival">'+esc(orList(f.rivals))+'</div>'+
+      '<div class="ag-foot"><span>📍 '+esc(f.venue)+'</span>'+st+'</div></button>';
+  }).join("");
+})();
+
+/* torneos + filtros */
+(function(){
+  var order = ["won","alive","qual","maybe","out"];
+  var ids = BOCA_IDS.slice().sort(function(a,b){ return order.indexOf(T[a].status) - order.indexOf(T[b].status); });
+  $("#tgrid").innerHTML = ids.map(function(id){
+    var t = T[id];
+    return '<button type="button" class="card click tc '+t.status+'" data-open="'+id+'" data-status="'+t.status+'">'+
+      '<div class="tc-top"><div class="tc-cup">'+cupImg(id)+'</div>'+tag(t.status, STATUS[t.status])+'</div>'+
+      '<div><h3>'+esc(t.name)+'</h3><div class="when">'+esc(t.when)+'</div></div>'+
+      '<div class="vsline">'+(t.vs.keys.length ? crests(t.vs.keys) : "")+'<span>'+esc(t.vs.text)+'</span><span class="more">Ver →</span></div></button>';
+  }).join("");
+  var F = [["all","Todos"],["won","Ganados"],["alive","En juego"],["qual","Clasificado"],["maybe","Pueden venir"]];
+  $("#filters").innerHTML = F.map(function(f,i){ return '<button type="button" class="chip" data-f="'+f[0]+'" aria-pressed="'+(i===0)+'">'+f[1]+'</button>'; }).join("");
+  $("#filters").addEventListener("click", function(e){
+    var b = e.target.closest(".chip"); if (!b) return;
+    $$(".chip").forEach(function(c){ c.setAttribute("aria-pressed", c === b); });
+    $$(".tc").forEach(function(c){ c.hidden = b.dataset.f !== "all" && c.dataset.status !== b.dataset.f; });
+  });
+})();
+
+/* árbol SVG */
+function treeSVG(tr){
+  var NS = 'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"';
+  var col = { sure:"#f7c23b", "if":"rgba(255,255,255,.85)", other:"rgba(255,255,255,.3)" };
+  var pillC = { won:["#f7c23b","#2a1d00"], qual:["#3ccf86","#06261a"], alive:["#3b74ea","#ffffff"], maybe:["rgba(255,255,255,.10)","rgba(255,255,255,.9)"], out:["rgba(255,255,255,.08)","rgba(255,255,255,.6)"] };
+  var s = '<svg '+NS+' viewBox="0 0 '+tr.w+' '+tr.h+'" role="img" aria-label="Diagrama de copas">';
+  s += '<defs>';
+  ["sure","if","other"].forEach(function(k){
+    s += '<marker id="ar-'+k+'" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="'+col[k]+'"/></marker>';
+  });
+  s += '<radialGradient id="g-gold"><stop offset="0" stop-color="#f7c23b" stop-opacity=".55"/><stop offset="1" stop-color="#f7c23b" stop-opacity="0"/></radialGradient>';
+  s += '<radialGradient id="g-blue"><stop offset="0" stop-color="#6b98f5" stop-opacity=".55"/><stop offset="1" stop-color="#6b98f5" stop-opacity="0"/></radialGradient>';
+  s += '<radialGradient id="g-white"><stop offset="0" stop-color="#ffffff" stop-opacity=".22"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>';
+  s += '</defs>';
+  tr.arrows.forEach(function(a){
+    s += '<path d="'+a.d+'" fill="none" stroke="'+col[a.k]+'" stroke-width="'+(a.k === "sure" ? 2.2 : 1.6)+'" stroke-linejoin="round" marker-end="url(#ar-'+a.k+')"/>';
+  });
+  tr.nodes.forEach(function(n){
+    var t = T[n.id], p = PILL[n.id], x = n.x, y = n.y;
+    var glow = { won:"g-gold", qual:"g-gold", alive:"g-blue" }[p.cls] || "g-white";
+    var keys = p.keys || [];
+    var pw = 14 + keys.length * 13 + p.text.length * 5.3 + (keys.length ? 3 : 0);
+    var px = x - pw / 2, py = y + 91;
+    var c = pillC[p.cls];
+    s += '<g class="tn" data-open="'+n.id+'" tabindex="0" role="button" aria-label="'+esc(t.name)+'">';
+    s += '<rect class="hit" x="'+(x-46)+'" y="'+(y-2)+'" width="92" height="112" rx="10"/>';
+    s += '<ellipse cx="'+x+'" cy="'+(y+34)+'" rx="34" ry="32" fill="url(#'+glow+')"/>';
+    s += '<image href="'+t.img+'" xlink:href="'+t.img+'" x="'+(x-26)+'" y="'+y+'" width="52" height="60" preserveAspectRatio="xMidYMid meet" opacity="'+(p.cls === "out" ? .75 : 1)+'"/>';
+    s += '<text class="lbl" x="'+x+'" y="'+(y+73)+'">'+esc(n.label[0])+'</text>';
+    s += '<text class="lbl" x="'+x+'" y="'+(y+85)+'">'+esc(n.label[1])+'</text>';
+    s += '<rect x="'+px+'" y="'+py+'" width="'+pw+'" height="16" rx="8" fill="'+c[0]+'"'+(p.cls === "maybe" ? ' stroke="rgba(255,255,255,.45)" stroke-dasharray="2 2" stroke-width=".8"' : '')+'/>';
+    var cx = px + 6;
+    keys.forEach(function(k){
+      s += '<image href="escudos/'+k+'.png" xlink:href="escudos/'+k+'.png" x="'+cx+'" y="'+(py+2)+'" width="12" height="12"/>';
+      cx += 13;
+    });
+    s += '<text class="ptx" x="'+(cx + (keys.length ? 2 : 1))+'" y="'+(py+11.2)+'" fill="'+c[1]+'">'+esc(p.text)+'</text>';
+    s += '</g>';
+  });
+  return s + '</svg>';
+}
+$("#treeAFA").innerHTML = treeSVG(TREE_AFA);
+$("#treeCON").innerHTML = treeSVG(TREE_CON);
+
+/* rutas en frases simples */
+(function(){
+  var R = [
+    { k:"sure", ids:["sud","recopa"], head:"Ya ganada", html:"Ganamos la <b>Sudamericana</b> → jugamos la <b>Recopa Sudamericana 2027</b> contra Palmeiras o Estudiantes, y la <b>Libertadores 2027</b>." },
+    { k:"sure", ids:["liga","supint"], head:"Ya ganado", html:"Fuimos <b>Campeón de Liga</b> → jugamos la <b>Supercopa Internacional</b> contra el ganador del Trofeo de Campeones, y la <b>Libertadores 2027</b>." },
+    { k:"if", ids:["clausura","trofeo"], head:"Si ganamos", html:"Si ganamos el <b>Clausura</b> → <b>Trofeo de Campeones</b> contra Belgrano. Si ganamos ese → <b>Supercopa Argentina</b>." },
+    { k:"if", ids:["copaar","supar"], head:"Si ganamos", html:"Si le ganamos la final de la <b>Copa Argentina</b> a Platense → <b>Supercopa Argentina</b> y <b>Recopa de Campeones</b>." },
+    { k:"if", ids:["supint","recopacamp"], head:"Si ganamos", html:"Si ganamos una <b>Supercopa</b> (Argentina o Internacional) → entramos a la <b>Recopa de Campeones</b>, un triangular." }
+  ];
+  $("#routes").innerHTML = R.map(function(r){
+    return '<button type="button" class="card click route '+r.k+'" data-open="'+r.ids[0]+'">'+
+      '<span class="cups">'+cupImg(r.ids[0])+'<span class="ar">→</span>'+cupImg(r.ids[1])+'</span>'+
+      '<p><span class="k">'+r.head+'</span>'+r.html+'</p></button>';
+  }).join("");
+})();
+
+/* cuadro */
+function sideHTML(m, s){
+  var v = m[s], played = m.w != null, sc = m["s"+s], pen = m["p"+s];
+  var cls = ["t"], seed = "", inner;
+  if (Array.isArray(v)) {
+    seed = v[0]; var k = v[1];
+    if (k === "boca") cls.push("isboca");
+    inner = crest(k)+'<span class="nm" title="'+esc(tn(k))+'">'+esc(ts(k))+'</span>';
+  } else {
+    cls.push("tbd");
+    inner = (v.keys.length ? crests(v.keys) : "")+'<span class="nm" title="'+esc(v.label)+'">'+esc(v.label)+'</span>';
+  }
+  if (played) cls.push(m.w === s ? "w" : "l");
+  return '<div class="'+cls.join(" ")+'"><span class="sd">'+seed+'</span>'+inner+(sc != null ? '<span class="sc">'+sc+'</span>' : "")+(pen != null ? '<span class="pen">('+pen+')</span>' : "")+'</div>';
+}
+function matchHTML(m){
+  var played = m.w != null;
+  return '<div class="mt '+(m.boca ? "boca" : "")+'"><div class="hd"><span>'+esc(m.date)+'</span><span class="st '+(played ? "" : "pend")+'">'+(played ? "Final" : "Por jugar")+'</span></div>'+
+    sideHTML(m,"a")+sideHTML(m,"b")+(m.venue ? '<div class="vn">'+esc(m.venue)+'</div>' : "")+'</div>';
+}
+function bracketHTML(){
+  var B = BRACKET;
+  function pairs(list){ var o = ""; for (var i = 0; i < list.length; i += 2) {
+    var two = list.slice(i, i+2);
+    o += '<div class="pair '+(two.some(function(m){ return m.boca; }) ? "bp" : "")+'">'+two.map(function(m){ return '<div class="slot">'+matchHTML(m)+'</div>'; }).join("")+'</div>';
+  } return o; }
+  function col(cls, t, sub, inner, o){ return '<div class="col '+cls+'" style="--o:'+o+'"><h6>'+t+'<em>'+sub+'</em></h6><div class="rounds">'+inner+'</div></div>'; }
+  return [
+    col("L","Octavos","20-22 nov", pairs(B.left.oct), 2),
+    col("L in","Cuartos","28-29 nov", pairs(B.left.qf), 4),
+    col("L in","Semifinal","5-6 dic", '<div class="slot">'+matchHTML(B.left.sf)+'</div>', 6),
+    '<div class="col center" style="--o:7"><h6>Final<em>sáb 12 dic · La Plata</em></h6><div class="rounds"><div class="slot"><div class="final-box"><img class="fcup" src="copas/apertura-clausura.png" alt="">'+matchHTML(B.final)+'</div></div></div></div>',
+    col("R in bp","Semifinal","5-6 dic", '<div class="slot">'+matchHTML(B.right.sf)+'</div>', 5),
+    col("R in bp","Cuartos","28-29 nov", pairs(B.right.qf), 3),
+    col("R bp","Octavos","21-25 nov", pairs(B.right.oct), 1)
+  ].join("");
+}
+
+/* modal */
+var modal = $("#modal");
+var hasDialog = typeof modal.showModal === "function";
+if (!hasDialog) document.documentElement.className += " nodialog";
+function isOpen(){ return hasDialog ? modal.open : /\bopen\b/.test(modal.className); }
+function openT(id){
+  var t = T[id]; if (!t) return;
+  $("#mcup").src = t.img; $("#mcup").alt = t.name;
+  $("#mtitle").textContent = t.name;
+  $("#msub").innerHTML = tag(t.status, STATUS[t.status])+'<span>'+esc(t.when)+'</span>';
+  var outs = EDGES.filter(function(e){ return e[0] === id; }), ins = EDGES.filter(function(e){ return e[1] === id; });
+  function link(e, dir){ var x = dir === "out" ? e[1] : e[0];
+    var note = e[2] === "sure" ? "Boca ya tiene el lugar" : e[2] === "if" ? "si Boca gana" : "otros equipos";
+    return '<button type="button" class="link" data-open="'+x+'">'+cupImg(x)+'<span>'+esc(T[x].short)+'<small>'+note+'</small></span></button>'; }
+  $("#mbody").innerHTML = t.body() +
+    (outs.length ? '<h5>Si lo ganás, te lleva a</h5><div class="links">'+outs.map(function(e){ return link(e,"out"); }).join("")+'</div>' : "") +
+    (ins.length ? '<h5>Se llega desde</h5><div class="links">'+ins.map(function(e){ return link(e,"in"); }).join("")+'</div>' : "");
+  $("#mbody").scrollTop = 0;
+  if (!isOpen()) { if (hasDialog) modal.showModal(); else modal.className += " open"; }
+  try { history.replaceState(null, "", "#" + id); } catch(e){}
+}
+function closeT(){
+  if (hasDialog) modal.close(); else { modal.className = modal.className.replace(/\s*open\b/g, ""); onClose(); }
+}
+function onClose(){ try { history.replaceState(null, "", location.pathname + location.search); } catch(e){} }
+modal.addEventListener("close", onClose);
+document.addEventListener("click", function(e){
+  var o = e.target.closest ? e.target.closest("[data-open]") : null;
+  if (o) { openT(o.getAttribute("data-open")); return; }
+  if (e.target === modal) closeT();
+});
+document.addEventListener("keydown", function(e){
+  if ((e.key === "Enter" || e.key === " ") && e.target.getAttribute && e.target.getAttribute("role") === "button" && e.target.getAttribute("data-open")) { e.preventDefault(); openT(e.target.getAttribute("data-open")); }
+  if (e.key === "Escape" && !hasDialog && isOpen()) closeT();
+});
+$("#mclose").onclick = closeT;
+if (location.hash && T[location.hash.slice(1)]) openT(location.hash.slice(1));
+
+/* tema */
+(function(){
+  var root = document.documentElement;
+  try { var t = localStorage.getItem("boca-theme"); if (t) root.setAttribute("data-theme", t); } catch(e){}
+  $("#themeBtn").onclick = function(){
+    var cur = root.getAttribute("data-theme");
+    var dark = cur ? cur === "dark" : (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
+    root.setAttribute("data-theme", dark ? "light" : "dark");
+    try { localStorage.setItem("boca-theme", root.getAttribute("data-theme")); } catch(e){}
+  };
+})();
+</script>
+</body>
+</html>

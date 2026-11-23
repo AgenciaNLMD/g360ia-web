@@ -91,6 +91,12 @@
 	# pierden a propósito: no hay nada del otro lado que los consuma.
 	redir /contacto /#contacto permanent
 
+	# 3c) /afa -> /afa/
+	# Página suelta "Boca, lo que queda" (vive en public/afa/, se edita en
+	# C:\GitHub\proyectos\boca). Usa rutas relativas (escudos/, copas/), así que
+	# necesita la barra final o las imágenes se piden en la raíz y dan 404.
+	redir /afa /afa/ permanent
+
 	# 4) /loquesea.html -> /loquesea
 	# /partials/* queda excluido: no son páginas, son fragmentos que se piden por fetch
 	# (ver Regla 4 / footer compartido). Redirigirlos sólo agrega un salto a cada carga.
