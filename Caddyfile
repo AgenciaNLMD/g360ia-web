@@ -102,6 +102,12 @@
 	# C:\GitHub\proyectos\como). Misma razón que /afa: rutas relativas.
 	redir /como /como/ permanent
 
+	# 3e) /lol -> /lol/
+	# Página suelta "WR · Counters & Draft" de Wild Rift (vive en public/lol/, se
+	# edita en C:\GitHub\produccion\wr y se copia con scripts/publish-g360ia.mjs).
+	# Misma razón que /afa: rutas relativas (data/, img/).
+	redir /lol /lol/ permanent
+
 	# 4) /loquesea.html -> /loquesea
 	# /partials/* queda excluido: no son páginas, son fragmentos que se piden por fetch
 	# (ver Regla 4 / footer compartido). Redirigirlos sólo agrega un salto a cada carga.
