@@ -36,7 +36,15 @@
     role: saved.role || "mid",
     search: "",
     draft: Object.assign(
-      { myRole: "mid", mode: "team", ally: emptyTeam(), enemy: emptyTeam(), bans: [] },
+      {
+        myRole: "mid",
+        mode: "team",
+        ally: emptyTeam(),
+        enemy: emptyTeam(),
+        bans: [],
+        first: "ally", // qué equipo tiene el primer pick
+        order: { ally: ["top", "jungle", "mid", "adc", "support"], enemy: ["top", "jungle", "mid", "adc", "support"] },
+      },
       saved.draft || {},
     ),
   };
@@ -104,6 +112,44 @@
   }
 
   // Sin datos del matchup (ej: Lucian mid): estimación por perfil de los dos campeones
+  // Soporte contra el ADC rival (no hay datos de ese cruce): estimación por perfil + el porqué
+  function supVsAdc(sup, adc) {
+    const s = tag(sup);
+    const a = tag(adc);
+    let v = 0;
+    const why = [];
+    if (a.dive === 0) {
+      v += s.engage * 0.8 + s.cc * 0.3;
+      if (s.engage >= 2) why.push(`castiga a ${name(adc)} (sin escape)`);
+    } else if (a.dive >= 2) {
+      v += s.cc * 0.3 - s.engage * 0.2;
+      if (s.cc >= 2) why.push(`frena a ${name(adc)} con control`);
+    }
+    if (a.scale === "E") {
+      v += s.peel * 0.5 + s.poke * 0.3;
+      if (s.peel >= 2) why.push(`aguanta el early de ${name(adc)}`);
+    }
+    if (a.scale === "L" && a.range === "R") {
+      v += s.engage * 0.3 + s.poke * 0.3;
+      if (s.poke >= 2 && !why.length) why.push(`no deja farmear a ${name(adc)}`);
+    }
+    return { score: +(v * 0.7 - 1.2).toFixed(2), why: why[0] || "" };
+  }
+
+  // Riesgo de pickear a ciegas: cuántos counters duros y jugados tiene en el rol
+  const BLIND = new Map();
+  function blindRisk(k, role) {
+    const id = k + "|" + role + "|" + S.rank;
+    if (!BLIND.has(id)) {
+      const hard = opponents(k, role)
+        .filter((m) => m.score <= -3 && (stat(m.b, role)?.pr || 0) >= 1)
+        .sort((a, b) => a.score - b.score)
+        .map((m) => m.b);
+      BLIND.set(id, hard);
+    }
+    return BLIND.get(id);
+  }
+
   function laneEstimate(a, b) {
     const ta = tag(a);
     const tb = tag(b);
@@ -369,13 +415,15 @@
     const enemies = Object.values(d.enemy).filter(Boolean);
     const ap = teamProfile(allies);
     const ep = teamProfile(enemies);
+    // [rival, peso, rol del rival]. En bot lane el soporte pelea contra los dos.
     const laneOpp =
       role === "adc"
-        ? [[d.enemy.adc, 1], [d.enemy.support, 0.4]]
+        ? [[d.enemy.adc, 1, "adc"], [d.enemy.support, 0.5, "support"]]
         : role === "support"
-          ? [[d.enemy.support, 1], [d.enemy.adc, 0.4]]
-          : [[d.enemy[role], 1]];
+          ? [[d.enemy.support, 1, "support"], [d.enemy.adc, 1, "adc"]]
+          : [[d.enemy[role], 1, role]];
     const opps = laneOpp.filter(([k]) => k);
+    const blind = !d.enemy[role]; // mi rival directo todavía no pickeó
     const teamMode = d.mode === "team";
 
     const pool = D.champions.filter((c) => !taken.has(c.key) && (stat(c.key, role) || c.roles.includes(role)));
@@ -392,8 +440,15 @@
       // 2) línea
       let laneScore = 0;
       let laneKnown = false;
-      for (const [o, w] of opps) {
-        const m = lane(k, o, role);
+      for (const [o, w, oRole] of opps) {
+        if (role === "support" && oRole === "adc") {
+          const sv = supVsAdc(k, o);
+          laneScore += sv.score * w;
+          if (sv.score >= 1 && sv.why) reasons.push(["p", sv.why[0].toUpperCase() + sv.why.slice(1)]);
+          else if (sv.score <= -1.5) reasons.push(["n", `Poco impacto contra ${name(o)}`]);
+          continue;
+        }
+        const m = oRole === role ? lane(k, o, role) : { score: null };
         if (m.score == null) {
           const est = laneEstimate(k, o);
           laneScore += est * w;
@@ -407,6 +462,16 @@
         if (m.score >= 1.5) reasons.push(["p", `Le gana a ${name(o)} (${detail})`]);
         else if (m.score <= -1.5) reasons.push(["n", `Pierde vs ${name(o)} (${detail})`]);
         else reasons.push(["", `Parejo vs ${name(o)}`]);
+      }
+
+      // 2b) pick a ciegas: si mi rival todavía no eligió, mejor un campeón con pocos counters duros
+      if (blind && s) {
+        const hard = blindRisk(k, role);
+        if (!hard.length) (laneScore += 1.5), reasons.push(["p", "Seguro para pick a ciegas"]);
+        else if (hard.length >= 2) {
+          laneScore -= Math.min(4, hard.length * 0.9);
+          reasons.push(["n", `A ciegas: lo counterean ${hard.slice(0, 3).map(name).join(", ")}`]);
+        }
       }
 
       // 3) equipo
@@ -624,14 +689,37 @@
 
   function renderDraft() {
     const d = S.draft;
-    const slot = (side, r) => {
+    const allRecs = recommend();
+    // Orden de pick: el que elige primero pickea 1, 4-5, 8-9; el otro 2-3, 6-7, 10
+    const SEQ = { first: [1, 4, 5, 8, 9], second: [2, 3, 6, 7, 10] };
+    const pickNo = (side, i) => (side === d.first ? SEQ.first : SEQ.second)[i];
+    const turn = ["ally", "enemy"]
+      .flatMap((side) => d.order[side].map((r, i) => ({ side, r, n: pickNo(side, i) })))
+      .filter((x) => !d[x.side][x.r])
+      .sort((a, b) => a.n - b.n)[0];
+    const slot = (side, r, i) => {
       const k = d[side][r];
       const me = side === "ally" && r === d.myRole;
-      return `<button class="slot ${k ? "filled" : ""} ${me ? "me" : ""}" data-slot="${side}:${r}">
-        ${k ? img(k) : `<span class="ph">+</span>`}
-        <span class="sl"><small>${ROLE_NAME[r]} ${me ? '<span class="you">TÚ</span>' : ""}</small><b>${k ? esc(name(k)) : me ? "Tu pick" : "Elegir"}</b></span>
-        ${k ? `<span class="clr" data-clear="${side}:${r}" title="Quitar">×</span>` : ""}
-      </button>`;
+      const n = pickNo(side, i);
+      const isTurn = turn && turn.side === side && turn.r === r;
+      const quick =
+        me && !k
+          ? `<span class="quick">${allRecs
+              .slice(0, 3)
+              .map((x) => `<button type="button" class="qk" data-quick="${x.k}" title="Pickear ${esc(name(x.k))}">${img(x.k)}<span>${esc(name(x.k))}</span></button>`)
+              .join("")}</span>`
+          : "";
+      return `<div class="slot-row" data-row="${side}:${r}">
+        <span class="ord" draggable="true" data-ord="${side}:${r}" title="Arrastrá para cambiar el orden de pick">
+          <b>${n}</b><span class="arr"><button type="button" data-up="${side}:${r}" aria-label="Subir">▲</button><button type="button" data-down="${side}:${r}" aria-label="Bajar">▼</button></span>
+        </span>
+        <div class="slot ${k ? "filled" : ""} ${me ? "me" : ""} ${isTurn ? "turn" : ""}" data-slot="${side}:${r}" role="button" tabindex="0">
+          ${k ? img(k) : `<span class="ph">+</span>`}
+          <span class="sl"><small>${ROLE_NAME[r]} ${me ? '<span class="you">TÚ</span>' : ""} ${isTurn ? '<span class="tn">TURNO</span>' : ""}</small><b>${k ? esc(name(k)) : me ? "Tu pick" : "Elegir"}</b></span>
+          ${quick}
+          ${k ? `<span class="clr" data-clear="${side}:${r}" title="Quitar">×</span>` : ""}
+        </div>
+      </div>`;
     };
     const ap = teamProfile(Object.values(d.ally).filter(Boolean));
     const ep = teamProfile(Object.values(d.enemy).filter(Boolean));
@@ -645,7 +733,7 @@
       </div>`;
     };
 
-    const recs = recommend().slice(0, 8);
+    const recs = allRecs.slice(0, 8);
     const laneTxt =
       d.myRole === "adc" || d.myRole === "support"
         ? [d.enemy.adc, d.enemy.support].filter(Boolean).map(name).join(" + ")
@@ -659,10 +747,14 @@
           <button class="chip ${d.mode === "team" ? "on" : ""}" data-mode="team">Línea + equipo</button>
         </div>
         <button class="btn" id="reset" style="margin-left:auto">Limpiar draft</button></div>
+        <div class="ctrl"><span>1er pick</span><div class="chips">
+          <button class="chip ${d.first === "ally" ? "on" : ""}" data-first="ally">Mi equipo</button>
+          <button class="chip ${d.first === "enemy" ? "on" : ""}" data-first="enemy">Rival</button>
+        </div>${turn ? `<span class="turn-txt">Pick ${turn.n}: ${turn.side === "ally" ? "tu equipo" : "rival"} · ${ROLE_NAME[turn.r]}</span>` : ""}</div>
       </div>
       <div class="board">
-        <div class="team ally"><h3>Mi equipo</h3>${ROLES.map((r) => slot("ally", r.k)).join("")}</div>
-        <div class="team enemy"><h3>Rival</h3>${ROLES.map((r) => slot("enemy", r.k)).join("")}</div>
+        <div class="team ally"><h3>Mi equipo <small>orden de pick ↕</small></h3>${d.order.ally.map((r, i) => slot("ally", r, i)).join("")}</div>
+        <div class="team enemy"><h3>Rival <small>orden de pick ↕</small></h3>${d.order.enemy.map((r, i) => slot("enemy", r, i)).join("")}</div>
       </div>
       <div class="bans">Bans:
         ${d.bans.map((k, i) => `<span class="ban">${img(k)}${esc(name(k))}<button data-unban="${i}" title="Quitar">×</button></span>`).join("")}
@@ -708,10 +800,41 @@
       d.bans = [];
       render();
     };
+    app.querySelectorAll("[data-first]").forEach((b) => (b.onclick = () => ((d.first = b.dataset.first), render())));
+    // Orden de pick: ▲▼ (celular y PC) y arrastrar el número (PC)
+    const moveOrder = (side, r, to) => {
+      const o = d.order[side];
+      const from = o.indexOf(r);
+      if (from < 0 || to < 0 || to >= o.length) return;
+      o.splice(from, 1);
+      o.splice(to, 0, r);
+      render();
+    };
+    app.querySelectorAll("[data-up],[data-down]").forEach(
+      (b) =>
+        (b.onclick = (e) => {
+          e.stopPropagation();
+          const [side, r] = (b.dataset.up || b.dataset.down).split(":");
+          moveOrder(side, r, d.order[side].indexOf(r) + (b.dataset.up ? -1 : 1));
+        }),
+    );
+    app.querySelectorAll("[data-ord]").forEach((h) => {
+      h.ondragstart = (e) => {
+        e.stopPropagation();
+        e.dataTransfer.setData("text/x-order", h.dataset.ord);
+        h.closest(".slot-row").classList.add("dragging");
+      };
+      h.ondragend = () => h.closest(".slot-row")?.classList.remove("dragging");
+    });
     app.querySelectorAll("[data-slot]").forEach(
       (b) =>
         (b.onclick = (e) => {
           const [side, r] = b.dataset.slot.split(":");
+          const q = e.target.closest("[data-quick]");
+          if (q) {
+            d[side][r] = q.dataset.quick;
+            return render();
+          }
           if (e.target.dataset.clear) {
             d[side][r] = null;
             return render();
@@ -720,6 +843,14 @@
             r,
             `${side === "ally" ? "Mi equipo" : "Rival"} · ${ROLE_NAME[r]}`,
             (k) => {
+              // El orden de pick sigue el orden en que vas cargando: el campeón nuevo toma el primer
+              // lugar libre. Tu propio lugar (TÚ) no se mueve: ese lo ubicás vos con ▲▼.
+              if (!d[side][r] && !(side === "ally" && r === d.myRole)) {
+                const o = d.order[side];
+                const j = o.findIndex((x) => !d[side][x] && x !== r && !(side === "ally" && x === d.myRole));
+                const i = o.indexOf(r);
+                if (j >= 0 && j < i) [o[i], o[j]] = [o[j], o[i]];
+              }
               d[side][r] = k;
               render();
             },
@@ -741,6 +872,15 @@
       b.ondragleave = () => b.classList.remove("drop");
       b.ondrop = (e) => {
         e.preventDefault();
+        b.classList.remove("drop");
+        const ord = e.dataTransfer.getData("text/x-order");
+        if (ord) {
+          // soltar el número de pick sobre otra fila del mismo equipo = reordenar
+          const [side, r] = ord.split(":");
+          const [tside, tr] = b.dataset.slot.split(":");
+          if (side === tside && r !== tr) moveOrder(side, r, d.order[side].indexOf(tr));
+          return;
+        }
         const from = e.dataTransfer.getData("text/plain");
         if (from && from !== b.dataset.slot) swapSlots(from, b.dataset.slot);
       };
