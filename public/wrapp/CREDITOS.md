@@ -1,6 +1,6 @@
 # WR · Counters & Draft (Wild Rift)
 
-Página suelta servida en g360ia.com.ar/lol. Se edita en C:\GitHub\produccion\wr
+Página suelta servida en g360ia.com.ar/wrapp. Se edita en C:\GitHub\proyectos\WildRift
 y se copia acá con `node scripts/publish-g360ia.mjs` (no editar estos archivos a mano).
 
 ## Datos

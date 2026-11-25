@@ -102,11 +102,17 @@
 	# C:\GitHub\proyectos\como). Misma razón que /afa: rutas relativas.
 	redir /como /como/ permanent
 
-	# 3e) /lol -> /lol/
-	# Página suelta "WR · Counters & Draft" de Wild Rift (vive en public/lol/, se
-	# edita en C:\GitHub\produccion\wr y se copia con scripts/publish-g360ia.mjs).
+	# 3e) /wrapp -> /wrapp/
+	# Página suelta "WR · Counters & Draft" de Wild Rift (vive en public/wrapp/, se
+	# edita en C:\GitHub\proyectos\WildRift y se copia con scripts/publish-g360ia.mjs).
 	# Misma razón que /afa: rutas relativas (data/, img/).
-	redir /lol /lol/ permanent
+	redir /wrapp /wrapp/ permanent
+
+	# 3f) /lol -> /wrapp/
+	# La app vivió en /lol del 25-nov-2026 hasta que se mudó a /wrapp el mismo día.
+	# Ya se compartió ese link, así que no se deja morir en un 404.
+	@wr_viejo path /lol /lol/*
+	redir @wr_viejo /wrapp/ permanent
 
 	# 4) /loquesea.html -> /loquesea
 	# /partials/* queda excluido: no son páginas, son fragmentos que se piden por fetch
