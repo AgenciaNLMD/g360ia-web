@@ -473,7 +473,7 @@ footer a{color:inherit}
    Horarios: se cargan en hora de ITALIA (CET +01:00 hasta el 28/3/2027,
    después CEST +02:00) y la página calcula la hora argentina sola.
    ===================================================================== */
-var UPDATED = "2026-11-23";
+var UPDATED = "2026-11-28";
 var ME = "como";
 
 // [nombre, nombre corto, opciones]. El escudo es escudos/<clave>.png (sin escudo: nocrest)
@@ -491,8 +491,7 @@ var TEAMS = {
 
 /* Agenda. t = torneo · time = hora de Italia · state: ok | tbc | if */
 var FIXTURES = [
-  { t:"ucl",    date:"2026-11-24", time:"21:00", stage:"Fase liga · fecha 5", rivals:["aek"], home:true, venue:"Stadio Sinigaglia, Como", state:"ok" },
-  { t:"seriea", date:"2026-11-29", time:"20:45", stage:"Fecha 13", rivals:["juventus"], home:true, venue:"Stadio Sinigaglia", state:"ok" },
+  { t:"seriea", date:"2026-11-29", time:"15:00", stage:"Fecha 13", rivals:["juventus"], home:true, venue:"Stadio Sinigaglia", state:"ok" },
   { t:"coppa",  date:"2026-12-02", time:"21:00", stage:"Octavos", rivals:["cremonese"], home:true, venue:"Stadio Sinigaglia", state:"ok" },
   { t:"seriea", date:"2026-12-05", time:"15:00", stage:"Fecha 14", rivals:["monza"], home:false, venue:"Stadio Brianteo, Monza", state:"ok" },
   { t:"ucl",    date:"2026-12-09", time:"18:45", stage:"Fase liga · fecha 6", rivals:["betis"], home:false, venue:"Estadio La Cartuja, Sevilla", state:"ok" },
@@ -511,7 +510,7 @@ var FIXTURES = [
 
 /* Serie A: lo que queda (time null = la Liga todavía no lo fijó) */
 var SERIEA_LEFT = [
-  ["2026-11-29","20:45","juventus",1],["2026-12-05","15:00","monza",0],["2026-12-12","20:45","bologna",1],["2026-12-19","18:00","milan",0],
+  ["2026-11-29","15:00","juventus",1],["2026-12-05","15:00","monza",0],["2026-12-12","20:45","bologna",1],["2026-12-19","18:00","milan",0],
   ["2027-01-03","15:00","lecce",1],["2027-01-06","18:00","atalanta",0],["2027-01-10","12:30","lazio",1],["2027-01-16",null,"cagliari",0],
   ["2027-01-23",null,"napoli",1],["2027-01-30",null,"sassuolo",0],["2027-02-06",null,"monza",1],["2027-02-13",null,"bologna",0],
   ["2027-02-20",null,"torino",1],["2027-02-27",null,"milan",1],["2027-03-06",null,"lecce",0],["2027-03-13",null,"udinese",1],
@@ -527,11 +526,7 @@ var SERIEA_PLAYED = [
   ["udinese",0,"1-1","d"],["napoli",0,"2-1","w"],["genoa",0,"4-1","w"],["parma",1,"2-1","w"],["frosinone",0,"0-2","l"],["roma",1,"0-0","d"],
   ["fiorentina",0,"3-1","w"],["sassuolo",1,"2-0","w"],["torino",0,"3-1","w"],["venezia",1,"1-0","w"],["inter",0,"0-2","l"],["cagliari",1,"2-0","w"]
 ];
-var UCL_TABLE = [ // tras la fecha 4
-  ["psg",12,15],["real-madrid",12,6],["arsenal",10,5],["como",9,13],["barcelona",9,8],
-  ["aston-villa",9,6],["man-city",9,5],["liverpool",9,4],["club-brugge",9,4],["sporting",9,4]
-];
-var UCL_PLAYED = [["leipzig",1,"4-1","w"],["feyenoord",0,"2-3","l"],["man-united",1,"4-1","w"],["lens",0,"9-1","w"]];
+var UCL_PLAYED = [["leipzig",1,"4-1","w"],["feyenoord",0,"2-3","l"],["man-united",1,"4-1","w"],["lens",0,"9-1","w"],["aek",1,"1-0","w"]];
 
 /* Coppa Italia: cuadro desde octavos. Lado: clave o {label, keys} */
 var BRACKET = {
@@ -616,22 +611,19 @@ var T = {
   },
   ucl: {
     name:"Champions League 2026-27", short:"Champions", img:"copas/champions.png", status:"alive",
-    when:"4° en la fase liga · la primera de su historia", vs:{keys:["aek"], text:"Próxima: vs AEK (24/11)"},
+    when:"3° en la fase liga con 12 pts · la primera de su historia", vs:{keys:["betis"], text:"Próxima: vs Betis (9/12)"},
     body: function(){
-      var tbl = '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>#</th><th>Equipo</th><th>Pts</th><th class="hide-xs">Dif</th></tr></thead><tbody>'+
-        UCL_TABLE.map(function(r,i){ return '<tr class="'+(r[0]===ME?"me":"")+'"><td>'+(i+1)+'</td><td>'+teamCell(r[0])+'</td><td class="n"><b>'+r[1]+'</b></td><td class="n hide-xs">+'+r[2]+'</td></tr>'; }).join("")+
-        '</tbody></table></div>';
       var played = UCL_PLAYED.map(function(r){ return '<div class="step">'+crest(r[0])+'<div><b>'+(r[1]?"Local":"Visita")+'</b><span class="res">'+(r[1]?"Como "+r[2]+" "+ts(r[0]):ts(r[0])+" "+r[2].split("-").reverse().join("-")+" Como")+'</span></div></div>'; }).join("");
       return '<div class="hero-cup">'+cupImg("ucl")+'</div>'+
         '<h5>El camino</h5><div class="path">'+
-        '<div class="step now"><div><b>Fase liga · faltan 4</b>AEK, Betis, PSG y Barcelona</div></div><span class="arrow">→</span>'+
+        '<div class="step now"><div><b>Fase liga · faltan 3</b>Betis, PSG y Barcelona</div></div><span class="arrow">→</span>'+
         '<div class="step"><div><b>Play-off · 16-24/2</b>sólo si termina 9° a 24°</div></div><span class="arrow">→</span>'+
         '<div class="step"><div><b>Octavos · 9-17/3</b>directo si termina 1° a 8°</div></div><span class="arrow">→</span>'+
         '<div class="step"><div><b>Cuartos · 6-14/4</b>ida y vuelta</div></div><span class="arrow">→</span>'+
         '<div class="step"><div><b>Semis · 27/4-5/5</b>ida y vuelta</div></div><span class="arrow">→</span>'+
         '<div class="step"><div><b>Final · sáb 5/6/2027</b>Metropolitano, Madrid</div></div></div>'+
-        '<div class="mrow" style="margin-top:12px"><div class="box"><h5>Tabla · tras la fecha 4 (36 equipos)</h5>'+tbl+'<p style="font-size:12px;color:var(--muted);margin:8px 0 0">Los 8 primeros van directo a octavos.</p></div>'+
-        '<div class="box"><h5>Lo jugado · 3 ganados, 1 perdido</h5><div class="path">'+played+'</div>'+
+        '<div class="mrow" style="margin-top:12px"><div class="box"><h5>Cómo viene · tras la fecha 5 (36 equipos)</h5><ul><li><b>3°</b> con 12 puntos: 4 victorias y 1 derrota</li><li>20 goles a favor y 6 en contra (+14)</li><li>Los 8 primeros van directo a octavos; del 9° al 24° juega el play-off</li></ul></div>'+
+        '<div class="box"><h5>Lo jugado · 4 ganados, 1 perdido</h5><div class="path">'+played+'</div>'+
         '<ul style="margin-top:10px"><li>El 9-1 en Lens es la goleada más grande de un equipo italiano en la historia de la Champions</li></ul></div></div>';
     }
   },
@@ -707,7 +699,7 @@ var PILL = {
   supita27:{ cls:"maybe", text:"Si gana" },
   ucl27:{ cls:"maybe", text:"1° a 4°" },
   uel27:{ cls:"maybe", text:"5° o Coppa" },
-  ucl:{ cls:"alive", text:"4° fase liga", keys:["como"] },
+  ucl:{ cls:"alive", text:"3° fase liga", keys:["como"] },
   uscup:{ cls:"maybe", text:"Si gana" },
   interc:{ cls:"maybe", text:"Si gana" }
 };
@@ -749,7 +741,7 @@ $("#upd").textContent = UPDATED.split("-").reverse().join("/");
 /* stats */
 $("#stats").innerHTML = [
   ['<img src="copas/serie-a.svg" alt="">','5°','Serie A · 26 pts'],
-  ['<img src="copas/champions.png" alt="">','4°','Champions · 9 pts'],
+  ['<img src="copas/champions.png" alt="">','3°','Champions · 12 pts'],
   ['<img src="copas/coppa-italia.png" alt="">','8vos','Coppa Italia']
 ].map(function(a){ return '<div class="stat">'+a[0]+'<b>'+a[1]+'</b>'+a[2]+'</div>'; }).join("");
 

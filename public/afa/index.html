@@ -457,7 +457,7 @@ footer a{color:inherit}
 /* =====================================================================
    DATOS. Actualizá todo desde acá. Horarios de Argentina (UTC-3).
    ===================================================================== */
-var UPDATED = "2026-11-23";
+var UPDATED = "2026-11-28";
 
 // [nombre, nombre corto]. El escudo es escudos/<clave>.png
 var TEAMS = {
@@ -471,8 +471,7 @@ var TEAMS = {
 
 // Agenda. state: ok = confirmado · tbc = falta hora/sede · if = depende de que gane · qual = ya clasificado
 var FIXTURES = [
-  { t:"clausura", date:"2026-11-25", time:"21:00", stage:"Octavos", rivals:["independiente-rivadavia"], venue:"La Bombonera", state:"ok" },
-  { t:"clausura", date:"2026-11-28", dateTo:"2026-11-29", stage:"Cuartos", rivals:["gimnasia-lp","newells"], venue:"La Bombonera si es mejor ubicado", state:"if", cond:"Si pasa octavos" },
+  { t:"clausura", date:"2026-11-29", time:"20:30", stage:"Cuartos", rivals:["gimnasia-lp"], venue:"La Bombonera", state:"ok" },
   { t:"copaar",   date:"2026-12-02", stage:"Final", rivals:["platense"], venue:"Sede a confirmar", state:"tbc", cond:"Hora y sede a confirmar" },
   { t:"clausura", date:"2026-12-05", dateTo:"2026-12-06", stage:"Semifinal", rivals:["rosario-central","barracas-central"], venue:"Cancha del mejor ubicado", state:"if", cond:"Si pasa cuartos" },
   { t:"clausura", date:"2026-12-12", stage:"Final", rivals:["velez","independiente","instituto","river"], venue:"La Plata · neutral", state:"if", cond:"Si pasa semis" },
@@ -497,16 +496,16 @@ var BRACKET = {
   },
   right: {
     oct: [
-      { date:"25/11 21:00", venue:"La Bombonera", a:["2A","boca"], b:["7B","independiente-rivadavia"], boca:true },
-      { date:"23/11 17:00", venue:"Juan C. Zerillo", a:["3B","gimnasia-lp"], b:["6A","newells"] },
+      { date:"25/11 21:00", venue:"La Bombonera", a:["2A","boca"], b:["7B","independiente-rivadavia"], sa:2, sb:0, w:"a", boca:true },
+      { date:"23/11 17:00", venue:"Juan C. Zerillo", a:["3B","gimnasia-lp"], b:["6A","newells"], sa:4, sb:2, w:"a" },
       { date:"22/11 16:00", venue:"Gigante de Arroyito", a:["1B","rosario-central"], b:["8A","gimnasia-mendoza"], sa:3, sb:1, w:"a" },
       { date:"21/11 15:00", venue:"Norberto Tomaghello", a:["4A","defensa-y-justicia"], b:["5B","barracas-central"], sa:0, sb:1, w:"b" }
     ],
     qf: [
-      { date:"28-29/11", a:{label:"Boca / Ind. Riv.", keys:["boca","independiente-rivadavia"]}, b:{label:"Gimnasia / NOB", keys:["gimnasia-lp","newells"]}, boca:true },
-      { date:"28-29/11", a:["1B","rosario-central"], b:["5B","barracas-central"] }
+      { date:"29/11 20:30", venue:"La Bombonera", a:["2A","boca"], b:["3B","gimnasia-lp"], boca:true },
+      { date:"28/11 17:00", venue:"Gigante de Arroyito", a:["1B","rosario-central"], b:["5B","barracas-central"] }
     ],
-    sf: { date:"5-6/12", a:{label:"Ganador cuarto Boca", keys:["boca"]}, b:{label:"Central / Barracas", keys:["rosario-central","barracas-central"]}, boca:true }
+    sf: { date:"5-6/12", a:{label:"Boca / Gimnasia", keys:["boca","gimnasia-lp"]}, b:{label:"Central / Barracas", keys:["rosario-central","barracas-central"]}, boca:true }
   },
   final: { date:"Sáb 12/12", venue:"La Plata · neutral", a:{label:"Ganador semi 1", keys:[]}, b:{label:"Ganador semi 2", keys:[]}, boca:true }
 };
@@ -552,16 +551,16 @@ var T = {
   },
   clausura: {
     name:"Torneo Clausura 2026", short:"Clausura", img:"copas/apertura-clausura.png", status:"alive",
-    when:"Octavos · mié 25/11 21:00", vs:{keys:["independiente-rivadavia"], text:"Octavos vs Ind. Rivadavia"},
+    when:"Cuartos · dom 29/11 20:30 vs Gimnasia", vs:{keys:["gimnasia-lp"], text:"Cuartos vs Gimnasia (29/11)"},
     body: function(){ return ''+
       '<h5>Camino de Boca</h5><div class="path">'+
-      '<div class="step">'+crest("independiente-rivadavia")+'<div><b>Octavos · 25/11 21:00</b>Ind. Rivadavia · La Bombonera</div></div><span class="arrow">→</span>'+
-      '<div class="step">'+crests(["gimnasia-lp","newells"])+'<div><b>Cuartos · 28-29/11</b>Gimnasia LP o Newell\'s</div></div><span class="arrow">→</span>'+
+      '<div class="step">'+crest("independiente-rivadavia")+'<div><b>Octavos · ganado 2-0</b>vs Ind. Rivadavia · 25/11</div></div><span class="arrow">→</span>'+
+      '<div class="step now">'+crest("gimnasia-lp")+'<div><b>Cuartos · dom 29/11 20:30</b>Gimnasia LP · La Bombonera</div></div><span class="arrow">→</span>'+
       '<div class="step">'+crests(["rosario-central","barracas-central"])+'<div><b>Semi · 5-6/12</b>Central o Barracas</div></div><span class="arrow">→</span>'+
       '<div class="step">'+crests(["velez","independiente","instituto","river"])+'<div><b>Final · sáb 12/12</b>La Plata</div></div></div>'+
       '<h5>Cuadro completo</h5><div class="bracket-scroll"><div class="bracket">'+bracketHTML()+'</div></div>'+
       '<h5>Para tener en cuenta</h5><ul><li>Partido único en cada ronda: es local el mejor ubicado. Si empatan, penales. La final es en cancha neutral.</li>'+
-      '<li>Gimnasia (LP) vs Newell\'s se juega el lunes 23/11 a las 17:00: de ahí sale el rival de Boca en cuartos.</li>'+
+      '<li>Boca ganó 2-0 a Independiente Rivadavia (goles de Paredes de penal y Merentiel). Gimnasia le ganó 4-2 a Newell\'s en el alargue y es el rival de cuartos.</li>'+
       '<li>La AFA publica los horarios de cuartos y semis cuando están todos los cruces.</li></ul>'; }
   },
   copaar: {
